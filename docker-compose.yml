@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:5.6
+    container_name: dados_container
+    environment:
+      - "MYSQL_DATABASE=satransportes"
+      - "MYSQL_USER=admin"
+      - "MYSQL_PASSWORD=123456"
+      - "MYSQL_ROOT_PASSWORD=123456"
+    networks:
+      - network
+    ports:
+      - "3306:3306"
+
+volumes:
+  "dbdata":
+    driver: local
+
+networks:
+  "network":
+    driver: bridge
