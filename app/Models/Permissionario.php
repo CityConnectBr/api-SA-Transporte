@@ -9,6 +9,7 @@ class Permissionario extends Model
     protected $fillable = [
         'nome',
         'id_permissionario_integracao',
+        'modalidade_id',
         'tipo',
         'CNPJ',
         'RG',
@@ -19,12 +20,33 @@ class Permissionario extends Model
         'celular',
         'celular',
         'email',
-        'modalidade_transporte',
         'data_nascimento',
         'naturalidade',
         'nacionalidade',
         'CNH',
         'categoria_CNH',
         'vencimento_CNH',
+        'versao',
     ];
+
+    protected $attributes = [
+        'versao' => 0,
+    ];
+
+    protected $temporaly = ['modalidade_transporte'];
+
+    public function endereco()
+    {
+        return $this->hasOne('App\Models\Endereco');
+    }
+
+    public function modalidade()
+    {
+        return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
+    }
+
+    public static function findComplete($id){
+        return Permissionario::with('modalidade')->with('endereco')->find($id);
+    }
+
 }

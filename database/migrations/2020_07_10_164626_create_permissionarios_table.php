@@ -16,6 +16,7 @@ class CreatePermissionariosTable extends Migration
         Schema::create('permissionarios', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_permissionario_integracao')->unique();
+            $table->integer('modalidade_id')->nullable(false);
             $table->string('nome', 40);
             $table->string('tipo', 1)->nullable();//J/F
             $table->string('CNPJ', 14)->nullable();
@@ -26,14 +27,15 @@ class CreatePermissionariosTable extends Migration
             $table->string('telefone2', 9)->nullable();
             $table->string('celular', 9)->nullable();
             $table->string('email', 100)->nullable();
-            $table->string('modalidade_transporte', 1)->nullable();
             $table->date('data_nascimento', 100)->nullable();
             $table->string('naturalidade', 15)->nullable();
             $table->string('nacionalidade', 15)->nullable();
             $table->string('CNH', 15)->nullable();
             $table->string('categoria_CNH', 2)->nullable();
             $table->date('vencimento_CNH', 100)->nullable();
+            $table->integer('versao');
             $table->timestamps();
+            $table->foreign('modalidade_id')->references('id')->on('modalidades');
         });
     }
 

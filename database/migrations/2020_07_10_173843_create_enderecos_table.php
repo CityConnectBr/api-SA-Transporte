@@ -24,7 +24,7 @@ class CreateEnderecosTable extends Migration
             $table->string('municipio', 25)->nullable();
             $table->string('UF', 2)->nullable();
             $table->timestamps();
-            $table->foreign('permissionario_id')->references('id')->on('permissionarios');
+            $table->foreign('permissionario_id')->references('id')->on('permissionarios')->onDelete('cascade');
         });
     }
 

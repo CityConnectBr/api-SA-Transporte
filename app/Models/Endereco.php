@@ -17,4 +17,8 @@ class Endereco extends Model
         'UF',
         'permissionario_id',
     ];
+
+    function permissionario() {
+        return $this->belongsTo('App\Models\Permissionario');
+    }
 }
