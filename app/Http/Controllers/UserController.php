@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $this->middleware('auth:api', [
             'except' => [
-                'login'
+                'login', 'signin'
             ]
         ]);
     }
@@ -23,8 +23,17 @@ class UserController extends Controller
     public function signin(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'CNH' => [
-                'required'
+            'nome' => [
+                'required', 'min:4', 'max:100'
+            ],
+            'email' => [
+                'required','email', 'max:190'
+            ],
+            'cpf_cnpj' => [
+                'required','cpf_cnpj'
+            ],
+            'cnh' => [
+                'max:11'
             ],
             'password' => [
                 'required'
@@ -36,12 +45,16 @@ class UserController extends Controller
         }
 
         $user = new User();
-        $user->CNH = $request->input("CNH");
+        $user->fill($request->all());
         $user->password = hash::make($request->input("password"));
 
-        $permissionario = Permissionario::where("CNH", $user->CNH)->first();
+        $permissionario = Permissionario::where("cnh", $user->cnh)->orWhere("cpf_cnpj", $user->cpf_cnpj)->first();
         if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Nenhum permissionário ou auxiliar previamente cadastrado", 404);
+            return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", 404);
+        }
+
+        if(!empty(User::where("email", $user->email)->orWhere("cpf_cnpj", $user->cpf_cnpj)->get())){
+            return parent::responseMsgJSON("Usuário já cadastrado", 404);
         }
 
         $user->permissionario_id = $permissionario->id;
@@ -53,7 +66,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credenciais = $request->all([
-            'CNH',
+            'email',
             'password'
         ]);
 
@@ -79,7 +92,7 @@ class UserController extends Controller
             'newToken' => auth('api')->refresh()
         ]);
     }
-    
+
     public function me() {
         return parent::responseJSON(auth()->user());
     }

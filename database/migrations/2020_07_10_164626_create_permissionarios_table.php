@@ -19,10 +19,10 @@ class CreatePermissionariosTable extends Migration
             $table->integer('modalidade_id')->nullable(false);
             $table->string('nome', 40);
             $table->string('tipo', 1)->nullable();//J/F
-            $table->string('CNPJ', 14)->nullable();
-            $table->string('RG', 15)->nullable();
+            $table->string('cpf_cnpj', 14)->nullable();
+            $table->string('rg', 15)->nullable();
             $table->string('inscricao_municipal', 15)->nullable();
-            $table->string('DDD', 2)->nullable();
+            $table->string('ddd', 2)->nullable();
             $table->string('telefone', 8)->nullable();
             $table->string('telefone2', 9)->nullable();
             $table->string('celular', 9)->nullable();
@@ -30,9 +30,9 @@ class CreatePermissionariosTable extends Migration
             $table->date('data_nascimento', 100)->nullable();
             $table->string('naturalidade', 15)->nullable();
             $table->string('nacionalidade', 15)->nullable();
-            $table->string('CNH', 15)->nullable();
-            $table->string('categoria_CNH', 2)->nullable();
-            $table->date('vencimento_CNH', 100)->nullable();
+            $table->string('cnh', 15)->nullable();
+            $table->string('categoria_cnh', 2)->nullable();
+            $table->date('vencimento_cnh', 100)->nullable();
             $table->integer('versao');
             $table->timestamps();
             $table->foreign('modalidade_id')->references('id')->on('modalidades');
