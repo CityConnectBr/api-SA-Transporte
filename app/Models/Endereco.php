@@ -8,13 +8,13 @@ class Endereco extends Model
 {
     protected $fillable = [
         'id',
-        'CEP',
+        'cep',
         'endereco',
         'numero',
         'complemento',
         'bairro',
         'municipio',
-        'UF',
+        'uf',
         'permissionario_id',
     ];
 

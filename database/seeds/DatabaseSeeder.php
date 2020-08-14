@@ -19,10 +19,13 @@ class DatabaseSeeder extends Seeder
         $this->call(ModalidadeSeeder::class);
 
         //$this->call(UserSeeder::class);
-        DB::table('users')->insert([
-            'CNH' => '123456',
+        /*DB::table('users')->insert([
+            'nome' => 'teste',
+            'cpf_cnpj' => '000',
+            'cnh' => '123',
+            'email' => 'teste@teste.com',
             'password' => Hash::make('123456'),
-        ]);
+        ]);*/
 
     }
 }
