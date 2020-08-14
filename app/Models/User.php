@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'nome', 'email', 'cpf_cnpj', 'cnh', 'password', 'permissionario_id',
+        'nome', 'email', 'cpf_cnpj', 'cnh', 'password', 'permissionario_id', 'user_type_id'
     ];
 
     /**
@@ -36,6 +36,15 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function type()
+    {
+        return $this->hasOne(UserType::class, 'id', 'user_type_id');
+    }
+
+    public static function findComplete($id){
+        return User::with('type')->find($id);
+    }
 
     public function getJWTIdentifier()
     {

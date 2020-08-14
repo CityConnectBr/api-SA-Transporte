@@ -7,6 +7,7 @@ use App\Models\Permissionario;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\UserType;
 
 class UserController extends Controller
 {
@@ -57,10 +58,14 @@ class UserController extends Controller
             return parent::responseMsgJSON("Usuário já cadastrado", 404);
         }
 
+        //setando tipo
+        //posteriormente verificar entre os tipos existentes(fisca, condutor e etc...)
+        $user->user_type_id = UserType::where('nome', "permissionário")->first()->id;
+
         $user->permissionario_id = $permissionario->id;
         $user->save();
 
-        return $user;
+        return User::findComplete($user->id);
     }
 
     public function login(Request $request)
