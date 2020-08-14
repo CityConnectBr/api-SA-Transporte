@@ -53,7 +53,7 @@ class UserController extends Controller
             return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", 404);
         }
 
-        if(!empty(User::where("email", $user->email)->orWhere("cpf_cnpj", $user->cpf_cnpj)->get())){
+        if(count(User::where("email", $user->email)->orWhere("cpf_cnpj", $user->cpf_cnpj)->get())>0){
             return parent::responseMsgJSON("Usuário já cadastrado", 404);
         }
 
