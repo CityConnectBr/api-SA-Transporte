@@ -51,11 +51,11 @@ class UserController extends Controller
 
         $permissionario = Permissionario::where("cnh", $user->cnh)->orWhere("cpf_cnpj", $user->cpf_cnpj)->first();
         if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", 404);
+            return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", "user:2", 404);
         }
 
         if(count(User::where("email", $user->email)->orWhere("cpf_cnpj", $user->cpf_cnpj)->get())>0){
-            return parent::responseMsgJSON("Usuário já cadastrado", 404);
+            return parent::responseMsgJSON("Usuário já cadastrado", "user:3", 404);
         }
 
         //setando tipo
@@ -76,7 +76,7 @@ class UserController extends Controller
         ]);
 
         if (! $token = auth('api')->attempt($credenciais)) {
-            return parent::responseMsgJSON('Não Autenticado', 401);
+            return parent::responseMsgJSON('Não Autenticado', "user:1", 401);
         }
 
         return parent::responseJSON([
