@@ -13,7 +13,7 @@ class CreateUserTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_types', function (Blueprint $table) {
+        Schema::create('tipos_de_usuarios', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->string('nome', 20);
             $table->timestamps();

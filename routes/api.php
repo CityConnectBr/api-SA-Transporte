@@ -9,10 +9,12 @@ Route::group([
     'prefix' => 'auth'
 ], function () {
     Route::name('auth.')->group(function () {
-        Route::post('/login', 'UserController@login')->name('login');
-        Route::post('/signin', 'UserController@signin')->name('signin');
-        Route::get('/logout', 'UserController@logout')->name('logout');
-        Route::get('/refresh', 'UserController@refresh')->name('refresh');
+        Route::post('/login', 'UsuarioController@login')->name('login');
+        Route::post('/signin', 'UsuarioController@signin')->name('signin');
+        Route::get('/logout', 'UsuarioController@logout')->name('logout');
+        Route::get('/refresh', 'UsuarioController@refresh')->name('refresh');
+        Route::post('/generaterecovercode', 'UsuarioController@sendTokenToRecoverPassword')->name('sendTokenToRecoverPassword');
+        Route::post('/recoverypassword', 'UsuarioController@recoverPassword')->name('recoverPassword');
     });
 });
 
@@ -23,9 +25,9 @@ Route::group([
     'prefix' => 'api'
 ], function () {
     Route::name('api.')->group(function () {
-        Route::get('/me', 'UserController@me')->name('me');
-        Route::put('/me', 'UserController@update')->name('me.update');
-        
+        Route::get('/me', 'UsuarioController@me')->name('me');
+        Route::put('/me', 'UsuarioController@update')->name('me.update');
+
         Route::resource('/permissionarios', 'PermissionarioController');
     });
 });
