@@ -49,6 +49,8 @@ class Usuario extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(TiposDeUsuarios::class, 'id', 'tipo_id');
     }
+    
+    //////////////////////////////////////
 
     public static function findComplete($id)
     {

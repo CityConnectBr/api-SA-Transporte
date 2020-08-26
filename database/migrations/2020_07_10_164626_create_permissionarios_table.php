@@ -19,6 +19,7 @@ class CreatePermissionariosTable extends Migration
             $table->integer('modalidade_id')->nullable(false);
             $table->string('nome', 40);
             $table->string('tipo', 1)->nullable();//J/F
+            $table->string('situacao', 1);//A/I/C
             $table->string('cpf_cnpj', 14)->nullable();
             $table->string('rg', 15)->nullable();
             $table->string('inscricao_municipal', 15)->nullable();

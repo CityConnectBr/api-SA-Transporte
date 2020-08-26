@@ -7,6 +7,7 @@ use App\Models\Modalidade;
 use Illuminate\Http\Request;
 use App\Models\Permissionario;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\URL;
 
 class PermissionarioController extends Controller
 {
@@ -25,8 +26,25 @@ class PermissionarioController extends Controller
             'required',
             'max:1',
             'min:1'
+        ],
+        'situacao' => [
+            'required',
+            'max:1',
+            'min:1'
         ]
     ];
+    
+    public function callAction($method, $parameters)
+    {
+        if(strpos(URL::current(), '/integracao') !== false){
+            $this->integracaoCall = true;
+        }else{
+            $this->integracaoCall = false;
+        }
+        
+        
+        return parent::callAction($method, $parameters);
+    }
 
     /**
      * Display a listing of the resource.
@@ -69,7 +87,7 @@ class PermissionarioController extends Controller
 
         $permissionario = new Permissionario();
         $permissionario->fill($request->all());
-        $permissionario->modalidade_id = Modalidade::where('identificador', $request->input('modalidade_transporte'))->first()->id;
+        $permissionario->modalidade_id = Modalidade::findOne($request->input('modalidade_transporte'))->id;
         $permissionario->save();
 
         $endereco = new Endereco();
@@ -88,7 +106,7 @@ class PermissionarioController extends Controller
      */
     public function show($id)
     {
-        $permissionario = Permissionario::findComplete($id);
+        $permissionario = Permissionario::findComplete($id, $this->integracaoCall);
         if (isset($permissionario)) {
             return $permissionario;
             // return (new PermissionarioTransformer)->transform(Permissionario::find($id));

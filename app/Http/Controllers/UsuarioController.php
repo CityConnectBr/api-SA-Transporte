@@ -63,11 +63,11 @@ class UsuarioController extends Controller
 
         $permissionario = Permissionario::where("cnh", $user->cnh)->orWhere("cpf_cnpj", $user->cpf_cnpj)->first();
         if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", "user:2", 404);
+            return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", "signin:1", 404);
         }
 
         if (count(Usuario::where("email", $user->email)->orWhere("cpf_cnpj", $user->cpf_cnpj)->get()) > 0) {
-            return parent::responseMsgJSON("Usuário já cadastrado", "user:3", 404);
+            return parent::responseMsgJSON("Usuário já cadastrado", "signin:2", 404);
         }
 
         // setando tipo
@@ -88,7 +88,7 @@ class UsuarioController extends Controller
         ]);
 
         if (! $token = auth('api')->attempt($credenciais)) {
-            return parent::responseMsgJSON('Não Autenticado', "user:1", 401);
+            return parent::responseMsgJSON('E-mail ou senha inválidos', "login:1", 401);
         }
 
         return parent::responseJSON([
@@ -127,7 +127,7 @@ class UsuarioController extends Controller
         $user = Usuario::findByEmail($request->input('email'));
 
         if (! isset($user)) {
-            return parent::responseMsgJSON("Nenhum usuário encontrado.", "user:4", 404);
+            return parent::responseMsgJSON("Nenhum usuário encontrado.", "generateRecoverCode:1", 404);
         }
 
         $randCode = random_int(0, 999999);
@@ -165,12 +165,12 @@ class UsuarioController extends Controller
         $user = Usuario::findByEmailWithRecoveryCode($request->input('email'), $request->input('code'));
         
         if (! isset($user)) {
-            return parent::responseMsgJSON("Usuário ou código encontrado. OBS: Verifique se este é o último código recebido por e-mail.", "user:5", 404);
+            return parent::responseMsgJSON("Usuário ou código encontrado. OBS: Verifique se este é o último código recebido por e-mail.", "recoverPassword:1", 404);
         }
         
                
         if(Carbon::now()->diffInHours($user->data_hora_ultimo_codigo_de_recuperacao)>=3){
-            return parent::responseMsgJSON("Código expirado!", "user:6", 401);
+            return parent::responseMsgJSON("Código expirado!", "recoverPassword:1", 401);
         }
         
         $user->codigo_de_recuperacao = null;
@@ -201,12 +201,12 @@ class UsuarioController extends Controller
         $user = Usuario::findByEmailWithRecoveryCode($request->input('email'), $request->input('code'));
         
         if (! isset($user)) {
-            return parent::responseMsgJSON("Usuário ou código encontrado. OBS: Verifique se este é o último código recebido por e-mail.", "user:5", 404);
+            return parent::responseMsgJSON("Usuário ou código encontrado. OBS: Verifique se este é o último código recebido por e-mail.", "validateRecoveryCode:1", 404);
         }
         
         
         if(Carbon::now()->diffInHours($user->data_hora_ultimo_codigo_de_recuperacao)>=3){
-            return parent::responseMsgJSON("Código expirado!", "user:6", 401);
+            return parent::responseMsgJSON("Código expirado!", "validateRecoveryCode:1", 401);
         } 
         
         return parent::responseMsgJSON("Código válido!");
@@ -214,6 +214,6 @@ class UsuarioController extends Controller
 
     public function me()
     {
-        return parent::responseJSON(auth()->user());
+        return Usuario::with("tipo")->find(auth()->id());
     }
 }
