@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Mail;
 use App\Models\TiposDeUsuarios;
-use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
 
 class UsuarioController extends Controller
@@ -22,8 +21,9 @@ class UsuarioController extends Controller
             'except' => [
                 'login',
                 'signin',
-                'sendTokenToRecoverPassword',
-                'recoverPassword'
+                'generateRecoverCode',
+                'recoverPassword',
+                'validateRecoveryCode'
             ]
         ]);
     }
@@ -110,7 +110,7 @@ class UsuarioController extends Controller
         ]);
     }
 
-    public function sendTokenToRecoverPassword(Request $request)
+    public function generateRecoverCode(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => [
@@ -139,7 +139,7 @@ class UsuarioController extends Controller
 
         Mail::to($user->email)->send(new PasswordRecover($user->nome, $randCode));
 
-        return parent::responseMsgJSON("Um e-mail com um código de recuperação foi enviado. Por favor confira seu e-mail.");
+        return parent::responseMsgJSON("Código enviado com sucesso.");
     }
     
     public function recoverPassword(Request $request)
@@ -179,6 +179,37 @@ class UsuarioController extends Controller
         $user->save();
                 
         return parent::responseMsgJSON("Nova senha salva com sucesso.");
+    }
+    
+    public function validateRecoveryCode(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => [
+                'required',
+                'email',
+                'max:190'
+            ],
+            'code' => [
+                'required'
+            ]
+        ]);
+        
+        if ($validator->fails()) {
+            return parent::responseJSON($validator->errors(), 400);
+        }
+        
+        $user = Usuario::findByEmailWithRecoveryCode($request->input('email'), $request->input('code'));
+        
+        if (! isset($user)) {
+            return parent::responseMsgJSON("Usuário ou código encontrado. OBS: Verifique se este é o último código recebido por e-mail.", "user:5", 404);
+        }
+        
+        
+        if(Carbon::now()->diffInHours($user->data_hora_ultimo_codigo_de_recuperacao)>=3){
+            return parent::responseMsgJSON("Código expirado!", "user:6", 401);
+        } 
+        
+        return parent::responseMsgJSON("Código válido!");
     }
 
     public function me()

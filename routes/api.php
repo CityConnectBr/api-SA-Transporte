@@ -13,7 +13,8 @@ Route::group([
         Route::post('/signin', 'UsuarioController@signin')->name('signin');
         Route::get('/logout', 'UsuarioController@logout')->name('logout');
         Route::get('/refresh', 'UsuarioController@refresh')->name('refresh');
-        Route::post('/generaterecovercode', 'UsuarioController@sendTokenToRecoverPassword')->name('sendTokenToRecoverPassword');
+        Route::post('/generaterecovercode', 'UsuarioController@generateRecoverCode')->name('sendTokenToRecoverPassword');
+        Route::post('/validaterecoverycode', 'UsuarioController@validateRecoveryCode')->name('validateRecoveryCode');
         Route::post('/recoverypassword', 'UsuarioController@recoverPassword')->name('recoverPassword');
     });
 });
