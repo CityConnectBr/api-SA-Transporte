@@ -28,8 +28,13 @@ Route::group([
     Route::name('api.')->group(function () {
         Route::get('/me', 'UsuarioController@me')->name('me');
         Route::put('/me', 'UsuarioController@update')->name('me.update');
-
-        Route::resource('/permissionarios', 'PermissionarioController');
+        //permissionarios
+        Route::get('/permissionarios/me', 'PermissionarioController@me')->name('permissionarios.me');
+        Route::patch('/permissionarios', 'PermissionarioController@update')->name('permissionarios.update');
+        //condutor
+        
+        //fiscal
+        
     });
 });
 
@@ -40,6 +45,6 @@ Route::group([
     'prefix' => 'integracao'
 ], function () {
     Route::name('integracao.')->group(function () {
-        Route::resource('/permissionarios', 'PermissionarioController');
+        Route::resource('/permissionarios', 'integracao\PermissionarioController');
     });
 });
