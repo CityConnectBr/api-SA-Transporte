@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserTypesTable extends Migration
+class CreateMarcasModelosChassisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateUserTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_de_usuarios', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('nome', 20);
-            $table->timestamps();
+        Schema::create('marcas_modelos_chassis', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('id_integracao')->unique();
+            $table->string('descricao', 40);
+            $table->string('modelo', 20);
         });
     }
 
@@ -27,6 +28,6 @@ class CreateUserTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_types');
+        Schema::dropIfExists('marcas_modelos_chassis');
     }
 }

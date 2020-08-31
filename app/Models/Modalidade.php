@@ -11,4 +11,8 @@ class Modalidade extends Model
         'identificador',
         'descricao'
     ];
+    
+    function findOne($identificador){
+        return Modalidade::where('identificador', $identificador)->first()->id;
+    }
 }

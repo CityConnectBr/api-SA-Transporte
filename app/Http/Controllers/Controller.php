@@ -11,11 +11,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function responseMsgJSON($message, $codigo = 200)
+    protected function responseMsgJSON($message, $codigoInterno = "", $codigo = 200)
     {
-        return response()->json(["message"=>$message], $codigo);
+        return response()->json(["message"=>$message,"internal_code"=>$codigoInterno], $codigo);
     }
-    
+
     protected function responseJSON($json, $codigo = 200)
     {
         return response()->json($json, $codigo);

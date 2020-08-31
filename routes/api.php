@@ -9,10 +9,13 @@ Route::group([
     'prefix' => 'auth'
 ], function () {
     Route::name('auth.')->group(function () {
-        Route::post('/login', 'UserController@login')->name('login');
-        Route::post('/signin', 'UserController@signin')->name('signin');
-        Route::get('/logout', 'UserController@logout')->name('logout');
-        Route::get('/refresh', 'UserController@refresh')->name('refresh');
+        Route::post('/login', 'UsuarioController@login')->name('login');
+        Route::post('/signin', 'UsuarioController@signin')->name('signin');
+        Route::get('/logout', 'UsuarioController@logout')->name('logout');
+        Route::get('/refresh', 'UsuarioController@refresh')->name('refresh');
+        Route::post('/generaterecovercode', 'UsuarioController@generateRecoverCode')->name('sendTokenToRecoverPassword');
+        Route::post('/validaterecoverycode', 'UsuarioController@validateRecoveryCode')->name('validateRecoveryCode');
+        Route::post('/recoverypassword', 'UsuarioController@recoverPassword')->name('recoverPassword');
     });
 });
 
@@ -23,10 +26,15 @@ Route::group([
     'prefix' => 'api'
 ], function () {
     Route::name('api.')->group(function () {
-        Route::get('/me', 'UserController@me')->name('me');
-        Route::put('/me', 'UserController@update')->name('me.update');
+        Route::get('/me', 'UsuarioController@me')->name('me');
+        Route::put('/me', 'UsuarioController@update')->name('me.update');
+        //permissionarios
+        Route::get('/permissionarios/me', 'PermissionarioController@me')->name('permissionarios.me');
+        Route::patch('/permissionarios', 'PermissionarioController@update')->name('permissionarios.update');
+        //condutor
         
-        Route::resource('/permissionarios', 'PermissionarioController');
+        //fiscal
+        
     });
 });
 
@@ -37,6 +45,6 @@ Route::group([
     'prefix' => 'integracao'
 ], function () {
     Route::name('integracao.')->group(function () {
-        Route::resource('/permissionarios', 'PermissionarioController');
+        Route::resource('/permissionarios', 'integracao\PermissionarioController');
     });
 });

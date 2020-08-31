@@ -1,15 +1,17 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Permissionario extends Model
 {
+
     protected $fillable = [
         'nome',
         'id_permissionario_integracao',
         'modalidade_id',
+        'situacao',
         'tipo',
         'cpf_cnpj',
         'rg',
@@ -26,14 +28,23 @@ class Permissionario extends Model
         'cnh',
         'categoria_cnh',
         'vencimento_cnh',
-        'versao',
+        'versao'
     ];
 
     protected $attributes = [
-        'versao' => 0,
+        'versao' => 0
     ];
 
-    protected $temporaly = ['modalidade_transporte'];
+    protected $temporaly = [
+        'modalidade_transporte'
+    ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('situacao', function (Builder $builder) {
+            $builder->where('situacao', "A");
+        });
+    }
 
     public function endereco()
     {
@@ -45,8 +56,15 @@ class Permissionario extends Model
         return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
     }
 
-    public static function findComplete($id){
-        return Permissionario::with('modalidade')->with('endereco')->find($id);
+    // /////////////////
+    public static function findComplete($id, $withoutGlobalScope = false)
+    {
+        if ($withoutGlobalScope) {
+            return Permissionario::withoutGlobalScope('situacao')->with('modalidade')
+                ->with('endereco')
+                ->find($id);
+        } else {
+            return Permissionario::with('modalidade')->with('endereco')->find($id);
+        }
     }
-
 }
