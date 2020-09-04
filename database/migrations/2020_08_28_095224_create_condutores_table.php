@@ -15,7 +15,7 @@ class CreateCondutoresTable extends Migration
     {
         Schema::create('condutores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->unique();
+            $table->string('id_integracao', 11)->unique();
             $table->string('nome', 40);
             $table->string('situacao', 1);//A/I/C
             $table->string('cpf', 14)->nullable();

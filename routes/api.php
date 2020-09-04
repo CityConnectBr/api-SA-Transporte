@@ -46,5 +46,14 @@ Route::group([
 ], function () {
     Route::name('integracao.')->group(function () {
         Route::resource('/permissionarios', 'integracao\PermissionarioController');
+        Route::resource('/coresveiculos', 'integracao\CorVeiculoController');
+        Route::resource('/marcasmodeloscarrocerias', 'integracao\MarcaModeloCarroceriaController');
+        Route::resource('/marcasmodeloschassis', 'integracao\MarcaModeloChassiController');
+        Route::resource('/marcasmodelosveiculos', 'integracao\MarcaModeloVeiculoController');
+        Route::resource('/tiposcombustiveis', 'integracao\TipoCombustivelController');
+        Route::resource('/tiposveiculos', 'integracao\TipoVeiculoController');
+        Route::resource('/condutores', 'integracao\CondutorController');
+        Route::resource('/onibus', 'integracao\OnibusController');
+        Route::resource('/veiculos', 'integracao\VeiculoController');
     });
 });

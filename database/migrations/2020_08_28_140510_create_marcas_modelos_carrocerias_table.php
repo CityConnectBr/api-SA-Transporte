@@ -18,6 +18,7 @@ class CreateMarcasModelosCarroceriasTable extends Migration
             $table->string('id_integracao')->unique();
             $table->string('descricao', 40);
             $table->string('modelo', 20);
+            $table->timestamps();
         });
     }
 

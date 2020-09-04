@@ -2,36 +2,38 @@
 namespace app\Http\Controllers\Integracao;
 
 use App\Http\Controllers\Integracao\IntegracaoController;
-use App\Models\Endereco;
-use App\Models\Modalidade;
 use Illuminate\Http\Request;
-use App\Models\Permissionario;
+use App\Models\Veiculo;
 use Illuminate\Support\Facades\Validator;
+use App\Models\MarcaModeloCarroceria;
+use App\Models\MarcaModeloChassi;
+use App\Models\TipoCombustivel;
+use App\Models\CorVeiculo;
 
-class PermissionarioController extends IntegracaoController
+class OnibusController extends IntegracaoController
 {
 
     function __construct()
     {
-        parent::__construct(Permissionario::class, [
-            'nome' => [
+        parent::__construct(Veiculo::class, [
+            'placa' => [
                 'required',
-                'max:40',
-                'min:3'
+                'max:7',
             ],
             'id_integracao' => [
                 'required',
-                'numeric'
             ],
-            'modalidade_transporte' => [
+            'marca_modelo_carroceria_id' => [
                 'required',
-                'max:1',
-                'min:1'
             ],
-            'situacao' => [
+            'marca_modelo_chassi_id' => [
                 'required',
-                'max:1',
-                'min:1'
+            ],
+            'tipo_combustivel_id' => [
+                'required',
+            ],
+            'cor_id' => [
+                'required',
             ]
         ]);
     }
@@ -74,19 +76,19 @@ class PermissionarioController extends IntegracaoController
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+      
+        $veiculo = new Veiculo();
+        $veiculo->fill($request->all());
+        $veiculo->situacao = "A";
+        $veiculo->categoria_id = 2;//Onibus
+        $veiculo->marca_modelo_carroceria_id = MarcaModeloCarroceria::firstWhere("id_integracao", $request->input("marca_modelo_carroceria_id"))->id;
+        $veiculo->marca_modelo_chassi_id = MarcaModeloChassi::firstWhere("id_integracao", $request->input("marca_modelo_chassi_id"))->id;
+        $veiculo->tipo_combustivel_id = TipoCombustivel::firstWhere("id_integracao", $request->input("tipo_combustivel_id"))->id;
+        $veiculo->cor_id = CorVeiculo::firstWhere("id_integracao", $request->input("cor_id"))->id;
+        
+        $veiculo->save();
 
-        $endereco = new Endereco();
-        $endereco->fill($request->all());
-        $endereco->save();
-
-        $permissionario = new Permissionario();
-        $permissionario->fill($request->all());
-        $permissionario->modalidade_id = Modalidade::findOne($request->input('modalidade_transporte'))->id;
-        $permissionario->endereco_id = $endereco->id;
-
-        $permissionario->save();
-
-        return $permissionario;
+        return $veiculo;
     }
 
     /**
@@ -97,12 +99,12 @@ class PermissionarioController extends IntegracaoController
      */
     public function show($id)
     {
-        $permissionario = Permissionario::findByIntegracaoComplete($id, true);
-        if (isset($permissionario)) {
-            return $permissionario;
-            // return (new PermissionarioTransformer)->transform(Permissionario::find($id));
+        $id = str_replace("-", "/", $id);
+        $veiculo = Veiculo::findByIntegracaoComplete($id, true);
+        if (isset($veiculo)) {
+            return $veiculo;
         } else {
-            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+            return parent::responseMsgJSON("Ônibus não encontrado", 404);
         }
     }
 
@@ -134,19 +136,24 @@ class PermissionarioController extends IntegracaoController
             return parent::responseJSON($validator->errors(), 400);
         }        
 
-        $permissionario = Permissionario::findByIntegracaoComplete($id, true);
-        if (isset($permissionario)) {
-            $permissionario->fill($request->all());
-            $permissionario->versao ++;
-            $permissionario->modalidade_id = Modalidade::where('identificador', $request->input('modalidade_transporte'))->first()->id;
-            $permissionario->endereco->fill($request->all());
+        $id = str_replace("-", "/", $id);
+        
+        $veiculo = Veiculo::findByIntegracaoComplete($id, true);
+        if (isset($veiculo)) {
+            $veiculo->fill($request->all());
+            $veiculo->versao ++;
+            $veiculo->situacao = "A";
+            $veiculo->categoria_id = 2;//Onibus
+            $veiculo->marca_modelo_carroceria_id = MarcaModeloCarroceria::firstWhere("id_integracao", $request->input("marca_modelo_carroceria_id"))->id;
+            $veiculo->marca_modelo_chassi_id = MarcaModeloChassi::firstWhere("id_integracao", $request->input("marca_modelo_chassi_id"))->id;
+            $veiculo->tipo_combustivel_id = TipoCombustivel::firstWhere("id_integracao", $request->input("tipo_combustivel_id"))->id;
+            $veiculo->cor_id = CorVeiculo::firstWhere("id_integracao", $request->input("cor_id"))->id;
 
-            $permissionario->save();
-            $permissionario->endereco->save();
+            $veiculo->save();
 
-            return $permissionario;
+            return $veiculo;
         } else {
-            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+            return parent::responseMsgJSON("Ônibus não encontrado", 404);
         }
     }
 

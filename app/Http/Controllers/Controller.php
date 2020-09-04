@@ -1,19 +1,29 @@
 <?php
-
 namespace app\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function responseMsgJSON($message, $codigoInterno = "", $codigo = 200)
+    function __construct($objectModel, $validatorList) {
+        $this->objectModel = $objectModel;
+        $this->validatorList = $validatorList;
+        
+    }
+    
+    protected function responseMsgJSON($message, $codigo = 200, $codigoInterno = "")
     {
-        return response()->json(["message"=>$message,"internal_code"=>$codigoInterno], $codigo);
+        return response()->json([
+            "message" => $message,
+            "internal_code" => $codigoInterno
+        ], $codigo);
     }
 
     protected function responseJSON($json, $codigo = 200)
@@ -23,6 +33,9 @@ class Controller extends BaseController
 
     protected function responseErrorJSON($message, $codigo)
     {
-        return response()->json(["error"=>$message], $codigo);
+        return response()->json([
+            "error" => $message
+        ], $codigo);
     }
+    
 }

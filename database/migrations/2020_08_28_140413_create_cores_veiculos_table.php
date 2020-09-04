@@ -17,6 +17,7 @@ class CreateCoresVeiculosTable extends Migration
             $table->increments('id');
             $table->string('id_integracao')->unique();
             $table->string('descricao', 40);
+            $table->timestamps(); 
         });
     }
 

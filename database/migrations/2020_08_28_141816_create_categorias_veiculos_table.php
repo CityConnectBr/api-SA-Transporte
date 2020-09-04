@@ -16,6 +16,7 @@ class CreateCategoriasVeiculosTable extends Migration
         Schema::create('categorias_veiculos', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->string('nome', 20);
+            $table->timestamps();
         });
     }
 

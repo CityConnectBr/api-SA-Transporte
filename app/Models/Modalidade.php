@@ -12,7 +12,7 @@ class Modalidade extends Model
         'descricao'
     ];
     
-    function findOne($identificador){
-        return Modalidade::where('identificador', $identificador)->first()->id;
+    public static function findOne($identificador){
+        return Modalidade::where('identificador', $identificador)->first();
     }
 }
