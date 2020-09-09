@@ -32,9 +32,9 @@ Route::group([
         Route::get('/permissionarios/me', 'PermissionarioController@me')->name('permissionarios.me');
         Route::patch('/permissionarios', 'PermissionarioController@update')->name('permissionarios.update');
         //condutor
-        
+
         //fiscal
-        
+
     });
 });
 
@@ -45,15 +45,15 @@ Route::group([
     'prefix' => 'integracao'
 ], function () {
     Route::name('integracao.')->group(function () {
-        Route::resource('/permissionarios', 'integracao\PermissionarioController');
-        Route::resource('/coresveiculos', 'integracao\CorVeiculoController');
-        Route::resource('/marcasmodeloscarrocerias', 'integracao\MarcaModeloCarroceriaController');
-        Route::resource('/marcasmodeloschassis', 'integracao\MarcaModeloChassiController');
-        Route::resource('/marcasmodelosveiculos', 'integracao\MarcaModeloVeiculoController');
-        Route::resource('/tiposcombustiveis', 'integracao\TipoCombustivelController');
-        Route::resource('/tiposveiculos', 'integracao\TipoVeiculoController');
-        Route::resource('/condutores', 'integracao\CondutorController');
-        Route::resource('/onibus', 'integracao\OnibusController');
-        Route::resource('/veiculos', 'integracao\VeiculoController');
+        Route::resource('/permissionarios', 'Integracao\PermissionarioController');
+        Route::resource('/coresveiculos', 'Integracao\CorVeiculoController');
+        Route::resource('/marcasmodeloscarrocerias', 'Integracao\MarcaModeloCarroceriaController');
+        Route::resource('/marcasmodeloschassis', 'Integracao\MarcaModeloChassiController');
+        Route::resource('/marcasmodelosveiculos', 'Integracao\MarcaModeloVeiculoController');
+        Route::resource('/tiposcombustiveis', 'Integracao\TipoCombustivelController');
+        Route::resource('/tiposveiculos', 'Integracao\TipoVeiculoController');
+        Route::resource('/condutores', 'Integracao\CondutorController');
+        Route::resource('/onibus', 'Integracao\OnibusController');
+        Route::resource('/veiculos', 'Integracao\VeiculoController');
     });
 });
