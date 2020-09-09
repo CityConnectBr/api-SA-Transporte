@@ -21,24 +21,24 @@ class CreateVeiculosTable extends Migration
             $table->string('chassi', 25)->nullable();
             $table->integer('ano_fabricacao')->nullable();
             $table->integer('ano_modelo')->nullable();
-            $table->string('capacidade', 15);
-            $table->string('tipo_capacidade', 1);
-            $table->string('observacao_capacidade', 40);
+            $table->string('capacidade', 15)->nullable();
+            $table->string('tipo_capacidade', 1)->nullable();
+            $table->string('observacao_capacidade', 40)->nullable();
             $table->integer('anos_vida_util_veiculo')->nullable();
             $table->string('situacao', 1);//A/I/C
             $table->integer('versao');
 
             //exclusivo para onibus
-            $table->string('prefixo', 15);
-            $table->integer('marca_modelo_carroceria_id')->unsigned();
-            $table->integer('marca_modelo_chassi_id')->unsigned();
+            $table->string('prefixo', 15)->nullable();
+            $table->integer('marca_modelo_carroceria_id')->nullable()->unsigned();
+            $table->integer('marca_modelo_chassi_id')->nullable()->unsigned();
 
             //
-            $table->integer('marca_modelo_veiculo_id')->unsigned();
-            $table->integer('tipo_combustivel_id')->unsigned();
-            $table->integer('cor_id')->unsigned();
-            $table->integer('tipo_veiculo_id')->unsigned();
-            $table->integer('permissionario_id')->unsigned();
+            $table->integer('marca_modelo_veiculo_id')->nullable()->unsigned();
+            $table->integer('tipo_combustivel_id')->nullable()->unsigned();
+            $table->integer('cor_id')->nullable()->unsigned();
+            $table->integer('tipo_veiculo_id')->nullable()->unsigned();
+            $table->integer('permissionario_id')->nullable()->unsigned();
             $table->integer('categoria_id');
 
             $table->timestamps();

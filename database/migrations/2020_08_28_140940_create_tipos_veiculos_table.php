@@ -20,6 +20,7 @@ class CreateTiposVeiculosTable extends Migration
             $table->string('modalidade_transporte', 1);
             $table->integer('idade_limite_ingresso');
             $table->integer('idade_limite_permanencia');
+            $table->timestamps();
         });
     }
 

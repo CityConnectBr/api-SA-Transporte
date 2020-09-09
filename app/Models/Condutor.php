@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class Permissionario extends Model
+class Condutor extends Model
 {
 
     protected $fillable = [
@@ -12,13 +12,10 @@ class Permissionario extends Model
         'id_integracao',
         'modalidade_id',
         'situacao',
-        'tipo',
-        'cpf_cnpj',
+        'cpf',
         'rg',
-        'inscricao_municipal',
         'ddd',
         'telefone',
-        'telefone2',
         'celular',
         'email',
         'data_nascimento',
@@ -29,13 +26,11 @@ class Permissionario extends Model
         'vencimento_cnh',
         'versao'
     ];
-
+    
+    protected $table = 'condutores';
+    
     protected $attributes = [
         'versao' => 0
-    ];
-
-    protected $temporaly = [
-        'modalidade_transporte'
     ];
 
     protected static function booted()
@@ -50,40 +45,22 @@ class Permissionario extends Model
         return $this->hasOne(Endereco::class, 'id', 'endereco_id');
     }
 
-    public function modalidade()
-    {
-        return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
-    }
-
     // /////////////////
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
-            return Permissionario::withoutGlobalScope('situacao')->with('modalidade')
-                ->with('endereco')
-                ->find($id);
+            return Condutor::withoutGlobalScope('situacao')->with('endereco')->find($id);
         } else {
-            return Permissionario::with('modalidade')->with('endereco')->find($id);
+            return Condutor::with('endereco')->find($id);
         }
     }
 
     public static function findByIntegracaoComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
-            return Permissionario::withoutGlobalScope('situacao')->with('modalidade')
-                ->with('endereco')
-                ->firstWhere("id_integracao", $id);
+            return Condutor::withoutGlobalScope('situacao')->with('endereco')->firstWhere("id_integracao", $id);
         } else {
-            return Permissionario::with('modalidade')->with('endereco')->firstWhere("id_integracao", $id);
-        }
-    }
-
-    public static function firstWhereByIntegracao($id, $withoutGlobalScope = false)
-    {
-        if ($withoutGlobalScope) {
-            return Permissionario::withoutGlobalScope('situacao')->firstWhere("id_integracao", $id);
-        } else {
-            return Permissionario::firstWhere("id_integracao", $id);
+            return Condutor::with('endereco')->firstWhere("id_integracao", $id);
         }
     }
 }
