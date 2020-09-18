@@ -2,11 +2,21 @@
 namespace app\Http\Controllers\Integracao;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 
 class IntegracaoController extends Controller
 {
+    
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    
+    function __construct($objectModel, $validatorList) {
+        $this->objectModel = $objectModel;
+        $this->validatorList = $validatorList;
+    }
 
     /**
      * Display a listing of the resource.

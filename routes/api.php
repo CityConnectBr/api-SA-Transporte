@@ -28,9 +28,7 @@ Route::group([
     Route::name('api.')->group(function () {
         Route::get('/me', 'UsuarioController@me')->name('me');
         Route::put('/me', 'UsuarioController@update')->name('me.update');
-        //permissionarios
-        Route::get('/permissionarios/me', 'PermissionarioController@me')->name('permissionarios.me');
-        Route::patch('/permissionarios', 'PermissionarioController@update')->name('permissionarios.update');
+        Route::patch('/password', 'UsuarioController@updatePassword')->name('me.updatePassword');
         //condutor
 
         //fiscal

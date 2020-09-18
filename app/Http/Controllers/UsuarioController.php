@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\TiposDeUsuarios;
 use Carbon\Carbon;
 use App\Mail\PasswordRecover;
+use App\Models\Endereco;
+use Illuminate\Support\Facades\Log;
 
 class UsuarioController extends Controller
 {
@@ -21,6 +23,7 @@ class UsuarioController extends Controller
             'except' => [
                 'login',
                 'signin',
+                'refresh',
                 'generateRecoverCode',
                 'recoverPassword',
                 'validateRecoveryCode'
@@ -31,6 +34,7 @@ class UsuarioController extends Controller
     public function signin(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            // ///////////// COMUNS
             'nome' => [
                 'required',
                 'min:4',
@@ -50,24 +54,62 @@ class UsuarioController extends Controller
             ],
             'password' => [
                 'required'
+            ],
+            // ///////////// PERMISSIONARIO
+            'rg' => [
+                'max:15'
+            ],
+            'inscricao_municipal' => [
+                'max:15'
+            ],
+            'telefone' => [
+                'max:8'
+            ],
+            'telefone2' => [
+                'max:9'
+            ],
+            'celular' => [
+                'max:9'
+            ],
+            'data_nascimento' => [
+                'max:11'
+            ],
+            'naturalidade' => [
+                'max:15'
+            ],
+            'nacionalidade' => [
+                'max:15'
+            ],
+            'cnh' => [
+                'max:15'
+            ],
+            'categoria_cnh' => [
+                'max:1'
+            ],
+            'vencimento_cnh' => [
+                'max:11'
             ]
         ]);
 
         if ($validator->fails()) {
-            return parent::responseJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $user = new Usuario();
         $user->fill($request->all());
         $user->password = hash::make($request->input("password"));
 
-        $permissionario = Permissionario::where("cnh", $user->cnh)->orWhere("cpf_cnpj", $user->cpf_cnpj)->first();
+        $permissionario = Permissionario::where("cpf_cnpj", $user->cpf_cnpj)->first();
+        if (isset($user->cnh)) {
+            $permissionario = Permissionario::where("cnh", $user->cnh)->first();
+        }
+
         if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", "signin:1", 404);
+            return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", 404);
         }
 
         if (count(Usuario::where("email", $user->email)->orWhere("cpf_cnpj", $user->cpf_cnpj)->get()) > 0) {
-            return parent::responseMsgJSON("Usuário já cadastrado", 404, "signin:2");
+            return parent::responseMsgJSON("Usuário já cadastrado", 404);
         }
 
         // setando tipo
@@ -77,7 +119,185 @@ class UsuarioController extends Controller
         $user->permissionario_id = $permissionario->id;
         $user->save();
 
+        // atualizando email do permissionario
+        $permissionario->email = $user->email;
+        $permissionario->versao ++;
+        $permissionario->save();
+
         return Usuario::findComplete($user->id);
+    }
+
+    public function update(Request $request)
+    {
+        // Log::channel('stderr')->info('aki!');
+        $validator = Validator::make($request->all(), [
+            // ///////////// COMUNS
+            'nome' => [
+                'required',
+                'min:4',
+                'max:100'
+            ]
+        ]);
+
+        if ($validator->fails()) {
+            return parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $user = Usuario::with("permissionario")->with("tipo")->find(auth()->id());
+
+        if (! isset($user)) {
+            return parent::responseMsgJSON("Usuário não encontrado", 404);
+        }
+
+        $user->nome = $request->input("nome");
+        $user->save();
+
+        $permissionario = $user->permissionario;
+        if (isset($permissionario) && isset($request->all()['permissionario'])) {
+
+            $validator = Validator::make($request->all(), [
+                // ///////////// PERMISSIONARIO
+                'permissionario.rg' => [
+                    'max:15'
+                ],
+                'permissionario.inscricao_municipal' => [
+                    'max:15'
+                ],
+                'permissionario.telefone' => [
+                    'max:8'
+                ],
+                'permissionario.telefone2' => [
+                    'max:9'
+                ],
+                'permissionario.celular' => [
+                    'max:9'
+                ],
+                'permissionario.data_nascimento' => [
+                    'required',
+                    'max:11'
+                ],
+                'permissionario.naturalidade' => [
+                    'max:15'
+                ],
+                'permissionario.nacionalidade' => [
+                    'max:15'
+                ],
+                'permissionario.cnh' => [
+                    'max:15'
+                ],
+                'permissionario.categoria_cnh' => [
+                    'max:1'
+                ],
+                'permissionario.vencimento_cnh' => [
+                    'max:11'
+                ]
+            ]);
+
+            if ($validator->fails()) {
+                return parent::responseMsgsJSON($validator->errors(), 400);
+            }
+
+            // limpando dados que nao devem ser alterados
+            unset($request->all()['permissionario']["id"]);
+            unset($request->all()['permissionario']["email"]);
+            unset($request->all()['permissionario']["id_integracao"]);
+            unset($request->all()['permissionario']["modalidade_id"]);
+            unset($request->all()['permissionario']["situacao"]);
+            unset($request->all()['permissionario']["tipo"]);
+            unset($request->all()['permissionario']["cpf_cnpj"]);
+            unset($request->all()['permissionario']["versao"]);
+
+            $permissionario->fill($request->all()['permissionario']);
+
+            $permissionario->versao ++;
+            $permissionario->save();
+
+            $endereco = $permissionario->endereco;
+            if (isset($endereco) && isset($request->all()['permissionario']['endereco'])) {
+
+                $validator = Validator::make($request->all(), [
+                    // ///////////// ENDERECO
+                    'permissionario.endereco.cep' => [
+                        'required',
+                        'min:4',
+                        'max:40'
+                    ],
+                    'permissionario.endereco.endereco' => [
+                        'required',
+                        'min:4',
+                        'max:40'
+                    ],
+                    'permissionario.endereco.numero' => [
+                        'required',
+                        'min:1',
+                        'max:5'
+                    ],
+                    'permissionario.endereco.complemento' => [
+                        'required',
+                        'min:4',
+                        'max:15'
+                    ],
+                    'permissionario.endereco.bairro' => [
+                        'required',
+                        'min:4',
+                        'max:100'
+                    ],
+                    'permissionario.endereco.municipio' => [
+                        'required',
+                        'min:2',
+                        'max:15'
+                    ],
+                    'permissionario.endereco.uf' => [
+                        'required',
+                        'min:2',
+                        'max:2'
+                    ]
+                ]);
+
+                if ($validator->fails()) {
+                    return parent::responseMsgsJSON($validator->errors(), 400);
+                }
+
+                // limpando dados que nao devem ser alterados
+                unset($request->all()['permissionario']['endereco']["id"]);
+
+                $endereco->fill($request->all()['permissionario']['endereco']);
+                $endereco->save();
+            }
+        }
+
+        return parent::responseMsgJSON("Alterado com sucesso");
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => [
+                'required'
+            ],
+            'new_password' => [
+                'required'
+            ]
+        ]);
+
+        if ($validator->fails()) {
+            return parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $user = Usuario::find(auth()->id());
+
+        if (! isset($user)) {
+            return parent::responseMsgJSON("Usuário não encontrado", 404);
+        }
+
+        if (! password_verify($request->input("password"), $user->password)) {
+            return parent::responseMsgJSON("Senha atual não confere", 401);
+        }
+
+        $user->password = hash::make($request->input("password"));
+        $user->save();
+
+        return parent::responseMsgJSON("Alterado com sucesso");
     }
 
     public function login(Request $request)
@@ -88,7 +308,7 @@ class UsuarioController extends Controller
         ]);
 
         if (! $token = auth('api')->attempt($credenciais)) {
-            return parent::responseMsgJSON('E-mail ou senha inválidos', 401, "login:1");
+            return parent::responseMsgJSON('E-mail ou senha inválidos', 401);
         }
 
         return parent::responseJSON([
@@ -121,13 +341,13 @@ class UsuarioController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return parent::responseJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $user = Usuario::findByEmail($request->input('email'));
 
         if (! isset($user)) {
-            return parent::responseMsgJSON("Nenhum usuário encontrado.", "generateRecoverCode:1", 404);
+            return parent::responseMsgJSON("Nenhum usuário encontrado.", 404);
         }
 
         $randCode = random_int(0, 999999);
@@ -141,7 +361,7 @@ class UsuarioController extends Controller
 
         return parent::responseMsgJSON("Código enviado com sucesso.");
     }
-    
+
     public function recoverPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -157,30 +377,29 @@ class UsuarioController extends Controller
                 'required'
             ]
         ]);
-        
+
         if ($validator->fails()) {
-            return parent::responseJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
-        
+
         $user = Usuario::findByEmailWithRecoveryCode($request->input('email'), $request->input('code'));
-        
+
         if (! isset($user)) {
-            return parent::responseMsgJSON("Usuário ou código encontrado. OBS: Verifique se este é o último código recebido por e-mail.", 404, "recoverPassword:1");
+            return parent::responseMsgJSON("Usuário ou código encontrado. OBS: Verifique se este é o último código recebido por e-mail.", 404);
         }
-        
-               
-        if(Carbon::now()->diffInHours($user->data_hora_ultimo_codigo_de_recuperacao)>=3){
-            return parent::responseMsgJSON("Código expirado!", 401, "recoverPassword:1");
+
+        if (Carbon::now()->diffInHours($user->data_hora_ultimo_codigo_de_recuperacao) >= 3) {
+            return parent::responseMsgJSON("Código expirado!", 401);
         }
-        
+
         $user->codigo_de_recuperacao = null;
         $user->password = hash::make($request->input("new_password"));
-        
+
         $user->save();
-                
+
         return parent::responseMsgJSON("Nova senha salva com sucesso.");
     }
-    
+
     public function validateRecoveryCode(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -193,27 +412,30 @@ class UsuarioController extends Controller
                 'required'
             ]
         ]);
-        
+
         if ($validator->fails()) {
-            return parent::responseJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
-        
+
         $user = Usuario::findByEmailWithRecoveryCode($request->input('email'), $request->input('code'));
-        
+
         if (! isset($user)) {
             return parent::responseMsgJSON("Usuário ou código encontrado. OBS: Verifique se este é o último código recebido por e-mail.", 404, "validateRecoveryCode:1");
         }
-        
-        
-        if(Carbon::now()->diffInHours($user->data_hora_ultimo_codigo_de_recuperacao)>=3){
-            return parent::responseMsgJSON("Código expirado!", 401, "validateRecoveryCode:2");
-        } 
-        
+
+        if (Carbon::now()->diffInHours($user->data_hora_ultimo_codigo_de_recuperacao) >= 3) {
+            return parent::responseMsgJSON("Código expirado!", 401);
+        }
+
         return parent::responseMsgJSON("Código válido!");
     }
 
     public function me()
     {
-        return Usuario::with("tipo")->find(auth()->id());
+        $user = Usuario::with("tipo")->with("permissionario")->find(auth()->id());
+        $user->permissionario->modalidade; // carregando modalidade
+        $user->permissionario->endereco; // carregando modalidade
+
+        return $user;
     }
 }
