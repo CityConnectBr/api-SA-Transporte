@@ -100,7 +100,8 @@ class UsuarioController extends Controller
         $user->password = hash::make($request->input("password"));
 
         $permissionario = Permissionario::where("cpf_cnpj", $user->cpf_cnpj)->first();
-        if (isset($user->cnh)) {
+
+        if (!isset($permissionario) && isset($user->cnh)) {
             $permissionario = Permissionario::where("cnh", $user->cnh)->first();
         }
 
