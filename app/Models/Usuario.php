@@ -52,7 +52,7 @@ class Usuario extends Authenticatable implements JWTSubject
     
     public function permissionario()
     {
-        return $this->hasOne(Permissionario::class, 'id', 'permissionario_id');
+        return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
     }
     
     //////////////////////////////////////
@@ -71,6 +71,12 @@ class Usuario extends Authenticatable implements JWTSubject
     {
         return Usuario::where("email", $email)->where("codigo_de_recuperacao", $code)->first();
     }
+    
+    public static function findByEmailOrCpfCnpj($email, $cpfCnpj){
+        return Usuario::where("email", $email)->orWhere("cpf_cnpj", $cpfCnpj)->get();
+    }
+    
+    //////////////////////////////////////
 
     public function getJWTIdentifier()
     {

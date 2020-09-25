@@ -15,7 +15,7 @@ class CreateCondutoresTable extends Migration
     {
         Schema::create('condutores', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_integracao', 11)->unique();
+            $table->string('id_integracao', 11)->nullable();
             $table->string('nome', 40);
             $table->string('situacao', 1);//A/I/C
             $table->string('cpf', 14)->nullable();
@@ -31,9 +31,11 @@ class CreateCondutoresTable extends Migration
             $table->string('categoria_cnh', 2)->nullable();
             $table->date('vencimento_cnh', 100)->nullable();
             $table->integer('versao');
+            $table->integer('permissionario_id')->unsigned();
             $table->integer('endereco_id')->unsigned();
             $table->timestamps();
-            $table->foreign('endereco_id')->references('id')->on('enderecos')->onDelete('cascade');
+            $table->foreign('permissionario_id')->references('id')->on('permissionarios');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
 

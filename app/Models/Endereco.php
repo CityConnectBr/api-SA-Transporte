@@ -15,7 +15,6 @@ class Endereco extends Model
         'bairro',
         'municipio',
         'uf',
-        'permissionario_id',
     ];
 
     function permissionario() {

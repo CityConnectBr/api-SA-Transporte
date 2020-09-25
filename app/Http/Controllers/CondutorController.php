@@ -1,48 +1,96 @@
 <?php
-namespace app\Http\Controllers\Integracao;
+namespace app\Http\Controllers;
 
-use App\Http\Controllers\Integracao\IntegracaoController;
 use App\Models\Endereco;
 use Illuminate\Http\Request;
 use App\Models\Condutor;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Permissionario;
+use App\Http\Controllers\Controller;
 
-class CondutorController extends IntegracaoController
+class CondutorController extends Controller
 {
-
-    function __construct()
-    {
-        parent::__construct(Condutor::class, [
-            'nome' => [
-                'required',
-                'max:40',
-                'min:3'
-            ],
-            'id_integracao' => [
-                'required',
-                'numeric'
-            ],
-            'situacao' => [
-                'required',
-                'max:1',
-                'min:1'
-            ],
-            'permissionario_id' => [
-                'required',
-                'numeric'
-            ]
-        ]);
-    }
+    
+    private $validatorList = [
+        'rg' => [
+            'required',
+            'max:15'
+        ],
+        'cpf' => [
+            'required',
+            'max:15'
+        ],
+        'telefone' => [
+            'max:8'
+        ],
+        'celular' => [
+            'max:9'
+        ],
+        'data_nascimento' => [
+            'required',
+            'max:11'
+        ],
+        'naturalidade' => [
+            'max:15'
+        ],
+        'nacionalidade' => [
+            'max:15'
+        ],
+        'cnh' => [
+            'required',
+            'max:15'
+        ],
+        'categoria_cnh' => [
+            'required',
+            'min:1',
+            'max:2'
+        ],
+        'vencimento_cnh' => [
+            'required',
+            'max:11'
+        ],
+        'endereco.cep' => [
+            'required',
+            'min:4',
+            'max:40'
+        ],
+        'endereco.endereco' => [
+            'required',
+            'min:4',
+            'max:40'
+        ],
+        'endereco.numero' => [
+            'required',
+            'min:1',
+            'max:5'
+        ],
+        'endereco.complemento' => [
+            'max:15'
+        ],
+        'endereco.bairro' => [
+            'required',
+            'min:4',
+            'max:100'
+        ],
+        'endereco.municipio' => [
+            'required',
+            'min:2',
+            'max:15'
+        ],
+        'endereco.uf' => [
+            'required',
+            'min:2',
+            'max:2'
+        ]
+    ];
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Condutor::findAllNews();
+        return Condutor::search(parent::getUserLogged()->permissionario_id, $request->query->get("search"));
     }
 
     /**
@@ -71,19 +119,15 @@ class CondutorController extends IntegracaoController
             return response()->json($validator->errors(), 400);
         }
 
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'), true);
-        if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
-        }
-
         $endereco = new Endereco();
-        $endereco->fill($request->all());
+        $endereco->fill($request->all()["endereco"]);
         $endereco->save();
 
         $condutor = new Condutor();
         $condutor->fill($request->all());
-        $condutor->permissionario_id = $permissionario->id;
         $condutor->endereco_id = $endereco->id;
+        $condutor->permissionario_id = parent::getUserLogged()->permissionario_id;
+        $condutor->situacao = "A";
 
         $condutor->save();
 
@@ -98,7 +142,7 @@ class CondutorController extends IntegracaoController
      */
     public function show($id)
     {
-        $condutor = Condutor::findByIntegracaoComplete($id, true);
+        $condutor = Condutor::findComplete($id);
         if (isset($condutor)) {
             return $condutor;
         } else {
@@ -114,9 +158,7 @@ class CondutorController extends IntegracaoController
      */
     public function edit($id)
     {
-        return response()->json([
-            "Message" => "Não implementado!"
-        ], 501);
+        $this->show($id);
     }
 
     /**
@@ -128,28 +170,22 @@ class CondutorController extends IntegracaoController
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), $this->validatorList);
+//         $validator = Validator::make($request->all(), $this->validatorList);
 
-        if ($validator->fails()) {
-            return parent::responseJSON($validator->errors(), 400);
-        }
+//         if ($validator->fails()) {
+//             return parent::responseJSON($validator->errors(), 400);
+//         }
 
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'), true);
-        if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
-        }
-
-        $condutor = Condutor::findByIntegracaoComplete($id, true);
+        $condutor = Condutor::findComplete($id);
         if (isset($condutor)) {
             $condutor->fill($request->all());
             $condutor->versao ++;
-            $condutor->endereco->fill($request->all());
-            $condutor->permissionario_id = $permissionario->id;
+            $condutor->endereco->fill($request->all()["endereco"]);
 
             $condutor->save();
             $condutor->endereco->save();
 
-            return $condutor;
+            return parent::responseMsgJSON("Alterado com sucesso");
         } else {
             return parent::responseMsgJSON("Condutor não encontrado", 404);
         }

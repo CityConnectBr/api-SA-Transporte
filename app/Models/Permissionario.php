@@ -86,4 +86,14 @@ class Permissionario extends Model
             return Permissionario::firstWhere("id_integracao", $id);
         }
     }
+    
+    public static function firstByCpfCnpj($cpfCnj)
+    {
+        return Permissionario::where("cpf_cnpj", $cpfCnj)->first();
+    }
+    
+    public static function firstByCnh($cpfCnj)
+    {
+        return Permissionario::where("cnh", $cpfCnj)->first();
+    }
 }

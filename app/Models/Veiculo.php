@@ -69,15 +69,15 @@ class Veiculo extends Model
     {
         return $this->hasOne(TipoVeiculo::class, 'id', 'tipo_veiculo_id');
     }
-    
+
     public function cor()
     {
         return $this->hasOne(CorVeiculo::class, 'id', 'cor_id');
     }
-    
+
     public function permissionario()
     {
-        return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScope("situacao");
+        return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
     }
 
     // /////////////////
@@ -123,5 +123,11 @@ class Veiculo extends Model
                 ->with('permissionario')
                 ->firstWhere("id_integracao", $id);
         }
+    }
+
+    public static function findAllNews($categoriaId)
+    {
+        // nao utilizar with para trazer outras objetos pois no integrador existe uma dificultade para tratar uma lista com objetos
+        return Condutor::whereNull("id_integracao")->where("categoria_id", "=", $categoriaId)->get();
     }
 }

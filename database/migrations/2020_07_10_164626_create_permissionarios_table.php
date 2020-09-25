@@ -16,7 +16,7 @@ class CreatePermissionariosTable extends Migration
         Schema::create('permissionarios', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_integracao')->unique();
-            $table->integer('modalidade_id')->nullable(false);
+            $table->integer('modalidade_id');
             $table->string('nome', 40);
             $table->string('tipo', 1)->nullable();//J/F
             $table->string('situacao', 1);//A/I/C

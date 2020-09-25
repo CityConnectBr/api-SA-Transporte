@@ -17,6 +17,7 @@ class CreateModalidadesTable extends Migration
             $table->integer('id')->primary();
             $table->string('identificador', 1);
             $table->string('descricao', 40);
+            $table->integer('limite');
             $table->timestamps();
         });
     }

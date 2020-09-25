@@ -99,17 +99,17 @@ class UsuarioController extends Controller
         $user->fill($request->all());
         $user->password = hash::make($request->input("password"));
 
-        $permissionario = Permissionario::where("cpf_cnpj", $user->cpf_cnpj)->first();
+        $permissionario = Permissionario::firstByCpfCnpj($user->cpf_cnpj);
 
         if (!isset($permissionario) && isset($user->cnh)) {
-            $permissionario = Permissionario::where("cnh", $user->cnh)->first();
+            $permissionario = Permissionario::firstByCnh($user->cnh);
         }
 
         if (! isset($permissionario)) {
             return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", 404);
         }
 
-        if (count(Usuario::where("email", $user->email)->orWhere("cpf_cnpj", $user->cpf_cnpj)->get()) > 0) {
+        if (count(Usuario::findByEmailOrCpfCnpj($user->email, $user->cpf_cnpj)) > 0) {
             return parent::responseMsgJSON("Usuário já cadastrado", 404);
         }
 
@@ -144,11 +144,7 @@ class UsuarioController extends Controller
             return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
-        $user = Usuario::with("permissionario")->with("tipo")->find(auth()->id());
-
-        if (! isset($user)) {
-            return parent::responseMsgJSON("Usuário não encontrado", 404);
-        }
+        $user = parent::getUserLogged();
 
         $user->nome = $request->input("nome");
         $user->save();
@@ -187,7 +183,7 @@ class UsuarioController extends Controller
                     'max:15'
                 ],
                 'permissionario.categoria_cnh' => [
-                    'max:1'
+                    'max:2'
                 ],
                 'permissionario.vencimento_cnh' => [
                     'max:11'
@@ -285,11 +281,7 @@ class UsuarioController extends Controller
             return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
-        $user = Usuario::find(auth()->id());
-
-        if (! isset($user)) {
-            return parent::responseMsgJSON("Usuário não encontrado", 404);
-        }
+        $user = parent::getUserLogged();
 
         if (! password_verify($request->input("password"), $user->password)) {
             return parent::responseMsgJSON("Senha atual não confere", 401);
@@ -431,9 +423,9 @@ class UsuarioController extends Controller
         return parent::responseMsgJSON("Código válido!");
     }
 
-    public function me()
+    public function user()
     {
-        $user = Usuario::with("tipo")->with("permissionario")->find(auth()->id());
+        $user = parent::getUserLogged();
         $user->permissionario->modalidade; // carregando modalidade
         $user->permissionario->endereco; // carregando modalidade
 

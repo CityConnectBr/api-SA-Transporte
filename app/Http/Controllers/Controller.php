@@ -2,6 +2,7 @@
 namespace app\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
+use App\Models\Usuario;
 
 class Controller extends BaseController
 {
@@ -32,5 +33,25 @@ class Controller extends BaseController
             "error" => $message
         ], $codigo);
     }
+    
+    ////////////////
+    ////////////////
+    ////////////////
+    
+    
+    protected function getUserLogged()
+    {
+        $user = Usuario::with("permissionario")->with("tipo")->find(auth()->id());
+        
+        if (! isset($user)) {
+            return parent::responseMsgJSON("Usuário não encontrado", 404);
+        }
+        
+        return $user;
+    }
+    
+    
+    
+    
     
 }

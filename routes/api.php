@@ -26,11 +26,26 @@ Route::group([
     'prefix' => 'api'
 ], function () {
     Route::name('api.')->group(function () {
-        Route::get('/me', 'UsuarioController@me')->name('me');
-        Route::put('/me', 'UsuarioController@update')->name('me.update');
-        Route::patch('/password', 'UsuarioController@updatePassword')->name('me.updatePassword');
+        Route::get('/user', 'UsuarioController@user')->name('user');
+        Route::put('/user', 'UsuarioController@update')->name('user.update');
+        Route::patch('/password', 'UsuarioController@updatePassword')->name('user.updatePassword');
+        
+        //permissionarios
+        Route::group([
+            'middleware' => [
+                'permissionario'
+            ],
+            'prefix' => 'permissionarios'
+        ], function () {
+            Route::name('permissionarios.')->group(function () {
+                Route::resource('/condutores', 'CondutorController');
+                
+            });
+        });
+        
+        
         //condutor
-
+        
         //fiscal
 
     });

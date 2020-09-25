@@ -47,10 +47,7 @@ class VeiculoController extends IntegracaoController
      */
     public function index()
     {
-        // paginate
-        return response()->json([
-            "Message" => "Não implementado!"
-        ], 501);
+        return Veiculo::findAllNews(1);//Veiculo
     }
 
     /**
@@ -81,7 +78,7 @@ class VeiculoController extends IntegracaoController
 
         $veiculo = new Veiculo();
         $veiculo->fill($request->all());
-        $veiculo->categoria_id = 1;//Onibus
+        $veiculo->categoria_id = 1;//Veiculo
         $veiculo->placa = $request->input("id_integracao");
         $veiculo->marca_modelo_veiculo_id = MarcaModeloVeiculo::firstWhere("id_integracao", $request->input("marca_modelo_veiculo_id"))->id;
         $veiculo->tipo_combustivel_id = TipoCombustivel::firstWhere("id_integracao", $request->input("tipo_combustivel_id"))->id;
