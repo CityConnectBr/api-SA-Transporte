@@ -12,4 +12,13 @@ class TipoCombustivel extends Model
     ];
     
     protected $table = 'tipos_combustiveis';
+    
+    ///////////////////
+    
+    public static function search($search)
+    {
+        return TipoCombustivel::where("descricao", "like", "%" . $search . "%")
+        ->orderBy("descricao")
+        ->paginate(40);
+    }
 }

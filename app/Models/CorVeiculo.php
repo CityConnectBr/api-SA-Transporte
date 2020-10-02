@@ -13,4 +13,13 @@ class CorVeiculo extends Model
     
     protected $table = 'cores_veiculos';
     
+    ///////////////////
+    
+    public static function search($search)
+    {
+        return CorVeiculo::where("descricao", "like", "%" . $search . "%")
+        ->orderBy("descricao")
+        ->paginate(40);
+    }
+    
 }

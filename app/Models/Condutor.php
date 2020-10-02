@@ -77,9 +77,9 @@ class Condutor extends Model
     {
         return Condutor::where("permissionario_id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
             ->with("endereco")
+            ->with("permissionario")
             ->orderBy("nome")
-            ->get();
-        // ->paginate(20);
+            ->paginate(40);
     }
 
     public static function findAllNews()

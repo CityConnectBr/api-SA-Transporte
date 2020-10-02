@@ -19,7 +19,6 @@ class Veiculo extends Model
         'observacao_capacidade',
         'anos_vida_util_veiculo',
         'situacao',
-        'versao',
         'prefixo',
         'versao',
         'categoria_id',
@@ -84,7 +83,7 @@ class Veiculo extends Model
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
-            return Condutor::withoutGlobalScope('situacao')->with('marcaModeloCarroceria')
+            return Veiculo::withoutGlobalScope('situacao')->with('marcaModeloCarroceria')
                 ->with('marcaModeloChassi')
                 ->with('marcaModeloVeiculo')
                 ->with('tipoCombustivel')
@@ -93,7 +92,7 @@ class Veiculo extends Model
                 ->with('permissionario')
                 ->find($id);
         } else {
-            return Condutor::with('marcaModeloCarroceria')->with('marcaModeloChassi')
+            return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
                 ->with('marcaModeloVeiculo')
                 ->with('tipoCombustivel')
                 ->with('tipoVeiculo')
@@ -128,6 +127,23 @@ class Veiculo extends Model
     public static function findAllNews($categoriaId)
     {
         // nao utilizar with para trazer outras objetos pois no integrador existe uma dificultade para tratar uma lista com objetos
-        return Condutor::whereNull("id_integracao")->where("categoria_id", "=", $categoriaId)->get();
+        return Veiculo::whereNull("id_integracao")->where("categoria_id", "=", $categoriaId)->get();
+    }
+
+    public static function search($permissionario_id, $search)
+    {
+        return Veiculo::where("permissionario_id", "=", $permissionario_id)->where(function ($q) use ($search) {
+            $q->where("placa", "like", "%" . $search . "%")
+                ->orWhere("cod_renavam", "like", "%" . $search . "%");
+        })
+            ->with("marcaModeloCarroceria")
+            ->with("marcaModeloChassi")
+            ->with("marcaModeloVeiculo")
+            ->with("tipoCombustivel")
+            ->with("tipoVeiculo")
+            ->with("cor")
+            ->with("permissionario")
+            ->orderBy("placa")
+            ->paginate(40);
     }
 }

@@ -12,4 +12,13 @@ class CategoriaVeiculo extends Model
     
     protected $table = 'categorias_veiculos';
     
+    ///////////////////
+    
+    public static function search($search)
+    {
+        return CategoriaVeiculo::where("nome", "like", "%" . $search . "%")
+        ->orderBy("nome")
+        ->paginate(40);
+    }
+    
 }

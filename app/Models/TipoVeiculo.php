@@ -15,4 +15,13 @@ class TipoVeiculo extends Model
     ];
 
     protected $table = 'tipos_veiculos';
+    
+    ///////////////////
+    
+    public static function search($search)
+    {
+        return TipoVeiculo::where("descricao", "like", "%" . $search . "%")
+        ->orderBy("descricao")
+        ->paginate(40);
+    }
 }

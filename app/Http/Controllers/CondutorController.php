@@ -9,7 +9,12 @@ use App\Http\Controllers\Controller;
 
 class CondutorController extends Controller
 {
-    
+
+    function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     private $validatorList = [
         'rg' => [
             'required',
@@ -88,9 +93,9 @@ class CondutorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        return Condutor::search(parent::getUserLogged()->permissionario_id, $request->query->get("search"));
+        return Condutor::search(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
     }
 
     /**
@@ -170,12 +175,11 @@ class CondutorController extends Controller
      */
     public function update(Request $request, $id)
     {
-//         $validator = Validator::make($request->all(), $this->validatorList);
+        // $validator = Validator::make($request->all(), $this->validatorList);
 
-//         if ($validator->fails()) {
-//             return parent::responseJSON($validator->errors(), 400);
-//         }
-
+        // if ($validator->fails()) {
+        // return parent::responseJSON($validator->errors(), 400);
+        // }
         $condutor = Condutor::findComplete($id);
         if (isset($condutor)) {
             $condutor->fill($request->all());

@@ -12,5 +12,12 @@ class MarcaModeloChassi extends Model
         'modelo'
     ];
     
-    protected $table = 'marcas_modelos_chassis';
+    protected $table = 'marcas_modelos_chassis';///////////////////
+    
+    public static function search($search)
+    {
+        return MarcaModeloChassi::where("descricao", "like", "%" . $search . "%")
+        ->orderBy("descricao")
+        ->paginate(40);
+    }
 }

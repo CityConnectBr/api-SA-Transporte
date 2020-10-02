@@ -13,4 +13,13 @@ class MarcaModeloCarroceria extends Model
     ];
     
     protected $table = 'marcas_modelos_carrocerias';
+    
+    ///////////////////
+    
+    public static function search($search)
+    {
+        return MarcaModeloCarroceria::where("descricao", "like", "%" . $search . "%")
+        ->orderBy("descricao")
+        ->paginate(40);
+    }
 }

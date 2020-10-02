@@ -39,6 +39,13 @@ Route::group([
         ], function () {
             Route::name('permissionarios.')->group(function () {
                 Route::resource('/condutores', 'CondutorController');
+                Route::resource('/veiculos', 'VeiculoController');
+                Route::resource('/coresveiculos', 'CorVeiculoController');
+                Route::resource('/marcasmodeloscarrocerias', 'MarcaModeloCarroceriaController');
+                Route::resource('/marcasmodeloschassis', 'MarcaModeloChassiController');
+                Route::resource('/marcasmodelosveiculos', 'MarcaModeloVeiculoController');
+                Route::resource('/tiposcombustiveis', 'TipoCombustivelController');
+                Route::resource('/tiposveiculos', 'TipoVeiculoController');
                 
             });
         });

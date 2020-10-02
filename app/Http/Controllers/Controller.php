@@ -3,9 +3,15 @@ namespace app\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Usuario;
+use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
+    function __construct($objectModel, Request $request) {
+        $this->objectModel = $objectModel;
+        $this->request = $request;
+    }
+    
     protected function responseMsgJSON($message, $codigo = 200, $codigoInterno = "")
     {
         return response()->json([
@@ -51,7 +57,36 @@ class Controller extends BaseController
     }
     
     
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $obj = $this->objectModel::search($this->request->query->get("search"));
+        if (isset($obj)) {
+            return $obj;
+        } else {
+            return $this->responseJSON("Não encontrado", 404);
+        }
+    }
     
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $obj = $this->objectModel::firstWhere("id", $id);
+        if (isset($obj)) {
+            return $obj;
+        } else {
+            return $this->responseJSON("Não encontrado", 404);
+        }
+    }
     
     
 }
