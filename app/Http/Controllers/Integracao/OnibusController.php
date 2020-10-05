@@ -45,7 +45,19 @@ class OnibusController extends IntegracaoController
      */
     public function index()
     {
-        return Veiculo::findAllNews(2);//Onibus
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function news()
+    {
+        return Veiculo::findAllNews();
     }
 
     /**

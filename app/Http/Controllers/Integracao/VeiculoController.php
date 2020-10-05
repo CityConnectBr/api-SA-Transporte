@@ -47,7 +47,19 @@ class VeiculoController extends IntegracaoController
      */
     public function index()
     {
-        return Veiculo::findAllNews(1);//Veiculo
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function news()
+    {
+        return Veiculo::findAllNews();
     }
 
     /**

@@ -72,8 +72,12 @@ Route::group([
         Route::resource('/marcasmodelosveiculos', 'Integracao\MarcaModeloVeiculoController');
         Route::resource('/tiposcombustiveis', 'Integracao\TipoCombustivelController');
         Route::resource('/tiposveiculos', 'Integracao\TipoVeiculoController');
+        Route::get('/condutores/news', 'Integracao\CondutorController@news')->name('condutores.news');
         Route::resource('/condutores', 'Integracao\CondutorController');
+        Route::get('/onibus/news', 'Integracao\OnibusController@news')->name('onibus.news');
         Route::resource('/onibus', 'Integracao\OnibusController');
+        Route::get('/veiculos/news', 'Integracao\VeiculoController@news')->name('veiculos.news');
         Route::resource('/veiculos', 'Integracao\VeiculoController');
+        
     });
 });

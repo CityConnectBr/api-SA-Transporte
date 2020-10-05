@@ -195,14 +195,14 @@ class UsuarioController extends Controller
             }
 
             // limpando dados que nao devem ser alterados
-            unset($request->all()['permissionario']["id"]);
-            unset($request->all()['permissionario']["email"]);
-            unset($request->all()['permissionario']["id_integracao"]);
-            unset($request->all()['permissionario']["modalidade_id"]);
-            unset($request->all()['permissionario']["situacao"]);
-            unset($request->all()['permissionario']["tipo"]);
-            unset($request->all()['permissionario']["cpf_cnpj"]);
-            unset($request->all()['permissionario']["versao"]);
+            unset($request['permissionario']["id"]);
+            unset($request['permissionario']["email"]);
+            unset($request['permissionario']["id_integracao"]);
+            unset($request['permissionario']["modalidade_id"]);
+            unset($request['permissionario']["situacao"]);
+            unset($request['permissionario']["tipo"]);
+            unset($request['permissionario']["cpf_cnpj"]);
+            unset($request['permissionario']["versao"]);
 
             $permissionario->fill($request->all()['permissionario']);
 

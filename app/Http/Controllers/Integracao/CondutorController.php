@@ -34,13 +34,25 @@ class CondutorController extends IntegracaoController
             ]
         ]);
     }
-
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function news()
     {
         return Condutor::findAllNews();
     }
@@ -140,12 +152,19 @@ class CondutorController extends IntegracaoController
         }
 
         $condutor = Condutor::findByIntegracaoComplete($id, true);
+        if (isset($request["id_real"])) {
+            $condutor = Condutor::findComplete($id, true);
+        }
+        
         if (isset($condutor)) {
+            unset($request['id']);
+            unset($request['endereco_id']);
+                        
             $condutor->fill($request->all());
             $condutor->versao ++;
             $condutor->endereco->fill($request->all());
             $condutor->permissionario_id = $permissionario->id;
-
+            
             $condutor->save();
             $condutor->endereco->save();
 

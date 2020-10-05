@@ -56,6 +56,7 @@ class Condutor extends Model
         if ($withoutGlobalScope) {
             return Condutor::withoutGlobalScope('situacao')->with('permissionario')
                 ->with('endereco')
+                ->with("permissionario")
                 ->find($id);
         } else {
             return Condutor::with('endereco')->with('permissionario')->find($id);
@@ -67,6 +68,7 @@ class Condutor extends Model
         if ($withoutGlobalScope) {
             return Condutor::withoutGlobalScope('situacao')->with('permissionario')
                 ->with('endereco')
+                ->with("permissionario")
                 ->firstWhere("id_integracao", $id);
         } else {
             return Condutor::with('endereco')->with('permissionario')->firstWhere("id_integracao", $id);
@@ -85,6 +87,6 @@ class Condutor extends Model
     public static function findAllNews()
     {
         // nao utilizar with para trazer outras objetos pois no integrador existe uma dificultade para tratar uma lista com objetos
-        return Condutor::whereNull("id_integracao")->get();
+        return Condutor::whereNull("id_integracao")->with('endereco')->with("permissionario")->get();
     }
 }
