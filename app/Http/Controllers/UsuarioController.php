@@ -112,6 +112,7 @@ class UsuarioController extends Controller
         if (count(Usuario::findByEmailOrCpfCnpj($user->email, $user->cpf_cnpj)) > 0) {
             return parent::responseMsgJSON("Usuário já cadastrado", 404);
         }
+        
 
         // setando tipo
         // posteriormente verificar entre os tipos existentes(fisca, condutor e etc...)
@@ -195,17 +196,18 @@ class UsuarioController extends Controller
             }
 
             // limpando dados que nao devem ser alterados
-            unset($request['permissionario']["id"]);
-            unset($request['permissionario']["email"]);
-            unset($request['permissionario']["id_integracao"]);
-            unset($request['permissionario']["modalidade_id"]);
-            unset($request['permissionario']["situacao"]);
-            unset($request['permissionario']["tipo"]);
-            unset($request['permissionario']["cpf_cnpj"]);
-            unset($request['permissionario']["versao"]);
-
-            $permissionario->fill($request->all()['permissionario']);
-
+            $permissionarioFromRequest = $request['permissionario'];
+            unset($permissionarioFromRequest["id"]);
+            unset($permissionarioFromRequest["email"]);
+            unset($permissionarioFromRequest["id_integracao"]);
+            unset($permissionarioFromRequest["modalidade_id"]);
+            unset($permissionarioFromRequest["situacao"]);
+            unset($permissionarioFromRequest["tipo"]);
+            unset($permissionarioFromRequest["cpf_cnpj"]);
+            unset($permissionarioFromRequest["versao"]);
+            
+            $permissionario->fill($permissionarioFromRequest);
+            
             $permissionario->versao ++;
             $permissionario->save();
 
@@ -256,9 +258,10 @@ class UsuarioController extends Controller
                 }
 
                 // limpando dados que nao devem ser alterados
-                unset($request->all()['permissionario']['endereco']["id"]);
+                $enderecoFromRequest = $request->all()['permissionario']['endereco'];
+                unset($enderecoFromRequest["id"]);
 
-                $endereco->fill($request->all()['permissionario']['endereco']);
+                $endereco->fill($enderecoFromRequest);
                 $endereco->save();
             }
         }
