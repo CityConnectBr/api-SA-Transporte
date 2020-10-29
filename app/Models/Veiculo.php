@@ -124,12 +124,6 @@ class Veiculo extends Model
         }
     }
 
-    public static function findAllNews($categoriaId)
-    {
-        // nao utilizar with para trazer outras objetos pois no integrador existe uma dificultade para tratar uma lista com objetos
-        return Veiculo::whereNull("id_integracao")->where("categoria_id", "=", $categoriaId)->get();
-    }
-
     public static function search($permissionario_id, $search)
     {
         return Veiculo::where("permissionario_id", "=", $permissionario_id)->where(function ($q) use ($search) {

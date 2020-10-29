@@ -84,9 +84,4 @@ class Condutor extends Model
             ->paginate(40);
     }
 
-    public static function findAllNews()
-    {
-        // nao utilizar with para trazer outras objetos pois no integrador existe uma dificultade para tratar uma lista com objetos
-        return Condutor::whereNull("id_integracao")->with('endereco')->with("permissionario")->get();
-    }
 }

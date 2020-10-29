@@ -1,0 +1,200 @@
+<?php
+namespace app\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Models\SolicitacaoDeAlteracao;
+use App\Models\TipoDeSolicitacaoDeAlteracao;
+use App\Models\Condutor;
+use App\Models\Veiculo;
+use App\Models\Permissionario;
+use Illuminate\Support\Facades\Storage;
+
+class SolicitacaoDeAlteracaoController extends Controller
+{
+
+    function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    private $validatorList = [
+        'referencia_id' => [
+            'required',
+            'max:40'
+        ],
+        'tipo_solicitacao_id' => [
+            'required',
+            'numeric'
+        ],
+        'imagem' => [
+            'required',
+            'max:10000',
+            'mimes:jpg,jpeg'
+        ]
+    ];
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), $this->validatorList);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $tipoDeSolicitacao = TipoDeSolicitacaoDeAlteracao::find($request["tipo_solicitacao_id"]);
+        
+        if(!isset($tipoDeSolicitacao)){
+            return parent::responseMsgJSON("Tipo de solicitação não encontrado!", 400);
+        }
+        
+        if (strpos($tipoDeSolicitacao->nome, 'condutor') !== false) {
+            $objRef = Condutor::find($request["referencia_id"]);
+        }else if (strpos($tipoDeSolicitacao->nome, 'veiculo') !== false) {
+            $objRef = Veiculo::find($request["referencia_id"]);
+        }if (strpos($tipoDeSolicitacao->nome, 'onibus') !== false) {
+            $objRef = Veiculo::find($request["referencia_id"]);
+        }if (strpos($tipoDeSolicitacao->nome, 'permissionario') !== false) {
+            $objRef = Permissionario::find($request["referencia_id"]);
+        }if (strpos($tipoDeSolicitacao->nome, 'monitor') !== false) {
+            //$objRef = Monitor::find($request["referencia_id"]);
+        }
+        
+        if(!isset($objRef)){
+            return parent::responseMsgJSON("Referência não encontrada!", 400);
+        }
+        
+        $solicitacao = new SolicitacaoDeAlteracao();
+        $solicitacao->fill($request->all());
+
+        $errors = array();
+        
+        for($i = 1;$i < 21;$i++){
+            $regexField = $tipoDeSolicitacao['regex_campo'.$i];
+            
+            if(isset($regexField)){
+                //alterações na expressao para PHP
+                $regexField = str_replace('-', '\-', $regexField);
+                //
+                
+                $field = $solicitacao['campo'.$i];
+                
+                if(!preg_match("/".$regexField."/", $field)){
+                    array_push($errors, "O campo ".($tipoDeSolicitacao['desc_campo'.$i])."(campo ".$i."), contem valor inválido.");
+                }
+                
+            }else{
+                break;
+            }
+        }
+        
+        if(sizeof($errors)>0){
+            return parent::responseMsgJSON($errors, 400);
+        }
+        
+        // setando anteriores como cancelados
+        foreach(SolicitacaoDeAlteracao::findAllWaitingByReference($solicitacao->referencia_id) as $solicitacaoEmAberto){
+            SolicitacaoDeAlteracao::cancel($solicitacaoEmAberto);
+        }
+        
+        $solicitacao->save();
+        
+        $request->imagem->storeAs('/solicitacao_de_alteracao_docs',"doc".$solicitacao->id.".jpg");
+
+        return $solicitacao;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $solicitacao = SolicitacaoDeAlteracao::find($id);
+        if (isset($solicitacao)) {
+            return $solicitacao;
+        } else {
+            return parent::responseMsgJSON("Solicitação não encontrada", 400);
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $this->show($id);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
+    }
+    
+    public function getdoc($id){
+        $solicitacao = SolicitacaoDeAlteracao::find($id);        
+        if(!asset($solicitacao)){
+            return parent::responseMsgJSON("Solicitação não encontrada", 404);
+        }
+        
+        return Storage::download('solicitacao_de_alteracao_docs/doc'.$solicitacao->id.'.jpg');
+    }
+}

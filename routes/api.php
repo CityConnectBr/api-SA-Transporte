@@ -29,8 +29,8 @@ Route::group([
         Route::get('/user', 'UsuarioController@user')->name('user');
         Route::put('/user', 'UsuarioController@update')->name('user.update');
         Route::patch('/password', 'UsuarioController@updatePassword')->name('user.updatePassword');
-        
-        //permissionarios
+
+        // permissionarios
         Route::group([
             'middleware' => [
                 'permissionario'
@@ -38,7 +38,9 @@ Route::group([
             'prefix' => 'permissionarios'
         ], function () {
             Route::name('permissionarios.')->group(function () {
-                Route::resource('/condutores', 'CondutorController');
+
+                // Route::get('/condutores', 'CondutorController@index')->name('condutores.index');
+
                 Route::resource('/veiculos', 'VeiculoController');
                 Route::resource('/coresveiculos', 'CorVeiculoController');
                 Route::resource('/marcasmodeloscarrocerias', 'MarcaModeloCarroceriaController');
@@ -46,15 +48,20 @@ Route::group([
                 Route::resource('/marcasmodelosveiculos', 'MarcaModeloVeiculoController');
                 Route::resource('/tiposcombustiveis', 'TipoCombustivelController');
                 Route::resource('/tiposveiculos', 'TipoVeiculoController');
-                
+
+                Route::resource('/condutores', 'CondutorController');
+
+                // Route::get('/condutores', 'CondutorController@index')->name('condutores.index');
+
+                Route::resource('/solicitacaodealteracao', 'SolicitacaoDeAlteracaoController');
+
+                // Route::get('/user', 'UsuarioController@user')->name('user');
             });
         });
-        
-        
-        //condutor
-        
-        //fiscal
 
+        // condutor
+
+        // fiscal
     });
 });
 
@@ -72,12 +79,23 @@ Route::group([
         Route::resource('/marcasmodelosveiculos', 'Integracao\MarcaModeloVeiculoController');
         Route::resource('/tiposcombustiveis', 'Integracao\TipoCombustivelController');
         Route::resource('/tiposveiculos', 'Integracao\TipoVeiculoController');
-        Route::get('/condutores/news', 'Integracao\CondutorController@news')->name('condutores.news');
         Route::resource('/condutores', 'Integracao\CondutorController');
-        Route::get('/onibus/news', 'Integracao\OnibusController@news')->name('onibus.news');
         Route::resource('/onibus', 'Integracao\OnibusController');
-        Route::get('/veiculos/news', 'Integracao\VeiculoController@news')->name('veiculos.news');
         Route::resource('/veiculos', 'Integracao\VeiculoController');
-        
+        Route::resource('/tiposdesolicitacao', 'Integracao\TiposDeSolicitacaoDeAlteracaoController');
+        Route::resource('/solicitacaodealteracao', 'Integracao\SolicitacaoDeAlteracaoController');
+        Route::patch('/solicitacaodealteracao/{id}/setsinc', 'Integracao\SolicitacaoDeAlteracaoController@setSinc')->name('solicitacaodealteracao.setSinc');
+        Route::patch('/solicitacaodealteracao/{id}/setstatus/{status}', 'Integracao\SolicitacaoDeAlteracaoController@setStatus')->name('solicitacaodealteracao.setStatus');
+    });
+});
+
+Route::group([
+    'middleware' => [
+        "accessdoc"
+    ],
+    'prefix' => 'solicitacaodealteracao'
+], function () {
+    Route::name('solicitacaodealteracao.')->group(function () {
+        Route::get('/getdoc/{id}', 'SolicitacaoDeAlteracaoController@getdoc');
     });
 });

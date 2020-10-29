@@ -49,16 +49,6 @@ class OnibusController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function news()
-    {
-        return Veiculo::findAllNews();
-    }
 
     /**
      * Show the form for creating a new resource.
