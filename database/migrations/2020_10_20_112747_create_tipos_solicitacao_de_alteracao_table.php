@@ -16,6 +16,26 @@ class CreateTiposSolicitacaoDeAlteracaoTable extends Migration
         Schema::create('tipos_solicitacao_de_alteracao', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome', 40);
+            $table->string('nome_campo1', 40)->nullable();
+            $table->string('nome_campo2', 40)->nullable();
+            $table->string('nome_campo3', 40)->nullable();
+            $table->string('nome_campo4', 40)->nullable();
+            $table->string('nome_campo5', 40)->nullable();
+            $table->string('nome_campo6', 40)->nullable();
+            $table->string('nome_campo7', 40)->nullable();
+            $table->string('nome_campo8', 40)->nullable();
+            $table->string('nome_campo9', 40)->nullable();
+            $table->string('nome_campo10', 40)->nullable();
+            $table->string('nome_campo11', 40)->nullable();
+            $table->string('nome_campo12', 40)->nullable();
+            $table->string('nome_campo13', 40)->nullable();
+            $table->string('nome_campo14', 40)->nullable();
+            $table->string('nome_campo15', 40)->nullable();
+            $table->string('nome_campo16', 40)->nullable();
+            $table->string('nome_campo17', 40)->nullable();
+            $table->string('nome_campo18', 40)->nullable();
+            $table->string('nome_campo19', 40)->nullable();
+            $table->string('nome_campo20', 40)->nullable();
             $table->string('desc_campo1', 40)->nullable();
             $table->string('desc_campo2', 40)->nullable();
             $table->string('desc_campo3', 40)->nullable();

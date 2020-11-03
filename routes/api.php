@@ -84,8 +84,8 @@ Route::group([
         Route::resource('/veiculos', 'Integracao\VeiculoController');
         Route::resource('/tiposdesolicitacao', 'Integracao\TiposDeSolicitacaoDeAlteracaoController');
         Route::resource('/solicitacaodealteracao', 'Integracao\SolicitacaoDeAlteracaoController');
-        Route::patch('/solicitacaodealteracao/{id}/setsinc', 'Integracao\SolicitacaoDeAlteracaoController@setSinc')->name('solicitacaodealteracao.setSinc');
-        Route::patch('/solicitacaodealteracao/{id}/setstatus/{status}', 'Integracao\SolicitacaoDeAlteracaoController@setStatus')->name('solicitacaodealteracao.setStatus');
+        Route::put('/solicitacaodealteracao/{id}/setsinc', 'Integracao\SolicitacaoDeAlteracaoController@setSinc')->name('solicitacaodealteracao.setSinc');
+        Route::put('/solicitacaodealteracao/{id}/setstatus/{status}', 'Integracao\SolicitacaoDeAlteracaoController@setStatus')->name('solicitacaodealteracao.setStatus');
     });
 });
 

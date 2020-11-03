@@ -69,8 +69,8 @@ class SolicitacaoDeAlteracaoController extends Controller
             return parent::responseMsgJSON("Status aceitos somente: A(Aceito), R(Recusado)", 400);
         }
 
-        $motivoRecusa = $this->request->query('motivo_recusado');
-        
+        $motivoRecusa = $this->request["motivo_recusado"];
+                
         if(!isset($motivoRecusa) || (preg_match("/^R$/", $status) && !preg_match("/^.{1,40}$/", $motivoRecusa))){
             return parent::responseMsgJSON("Em caso de motivo R(Recusado) é necessário ter um motivo(motivo_recusado)", 400);
         }
