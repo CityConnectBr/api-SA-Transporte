@@ -20,18 +20,13 @@ class SolicitacaoDeAlteracaoController extends Controller
     }
 
     private $validatorList = [
-        'referencia_id' => [
+        /*'referencia_id' => [
             'required',
             'max:40'
-        ],
+        ],*/
         'tipo_solicitacao_id' => [
             'required',
             'numeric'
-        ],
-        'imagem' => [
-            'required',
-            'max:10000',
-            'mimes:jpg,jpeg'
         ]
     ];
 
@@ -67,6 +62,9 @@ class SolicitacaoDeAlteracaoController extends Controller
      */
     public function store(Request $request)
     {
+        //$out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        //$out->writeln("001");
+        
         $validator = Validator::make($request->all(), $this->validatorList);
 
         if ($validator->fails()) {
@@ -74,11 +72,11 @@ class SolicitacaoDeAlteracaoController extends Controller
         }
 
         $tipoDeSolicitacao = TipoDeSolicitacaoDeAlteracao::find($request["tipo_solicitacao_id"]);
-        
+
         if(!isset($tipoDeSolicitacao)){
             return parent::responseMsgJSON("Tipo de solicitação não encontrado!", 400);
         }
-        
+
         if (strpos($tipoDeSolicitacao->nome, 'condutor') !== false) {
             $objRef = Condutor::find($request["referencia_id"]);
         }else if (strpos($tipoDeSolicitacao->nome, 'veiculo') !== false) {
@@ -90,47 +88,69 @@ class SolicitacaoDeAlteracaoController extends Controller
         }if (strpos($tipoDeSolicitacao->nome, 'monitor') !== false) {
             //$objRef = Monitor::find($request["referencia_id"]);
         }
-        
-        if(!isset($objRef)){
-            return parent::responseMsgJSON("Referência não encontrada!", 400);
-        }
-        
+
+        // if(!isset($objRef)){
+        //     return parent::responseMsgJSON("Referência não encontrada!", 400);
+        // }
+
         $solicitacao = new SolicitacaoDeAlteracao();
         $solicitacao->fill($request->all());
 
         $errors = array();
-        
+
+        //Validacao de campos
         for($i = 1;$i < 21;$i++){
             $regexField = $tipoDeSolicitacao['regex_campo'.$i];
-            
+
             if(isset($regexField)){
                 //alterações na expressao para PHP
                 $regexField = str_replace('-', '\-', $regexField);
                 //
-                
+
                 $field = $solicitacao['campo'.$i];
-                
+
                 if(!preg_match("/".$regexField."/", $field)){
                     array_push($errors, "O campo ".($tipoDeSolicitacao['desc_campo'.$i])."(campo ".$i."), contem valor inválido.");
+                }
+
+            }else{
+                break;
+            }
+        }
+
+        //validação de arquivos
+        for($i = 1;$i < 10;$i++){           
+            if(isset($tipoDeSolicitacao['desc_arquivo'.$i])){
+                $fileField = $request->file('arquivo'.$i);
+                
+                if(!isset($fileField) || !preg_match("/([a-zA-Z0-9\s_\\.\-\(\):])+(.jpg|.jpeg|.png)$/", $fileField->getClientOriginalName())){                   
+                    array_push($errors, "O campo ".($tipoDeSolicitacao['desc_arquivo'.$i])."(arquivo ".$i."), contem valor inválido.");
                 }
                 
             }else{
                 break;
             }
         }
-        
+
         if(sizeof($errors)>0){
             return parent::responseMsgJSON($errors, 400);
         }
-        
+
         // setando anteriores como cancelados
-        foreach(SolicitacaoDeAlteracao::findAllWaitingByReference($solicitacao->referencia_id) as $solicitacaoEmAberto){
-            SolicitacaoDeAlteracao::cancel($solicitacaoEmAberto);
+        if(isset($solicitacao->referencia_id)){
+            foreach(SolicitacaoDeAlteracao::findAllWaitingByReference($solicitacao->referencia_id) as $solicitacaoEmAberto){
+                SolicitacaoDeAlteracao::cancel($solicitacaoEmAberto);
+            }
         }
-        
+
         $solicitacao->save();
-        
-        $request->imagem->storeAs('/solicitacao_de_alteracao_docs',"doc".$solicitacao->id.".jpg");
+
+        //sanvando arquivos
+        for ($i = 1; $i < 10; $i++) {
+            if(isset($request["arquivo".$i])){
+                $request->arquivo1->storeAs('/solicitacao_de_alteracao_arquivos',"solicitacao_".$solicitacao->id."_arquivo".$i.".jpg");
+            }
+        }
 
         return $solicitacao;
     }
@@ -188,13 +208,13 @@ class SolicitacaoDeAlteracaoController extends Controller
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     public function getdoc($id){
-        $solicitacao = SolicitacaoDeAlteracao::find($id);        
+        $solicitacao = SolicitacaoDeAlteracao::find($id);
         if(!asset($solicitacao)){
             return parent::responseMsgJSON("Solicitação não encontrada", 404);
         }
-        
-        return Storage::download('solicitacao_de_alteracao_docs/doc'.$solicitacao->id.'.jpg');
+
+        return Storage::download('solicitacao_de_alteracao_arquivos/solicitacao_'.$solicitacao->id.'_arquivo1.jpg');
     }
 }

@@ -76,6 +76,10 @@ class CreateTiposSolicitacaoDeAlteracaoTable extends Migration
             $table->string('regex_campo18', 40)->nullable();
             $table->string('regex_campo19', 40)->nullable();
             $table->string('regex_campo20', 40)->nullable();
+            $table->string('desc_arquivo1', 40)->nullable();
+            $table->string('desc_arquivo2', 40)->nullable();
+            $table->string('desc_arquivo3', 40)->nullable();
+            $table->string('desc_arquivo4', 40)->nullable();
             $table->timestamps();
         });
     }

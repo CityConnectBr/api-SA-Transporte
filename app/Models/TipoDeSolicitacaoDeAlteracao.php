@@ -47,12 +47,16 @@ class TipoDeSolicitacaoDeAlteracao extends Model
         'regex_campo17',
         'regex_campo18',
         'regex_campo19',
-        'regex_campo20'
+        'regex_campo20',
+        'desc_arquivo1',
+        'desc_arquivo2',
+        'desc_arquivo3',
+        'desc_arquivo4',
     ];
-    
+
     protected $table = 'tipos_solicitacao_de_alteracao';
-    
+
     ///////////////////
-    
-    
+
+
 }

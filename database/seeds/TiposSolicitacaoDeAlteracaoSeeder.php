@@ -27,6 +27,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'nome_campo4' => 'Celular',
             'desc_campo4' => 'celular',
             'regex_campo4' => '^(\d{9}|\d{8}|)$',
+            'desc_arquivo1' => 'Comprovante de Endereço',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '2',
@@ -51,7 +52,8 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo6' => '^.{1,25}$',
             'nome_campo7' => 'UF',
             'desc_campo7' => 'uf',
-            'regex_campo7' => '^.{2,2}$'
+            'regex_campo7' => '^.{2,2}$',
+            'desc_arquivo1' => 'Comprovante de Endereço',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '3',
@@ -65,6 +67,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'desc_campo3' => 'RG',
             'desc_campo3' => 'rg',
             'regex_campo3' => '^.{1,15}$',
+            'desc_arquivo1' => 'Comprovante de Identidade',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '4',
@@ -78,6 +81,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'nome_campo3' => 'ValidadeCNH',
             'desc_campo3' => 'vencimento da CNH',
             'regex_campo3' => '^\d{4}-\d{2}-\d{2}$',
+            'desc_arquivo1' => 'Comprovante de CNH',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '5',
@@ -111,7 +115,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo9' => '^.{1,40}$',
             'nome_campo10' => 'Numero',
             'desc_campo10' => 'numero',
-            'regex_campo10' => '^[0-9]*$',
+            'regex_campo10' => '^.{1,5}$',
             'nome_campo11' => 'Complemento',
             'desc_campo11' => 'complemento',
             'regex_campo11' => '^.{0,15}$',
@@ -133,6 +137,8 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'nome_campo17' => 'RG',
             'desc_campo17' => 'rg',
             'regex_campo17' => '^.{1,15}$',
+            'desc_arquivo1' => 'Comprovante de CNH',
+            'desc_arquivo2' => 'Comprovante de Residência',
         ]);
     }
 }
