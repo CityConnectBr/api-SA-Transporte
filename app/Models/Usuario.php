@@ -21,6 +21,8 @@ class Usuario extends Authenticatable implements JWTSubject
         'cnh',
         'password',
         'permissionario_id',
+        'fiscal_id',
+        'monitor_id',
         'tipo_id',
         'codigo_de_recuperacao',
         'data_hora_ultimo_codigo_de_recuperacao'

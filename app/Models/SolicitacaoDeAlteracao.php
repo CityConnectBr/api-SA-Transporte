@@ -31,42 +31,79 @@ class SolicitacaoDeAlteracao extends Model
         'campo18',
         'campo19',
         'campo20',
-        'arquivo1',
-        'arquivo2',
-        'arquivo3',
-        'arquivo4',
-        'tipo_solicitacao_id'
+        'campo21',
+        'campo22',
+        'campo23',
+        'campo24',
+        'campo25',
+        'tipo_solicitacao_id',
+        'permissionario_id',
+        'condutor_id',
+        'fiscal_id'
     ];
-    
+
     protected $attributes = [
         'sincronizado' => false
     ];
 
+    protected $temporaly = [
+        'arquivo1',
+        'arquivo2',
+        'arquivo3',
+        'arquivo4'
+    ];
+
     protected $table = 'solicitacoes_de_alteracao';
 
+    public function tipo()
+    {
+        return $this->hasOne(TipoDeSolicitacaoDeAlteracao::class, 'id', 'tipo_solicitacao_id');
+    }
+
+    public function permissionario()
+    {
+        return $this->hasOne(Permissionario::class, 'id', 'permissionario_id');
+    }
+
+    public function condutor()
+    {
+        return $this->hasOne(Condutor::class, 'id', 'condutor_id');
+    }
+
+    public function fiscal()
+    {
+        return $this->hasOne(Fiscal::class, 'id', 'fiscal_id');
+    }
+
     // /////////////////
-    
+    public static function findComplete($id)
+    {
+        return SolicitacaoDeAlteracao::
+            with("tipo")
+            ->with("permissionario")
+            ->with("condutor")
+            ->with("fiscal")
+            ->find($id);
+    }
+
     public static function findAllWaitingByReference($referenceId)
     {
         return SolicitacaoDeAlteracao::where('status', null)->where('referencia_id', $referenceId)->get();
     }
-    
-    
+
     public static function cancel($solicitacao)
     {
         $solicitacao->status = "C";
         $solicitacao->save();
     }
-    
-    
+
     public static function setSinc($id)
     {
         $solicitacao = SolicitacaoDeAlteracao::find($id);
         $solicitacao->sincronizado = true;
         $solicitacao->save();
     }
-    
-    
+
     public static function setStatus($id, $status, $motivoRecusa)
     {
         $solicitacao = SolicitacaoDeAlteracao::find($id);
@@ -74,7 +111,7 @@ class SolicitacaoDeAlteracao extends Model
         $solicitacao->motivo_recusado = $motivoRecusa;
         $solicitacao->save();
     }
-    
+
     public static function findAllNotSinc()
     {
         return SolicitacaoDeAlteracao::where('status', null)->where('sincronizado', false)->get();
