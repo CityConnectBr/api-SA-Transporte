@@ -40,15 +40,26 @@ class CreateSolicitacoesDeAlteracaoTable extends Migration
             $table->string('campo18', 250)->nullable();
             $table->string('campo19', 250)->nullable();
             $table->string('campo20', 250)->nullable();
-            $table->string('arquivo1', 400)->nullable();
-            $table->string('arquivo2', 400)->nullable();
-            $table->string('arquivo3', 400)->nullable();
-            $table->string('arquivo4', 400)->nullable();
-            $table->string('arquivo5', 400)->nullable();
-            $table->string('arquivo6', 400)->nullable();
+            $table->string('campo21', 250)->nullable();
+            $table->string('campo22', 250)->nullable();
+            $table->string('campo23', 250)->nullable();
+            $table->string('campo24', 250)->nullable();
+            $table->string('campo25', 250)->nullable();
+            // $table->string('arquivo1', 400)->nullable();
+            // $table->string('arquivo2', 400)->nullable();
+            // $table->string('arquivo3', 400)->nullable();
+            // $table->string('arquivo4', 400)->nullable();
+            // $table->string('arquivo5', 400)->nullable();
+            // $table->string('arquivo6', 400)->nullable();
             $table->integer('tipo_solicitacao_id')->unsigned();
+            $table->integer('permissionario_id')->unsigned()->nullable();
+            $table->integer('condutor_id')->unsigned()->nullable();
+            $table->integer('fiscal_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('tipo_solicitacao_id')->references('id')->on('tipos_solicitacao_de_alteracao');
+            $table->foreign('permissionario_id')->references('id')->on('permissionarios');
+            $table->foreign('condutor_id')->references('id')->on('condutores');
+            $table->foreign('fiscal_id')->references('id')->on('fiscais');
         });
     }
 

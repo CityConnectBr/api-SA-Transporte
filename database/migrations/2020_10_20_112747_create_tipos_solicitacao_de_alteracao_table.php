@@ -15,7 +15,7 @@ class CreateTiposSolicitacaoDeAlteracaoTable extends Migration
     {
         Schema::create('tipos_solicitacao_de_alteracao', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome', 40);
+            $table->string('nome', 40)->unique();
             $table->string('nome_campo1', 40)->nullable();
             $table->string('nome_campo2', 40)->nullable();
             $table->string('nome_campo3', 40)->nullable();
@@ -76,6 +76,11 @@ class CreateTiposSolicitacaoDeAlteracaoTable extends Migration
             $table->string('regex_campo18', 40)->nullable();
             $table->string('regex_campo19', 40)->nullable();
             $table->string('regex_campo20', 40)->nullable();
+            $table->string('regex_campo21', 40)->nullable();
+            $table->string('regex_campo22', 40)->nullable();
+            $table->string('regex_campo23', 40)->nullable();
+            $table->string('regex_campo24', 40)->nullable();
+            $table->string('regex_campo25', 40)->nullable();
             $table->string('desc_arquivo1', 40)->nullable();
             $table->string('desc_arquivo2', 40)->nullable();
             $table->string('desc_arquivo3', 40)->nullable();

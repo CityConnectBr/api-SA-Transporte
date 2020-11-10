@@ -23,15 +23,15 @@ class CreateUsersTable extends Migration
             $table->timestamp('data_hora_ultimo_codigo_de_recuperacao')->nullable();
             $table->string('password');
             $table->integer('tipo_id');
-            $table->integer('permissionario_id')->nullable()->unsigned();
-            //$table->integer('condutor_auxiliar_id')->unsigned();
-            //$table->integer('fiscal_id')->unsigned();
+            $table->integer('permissionario_id')->unsigned()->nullable();;
+            $table->integer('condutor_id')->unsigned()->nullable();
+            $table->integer('fiscal_id')->unsigned()->nullable();;
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('tipo_id')->references('id')->on('tipos_de_usuarios');
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
-            //$table->foreign('condutor_auxiliar_id')->references('id')->on('condutores_auxiliares');
-            //$table->foreign('fiscal_id')->references('id')->on('fiscais');
+            $table->foreign('condutor_id')->references('id')->on('condutores');
+            $table->foreign('fiscal_id')->references('id')->on('fiscais');
         });
     }
 
