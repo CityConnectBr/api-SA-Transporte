@@ -99,7 +99,7 @@ class SolicitacaoDeAlteracaoController extends Controller
         $errors = array();
 
         //Validacao de campos
-        for($i = 1;$i < 21;$i++){
+        for($i = 1;$i < 26;$i++){
             $regexField = $tipoDeSolicitacao['regex_campo'.$i];
 
             if(isset($regexField)){
@@ -142,6 +142,16 @@ class SolicitacaoDeAlteracaoController extends Controller
                 SolicitacaoDeAlteracao::cancel($solicitacaoEmAberto);
             }
         }
+        
+        //setando usuario
+        $user = parent::getUserLogged();
+        if(isset($user->permissionario_id)){
+            $solicitacao->permissionario_id = $user->permissionario_id;
+        }else if(isset($user->fiscal_id)){
+            $solicitacao->fiscal_id = $user->fiscal_id;
+        }else if(isset($user->motorista_id)){
+            $solicitacao->motorista_id = $user->motorista_id;
+        }
 
         $solicitacao->save();
 
@@ -163,7 +173,7 @@ class SolicitacaoDeAlteracaoController extends Controller
      */
     public function show($id)
     {
-        $solicitacao = SolicitacaoDeAlteracao::find($id);
+        $solicitacao = SolicitacaoDeAlteracao::findComplete($id);
         if (isset($solicitacao)) {
             return $solicitacao;
         } else {
@@ -210,11 +220,18 @@ class SolicitacaoDeAlteracaoController extends Controller
     }
 
     public function getdoc($id){
+        
         $solicitacao = SolicitacaoDeAlteracao::find($id);
         if(!asset($solicitacao)){
             return parent::responseMsgJSON("Solicitação não encontrada", 404);
         }
+        
+        $doc = $this->request->query('doc');
+        
+        if(!isset($doc)){
+            $doc = 1;
+        }
 
-        return Storage::download('solicitacao_de_alteracao_arquivos/solicitacao_'.$solicitacao->id.'_arquivo1.jpg');
+        return Storage::download('solicitacao_de_alteracao_arquivos/solicitacao_'.$solicitacao->id.'_arquivo'.$doc.'.jpg');
     }
 }
