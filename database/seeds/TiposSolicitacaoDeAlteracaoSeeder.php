@@ -141,6 +141,12 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo17' => '^.{1,15}$',
             'desc_arquivo1' => 'Comprovante de CNH',
             'desc_arquivo2' => 'Comprovante de Residência',
+            'desc_arquivo3' => 'Foto do Condutor',
+        ]);
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
+            'id' => '6',
+            'nome' => 'condutor_foto',
+            'desc_arquivo1' => 'Foto do Condutor',
         ]);
         ////////////////////////////////////
         ///////////////// PERMISSIONARIO
@@ -226,6 +232,11 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'desc_campo3' => 'vencimento da CNH',
             'regex_campo3' => '^\d{4}-\d{2}-\d{2}$',
             'desc_arquivo1' => 'Comprovante de CNH',
+        ]);
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
+            'id' => '14',
+            'nome' => 'permissionario_foto',
+            'desc_arquivo1' => 'Foto do Permissionário',
         ]);
         ////////////////////////////////////
         ///////////////// MONITORES
@@ -327,6 +338,12 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo13' => '^\d{4}-\d{2}-\d{2}$',
             'desc_arquivo1' => 'Comprovante de Identidade',
             'desc_arquivo2' => 'Comprovante de Residência',
+            'desc_arquivo3' => 'Foto do Monitor',
+        ]);
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
+            'id' => '24',
+            'nome' => 'monitor_foto',
+            'desc_arquivo1' => 'Foto do Monitor',
         ]);
         ////////////////////////////////////
         ///////////////// FISCAL
@@ -377,6 +394,11 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'desc_campo2' => 'cpf',
             'regex_campo2' => '^(\d{11})$',
             'desc_arquivo1' => 'Comprovante de Identificação',
+        ]);
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
+            'id' => '33',
+            'nome' => 'fiscal_foto',
+            'desc_arquivo1' => 'Foto do Fiscal',
         ]);
         ////////////////////////////////////
         ///////////////// VEICULO
