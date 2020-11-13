@@ -4,16 +4,15 @@ namespace app\Http\Controllers\Integracao;
 use App\Http\Controllers\Integracao\IntegracaoController;
 use App\Models\Endereco;
 use Illuminate\Http\Request;
-use App\Models\Condutor;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Permissionario;
+use App\Models\Fiscal;
 
-class CondutorController extends IntegracaoController
+class FiscalController extends IntegracaoController
 {
-    
+
     function __construct()
     {
-        parent::__construct(Condutor::class, [
+        parent::__construct(Fiscal::class, [
             'nome' => [
                 'required',
                 'max:40',
@@ -22,19 +21,10 @@ class CondutorController extends IntegracaoController
             'id_integracao' => [
                 'required',
                 'numeric'
-            ],
-            'situacao' => [
-                'required',
-                'max:1',
-                'min:1'
-            ],
-            'permissionario_id' => [
-                'required',
-                'numeric'
             ]
         ]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +36,7 @@ class CondutorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -58,7 +48,7 @@ class CondutorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -68,31 +58,24 @@ class CondutorController extends IntegracaoController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->validatorList);
-        
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'), true);
-        if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
-        }
-        
+
         $endereco = new Endereco();
         $endereco->fill($request->all());
         $endereco->save();
-        
-        $condutor = new Condutor();
-        $condutor->fill($request->all());
-        $condutor->permissionario_id = $permissionario->id;
-        $condutor->cpf = $condutor->id_integracao;
-        $condutor->endereco_id = $endereco->id;
-        
-        $condutor->save();
-        
-        return $condutor;
+
+        $fiscal = new Fiscal();
+        $fiscal->fill($request->all());
+        $fiscal->endereco_id = $endereco->id;
+
+        $fiscal->save();
+
+        return $fiscal;
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -101,14 +84,14 @@ class CondutorController extends IntegracaoController
      */
     public function show($id)
     {
-        $condutor = Condutor::findByIntegracaoComplete($id, true);
-        if (isset($condutor)) {
-            return $condutor;
+        $fiscal = Fiscal::findByIntegracaoComplete($id);
+        if (isset($fiscal)) {
+            return $fiscal;
         } else {
-            return parent::responseMsgJSON("Condutor não encontrado", 404);
+            return parent::responseMsgJSON("Fiscal não encontrado", 404);
         }
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -121,7 +104,7 @@ class CondutorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -132,40 +115,33 @@ class CondutorController extends IntegracaoController
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), $this->validatorList);
-        
+
         if ($validator->fails()) {
             return parent::responseJSON($validator->errors(), 400);
         }
-        
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'), true);
-        if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
-        }
-        
-        $condutor = Condutor::findByIntegracaoComplete($id, true);
+
+        $fiscal = Fiscal::findByIntegracaoComplete($id);
         if (isset($request["id_real"])) {
-            $condutor = Condutor::findComplete($id, true);
+            $fiscal = Fiscal::findComplete($id);
         }
-        
-        if (isset($condutor)) {
+
+        if (isset($fiscal)) {
             unset($request['id']);
             unset($request['endereco_id']);
-            
-            $condutor->fill($request->all());
-            $condutor->versao ++;
-            $condutor->endereco->fill($request->all());
-            $condutor->cpf = $condutor->id_integracao;
-            $condutor->permissionario_id = $permissionario->id;
-            
-            $condutor->save();
-            $condutor->endereco->save();
-            
-            return $condutor;
+
+            $fiscal->fill($request->all());
+            $fiscal->versao ++;
+            $fiscal->endereco->fill($request->all());
+
+            $fiscal->save();
+            $fiscal->endereco->save();
+
+            return $fiscal;
         } else {
-            return parent::responseMsgJSON("Condutor não encontrado", 404);
+            return parent::responseMsgJSON("Fiscal não encontrado", 404);
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
