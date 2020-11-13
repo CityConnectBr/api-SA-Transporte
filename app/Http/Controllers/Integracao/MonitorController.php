@@ -4,16 +4,16 @@ namespace app\Http\Controllers\Integracao;
 use App\Http\Controllers\Integracao\IntegracaoController;
 use App\Models\Endereco;
 use Illuminate\Http\Request;
-use App\Models\Condutor;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Monitor;
 use App\Models\Permissionario;
 
-class CondutorController extends IntegracaoController
+class MonitorController extends IntegracaoController
 {
     
     function __construct()
     {
-        parent::__construct(Condutor::class, [
+        parent::__construct(Monitor::class, [
             'nome' => [
                 'required',
                 'max:40',
@@ -21,7 +21,6 @@ class CondutorController extends IntegracaoController
             ],
             'id_integracao' => [
                 'required',
-                'numeric'
             ],
             'situacao' => [
                 'required',
@@ -82,15 +81,15 @@ class CondutorController extends IntegracaoController
         $endereco->fill($request->all());
         $endereco->save();
         
-        $condutor = new Condutor();
-        $condutor->fill($request->all());
-        $condutor->permissionario_id = $permissionario->id;
-        $condutor->cpf = $condutor->id_integracao;
-        $condutor->endereco_id = $endereco->id;
+        $monitor = new Monitor();
+        $monitor->fill($request->all());
+        $monitor->rg = $monitor->id_integracao;
+        $monitor->permissionario_id = $permissionario->id;
+        $monitor->endereco_id = $endereco->id;
         
-        $condutor->save();
+        $monitor->save();
         
-        return $condutor;
+        return $monitor;
     }
     
     /**
@@ -101,11 +100,11 @@ class CondutorController extends IntegracaoController
      */
     public function show($id)
     {
-        $condutor = Condutor::findByIntegracaoComplete($id, true);
-        if (isset($condutor)) {
-            return $condutor;
+        $monitor = Monitor::findByIntegracaoComplete($id, true);
+        if (isset($monitor)) {
+            return $monitor;
         } else {
-            return parent::responseMsgJSON("Condutor não encontrado", 404);
+            return parent::responseMsgJSON("Monitor não encontrado", 404);
         }
     }
     
@@ -142,27 +141,27 @@ class CondutorController extends IntegracaoController
             return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
         }
         
-        $condutor = Condutor::findByIntegracaoComplete($id, true);
+        $monitor = Monitor::findByIntegracaoComplete($id, true);
         if (isset($request["id_real"])) {
-            $condutor = Condutor::findComplete($id, true);
+            $monitor = Monitor::findComplete($id, true);
         }
         
-        if (isset($condutor)) {
+        if (isset($monitor)) {
             unset($request['id']);
             unset($request['endereco_id']);
             
-            $condutor->fill($request->all());
-            $condutor->versao ++;
-            $condutor->endereco->fill($request->all());
-            $condutor->cpf = $condutor->id_integracao;
-            $condutor->permissionario_id = $permissionario->id;
+            $monitor->fill($request->all());
+            $monitor->versao ++;
+            $monitor->endereco->fill($request->all());
+            $monitor->rg = $monitor->id_integracao;
+            $monitor->permissionario_id = $permissionario->id;
             
-            $condutor->save();
-            $condutor->endereco->save();
+            $monitor->save();
+            $monitor->endereco->save();
             
-            return $condutor;
+            return $monitor;
         } else {
-            return parent::responseMsgJSON("Condutor não encontrado", 404);
+            return parent::responseMsgJSON("Monitor não encontrado", 404);
         }
     }
     

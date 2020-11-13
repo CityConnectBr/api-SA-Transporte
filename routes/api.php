@@ -72,6 +72,8 @@ Route::group([
     'prefix' => 'integracao'
 ], function () {
     Route::name('integracao.')->group(function () {
+        Route::resource('/fiscais', 'Integracao\FiscalController');
+        Route::resource('/monitores', 'Integracao\MonitorController');
         Route::resource('/permissionarios', 'Integracao\PermissionarioController');
         Route::resource('/coresveiculos', 'Integracao\CorVeiculoController');
         Route::resource('/marcasmodeloscarrocerias', 'Integracao\MarcaModeloCarroceriaController');
