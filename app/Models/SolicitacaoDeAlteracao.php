@@ -78,9 +78,7 @@ class SolicitacaoDeAlteracao extends Model
     // /////////////////
     public static function findComplete($id)
     {
-        return SolicitacaoDeAlteracao::
-            with("tipo")
-            ->with("permissionario")
+        return SolicitacaoDeAlteracao::with("tipo")->with("permissionario")
             ->with("condutor")
             ->with("fiscal")
             ->find($id);
@@ -115,5 +113,26 @@ class SolicitacaoDeAlteracao extends Model
     public static function findAllNotSinc()
     {
         return SolicitacaoDeAlteracao::where('status', null)->where('sincronizado', false)->get();
+    }
+
+    public static function search($usuario, $tipo, $referencia)
+    {
+        if (isset($usuario->permissionario_id)) {
+            $query = SolicitacaoDeAlteracao::where("permissionario_id", "=", $usuario->permissionario_id)->with("permissionario");
+        } else if (isset($usuario->fiscal_id)) {
+            $query = SolicitacaoDeAlteracao::where("fiscal_id", "=", $usuario->permissionario_id)->with("fiscal");
+        } else if (isset($usuario->condutor_id)) {
+            $query = SolicitacaoDeAlteracao::where("condutor_id", "=", $usuario->permissionario_id)->with("condutor");
+        }
+        
+        if(isset($tipo)){
+            $query->where("tipo_solicitacao_id", "=", $tipo);
+        }
+        
+        if(isset($referencia)){
+            $query->where("referencia_id", "=", $referencia);
+        }
+
+        return $query->orderBy("created_at")->paginate(40);
     }
 }
