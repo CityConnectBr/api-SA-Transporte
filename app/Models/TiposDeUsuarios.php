@@ -10,4 +10,11 @@ class TiposDeUsuarios extends Model
         'id',
         'nome'
     ];
+    
+    //
+    
+    public static function findByName($name)
+    {
+        return TiposDeUsuarios::where("nome", $name)->first();
+    }
 }

@@ -46,4 +46,9 @@ class Fiscal extends Model
             ->orderBy("nome")
             ->paginate(40);
     }
+    
+    public static function firstByCpf($cpf)
+    {
+        return Fiscal::where("cpf", $cpf)->first();
+    }
 }

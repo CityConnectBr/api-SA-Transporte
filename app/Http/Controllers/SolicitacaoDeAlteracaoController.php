@@ -11,6 +11,7 @@ use App\Models\Veiculo;
 use App\Models\Permissionario;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Monitor;
+use App\Models\Fiscal;
 
 class SolicitacaoDeAlteracaoController extends Controller
 {
@@ -56,6 +57,38 @@ class SolicitacaoDeAlteracaoController extends Controller
     }
 
     /**
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeFromUser(Request $request)
+    {
+        $tipoDeSolicitacao = TipoDeSolicitacaoDeAlteracao::find($request["tipo_solicitacao_id"]);
+
+        if (! isset($tipoDeSolicitacao)) {
+            return parent::responseMsgJSON("Tipo de solicitação não encontrado!", 400);
+        }
+
+        $usuario = parent::getUserLogged();
+
+        if (isset($usuario->permissionario_id) && strpos($tipoDeSolicitacao->nome, 'permissionario') !== false) {
+            $referencia = $usuario->permissionario_id;
+        } else if (isset($usuario->fiscal_id) && strpos($tipoDeSolicitacao->nome, 'fiscal') !== false) {
+            $referencia = $usuario->fiscal_id;
+        } else if (isset($usuario->condutor_id) && strpos($tipoDeSolicitacao->nome, 'condutor') !== false) {
+            $referencia = $usuario->condutor_id;
+        }
+
+        if (! isset($referencia)) {
+            return parent::responseMsgJSON("Usuário logado nao corresponde ao tipo de solicitação de alteração!", 400);
+        }
+
+        $request['referencia_id'] = $referencia;
+
+        return $this->store($request);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -63,6 +96,7 @@ class SolicitacaoDeAlteracaoController extends Controller
      */
     public function store(Request $request)
     {
+
         // $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         // $out->writeln("001");
         $validator = Validator::make($request->all(), $this->validatorList);
@@ -90,6 +124,9 @@ class SolicitacaoDeAlteracaoController extends Controller
         }
         if (strpos($tipoDeSolicitacao->nome, 'monitor') !== false) {
             $objRef = Monitor::find($request["referencia_id"]);
+        }
+        if (strpos($tipoDeSolicitacao->nome, 'fiscal') !== false) {
+            $objRef = Fiscal::find($request["referencia_id"]);
         }
 
         // if(!isset($objRef)){

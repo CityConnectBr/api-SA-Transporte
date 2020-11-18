@@ -27,9 +27,9 @@ Route::group([
 ], function () {
     Route::name('api.')->group(function () {
         Route::get('/user', 'UsuarioController@user')->name('user');
-        Route::put('/user', 'UsuarioController@update')->name('user.update');
+        Route::post('/user/solicitacaodealteracao', 'SolicitacaoDeAlteracaoController@storeFromUser')->name('user.updatePassword');
         Route::patch('/password', 'UsuarioController@updatePassword')->name('user.updatePassword');
-
+        
         // permissionarios
         Route::group([
             'middleware' => [
@@ -78,6 +78,19 @@ Route::group([
         // condutor
 
         // fiscal
+        Route::group([
+            'middleware' => [
+                'fiscal'
+            ],
+            'prefix' => 'fiscais'
+        ], function () {
+            Route::name('fiscais.')->group(function () {
+                
+                Route::get('/veiculos', 'CondutorController@index');
+                Route::get('/veiculos/{id}', 'CondutorController@show');
+                
+            });
+        });
     });
 });
 

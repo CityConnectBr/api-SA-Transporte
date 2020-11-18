@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\TiposDeUsuarios;
 use Carbon\Carbon;
 use App\Mail\PasswordRecover;
-use App\Models\Endereco;
-use Illuminate\Support\Facades\Log;
+use App\Models\Fiscal;
 
 class UsuarioController extends Controller
 {
@@ -54,219 +53,61 @@ class UsuarioController extends Controller
             ],
             'password' => [
                 'required'
-            ],
-            // ///////////// PERMISSIONARIO
-            'rg' => [
-                'max:15'
-            ],
-            'inscricao_municipal' => [
-                'max:15'
-            ],
-            'telefone' => [
-                'max:8'
-            ],
-            'telefone2' => [
-                'max:9'
-            ],
-            'celular' => [
-                'max:9'
-            ],
-            'data_nascimento' => [
-                'max:11'
-            ],
-            'naturalidade' => [
-                'max:15'
-            ],
-            'nacionalidade' => [
-                'max:15'
-            ],
-            'cnh' => [
-                'max:15'
-            ],
-            'categoria_cnh' => [
-                'max:1'
-            ],
-            'vencimento_cnh' => [
-                'max:11'
             ]
         ]);
 
         if ($validator->fails()) {
             return parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        // PESQUISANDO USUARIOS
+        $user = Usuario::findByCpfCnpj($request['cpf_cnpj']);
+        if (isset($user)) {
+            return parent::responseMsgJSON("CPF ou CNPJ já cadastrado", 400);
+        }
+
+        $user = Usuario::findByEmail($request['email']);
+        if (isset($user)) {
+            return parent::responseMsgJSON("E-mail já cadastrado", 400);
+        }
+
+        $user = Usuario::findByCNH($request['cnh']);
+        if (isset($user)) {
+            return parent::responseMsgJSON("CNH já cadastrada", 400);
         }
 
         $user = new Usuario();
         $user->fill($request->all());
         $user->password = hash::make($request->input("password"));
 
+        // BUSCANDO PERMISSIONARIO
         $permissionario = Permissionario::firstByCpfCnpj($user->cpf_cnpj);
-
-        if (!isset($permissionario) && isset($user->cnh)) {
+        if (! isset($permissionario) && isset($user->cnh)) {
             $permissionario = Permissionario::firstByCnh($user->cnh);
         }
 
-        if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Nenhum permissionário previamente cadastrado", 404);
+        // BUSCANDO FISCAL
+        $fiscal = Fiscal::firstByCpf($user->cpf_cnpj);
+
+        if (! isset($permissionario) && ! isset($fiscal)) {
+            return parent::responseMsgJSON("Nenhum permissionário, fiscal ou condutor previamente cadastrado", 404);
         }
 
         if (count(Usuario::findByEmailOrCpfCnpj($user->email, $user->cpf_cnpj)) > 0) {
             return parent::responseMsgJSON("Usuário já cadastrado", 404);
         }
-        
 
-        // setando tipo
-        // posteriormente verificar entre os tipos existentes(fisca, condutor e etc...)
-        $user->tipo_id = TiposDeUsuarios::where('nome', "permissionário")->first()->id;
-
-        $user->permissionario_id = $permissionario->id;
-        $user->save();
-
-        // atualizando email do permissionario
-        $permissionario->email = $user->email;
-        $permissionario->versao ++;
-        $permissionario->save();
+        if (isset($permissionario)) {
+            $user->tipo_id = TiposDeUsuarios::findByName("permissionário")->id;
+            $user->permissionario_id = $permissionario->id;
+            $user->save();
+        } else if (isset($fiscal)) {
+            $user->tipo_id = TiposDeUsuarios::findByName("fiscal")->id;
+            $user->fiscal_id = $fiscal->id;
+            $user->save();
+        }
 
         return Usuario::findComplete($user->id);
-    }
-
-    public function update(Request $request)
-    {
-        // Log::channel('stderr')->info('aki!');
-        $validator = Validator::make($request->all(), [
-            // ///////////// COMUNS
-            'nome' => [
-                'required',
-                'min:4',
-                'max:100'
-            ]
-        ]);
-
-        if ($validator->fails()) {
-            return parent::responseMsgsJSON($validator->errors(), 400);
-        }
-
-        $user = parent::getUserLogged();
-
-        $user->nome = $request->input("nome");
-        $user->save();
-
-        $permissionario = $user->permissionario;
-        if (isset($permissionario) && isset($request->all()['permissionario'])) {
-
-            $validator = Validator::make($request->all(), [
-                // ///////////// PERMISSIONARIO
-                'permissionario.rg' => [
-                    'max:15'
-                ],
-                'permissionario.inscricao_municipal' => [
-                    'max:15'
-                ],
-                'permissionario.telefone' => [
-                    'max:8'
-                ],
-                'permissionario.telefone2' => [
-                    'max:9'
-                ],
-                'permissionario.celular' => [
-                    'max:9'
-                ],
-                'permissionario.data_nascimento' => [
-                    'required',
-                    'max:11'
-                ],
-                'permissionario.naturalidade' => [
-                    'max:15'
-                ],
-                'permissionario.nacionalidade' => [
-                    'max:15'
-                ],
-                'permissionario.cnh' => [
-                    'max:15'
-                ],
-                'permissionario.categoria_cnh' => [
-                    'max:2'
-                ],
-                'permissionario.vencimento_cnh' => [
-                    'max:11'
-                ]
-            ]);
-
-            if ($validator->fails()) {
-                return parent::responseMsgsJSON($validator->errors(), 400);
-            }
-
-            // limpando dados que nao devem ser alterados
-            $permissionarioFromRequest = $request['permissionario'];
-            unset($permissionarioFromRequest["id"]);
-            unset($permissionarioFromRequest["email"]);
-            unset($permissionarioFromRequest["id_integracao"]);
-            unset($permissionarioFromRequest["modalidade_id"]);
-            unset($permissionarioFromRequest["situacao"]);
-            unset($permissionarioFromRequest["tipo"]);
-            unset($permissionarioFromRequest["cpf_cnpj"]);
-            unset($permissionarioFromRequest["versao"]);
-            
-            $permissionario->fill($permissionarioFromRequest);
-            
-            $permissionario->versao ++;
-            $permissionario->save();
-
-            $endereco = $permissionario->endereco;
-            if (isset($endereco) && isset($request->all()['permissionario']['endereco'])) {
-
-                $validator = Validator::make($request->all(), [
-                    // ///////////// ENDERECO
-                    'permissionario.endereco.cep' => [
-                        'required',
-                        'min:4',
-                        'max:40'
-                    ],
-                    'permissionario.endereco.endereco' => [
-                        'required',
-                        'min:4',
-                        'max:40'
-                    ],
-                    'permissionario.endereco.numero' => [
-                        'required',
-                        'min:1',
-                        'max:5'
-                    ],
-                    'permissionario.endereco.complemento' => [
-                        'required',
-                        'min:4',
-                        'max:15'
-                    ],
-                    'permissionario.endereco.bairro' => [
-                        'required',
-                        'min:4',
-                        'max:100'
-                    ],
-                    'permissionario.endereco.municipio' => [
-                        'required',
-                        'min:2',
-                        'max:15'
-                    ],
-                    'permissionario.endereco.uf' => [
-                        'required',
-                        'min:2',
-                        'max:2'
-                    ]
-                ]);
-
-                if ($validator->fails()) {
-                    return parent::responseMsgsJSON($validator->errors(), 400);
-                }
-
-                // limpando dados que nao devem ser alterados
-                $enderecoFromRequest = $request->all()['permissionario']['endereco'];
-                unset($enderecoFromRequest["id"]);
-
-                $endereco->fill($enderecoFromRequest);
-                $endereco->save();
-            }
-        }
-
-        return parent::responseMsgJSON("Alterado com sucesso");
     }
 
     public function updatePassword(Request $request)
@@ -429,8 +270,20 @@ class UsuarioController extends Controller
     public function user()
     {
         $user = parent::getUserLogged();
-        $user->permissionario->modalidade; // carregando modalidade
-        $user->permissionario->endereco; // carregando modalidade
+
+        switch ($user->tipo_id) {
+            case 1:
+                $user->permissionario->modalidade; // carregando modalidade
+                $user->permissionario->endereco; // carregando endereco
+                break;
+            case 2:
+                $user->condutor->endereco; // carregando endereco
+                $user->condutor->permissionario; // carregando permissionario
+                break;
+            case 3:
+                $user->fiscal->endereco; // carregando endereco
+                break;
+        }
 
         return $user;
     }
