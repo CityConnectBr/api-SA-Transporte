@@ -120,9 +120,9 @@ class SolicitacaoDeAlteracao extends Model
         if (isset($usuario->permissionario_id)) {
             $query = SolicitacaoDeAlteracao::where("permissionario_id", "=", $usuario->permissionario_id)->with("permissionario");
         } else if (isset($usuario->fiscal_id)) {
-            $query = SolicitacaoDeAlteracao::where("fiscal_id", "=", $usuario->permissionario_id)->with("fiscal");
+            $query = SolicitacaoDeAlteracao::where("fiscal_id", "=", $usuario->fiscal_id)->with("fiscal");
         } else if (isset($usuario->condutor_id)) {
-            $query = SolicitacaoDeAlteracao::where("condutor_id", "=", $usuario->permissionario_id)->with("condutor");
+            $query = SolicitacaoDeAlteracao::where("condutor_id", "=", $usuario->condutor_id)->with("condutor");
         }
         
         if(isset($tipo)){
