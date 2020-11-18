@@ -2,10 +2,10 @@
 namespace app\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Condutor;
 use App\Http\Controllers\Controller;
+use App\Models\Monitor;
 
-class CondutorController extends Controller
+class MonitorController extends Controller
 {
 
     function __construct(Request $request)
@@ -20,7 +20,7 @@ class CondutorController extends Controller
      */
     public function index()
     {
-        return Condutor::search(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
+        return Monitor::search(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
     }
 
 
@@ -32,7 +32,7 @@ class CondutorController extends Controller
      */
     public function show($id)
     {
-        $condutor = Condutor::findComplete($id);
+        $condutor = Monitor::findComplete($id);
         if (isset($condutor)) {
             return $condutor;
         } else {

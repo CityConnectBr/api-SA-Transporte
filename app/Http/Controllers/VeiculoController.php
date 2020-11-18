@@ -93,25 +93,9 @@ class VeiculoController extends Controller
      */
     public function store(Request $request)
     {
-        $categoriaID = $request['categoria_id'];
-        if (! isset($categoriaID)) {
-            return parent::responseMsgJSON("Categoria do veículo não determinada", 404);
-        }
-
-        $validator = Validator::make($request->all(), $categoriaID == 1 ? $this->validatorVeiculosList : $this->validatorOnibusList);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
-        $veiculo = new Veiculo();
-        $veiculo->fill($request->all());
-        $veiculo->permissionario_id = parent::getUserLogged()->permissionario_id;
-        $veiculo->situacao = "A";
-
-        $veiculo->save();
-
-        return $veiculo;
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
     }
 
     /**
@@ -150,29 +134,9 @@ class VeiculoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $veiculo = Veiculo::findComplete($id);
-        if (isset($veiculo)) {
-
-            $categoriaID = $request['categoria_id'];
-            if (! isset($categoriaID)) {
-                return parent::responseMsgJSON("Categoria do veículo não determinada", 404);
-            }
-
-            $validator = Validator::make($request->all(), $categoriaID == 1 ? $this->validatorVeiculosList : $this->validatorOnibusList);
-
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 400);
-            }
-
-            $veiculo->fill($request->all());
-            $veiculo->versao ++;
-
-            $veiculo->save();
-
-            return parent::responseMsgJSON("Alterado com sucesso");
-        } else {
-            return parent::responseMsgJSON("Veiculo não encontrado", 404);
-        }
+        return response()->json([
+            "Message" => "Não implementado!"
+        ], 501);
     }
 
     /**

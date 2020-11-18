@@ -67,9 +67,9 @@ class Monitor extends Model
         }
     }
     
-    public static function search($monitor_id, $search)
+    public static function search($permissionario_id, $search)
     {
-        return Monitor::where("permissionario_id", "=", $monitor_id)->where("nome", "like", "%" . $search . "%")
+        return Monitor::where("permissionario_id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
         ->with("endereco")
         ->with("permissionario")
         ->orderBy("nome")

@@ -40,22 +40,38 @@ Route::group([
             Route::name('permissionarios.')->group(function () {
 
                 // Route::get('/condutores', 'CondutorController@index')->name('condutores.index');
-
-                Route::resource('/veiculos', 'VeiculoController');
-                Route::resource('/coresveiculos', 'CorVeiculoController');
-                Route::resource('/marcasmodeloscarrocerias', 'MarcaModeloCarroceriaController');
-                Route::resource('/marcasmodeloschassis', 'MarcaModeloChassiController');
-                Route::resource('/marcasmodelosveiculos', 'MarcaModeloVeiculoController');
-                Route::resource('/tiposcombustiveis', 'TipoCombustivelController');
-                Route::resource('/tiposveiculos', 'TipoVeiculoController');
-
-                Route::resource('/condutores', 'CondutorController');
-
-                // Route::get('/condutores', 'CondutorController@index')->name('condutores.index');
+                
+                Route::get('/coresveiculos', 'CorVeiculoController@index');
+                Route::get('/coresveiculos/{id}', 'CorVeiculoController@show');
+                
+                Route::get('/marcasmodeloscarrocerias', 'MarcaModeloCarroceriaController@index');
+                Route::get('/marcasmodeloscarrocerias/{id}', 'MarcaModeloCarroceriaController@show');
+                
+                Route::get('/marcasmodeloschassis', 'MarcaModeloChassiController@index');
+                Route::get('/marcasmodeloschassis/{id}', 'MarcaModeloChassiController@show');
+                
+                Route::get('/marcasmodelosveiculos', 'MarcaModeloVeiculoController@index');
+                Route::get('/marcasmodelosveiculos/{id}', 'MarcaModeloVeiculoController@show');
+                
+                Route::get('/tiposcombustiveis', 'TipoCombustivelController@index');
+                Route::get('/tiposcombustiveis/{id}', 'TipoCombustivelController@show');
+                
+                Route::get('/tiposveiculos', 'TipoVeiculoController@index');
+                Route::get('/tiposveiculos/{id}', 'TipoVeiculoController@show');
+                
+                Route::get('/veiculos', 'CondutorController@index');
+                Route::get('/veiculos/{id}', 'CondutorController@show');
+                
+                Route::get('/condutores', 'CondutorController@index');
+                Route::get('/condutores/{id}', 'CondutorController@show');
+                
+                Route::get('/monitores', 'MonitorController@index');
+                Route::get('/monitores/{id}', 'MonitorController@show');
+                
+                Route::get('/monitores', 'MonitorController@index');
+                Route::get('/monitores/{id}', 'MonitorController@show');
 
                 Route::resource('/solicitacaodealteracao', 'SolicitacaoDeAlteracaoController');
-
-                // Route::get('/user', 'UsuarioController@user')->name('user');
             });
         });
 
