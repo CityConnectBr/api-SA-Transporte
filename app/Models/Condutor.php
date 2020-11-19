@@ -79,6 +79,11 @@ class Condutor extends Model
             ->with("permissionario")
             ->orderBy("nome")
             ->paginate(40);
+    }  
+    
+    public static function firstByCNH($cnh)
+    {
+        return Condutor::where("cnh", $cnh)->first();
     }
 
 }

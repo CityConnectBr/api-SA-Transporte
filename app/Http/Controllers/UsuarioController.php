@@ -12,6 +12,7 @@ use App\Models\TiposDeUsuarios;
 use Carbon\Carbon;
 use App\Mail\PasswordRecover;
 use App\Models\Fiscal;
+use App\Models\Condutor;
 
 class UsuarioController extends Controller
 {
@@ -89,7 +90,10 @@ class UsuarioController extends Controller
         // BUSCANDO FISCAL
         $fiscal = Fiscal::firstByCpf($user->cpf_cnpj);
 
-        if (! isset($permissionario) && ! isset($fiscal)) {
+        // BUSCANDO condutor
+        $condutor = Condutor::firstByCNH($user->cnh);
+
+        if (! isset($permissionario) && ! isset($fiscal) && ! isset($condutor)) {
             return parent::responseMsgJSON("Nenhum permissionário, fiscal ou condutor previamente cadastrado", 404);
         }
 
@@ -105,6 +109,12 @@ class UsuarioController extends Controller
             $user->tipo_id = TiposDeUsuarios::findByName("fiscal")->id;
             $user->fiscal_id = $fiscal->id;
             $user->save();
+        }else if (isset($condutor)) {
+            $user->tipo_id = TiposDeUsuarios::findByName("condutor")->id;
+            $user->condutor_id = $condutor->id;
+            $user->save();
+        }else{
+            return parent::responseMsgJSON("Usuário não pode ser cadastrado", 404);
         }
 
         return Usuario::findComplete($user->id);

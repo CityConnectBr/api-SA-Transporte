@@ -22,7 +22,7 @@ class Usuario extends Authenticatable implements JWTSubject
         'password',
         'permissionario_id',
         'fiscal_id',
-        'monitor_id',
+        'condutor_id',
         'tipo_id',
         'codigo_de_recuperacao',
         'data_hora_ultimo_codigo_de_recuperacao'
