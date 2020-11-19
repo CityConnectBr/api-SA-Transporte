@@ -72,9 +72,11 @@ class UsuarioController extends Controller
             return parent::responseMsgJSON("E-mail já cadastrado", 400);
         }
 
-        $user = Usuario::findByCNH($request['cnh']);
-        if (isset($user)) {
-            return parent::responseMsgJSON("CNH já cadastrada", 400);
+        if(isset($request['cnh']) && !empty($request['cnh'])){
+            $user = Usuario::findByCNH($request['cnh']);
+            if (isset($user)) {
+                return parent::responseMsgJSON("CNH já cadastrada", 400);
+            }
         }
 
         $user = new Usuario();
