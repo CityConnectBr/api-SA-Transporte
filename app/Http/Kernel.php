@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'permissionario' => \App\Http\Middleware\Permissionario::class,
         'fiscal' => \App\Http\Middleware\Fiscal::class,
+        'condutor' => \App\Http\Middleware\Condutor::class,
         'accessdoc' => \App\Http\Middleware\AuthenticateDocAccess::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

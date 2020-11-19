@@ -76,7 +76,18 @@ Route::group([
         });
 
         // condutor
-
+        Route::group([
+            'middleware' => [
+                'condutor'
+            ],
+            'prefix' => 'condutores'
+        ], function () {
+            Route::name('condutores.')->group(function () {
+                
+                
+            });
+        });
+        
         // fiscal
         Route::group([
             'middleware' => [
