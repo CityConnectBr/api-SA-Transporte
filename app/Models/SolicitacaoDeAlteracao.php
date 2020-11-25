@@ -7,7 +7,7 @@ class SolicitacaoDeAlteracao extends Model
 {
 
     protected $fillable = [
-        'referencia_id',
+        'referencia_remota_id',
         'sincronizado',
         'status', // A-ACEITO,R-RECUSADO,C-CANCELADO,NULL-AGUARDANDO
         'motivo_recusado',
@@ -39,19 +39,19 @@ class SolicitacaoDeAlteracao extends Model
         'tipo_solicitacao_id',
         'permissionario_id',
         'condutor_id',
-        'fiscal_id'
+        'fiscal_id',
+        'referencia_fiscal_id',
+        'referencia_permissionario_id',
+        'referencia_monitor_id',
+        'referencia_condutor_id',
+        'referencia_veiculo_id',
     ];
 
     protected $attributes = [
         'sincronizado' => false
     ];
 
-    protected $temporaly = [
-        'arquivo1',
-        'arquivo2',
-        'arquivo3',
-        'arquivo4'
-    ];
+    public $referencia_id;
 
     protected $table = 'solicitacoes_de_alteracao';
 
@@ -84,9 +84,16 @@ class SolicitacaoDeAlteracao extends Model
             ->find($id);
     }
 
-    public static function findAllWaitingByReference($referenceId)
+    public static function findAllWaitingByReference($tipo, $referenceId)
     {
-        return SolicitacaoDeAlteracao::where('status', null)->where('referencia_id', $referenceId)->get();
+        return SolicitacaoDeAlteracao::where('status', null)->where('tipo_solicitacao_id', $tipo)
+        ->where(function ($q) use ($referenceId){
+            $q->orWhere('referencia_fiscal_id', $referenceId)
+            ->orWhere('referencia_permissionario_id', $referenceId)
+            ->orWhere('referencia_monitor_id', $referenceId)
+            ->orWhere('referencia_condutor_id', $referenceId)
+            ->orWhere('referencia_veiculo_id', $referenceId);
+        })->get();
     }
 
     public static function cancel($solicitacao)
@@ -115,7 +122,7 @@ class SolicitacaoDeAlteracao extends Model
         return SolicitacaoDeAlteracao::where('status', null)->where('sincronizado', false)->get();
     }
 
-    public static function search($usuario, $tipo, $referencia)
+    public static function search($usuario, $tipo, $referencia, $status)
     {
         if (isset($usuario->permissionario_id)) {
             $query = SolicitacaoDeAlteracao::where("permissionario_id", "=", $usuario->permissionario_id)->with("permissionario");
@@ -129,8 +136,22 @@ class SolicitacaoDeAlteracao extends Model
             $query->where("tipo_solicitacao_id", "=", $tipo);
         }
         
+        if(isset($status)){
+            if(strcmp("null", $status)==0){
+                $query->where("status", "=", null);
+            }else{
+                $query->where("status", "=", $status);
+            }
+        }
+        
         if(isset($referencia)){
-            $query->where("referencia_id", "=", $referencia);
+            $query->where(function ($q) use ($referencia){
+                $q->orWhere('referencia_fiscal_id', $referencia)
+                ->orWhere('referencia_permissionario_id', $referencia)
+                ->orWhere('referencia_monitor_id', $referencia)
+                ->orWhere('referencia_condutor_id', $referencia)
+                ->orWhere('referencia_veiculo_id', $referencia);
+            });
         }
 
         return $query->orderBy("created_at")->paginate(40);

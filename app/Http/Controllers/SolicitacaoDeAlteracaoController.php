@@ -34,6 +34,25 @@ class SolicitacaoDeAlteracaoController extends Controller
         ]
     ];
 
+    public function findIdReferenciaId($tipoDeSolicitacao, $referenciaId)
+    {
+        if (strpos($tipoDeSolicitacao->nome, 'condutor') !== false) {
+            $refObj = Condutor::find($referenciaId);
+        } else if (strpos($tipoDeSolicitacao->nome, 'veiculo') !== false) {
+            $refObj = Veiculo::find($referenciaId);
+        } else if (strpos($tipoDeSolicitacao->nome, 'onibus') !== false) {
+            $refObj = Veiculo::find($referenciaId);
+        } else if (strpos($tipoDeSolicitacao->nome, 'permissionario') !== false) {
+            $refObj = Permissionario::find($referenciaId);
+        } else if (strpos($tipoDeSolicitacao->nome, 'monitor') !== false) {
+            $refObj = Monitor::find($referenciaId);
+        } else if (strpos($tipoDeSolicitacao->nome, 'fiscal') !== false) {
+            $refObj = Fiscal::find($referenciaId);
+        }
+
+        return $refObj != null ? $refObj->id : null;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +60,12 @@ class SolicitacaoDeAlteracaoController extends Controller
      */
     public function index()
     {
-        return SolicitacaoDeAlteracao::search(parent::getUserLogged(), $this->request->query->get("tipo"), $this->request->query->get("referencia"));
+        return SolicitacaoDeAlteracao::search(
+            parent::getUserLogged(), 
+            $this->request->query->get("tipo"), 
+            $this->request->query->get("referencia"), 
+            $this->request->query->get("status")
+        );
     }
 
     /**
@@ -111,30 +135,38 @@ class SolicitacaoDeAlteracaoController extends Controller
             return parent::responseMsgJSON("Tipo de solicitação não encontrado!", 400);
         }
 
-        if (strpos($tipoDeSolicitacao->nome, 'condutor') !== false) {
-            $objRef = Condutor::find($request["referencia_id"]);
-        } else if (strpos($tipoDeSolicitacao->nome, 'veiculo') !== false) {
-            $objRef = Veiculo::find($request["referencia_id"]);
-        }
-        if (strpos($tipoDeSolicitacao->nome, 'onibus') !== false) {
-            $objRef = Veiculo::find($request["referencia_id"]);
-        }
-        if (strpos($tipoDeSolicitacao->nome, 'permissionario') !== false) {
-            $objRef = Permissionario::find($request["referencia_id"]);
-        }
-        if (strpos($tipoDeSolicitacao->nome, 'monitor') !== false) {
-            $objRef = Monitor::find($request["referencia_id"]);
-        }
-        if (strpos($tipoDeSolicitacao->nome, 'fiscal') !== false) {
-            $objRef = Fiscal::find($request["referencia_id"]);
-        }
+        // procurando a referencia remota
+        if (isset($request["referencia_id"])) {
+            $idReferenciaRemota = $this->findIdReferenciaId($tipoDeSolicitacao, $request["referencia_id"]);
 
-        // if(!isset($objRef)){
-        // return parent::responseMsgJSON("Referência não encontrada!", 400);
-        // }
+            if (! isset($idReferenciaRemota)) {
+                return parent::responseMsgJSON("Referência não encontrada!", 400);
+            }
+        }
 
         $solicitacao = new SolicitacaoDeAlteracao();
         $solicitacao->fill($request->all());
+        if (isset($idReferenciaRemota)) {
+            $solicitacao->referencia_id = $request["referencia_id"];
+            $solicitacao->referencia_remota_id = $idReferenciaRemota;
+        }
+
+        // setando tando referencia local
+        if (isset($request["referencia_id"])) {
+            if (strpos($tipoDeSolicitacao->nome, 'condutor') !== false) {
+                $solicitacao->referencia_condutor_id = $request["referencia_id"];
+            } else if (strpos($tipoDeSolicitacao->nome, 'veiculo') !== false) {
+                $solicitacao->referencia_veiculo_id = $request["referencia_id"];
+            } else if (strpos($tipoDeSolicitacao->nome, 'onibus') !== false) {
+                $solicitacao->referencia_veiculo_id = $request["referencia_id"];
+            } else if (strpos($tipoDeSolicitacao->nome, 'permissionario') !== false) {
+                $solicitacao->referencia_permissionario_id = $request["referencia_id"];
+            } else if (strpos($tipoDeSolicitacao->nome, 'monitor') !== false) {
+                $solicitacao->referencia_monitor_id = $request["referencia_id"];
+            } else if (strpos($tipoDeSolicitacao->nome, 'fiscal') !== false) {
+                $solicitacao->referencia_fiscal_id = $request["referencia_id"];
+            }
+        }
 
         $errors = array();
 
@@ -176,7 +208,8 @@ class SolicitacaoDeAlteracaoController extends Controller
 
         // setando anteriores como cancelados
         if (isset($solicitacao->referencia_id)) {
-            foreach (SolicitacaoDeAlteracao::findAllWaitingByReference($solicitacao->referencia_id) as $solicitacaoEmAberto) {
+
+            foreach (SolicitacaoDeAlteracao::findAllWaitingByReference($tipoDeSolicitacao->id, $solicitacao->referencia_id) as $solicitacaoEmAberto) {
                 SolicitacaoDeAlteracao::cancel($solicitacaoEmAberto);
             }
         }

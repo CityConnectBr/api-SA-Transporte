@@ -16,7 +16,7 @@ class CreateSolicitacoesDeAlteracaoTable extends Migration
     {
         Schema::create('solicitacoes_de_alteracao', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('referencia_id', 250)->nullable();
+            $table->string('referencia_remota_id', 250)->nullable();
             $table->string('motivo_recusado', 40)->nullable();
             $table->boolean('sincronizado');
             $table->string('status', 1)->nullable();//A-ACEITO,R-RECUSADO,C-CANCELADO,NULL-AGUARDANDO
@@ -45,21 +45,25 @@ class CreateSolicitacoesDeAlteracaoTable extends Migration
             $table->string('campo23', 250)->nullable();
             $table->string('campo24', 250)->nullable();
             $table->string('campo25', 250)->nullable();
-            // $table->string('arquivo1', 400)->nullable();
-            // $table->string('arquivo2', 400)->nullable();
-            // $table->string('arquivo3', 400)->nullable();
-            // $table->string('arquivo4', 400)->nullable();
-            // $table->string('arquivo5', 400)->nullable();
-            // $table->string('arquivo6', 400)->nullable();
             $table->integer('tipo_solicitacao_id')->unsigned();
             $table->integer('permissionario_id')->unsigned()->nullable();
             $table->integer('condutor_id')->unsigned()->nullable();
             $table->integer('fiscal_id')->unsigned()->nullable();
+            $table->integer('referencia_fiscal_id')->unsigned()->nullable();
+            $table->integer('referencia_permissionario_id')->unsigned()->nullable();
+            $table->integer('referencia_monitor_id')->unsigned()->nullable();
+            $table->integer('referencia_condutor_id')->unsigned()->nullable();
+            $table->integer('referencia_veiculo_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('tipo_solicitacao_id')->references('id')->on('tipos_solicitacao_de_alteracao');
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
             $table->foreign('condutor_id')->references('id')->on('condutores');
             $table->foreign('fiscal_id')->references('id')->on('fiscais');
+            $table->foreign('referencia_fiscal_id')->references('id')->on('fiscais');
+            $table->foreign('referencia_permissionario_id')->references('id')->on('permissionarios');
+            $table->foreign('referencia_monitor_id')->references('id')->on('monitores');
+            $table->foreign('referencia_condutor_id')->references('id')->on('condutores');
+            $table->foreign('referencia_veiculo_id')->references('id')->on('veiculos');
         });
     }
 
