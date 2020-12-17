@@ -27,9 +27,10 @@ Route::group([
 ], function () {
     Route::name('api.')->group(function () {
         Route::get('/user', 'UsuarioController@user')->name('user');
+        Route::get('/photouser', 'UsuarioController@photoUser')->name('photoUser');
         Route::post('/user/solicitacaodealteracao', 'SolicitacaoDeAlteracaoController@storeFromUser')->name('user.updatePassword');
         Route::patch('/password', 'UsuarioController@updatePassword')->name('user.updatePassword');
-        
+
         // permissionarios
         Route::group([
             'middleware' => [
@@ -40,33 +41,35 @@ Route::group([
             Route::name('permissionarios.')->group(function () {
 
                 // Route::get('/condutores', 'CondutorController@index')->name('condutores.index');
-                
+
                 Route::get('/coresveiculos', 'CorVeiculoController@index');
                 Route::get('/coresveiculos/{id}', 'CorVeiculoController@show');
-                
+
                 Route::get('/marcasmodeloscarrocerias', 'MarcaModeloCarroceriaController@index');
                 Route::get('/marcasmodeloscarrocerias/{id}', 'MarcaModeloCarroceriaController@show');
-                
+
                 Route::get('/marcasmodeloschassis', 'MarcaModeloChassiController@index');
                 Route::get('/marcasmodeloschassis/{id}', 'MarcaModeloChassiController@show');
-                
+
                 Route::get('/marcasmodelosveiculos', 'MarcaModeloVeiculoController@index');
                 Route::get('/marcasmodelosveiculos/{id}', 'MarcaModeloVeiculoController@show');
-                
+
                 Route::get('/tiposcombustiveis', 'TipoCombustivelController@index');
                 Route::get('/tiposcombustiveis/{id}', 'TipoCombustivelController@show');
-                
+
                 Route::get('/tiposveiculos', 'TipoVeiculoController@index');
                 Route::get('/tiposveiculos/{id}', 'TipoVeiculoController@show');
-                
+
                 Route::get('/veiculos', 'CondutorController@index');
                 Route::get('/veiculos/{id}', 'CondutorController@show');
-                
+
                 Route::get('/condutores', 'CondutorController@index');
                 Route::get('/condutores/{id}', 'CondutorController@show');
-                
+                Route::get('/condutores/{id}/foto', 'CondutorController@showPhoto');
+
                 Route::get('/monitores', 'MonitorController@index');
                 Route::get('/monitores/{id}', 'MonitorController@show');
+                Route::get('/monitores/{id}/foto', 'MonitorController@showPhoto');
                 
                 Route::get('/monitores', 'MonitorController@index');
                 Route::get('/monitores/{id}', 'MonitorController@show');
@@ -83,11 +86,11 @@ Route::group([
             'prefix' => 'condutores'
         ], function () {
             Route::name('condutores.')->group(function () {
-                
-                
+
+
             });
         });
-        
+
         // fiscal
         Route::group([
             'middleware' => [
@@ -96,10 +99,10 @@ Route::group([
             'prefix' => 'fiscais'
         ], function () {
             Route::name('fiscais.')->group(function () {
-                
+
                 Route::get('/veiculos', 'CondutorController@index');
                 Route::get('/veiculos/{id}', 'CondutorController@show');
-                
+
             });
         });
     });
@@ -114,7 +117,9 @@ Route::group([
     Route::name('integracao.')->group(function () {
         Route::resource('/fiscais', 'Integracao\FiscalController');
         Route::resource('/monitores', 'Integracao\MonitorController');
+        Route::post('/monitores/{id}/foto', 'Integracao\MonitorController@storeFoto')->name('monitor.storeFoto');
         Route::resource('/permissionarios', 'Integracao\PermissionarioController');
+        Route::post('/permissionarios/{id}/foto', 'Integracao\PermissionarioController@storeFoto')->name('permissionario.storeFoto');
         Route::resource('/coresveiculos', 'Integracao\CorVeiculoController');
         Route::resource('/marcasmodeloscarrocerias', 'Integracao\MarcaModeloCarroceriaController');
         Route::resource('/marcasmodeloschassis', 'Integracao\MarcaModeloChassiController');
@@ -122,6 +127,7 @@ Route::group([
         Route::resource('/tiposcombustiveis', 'Integracao\TipoCombustivelController');
         Route::resource('/tiposveiculos', 'Integracao\TipoVeiculoController');
         Route::resource('/condutores', 'Integracao\CondutorController');
+        Route::post('/condutores/{id}/foto', 'Integracao\CondutorController@storeFoto')->name('condutores.storeFoto');
         Route::resource('/onibus', 'Integracao\OnibusController');
         Route::resource('/veiculos', 'Integracao\VeiculoController');
         Route::resource('/tiposdesolicitacao', 'Integracao\TiposDeSolicitacaoDeAlteracaoController');
@@ -133,11 +139,11 @@ Route::group([
 
 Route::group([
     'middleware' => [
-        "accessdoc"
+        "apisat"
     ],
-    'prefix' => 'solicitacaodealteracao'
+    'prefix' => 'apisat'
 ], function () {
     Route::name('solicitacaodealteracao.')->group(function () {
-        Route::get('/getdoc/{id}', 'SolicitacaoDeAlteracaoController@getdoc');
+        Route::get('/getdoc/{id}', 'SaT\SolicitacaoDeAlteracaoController@getdoc');
     });
 });

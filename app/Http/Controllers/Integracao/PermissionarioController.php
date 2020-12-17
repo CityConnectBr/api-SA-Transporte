@@ -6,6 +6,7 @@ use App\Models\Endereco;
 use App\Models\Modalidade;
 use Illuminate\Http\Request;
 use App\Models\Permissionario;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionarioController extends IntegracaoController
@@ -89,6 +90,38 @@ class PermissionarioController extends IntegracaoController
         return $permissionario;
     }
 
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function storeFoto(Request $request, $id)
+    {
+
+        $permissionario = Permissionario::findByIntegracaoComplete($id, true);
+        if (isset($permissionario)) {
+
+                //atualizando status da foto
+            $permissionario->setStatus($request['foto'], $request['foto_url']);
+     
+            //0=sem foto, 1=com foto, 2=com foto url
+            switch ($permissionario->status_foto){
+                case 0: $permissionario->foto_url = null; break;
+                case 1: $request->foto->storeAs('/fotos_permissionarios', "permissionario_" . $permissionario->id . ".jpg"); break;
+                case 2: $permissionario->foto_url = $request["foto_url"]; break;
+            }
+            
+            $permissionario->save();
+
+            return parent::responseMsgJSON("Concluído!");
+        } else {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -132,7 +165,7 @@ class PermissionarioController extends IntegracaoController
 
         if ($validator->fails()) {
             return parent::responseJSON($validator->errors(), 400);
-        }        
+        }
 
         $permissionario = Permissionario::findByIntegracaoComplete($id, true);
         if (isset($permissionario)) {
@@ -140,7 +173,7 @@ class PermissionarioController extends IntegracaoController
             $permissionario->versao ++;
             $permissionario->modalidade_id = Modalidade::where('identificador', $request->input('modalidade_transporte'))->first()->id;
             $permissionario->endereco->fill($request->all());
-
+            
             $permissionario->save();
             $permissionario->endereco->save();
 

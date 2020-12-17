@@ -4,6 +4,7 @@ namespace app\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Condutor;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class CondutorController extends Controller
 {
@@ -38,5 +39,19 @@ class CondutorController extends Controller
         } else {
             return parent::responseMsgJSON("Condutor não encontrado", 404);
         }
+    }
+    
+    public function showPhoto($id)
+    {
+        try {
+            $condutor = Condutor::findComplete($id);
+            if (isset($condutor)) {
+                return Storage::download('fotos_condutores/condutor_' . $id . '.jpg');
+            } else {
+                return parent::responseMsgJSON("Condutor não encontrado", 404);
+            }
+        } catch (\Exception $e) {}
+        
+        return parent::responseMsgJSON("Foto não encontrada!", 404);
     }
 }

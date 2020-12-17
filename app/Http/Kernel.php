@@ -57,7 +57,7 @@ class Kernel extends HttpKernel
         'permissionario' => \App\Http\Middleware\Permissionario::class,
         'fiscal' => \App\Http\Middleware\Fiscal::class,
         'condutor' => \App\Http\Middleware\Condutor::class,
-        'accessdoc' => \App\Http\Middleware\AuthenticateDocAccess::class,
+        'apisat' => \App\Http\Middleware\AuthenticateApiSAT::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

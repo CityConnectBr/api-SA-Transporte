@@ -61,9 +61,9 @@ class SolicitacaoDeAlteracaoController extends Controller
     public function index()
     {
         return SolicitacaoDeAlteracao::search(
-            parent::getUserLogged(), 
-            $this->request->query->get("tipo"), 
-            $this->request->query->get("referencia"), 
+            parent::getUserLogged(),
+            $this->request->query->get("tipo"),
+            $this->request->query->get("referencia"),
             $this->request->query->get("status")
         );
     }
@@ -290,19 +290,4 @@ class SolicitacaoDeAlteracaoController extends Controller
         ], 501);
     }
 
-    public function getdoc($id)
-    {
-        $solicitacao = SolicitacaoDeAlteracao::find($id);
-        if (! asset($solicitacao)) {
-            return parent::responseMsgJSON("Solicitação não encontrada", 404);
-        }
-
-        $doc = $this->request->query('doc');
-
-        if (! isset($doc)) {
-            $doc = 1;
-        }
-
-        return Storage::download('solicitacao_de_alteracao_arquivos/solicitacao_' . $solicitacao->id . '_arquivo' . $doc . '.jpg');
-    }
 }

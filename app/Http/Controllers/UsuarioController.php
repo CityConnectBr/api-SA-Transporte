@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Mail\PasswordRecover;
 use App\Models\Fiscal;
 use App\Models\Condutor;
+use Illuminate\Support\Facades\Storage;
 
 class UsuarioController extends Controller
 {
@@ -72,7 +73,7 @@ class UsuarioController extends Controller
             return parent::responseMsgJSON("E-mail já cadastrado", 400);
         }
 
-        if(isset($request['cnh']) && !empty($request['cnh'])){
+        if (isset($request['cnh']) && ! empty($request['cnh'])) {
             $user = Usuario::findByCNH($request['cnh']);
             if (isset($user)) {
                 return parent::responseMsgJSON("CNH já cadastrada", 400);
@@ -111,11 +112,11 @@ class UsuarioController extends Controller
             $user->tipo_id = TiposDeUsuarios::findByName("fiscal")->id;
             $user->fiscal_id = $fiscal->id;
             $user->save();
-        }else if (isset($condutor)) {
+        } else if (isset($condutor)) {
             $user->tipo_id = TiposDeUsuarios::findByName("condutor")->id;
             $user->condutor_id = $condutor->id;
             $user->save();
-        }else{
+        } else {
             return parent::responseMsgJSON("Usuário não pode ser cadastrado", 404);
         }
 
@@ -298,5 +299,21 @@ class UsuarioController extends Controller
         }
 
         return $user;
+    }
+
+    public function photoUser()
+    {
+        try {
+            $user = parent::getUserLogged();
+
+            switch ($user->tipo_id) {
+                case 1:
+                    return Storage::download('fotos_permissionarios/permissionario_' . $user->permissionario->id . '.jpg');
+                case 2:
+                    return Storage::download('fotos_condutores/condutor_' . $user->condutor->id . '.jpg');
+            }
+        } catch (\Exception $e) {}
+
+        return parent::responseMsgJSON("Foto não encontrada!", 404);
     }
 }

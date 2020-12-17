@@ -4,6 +4,7 @@ namespace app\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Monitor;
+use Illuminate\Support\Facades\Storage;
 
 class MonitorController extends Controller
 {
@@ -23,7 +24,6 @@ class MonitorController extends Controller
         return Monitor::search(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -32,11 +32,25 @@ class MonitorController extends Controller
      */
     public function show($id)
     {
-        $condutor = Monitor::findComplete($id);
-        if (isset($condutor)) {
-            return $condutor;
+        $monitor = Monitor::findComplete($id);
+        if (isset($monitor)) {
+            return $monitor;
         } else {
             return parent::responseMsgJSON("Condutor não encontrado", 404);
         }
+    }
+
+    public function showPhoto($id)
+    {
+        try {
+            $monitor = Monitor::findComplete($id);
+            if (isset($monitor)) {
+                return Storage::download('fotos_monitores/monitor_' . $id . '.jpg');
+            } else {
+                return parent::responseMsgJSON("Monitor não encontrado", 404);
+            }
+        } catch (\Exception $e) {}
+
+        return parent::responseMsgJSON("Foto não encontrada!", 404);
     }
 }

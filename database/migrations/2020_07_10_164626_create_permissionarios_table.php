@@ -35,6 +35,8 @@ class CreatePermissionariosTable extends Migration
             $table->string('categoria_cnh', 2)->nullable();
             $table->date('vencimento_cnh', 100)->nullable();
             $table->integer('versao');
+            $table->integer('status_foto');//0=sem foto, 1=com foto, 2=com foto url
+            $table->string('foto_url', 190);
             $table->integer('endereco_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('modalidade_id')->references('id')->on('modalidades');
