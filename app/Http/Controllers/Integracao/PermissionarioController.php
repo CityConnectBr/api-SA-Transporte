@@ -84,13 +84,14 @@ class PermissionarioController extends IntegracaoController
         $permissionario->fill($request->all());
         $permissionario->modalidade_id = Modalidade::findOne($request->input('modalidade_transporte'))->id;
         $permissionario->endereco_id = $endereco->id;
+        // atualizando status da foto
+        $permissionario->setStatus(null, $request['foto_url']);
 
         $permissionario->save();
 
         return $permissionario;
     }
 
-    
     /**
      * Display the specified resource.
      *
@@ -99,27 +100,31 @@ class PermissionarioController extends IntegracaoController
      */
     public function storeFoto(Request $request, $id)
     {
-
         $permissionario = Permissionario::findByIntegracaoComplete($id, true);
         if (isset($permissionario)) {
 
-                //atualizando status da foto
+            // atualizando status da foto
             $permissionario->setStatus($request['foto'], $request['foto_url']);
-     
-            //0=sem foto, 1=com foto, 2=com foto url
-            switch ($permissionario->status_foto){
-                case 0: $permissionario->foto_url = null; break;
-                case 1: $request->foto->storeAs('/fotos_permissionarios', "permissionario_" . $permissionario->id . ".jpg"); break;
-                case 2: $permissionario->foto_url = $request["foto_url"]; break;
+
+            // 0=sem foto, 1=com foto, 2=com foto url
+            switch ($permissionario->status_foto) {
+                case 0:
+                    $permissionario->foto_url = null;
+                    break;
+                case 1:
+                    $request->foto->storeAs('/fotos_permissionarios', "permissionario_" . $permissionario->id . ".jpg");
+                    break;
+                case 2:
+                    $permissionario->foto_url = $request["foto_url"];
+                    break;
             }
-            
+
             $permissionario->save();
 
             return parent::responseMsgJSON("Concluído!");
         } else {
             return parent::responseMsgJSON("Permissionário não encontrado", 404);
         }
-
     }
 
     /**
@@ -173,7 +178,7 @@ class PermissionarioController extends IntegracaoController
             $permissionario->versao ++;
             $permissionario->modalidade_id = Modalidade::where('identificador', $request->input('modalidade_transporte'))->first()->id;
             $permissionario->endereco->fill($request->all());
-            
+
             $permissionario->save();
             $permissionario->endereco->save();
 

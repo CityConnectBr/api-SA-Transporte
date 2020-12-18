@@ -86,6 +86,8 @@ class MonitorController extends IntegracaoController
         $monitor->rg = $monitor->id_integracao;
         $monitor->permissionario_id = $permissionario->id;
         $monitor->endereco_id = $endereco->id;
+        // atualizando status da foto
+        $monitor->setStatus(null, $request['foto_url']);
         
         $monitor->save();
         

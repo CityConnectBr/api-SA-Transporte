@@ -87,6 +87,8 @@ class CondutorController extends IntegracaoController
         $condutor->permissionario_id = $permissionario->id;
         $condutor->cpf = $condutor->id_integracao;
         $condutor->endereco_id = $endereco->id;
+        // atualizando status da foto
+        $condutor->setStatus(null, $request['foto_url']);
         
         $condutor->save();
         

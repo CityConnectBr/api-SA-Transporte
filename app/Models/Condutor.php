@@ -21,7 +21,9 @@ class Condutor extends Model
         'categoria_cnh',
         'vencimento_cnh',
         'permissionario_id',
-        'versao'
+        'versao',
+        'status_foto',
+        'foto_url'
     ];
 
     protected $table = 'condutores';

@@ -16,7 +16,9 @@ class Monitor extends Model
         'telefone',
         'email',
         'data_nascimento',
-        'versao'
+        'versao',
+        'status_foto',
+        'foto_url'
     ];
     
     protected $table = 'monitores';
