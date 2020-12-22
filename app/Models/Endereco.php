@@ -16,8 +16,4 @@ class Endereco extends Model
         'municipio',
         'uf',
     ];
-
-    function permissionario() {
-        return $this->belongsTo('App\Models\Permissionario');
-    }
 }

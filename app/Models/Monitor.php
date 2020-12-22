@@ -17,8 +17,7 @@ class Monitor extends Model
         'email',
         'data_nascimento',
         'versao',
-        'status_foto',
-        'foto_url'
+        'foto_uid'
     ];
     
     protected $table = 'monitores';
@@ -42,20 +41,6 @@ class Monitor extends Model
     public function permissionario()
     {
         return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
-    }
-    
-    public function setStatus($foto, $fotoUrl)
-    {
-        //0=sem foto, 1=com foto, 2=com foto url
-        if(isset($fotoUrl)){
-            $this->status_foto = 2;
-        }else{
-            if(isset($foto)){
-                $this->status_foto = 1;
-            }else{
-                $this->status_foto = 0;
-            }
-        }
     }
 
     // /////////////////

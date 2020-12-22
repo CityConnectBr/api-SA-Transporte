@@ -6,7 +6,6 @@ use App\Models\Endereco;
 use App\Models\Modalidade;
 use Illuminate\Http\Request;
 use App\Models\Permissionario;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionarioController extends IntegracaoController
@@ -84,47 +83,10 @@ class PermissionarioController extends IntegracaoController
         $permissionario->fill($request->all());
         $permissionario->modalidade_id = Modalidade::findOne($request->input('modalidade_transporte'))->id;
         $permissionario->endereco_id = $endereco->id;
-        // atualizando status da foto
-        $permissionario->setStatus(null, $request['foto_url']);
 
         $permissionario->save();
 
         return $permissionario;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function storeFoto(Request $request, $id)
-    {
-        $permissionario = Permissionario::findByIntegracaoComplete($id, true);
-        if (isset($permissionario)) {
-
-            // atualizando status da foto
-            $permissionario->setStatus($request['foto'], $request['foto_url']);
-
-            // 0=sem foto, 1=com foto, 2=com foto url
-            switch ($permissionario->status_foto) {
-                case 0:
-                    $permissionario->foto_url = null;
-                    break;
-                case 1:
-                    $request->foto->storeAs('/fotos_permissionarios', "permissionario_" . $permissionario->id . ".jpg");
-                    break;
-                case 2:
-                    $permissionario->foto_url = $request["foto_url"];
-                    break;
-            }
-
-            $permissionario->save();
-
-            return parent::responseMsgJSON("Concluído!");
-        } else {
-            return parent::responseMsgJSON("Permissionário não encontrado", 404);
-        }
     }
 
     /**

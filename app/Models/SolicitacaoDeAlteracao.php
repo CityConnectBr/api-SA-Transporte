@@ -45,6 +45,10 @@ class SolicitacaoDeAlteracao extends Model
         'referencia_monitor_id',
         'referencia_condutor_id',
         'referencia_veiculo_id',
+        'arquivo1_uid',
+        'arquivo2_uid',
+        'arquivo3_uid',
+        'arquivo4_uid',
     ];
 
     protected $attributes = [

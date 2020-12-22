@@ -28,13 +28,13 @@ class CreateCondutoresTable extends Migration
             $table->string('categoria_cnh', 2)->nullable();
             $table->date('vencimento_cnh', 100)->nullable();
             $table->integer('versao');
-            $table->integer('status_foto');//0=sem foto, 1=com foto, 2=com foto url
-            $table->string('foto_url', 190);
             $table->integer('permissionario_id')->unsigned();
             $table->integer('endereco_id')->unsigned();
+            $table->string('foto_uid')->nullable();
             $table->timestamps();
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
             $table->foreign('endereco_id')->references('id')->on('enderecos')->onDelete('cascade');
+            $table->foreign('foto_uid')->references('id')->on('arquivos');
         });
     }
 

@@ -308,9 +308,13 @@ class UsuarioController extends Controller
 
             switch ($user->tipo_id) {
                 case 1:
-                    return Storage::download('fotos_permissionarios/permissionario_' . $user->permissionario->id . '.jpg');
+                    if (isset($user->permissionario->foto_uid)) {
+                        return Storage::download('arquivos/' . $user->permissionario->foto_uid . '.jpg');
+                    }
                 case 2:
-                    return Storage::download('fotos_condutores/condutor_' . $user->condutor->id . '.jpg');
+                    if (isset($user->condutor->foto_uid)) {
+                        return Storage::download('arquivos/' . $user->condutor->foto_uid . '.jpg');
+                    }
             }
         } catch (\Exception $e) {}
 

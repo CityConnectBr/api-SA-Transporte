@@ -87,43 +87,10 @@ class CondutorController extends IntegracaoController
         $condutor->permissionario_id = $permissionario->id;
         $condutor->cpf = $condutor->id_integracao;
         $condutor->endereco_id = $endereco->id;
-        // atualizando status da foto
-        $condutor->setStatus(null, $request['foto_url']);
         
         $condutor->save();
         
         return $condutor;
-    }
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function storeFoto(Request $request, $id)
-    {
-        
-        $condutor = Condutor::findByIntegracaoComplete($id, true);
-        if (isset($condutor)) {
-            
-            //atualizando status da foto
-            $condutor->setStatus($request['foto'], $request['foto_url']);
-            
-            //0=sem foto, 1=com foto, 2=com foto url
-            switch ($condutor->status_foto){
-                case 0: $condutor->foto_url = null; break;
-                case 1: $request->foto->storeAs('/fotos_condutores', "condutor_" . $condutor->id . ".jpg"); break;
-                case 2: $condutor->foto_url = $request["foto_url"]; break;
-            }
-            
-            $condutor->save();
-            
-            return parent::responseMsgJSON("Concluído!");
-        } else {
-            return parent::responseMsgJSON("Condutor não encontrado", 404);
-        }
-        
     }
     
     /**

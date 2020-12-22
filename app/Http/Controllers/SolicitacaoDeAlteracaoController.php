@@ -12,6 +12,7 @@ use App\Models\Permissionario;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Monitor;
 use App\Models\Fiscal;
+use App\Models\Arquivo;
 
 class SolicitacaoDeAlteracaoController extends Controller
 {
@@ -60,12 +61,7 @@ class SolicitacaoDeAlteracaoController extends Controller
      */
     public function index()
     {
-        return SolicitacaoDeAlteracao::search(
-            parent::getUserLogged(),
-            $this->request->query->get("tipo"),
-            $this->request->query->get("referencia"),
-            $this->request->query->get("status")
-        );
+        return SolicitacaoDeAlteracao::search(parent::getUserLogged(), $this->request->query->get("tipo"), $this->request->query->get("referencia"), $this->request->query->get("status"));
     }
 
     /**
@@ -224,14 +220,21 @@ class SolicitacaoDeAlteracaoController extends Controller
             $solicitacao->motorista_id = $user->motorista_id;
         }
 
-        $solicitacao->save();
-
         // sanvando arquivos
         for ($i = 1; $i < 10; $i ++) {
             if (isset($request["arquivo" . $i])) {
-                $request->arquivo1->storeAs('/solicitacao_de_alteracao_arquivos', "solicitacao_" . $solicitacao->id . "_arquivo" . $i . ".jpg");
+
+                $arquivo = new Arquivo();
+                $arquivo->origem = "app";
+                $arquivo->save();
+                
+                $request["arquivo" . $i]->storeAs('/arquivos', $arquivo->id . ".jpg");
+
+                $solicitacao["arquivo" . $i . "_uid"] = $arquivo->id;
             }
         }
+
+        $solicitacao->save();
 
         return $solicitacao;
     }
@@ -289,5 +292,4 @@ class SolicitacaoDeAlteracaoController extends Controller
             "Message" => "Não implementado!"
         ], 501);
     }
-
 }

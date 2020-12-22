@@ -75,6 +75,9 @@ Route::group([
                 Route::get('/monitores/{id}', 'MonitorController@show');
 
                 Route::resource('/solicitacaodealteracao', 'SolicitacaoDeAlteracaoController');
+                
+                Route::get('/arquivo/{id}', 'ArquivoController@show');
+                
             });
         });
 
@@ -117,9 +120,9 @@ Route::group([
     Route::name('integracao.')->group(function () {
         Route::resource('/fiscais', 'Integracao\FiscalController');
         Route::resource('/monitores', 'Integracao\MonitorController');
-        Route::post('/monitores/{id}/foto', 'Integracao\MonitorController@storeFoto')->name('monitor.storeFoto');
+        Route::post('/monitores/{id}/foto', 'Integracao\ArquivoController@storeFotoMonitor')->name('monitor.storeFoto');
         Route::resource('/permissionarios', 'Integracao\PermissionarioController');
-        Route::post('/permissionarios/{id}/foto', 'Integracao\PermissionarioController@storeFoto')->name('permissionario.storeFoto');
+        Route::post('/permissionarios/{id}/foto', 'Integracao\ArquivoController@storeFotoPermissionario')->name('arquivo.storeFotoPermissionario');
         Route::resource('/coresveiculos', 'Integracao\CorVeiculoController');
         Route::resource('/marcasmodeloscarrocerias', 'Integracao\MarcaModeloCarroceriaController');
         Route::resource('/marcasmodeloschassis', 'Integracao\MarcaModeloChassiController');
@@ -127,7 +130,7 @@ Route::group([
         Route::resource('/tiposcombustiveis', 'Integracao\TipoCombustivelController');
         Route::resource('/tiposveiculos', 'Integracao\TipoVeiculoController');
         Route::resource('/condutores', 'Integracao\CondutorController');
-        Route::post('/condutores/{id}/foto', 'Integracao\CondutorController@storeFoto')->name('condutores.storeFoto');
+        Route::post('/condutores/{id}/foto', 'Integracao\ArquivoController@storeFotoCondutor')->name('condutores.storeFoto');
         Route::resource('/onibus', 'Integracao\OnibusController');
         Route::resource('/veiculos', 'Integracao\VeiculoController');
         Route::resource('/tiposdesolicitacao', 'Integracao\TiposDeSolicitacaoDeAlteracaoController');
@@ -144,6 +147,6 @@ Route::group([
     'prefix' => 'apisat'
 ], function () {
     Route::name('solicitacaodealteracao.')->group(function () {
-        Route::get('/getdoc/{id}', 'SaT\SolicitacaoDeAlteracaoController@getdoc');
+        Route::get('/arquivo/{id}', 'SaT\ArquivoController@show');
     });
 });

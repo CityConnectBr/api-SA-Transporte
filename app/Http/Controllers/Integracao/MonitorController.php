@@ -86,43 +86,10 @@ class MonitorController extends IntegracaoController
         $monitor->rg = $monitor->id_integracao;
         $monitor->permissionario_id = $permissionario->id;
         $monitor->endereco_id = $endereco->id;
-        // atualizando status da foto
-        $monitor->setStatus(null, $request['foto_url']);
         
         $monitor->save();
         
         return $monitor;
-    }
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function storeFoto(Request $request, $id)
-    {
-        
-        $monitor = Monitor::findByIntegracaoComplete($id, true);
-        if (isset($monitor)) {
-            
-            //atualizando status da foto
-            $monitor->setStatus($request['foto'], $request['foto_url']);
-            
-            //0=sem foto, 1=com foto, 2=com foto url
-            switch ($monitor->status_foto){
-                case 0: $monitor->foto_url = null; break;
-                case 1: $request->foto->storeAs('/fotos_monitores', "monitor_" . $monitor->id . ".jpg"); break;
-                case 2: $monitor->foto_url = $request["foto_url"]; break;
-            }
-            
-            $monitor->save();
-            
-            return parent::responseMsgJSON("Concluído!");
-        } else {
-            return parent::responseMsgJSON("Monitor não encontrado", 404);
-        }
-        
     }
     
     /**

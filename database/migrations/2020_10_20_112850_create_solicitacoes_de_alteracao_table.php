@@ -54,6 +54,10 @@ class CreateSolicitacoesDeAlteracaoTable extends Migration
             $table->integer('referencia_monitor_id')->unsigned()->nullable();
             $table->integer('referencia_condutor_id')->unsigned()->nullable();
             $table->integer('referencia_veiculo_id')->unsigned()->nullable();
+            $table->string('arquivo1_uid')->nullable();
+            $table->string('arquivo2_uid')->nullable();
+            $table->string('arquivo3_uid')->nullable();
+            $table->string('arquivo4_uid')->nullable();
             $table->timestamps();
             $table->foreign('tipo_solicitacao_id')->references('id')->on('tipos_solicitacao_de_alteracao');
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
@@ -64,6 +68,10 @@ class CreateSolicitacoesDeAlteracaoTable extends Migration
             $table->foreign('referencia_monitor_id')->references('id')->on('monitores');
             $table->foreign('referencia_condutor_id')->references('id')->on('condutores');
             $table->foreign('referencia_veiculo_id')->references('id')->on('veiculos');
+            $table->foreign('arquivo1_uid')->references('id')->on('arquivos');
+            $table->foreign('arquivo2_uid')->references('id')->on('arquivos');
+            $table->foreign('arquivo3_uid')->references('id')->on('arquivos');
+            $table->foreign('arquivo4_uid')->references('id')->on('arquivos');
         });
     }
 
