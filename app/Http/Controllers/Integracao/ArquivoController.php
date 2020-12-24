@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Permissionario;
 use App\Http\Controllers\Controller;
 use App\Models\Arquivo;
-use App\Http\Middleware\Condutor;
+use App\Models\Condutor;
 use App\Models\Monitor;
 
 class ArquivoController extends Controller

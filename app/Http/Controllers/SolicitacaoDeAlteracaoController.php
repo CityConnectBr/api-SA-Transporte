@@ -9,7 +9,6 @@ use App\Models\TipoDeSolicitacaoDeAlteracao;
 use App\Models\Condutor;
 use App\Models\Veiculo;
 use App\Models\Permissionario;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Monitor;
 use App\Models\Fiscal;
 use App\Models\Arquivo;
