@@ -4,6 +4,7 @@ namespace app\Http\Middleware;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Closure;
+use App\Models\Usuario;
 
 class Authenticate extends Middleware
 {
@@ -12,6 +13,8 @@ class Authenticate extends Middleware
     {
         try {
             JWTAuth::parseToken()->authenticate();
+            assert(auth()->id()!=null);
+            assert(Usuario::findComplete(auth()->id())!=null);
         } catch (\Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
                 return response()->json([

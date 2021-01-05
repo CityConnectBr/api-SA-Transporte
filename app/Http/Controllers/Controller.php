@@ -47,7 +47,8 @@ class Controller extends BaseController
     
     protected function getUserLogged()
     {
-        $user = Usuario::with("permissionario")->with("tipo")->find(auth()->id());
+        //$user = Usuario::with("permissionario")->with("tipo")->find(auth()->id());
+        $user = Usuario::findComplete(auth()->id());        
         
         if (! isset($user)) {
             return parent::responseMsgJSON("Usuário não encontrado", 404);
