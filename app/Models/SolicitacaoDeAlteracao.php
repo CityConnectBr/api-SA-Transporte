@@ -135,11 +135,11 @@ class SolicitacaoDeAlteracao extends Model
         } else if (isset($usuario->condutor_id)) {
             $query = SolicitacaoDeAlteracao::where("condutor_id", "=", $usuario->condutor_id)->with("condutor");
         }
-        
+
         if(isset($tipo)){
             $query->where("tipo_solicitacao_id", "=", $tipo);
         }
-        
+
         if(isset($status)){
             if(strcmp("null", $status)==0){
                 $query->where("status", "=", null);
@@ -147,7 +147,7 @@ class SolicitacaoDeAlteracao extends Model
                 $query->where("status", "=", $status);
             }
         }
-        
+
         if(isset($referencia)){
             $query->where(function ($q) use ($referencia){
                 $q->orWhere('referencia_fiscal_id', $referencia)
@@ -158,6 +158,6 @@ class SolicitacaoDeAlteracao extends Model
             });
         }
 
-        return $query->orderBy("created_at")->paginate(40);
+        return $query->with('tipo')->orderBy("created_at", 'DESC')->paginate(40);
     }
 }
