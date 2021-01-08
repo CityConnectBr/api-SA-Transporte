@@ -1,22 +1,21 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ResourceController;
 
 Route::get('/', function () {
     return "";
 });
 
 Route::group([
-    'prefix' => 'v{v}/auth'
+    'prefix' => 'auth'
 ], function () {
     Route::name('auth.')->group(function () {
-        Route::post('/login', ResourceController::getController('UsuarioController@login'));
-        Route::post('/signin', ResourceController::getController('UsuarioController@signin'));
-        Route::get('/logout', ResourceController::getController('UsuarioController@logout'));
-        Route::get('/refresh', ResourceController::getController('UsuarioController@refresh'));
-        Route::post('/generaterecovercode', ResourceController::getController('UsuarioController@generateRecoverCode'));
-        Route::post('/validaterecoverycode', ResourceController::getController('UsuarioController@validateRecoveryCode'));
-        Route::post('/recoverypassword', ResourceController::getController('UsuarioController@recoverPassword'));
+        Route::post('/login', 'UsuarioController@login');
+        Route::post('/signin', 'UsuarioController@signin');
+        Route::get('/logout', 'UsuarioController@logout');
+        Route::get('/refresh', 'UsuarioController@refresh');
+        Route::post('/generaterecovercode', 'UsuarioController@generateRecoverCode');
+        Route::post('/validaterecoverycode', 'UsuarioController@validateRecoveryCode');
+        Route::post('/recoverypassword', 'UsuarioController@recoverPassword');
     });
 });
 
@@ -24,13 +23,13 @@ Route::group([
     'middleware' => [
         'auth'
     ],
-    'prefix' => 'v{v}'
+    'prefix' => 'api'
 ], function () {
     Route::name('api.')->group(function () {
-        Route::get('/user', ResourceController::getController('UsuarioController@user'));
-        Route::get('/photouser', ResourceController::getController('UsuarioController@photoUser'));
-        Route::post('/user/solicitacaodealteracao', ResourceController::getController('SolicitacaoDeAlteracaoController@storeFromUser'));
-        Route::patch('/password', ResourceController::getController('UsuarioController@updatePassword'));
+        Route::get('/user', 'UsuarioController@user');
+        Route::get('/photouser', 'UsuarioController@photoUser');
+        Route::post('/user/solicitacaodealteracao', 'SolicitacaoDeAlteracaoController@storeFromUser');
+        Route::patch('/password', 'UsuarioController@updatePassword');
 
         // permissionarios
         Route::group([
@@ -43,42 +42,42 @@ Route::group([
 
                 // Route::get('/condutores', 'CondutorController@index')->name('condutores.index');
 
-                Route::get('/coresveiculos', ResourceController::getController('CorVeiculoController@index'));
-                Route::get('/coresveiculos/{id}', ResourceController::getController('CorVeiculoController@show'));
+                Route::get('/v1/coresveiculos', 'v1\CorVeiculoController@index');
+                Route::get('/v1/coresveiculos/{id}', 'v1\CorVeiculoController@show');
 
-                Route::get('/marcasmodeloscarrocerias', ResourceController::getController('MarcaModeloCarroceriaController@index'));
-                Route::get('/marcasmodeloscarrocerias/{id}', ResourceController::getController('MarcaModeloCarroceriaController@show'));
+                Route::get('/v1/marcasmodeloscarrocerias', 'v1\MarcaModeloCarroceriaController@index');
+                Route::get('/v1/marcasmodeloscarrocerias/{id}', 'v1\MarcaModeloCarroceriaController@show');
 
-                Route::get('/marcasmodeloschassis', ResourceController::getController('MarcaModeloChassiController@index'));
-                Route::get('/marcasmodeloschassis/{id}', ResourceController::getController('MarcaModeloChassiController@show'));
+                Route::get('/v1/marcasmodeloschassis', 'v1\MarcaModeloChassiController@index');
+                Route::get('/v1/marcasmodeloschassis/{id}', 'v1\MarcaModeloChassiController@show');
 
-                Route::get('/marcasmodelosveiculos', ResourceController::getController('MarcaModeloVeiculoController@index'));
-                Route::get('/marcasmodelosveiculos/{id}', ResourceController::getController('MarcaModeloVeiculoController@show'));
+                Route::get('/v1/marcasmodelosveiculos', 'v1\MarcaModeloVeiculoController@index');
+                Route::get('/v1/marcasmodelosveiculos/{id}', 'v1\MarcaModeloVeiculoController@show');
 
-                Route::get('/tiposcombustiveis', ResourceController::getController('TipoCombustivelController@index'));
-                Route::get('/tiposcombustiveis/{id}', ResourceController::getController('TipoCombustivelController@show'));
+                Route::get('/v1/tiposcombustiveis', 'v1\TipoCombustivelController@index');
+                Route::get('/v1/tiposcombustiveis/{id}', 'v1\TipoCombustivelController@show');
 
-                Route::get('/tiposveiculos', ResourceController::getController('TipoVeiculoController@index'));
-                Route::get('/tiposveiculos/{id}', ResourceController::getController('TipoVeiculoController@show'));
+                Route::get('/v1/tiposveiculos', 'v1\TipoVeiculoController@index');
+                Route::get('/v1/tiposveiculos/{id}', 'v1\TipoVeiculoController@show');
 
-                Route::get('/veiculos', ResourceController::getController('CondutorController@index'));
-                Route::get('/veiculos/{id}', ResourceController::getController('CondutorController@show'));
+                Route::get('/v1/veiculos', 'v1\CondutorController@index');
+                Route::get('/veiculos/{id}', 'v1\CondutorController@show');
 
-                Route::get('/condutores', ResourceController::getController('CondutorController@index'));
-                Route::get('/condutores/{id}', ResourceController::getController('CondutorController@show'));
-                Route::get('/condutores/{id}/foto', ResourceController::getController('CondutorController@showPhoto'));
+                Route::get('/v1/condutores', 'v1\CondutorController@index');
+                Route::get('/v1/condutores/{id}', 'v1\CondutorController@show');
+                Route::get('/v1/condutores/{id}/foto', 'v1\CondutorController@showPhoto');
 
-                Route::get('/monitores', ResourceController::getController('MonitorController@index'));
-                Route::get('/monitores/{id}', ResourceController::getController('MonitorController@show'));
-                Route::get('/monitores/{id}/foto', ResourceController::getController('MonitorController@showPhoto'));
-                
-                Route::get('/monitores', ResourceController::getController('MonitorController@index'));
-                Route::get('/monitores/{id}', ResourceController::getController('MonitorController@show'));
+                Route::get('/v1/monitores', 'v1\MonitorController@index');
+                Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');
+                Route::get('/v1/monitores/{id}/foto', 'v1\MonitorController@showPhoto');
 
-                Route::resource('/solicitacaodealteracao', ResourceController::getController('SolicitacaoDeAlteracaoController'));
-                
-                Route::get('/arquivo/{id}', 'ArquivoController@show');
-                
+                Route::get('/v1/monitores', 'v1\MonitorController@index');
+                Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');
+
+                Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
+
+                Route::get('/v1/arquivo/{id}', 'v1\ArquivoController@show');
+
             });
         });
 

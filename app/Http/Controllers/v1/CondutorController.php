@@ -40,18 +40,18 @@ class CondutorController extends Controller
             return parent::responseMsgJSON("Condutor não encontrado", 404);
         }
     }
-    
+
     public function showPhoto($id)
     {
         try {
             $condutor = Condutor::findComplete($id);
             if (isset($condutor)) {
-                return Storage::download('fotos_condutores/condutor_' . $id . '.jpg');
+                return Storage::download('arquivos/' . $condutor->foto_uid . '.jpg');
             } else {
                 return parent::responseMsgJSON("Condutor não encontrado", 404);
             }
         } catch (\Exception $e) {}
-        
+
         return parent::responseMsgJSON("Foto não encontrada!", 404);
     }
 }

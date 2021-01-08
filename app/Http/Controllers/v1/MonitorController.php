@@ -45,7 +45,7 @@ class MonitorController extends Controller
         try {
             $monitor = Monitor::findComplete($id);
             if (isset($monitor)) {
-                return Storage::download('fotos_monitores/monitor_' . $id . '.jpg');
+                return Storage::download('arquivos/' . $monitor->foto_uid . '.jpg');
             } else {
                 return parent::responseMsgJSON("Monitor não encontrado", 404);
             }
