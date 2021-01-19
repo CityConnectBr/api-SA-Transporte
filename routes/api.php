@@ -28,7 +28,7 @@ Route::group([
     Route::name('api.')->group(function () {
         Route::get('/user', 'UsuarioController@user');
         Route::get('/photouser', 'UsuarioController@photoUser');
-        Route::post('/user/solicitacaodealteracao', 'SolicitacaoDeAlteracaoController@storeFromUser');
+        Route::post('/user/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController@storeFromUser');
         Route::patch('/password', 'UsuarioController@updatePassword');
 
         // permissionarios
