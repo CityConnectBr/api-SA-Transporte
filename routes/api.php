@@ -60,8 +60,8 @@ Route::group([
                 Route::get('/v1/tiposveiculos', 'v1\TipoVeiculoController@index');
                 Route::get('/v1/tiposveiculos/{id}', 'v1\TipoVeiculoController@show');
 
-                Route::get('/v1/veiculos', 'v1\CondutorController@index');
-                Route::get('/veiculos/{id}', 'v1\CondutorController@show');
+                Route::get('/v1/veiculos', 'v1\VeiculoController@index');
+                Route::get('/veiculos/{id}', 'v1\VeiculoController@show');
 
                 Route::get('/v1/condutores', 'v1\CondutorController@index');
                 Route::get('/v1/condutores/{id}', 'v1\CondutorController@show');
