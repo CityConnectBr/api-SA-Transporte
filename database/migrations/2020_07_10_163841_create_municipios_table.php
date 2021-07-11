@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModalidadesTable extends Migration
+class CreateMunicipiosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateModalidadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('modalidades', function (Blueprint $table) {
+        Schema::create('municipios', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
-            $table->string('identificador', 1);
-            $table->string('descricao', 40);
-            $table->integer('limite');
+            $table->string('nome', 40)->nullable();
+            $table->string('uf', 40)->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateModalidadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modalidades');
+        Schema::dropIfExists('municipios');
     }
 }

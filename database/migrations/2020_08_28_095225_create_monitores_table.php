@@ -20,10 +20,15 @@ class CreateMonitoresTable extends Migration
             $table->string('situacao', 1);//A/I/C
             $table->string('cpf', 11)->nullable();
             $table->string('rg', 15)->nullable();
-            $table->string('telefone', 9)->nullable();
-            $table->string('email', 100)->nullable();
-            $table->date('data_nascimento', 100)->nullable();
+            $table->string('telefone', 11)->nullable();
+            $table->string('email', 200)->nullable();
+            $table->date('data_nascimento')->nullable();
             $table->integer('versao');
+            $table->boolean('certidao_negativa');
+            $table->date('validade_da_certidao_negativa')->nullable();
+            $table->boolean('curso_de_primeiro_socorros');
+            $table->date('emissao_curso_de_primeiro_socorros')->nullable();
+
             $table->integer('permissionario_id')->unsigned();
             $table->integer('endereco_id')->unsigned();
             $table->string('foto_uid')->nullable();

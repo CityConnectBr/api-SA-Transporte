@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFiscaisTable extends Migration
+class CreatePontosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,21 @@ class CreateFiscaisTable extends Migration
      */
     public function up()
     {
-        Schema::create('fiscais', function (Blueprint $table) {
+        Schema::create('pontos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
-            $table->string('nome', 40);
-            $table->string('cpf', 11)->nullable();
+            $table->string('descricao', 40);
+            $table->string('base_legal', 40);
+            $table->string('capacidade_legal', 40);
+
             $table->string('telefone', 11)->nullable();
-            $table->string('email', 200)->nullable();
-            $table->string('cargo', 40)->nullable();
-            $table->integer('versao');
-            $table->integer('endereco_id')->unsigned();
+            $table->date('data_criacao')->nullable();
+            $table->date('data_extincao')->nullable();
+            $table->string('ocupacao_atual', 40)->nullable();
+            $table->string('observacao', 500)->nullable();
+            $table->string('modalidade_transporte', 1)->nullable();
+
+            $table->integer('endereco_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('endereco_id')->references('id')->on('enderecos')->onDelete('cascade');
         });
@@ -35,6 +40,6 @@ class CreateFiscaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fiscais');
+        Schema::dropIfExists('pontos');
     }
 }

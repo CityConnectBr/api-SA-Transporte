@@ -20,9 +20,10 @@ class CreateEnderecosTable extends Migration
             $table->string('numero', 5)->nullable();
             $table->string('complemento', 15)->nullable();
             $table->string('bairro', 100)->nullable();
-            $table->string('municipio', 25)->nullable();
-            $table->string('uf', 2)->nullable();
+            $table->integer('municipio_id')->unsigned()->nullable();
             $table->timestamps();
+            $table->foreign('municipio_id')->references('id')->on('municipios')->onDelete('cascade');
+
         });
     }
 

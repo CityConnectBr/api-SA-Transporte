@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModalidadesTable extends Migration
+class CreateMoedasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateModalidadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('modalidades', function (Blueprint $table) {
+        Schema::create('moedas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
-            $table->string('identificador', 1);
-            $table->string('descricao', 40);
-            $table->integer('limite');
+            $table->string('id_integracao')->nullable()->unique();
+            $table->string('nome', 20);
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateModalidadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modalidades');
+        Schema::dropIfExists('moedas');
     }
 }
