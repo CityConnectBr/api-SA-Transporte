@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->integer('fiscal_id')->unsigned()->nullable();;
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('perfil_web_id')->references('id')->on('perfil');
+            $table->foreign('perfil_web_id')->references('id')->on('perfis');
             $table->foreign('tipo_id')->references('id')->on('tipos_de_usuarios');
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
             $table->foreign('condutor_id')->references('id')->on('condutores');

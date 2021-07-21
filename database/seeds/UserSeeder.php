@@ -27,6 +27,7 @@ class UserSeeder extends Seeder
             'nome' => 'Admin',
             'email' => 'admin@admin.com',
             'perfil_web_id' => 1,
+            'tipo_id' => 4,
             'password' => bcrypt('123456'),
         ]);
     }
