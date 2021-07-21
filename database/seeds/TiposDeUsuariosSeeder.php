@@ -26,7 +26,7 @@ class TiposDeUsuariosSeeder extends Seeder
         ]);
         DB::table('tipos_de_usuarios')->insert([
             'id' => '4',
-            'nome' => 'responável',
+            'nome' => 'usuario_web',
         ]);
     }
 }
