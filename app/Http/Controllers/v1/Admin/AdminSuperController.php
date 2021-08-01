@@ -30,7 +30,7 @@ class AdminSuperController extends Controller
         if (isset($obj)) {
             return $obj;
         } else {
-            return response()->json("Não encontrado", 404);
+            return parent::responseMsgJSON("Não encontrado", 404);
         }
     }
 
@@ -41,9 +41,7 @@ class AdminSuperController extends Controller
      */
     public function create()
     {
-        return response()->json([
-            "Message" => "Não implementado!"
-        ], 501);
+        return parent::responseMsgJSON("Não implementado!", 501);
     }
 
     /**
@@ -79,7 +77,7 @@ class AdminSuperController extends Controller
         if (isset($obj)) {
             return $obj;
         } else {
-            return response()->json("Não encontrado", 404);
+            return parent::responseMsgJSON("Não encontrado", 404);
         }
     }
 
@@ -91,9 +89,7 @@ class AdminSuperController extends Controller
      */
     public function edit($id)
     {
-        return response()->json([
-            "Message" => "Não implementado!"
-        ], 501);
+        return parent::responseMsgJSON("Não implementado!", 501);
     }
 
     /**
@@ -118,7 +114,7 @@ class AdminSuperController extends Controller
 
             return $obj;
         } else {
-            return response()->json("Não encontrado", 404);
+            return parent::responseMsgJSON("Não encontrado", 404);
         }
     }
 
@@ -133,12 +129,12 @@ class AdminSuperController extends Controller
         $obj = $this->objectModel::find($id);
         if (isset($obj)) {
             if ($obj->delete()) {
-                return response()->json("Deletado com sucesso.");
+                return parent::responseMsgJSON("Deletado com sucesso.");
             } else {
-                return response()->json("Não pode ser deletado.", 500);
+                return parent::responseMsgJSON("Não pode ser deletado.", 500);
             }
         } else {
-            return response()->json("Não encontrado", 404);
+            return parent::responseMsgJSON("Não encontrado", 404);
         }
     }
 }
