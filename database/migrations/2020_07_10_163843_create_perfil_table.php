@@ -16,11 +16,11 @@ class CreatePerfilTable extends Migration
         Schema::create('perfis', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome', 20);
-            $table->boolean('incluir');
-            $table->boolean('alterar');
-            $table->boolean('excluir');
-            $table->boolean('consultar');
-            $table->boolean('imprimir');
+            $table->boolean('incluir')->default(false);
+            $table->boolean('alterar')->default(false);
+            $table->boolean('excluir')->default(false);
+            $table->boolean('consultar')->default(false);
+            $table->boolean('imprimir')->default(false);
             $table->timestamps();
         });
     }

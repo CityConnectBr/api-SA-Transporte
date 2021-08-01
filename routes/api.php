@@ -31,6 +31,24 @@ Route::group([
         Route::post('/user/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController@storeFromUser');
         Route::patch('/password', 'UsuarioController@updatePassword');
 
+        // fiscal
+        Route::group([
+            // 'middleware' => [
+            //     'fiscal'
+            // ],
+            'prefix' => 'admin'
+        ], function () {
+            Route::name('admin.')->group(function () {
+                Route::get('/', function () {
+                    return "admin ok";
+                });
+                Route::resource('/v1/perfis', 'v1\Admin\PerfilController');
+                Route::resource('/v1/usuarios', 'v1\SolicitacaoDeAlteracaoController');
+                Route::resource('/v1/permissionarios', 'v1\SolicitacaoDeAlteracaoController');
+
+            });
+        });
+
         // permissionarios
         Route::group([
             'middleware' => [
