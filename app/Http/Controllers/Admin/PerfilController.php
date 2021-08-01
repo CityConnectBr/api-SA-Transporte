@@ -1,7 +1,7 @@
 <?php
-namespace App\Http\Controllers\v1\Admin;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\v1\Admin\AdminSuperController;
+use App\Http\Controllers\Admin\AdminSuperController;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
 
