@@ -43,8 +43,8 @@ Route::group([
                     return "admin ok";
                 });
                 Route::resource('/perfis', 'Admin\PerfilController');
-                Route::resource('/usuarios', 'SolicitacaoDeAlteracaoController');
-                Route::resource('/permissionarios', 'SolicitacaoDeAlteracaoController');
+                Route::resource('/usuarios', 'Admin\UsuarioController');
+                Route::resource('/permissionarios', 'Admin\PermissionarioController');
             });
         });
 
