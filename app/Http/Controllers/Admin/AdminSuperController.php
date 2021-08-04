@@ -110,7 +110,7 @@ class AdminSuperController extends Controller
         $obj = $this->objectModel::find($id);
         if (isset($obj)) {
             $obj->fill($request->all());
-            $obj->save();
+            $obj->update();
 
             return $obj;
         } else {

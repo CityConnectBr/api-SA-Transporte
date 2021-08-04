@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('codigo_de_recuperacao', 6)->nullable();
             $table->timestamp('data_hora_ultimo_codigo_de_recuperacao')->nullable();
             $table->string('password');
-            $table->integer('tipo_id');
+            $table->integer('tipo_id')->nullable();
             $table->integer('perfil_web_id')->unsigned()->nullable();
             $table->integer('permissionario_id')->unsigned()->nullable();;
             $table->integer('condutor_id')->unsigned()->nullable();

@@ -96,6 +96,12 @@ class Usuario extends Authenticatable implements JWTSubject
     }
 
     //////////////////////////////////////
+    public static function search($search)
+    {
+        return Usuario::where("nome", "like", "%" . $search . "%")
+            ->orderBy("nome")
+            ->paginate(20);
+    }
 
     public function getJWTIdentifier()
     {
