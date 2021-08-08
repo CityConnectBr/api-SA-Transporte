@@ -22,6 +22,6 @@ class Perfil extends Model
     {
         return Perfil::where("nome", "like", "%" . $search . "%")
             ->orderBy("nome")
-            ->paginate(20);
+            ->simplePaginate(15);
     }
 }
