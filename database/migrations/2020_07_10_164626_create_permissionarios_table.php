@@ -16,14 +16,17 @@ class CreatePermissionariosTable extends Migration
         Schema::create('permissionarios', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
-            $table->string('nome', 40);
+            $table->string('numero_de_cadastro_antigo', 10)->nullable();
+            $table->string('nome_razao_social', 40);
             $table->string('tipo', 1)->nullable();//J/F
-            $table->string('situacao', 1);//A/I/C
+            //$table->string('situacao', 1);//A/I/C
             $table->string('cpf_cnpj', 14)->nullable();
             $table->string('rg', 15)->nullable();
             $table->string('estado_civil', 1)->nullable();
-            $table->string('classificacao', 3)->nullable();
             $table->string('inscricao_municipal', 15)->nullable();
+            $table->string('alvara_de_funcionamento', 15)->nullable();
+            $table->string('responsavel', 40)->nullable();
+            $table->string('procurador_responsavel', 40)->nullable();
             $table->string('telefone', 11)->nullable();
             $table->string('telefone2', 11)->nullable();
             $table->string('celular', 11)->nullable();
@@ -33,10 +36,27 @@ class CreatePermissionariosTable extends Migration
             $table->string('nacionalidade', 15)->nullable();
             $table->string('cnh', 15)->nullable();
             $table->string('categoria_cnh', 2)->nullable();
-            $table->date('vencimento_cnh', 100)->nullable();
-            $table->integer('versao');
+            $table->date('vencimento_cnh')->nullable();
 
-            $table->integer('entidade_associativa_id')->unsigned();
+            //$table->string('inss', 15)->nullable();//??
+
+
+            $table->boolean('atestado_de_saude')->nullable();
+            $table->boolean('certidao_negativa')->nullable();
+            $table->date('validade_certidao_negativa')->nullable();
+            $table->boolean('comprovante_de_endereco')->nullable();
+            $table->boolean('inscricao_do_cadastro_mobiliario')->nullable();
+            $table->string('numero_do_cadastro_mobiliario', 10)->nullable();
+            $table->boolean('crlv')->nullable();
+            $table->boolean('dpvat')->nullable();
+            $table->boolean('certificado_pontuacao_cnh')->nullable();
+
+            $table->string('classificacao_do_processo', 2)->nullable();
+            $table->string('numero_do_processo', 10)->nullable();
+            $table->date('data_processo_seletivo')->nullable();
+
+
+            $table->integer('entidade_associativa_id')->unsigned()->nullable();
             $table->integer('modalidade_id')->unsigned()->nullable();
             $table->integer('endereco_id')->unsigned()->nullable();
             $table->string('foto_uid')->nullable();

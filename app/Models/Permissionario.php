@@ -8,15 +8,17 @@ class Permissionario extends Model
 {
 
     protected $fillable = [
-        'nome',
         'id_integracao',
-        'modalidade_id',
-        'situacao',
+        'numero_de_cadastro_antigo',
+        'nome_razao_social',
         'tipo',
         'cpf_cnpj',
         'rg',
+        'estado_civil',
         'inscricao_municipal',
-        'ddd',
+        'alvara_de_funcionamento',
+        'responsavel',
+        'procurador_responsavel',
         'telefone',
         'telefone2',
         'celular',
@@ -27,12 +29,6 @@ class Permissionario extends Model
         'cnh',
         'categoria_cnh',
         'vencimento_cnh',
-        'versao',
-        'foto_uid'
-    ];
-
-    protected $attributes = [
-        'versao' => 0
     ];
 
     protected $temporaly = [
