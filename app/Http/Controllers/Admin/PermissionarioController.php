@@ -18,7 +18,7 @@ class PermissionarioController extends AdminSuperController
                 ],
                 'nome_razao_social' => [
                     'required',
-                    'max:10',
+                    'max:40',
                     'min:3'
                 ],
                 'tipo' => [
