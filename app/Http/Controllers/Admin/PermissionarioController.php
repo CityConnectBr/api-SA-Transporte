@@ -55,15 +55,19 @@ class PermissionarioController extends AdminSuperController
                     'max:40',
                 ],
                 'telefone' => [
+                    'nullable',
                     'regex:'.Util::REGEX_PHONE,
                 ],
                 'telefone2' => [
+                    'nullable',
                     'regex:'.Util::REGEX_PHONE,
                 ],
                 'celular' => [
+                    'nullable',
                     'regex:'.Util::REGEX_PHONE,
                 ],
                 'email' => [
+                    'nullable',
                     'email',
                     'max:200',
                 ],
