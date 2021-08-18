@@ -72,7 +72,7 @@ class PermissionarioController extends AdminSuperController
                     'max:200',
                 ],
                 'data_nascimento' => [
-                    'required',
+                    'nullable',
                     'regex:'.Util::REGEX_DATE
                 ],
                 'naturalidade' => [
