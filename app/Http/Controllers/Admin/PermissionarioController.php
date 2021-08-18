@@ -66,7 +66,6 @@ class PermissionarioController extends AdminSuperController
                 'email' => [
                     'email',
                     'max:200',
-                    'min:3'
                 ],
                 'data_nascimento' => [
                     'required',

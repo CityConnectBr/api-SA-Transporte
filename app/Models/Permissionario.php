@@ -35,13 +35,6 @@ class Permissionario extends Model
         'modalidade_transporte'
     ];
 
-    protected static function booted()
-    {
-        static::addGlobalScope('situacao', function (Builder $builder) {
-            $builder->where('situacao', "A");
-        });
-    }
-
     public function endereco()
     {
         return $this->hasOne(Endereco::class, 'id', 'endereco_id');
@@ -52,7 +45,15 @@ class Permissionario extends Model
         return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
     }
 
-    // /////////////////
+
+    //////////////////////////////////////
+    public static function search($search)
+    {
+        return Permissionario::where("nome_razao_social", "like", "%" . $search . "%")
+            ->orderBy("nome_razao_social")
+            ->simplePaginate(15);
+    }
+
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
