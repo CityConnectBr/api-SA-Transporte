@@ -17,7 +17,7 @@ class CreateMunicipiosTable extends Migration
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
             $table->string('nome', 40)->nullable();
-            $table->string('uf', 40)->nullable();
+            $table->string('uf', 2)->nullable();
             $table->timestamps();
         });
     }
