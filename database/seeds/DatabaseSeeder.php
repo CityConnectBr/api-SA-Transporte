@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
-
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +26,20 @@ class DatabaseSeeder extends Seeder
             'email' => 'teste@teste.com',
             'password' => Hash::make('123456'),
         ]);*/
+
+        for($i = 0;$i < 100;$i++){
+            DB::table('municipios')->insert([
+                'nome' => "Municipio RJ $i",
+                'uf' => 'RJ',
+            ]);
+        }
+
+        for($i = 0;$i < 100;$i++){
+            DB::table('municipios')->insert([
+                'nome' => "Municipio MG $i",
+                'uf' => 'MG',
+            ]);
+        }
 
     }
 }

@@ -27,7 +27,7 @@ class MunicipioController extends AdminSuperController
         );
     }
 
-    public function index()
+    public function indexByUf()
     {
         $search = $this->request->input('search');
         if( $search == null ) {
@@ -39,7 +39,7 @@ class MunicipioController extends AdminSuperController
             return parent::responseMsgJSON("UF não encontrado", 404);
         }
 
-        $obj = Municipio::search($uf, $search);
+        $obj = Municipio::searchByUf($uf, $search);
         if (isset($obj)) {
             return $obj;
         } else {
