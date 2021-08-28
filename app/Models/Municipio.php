@@ -26,7 +26,7 @@ class Municipio extends Model
         return Municipio::where("uf", "=", $uf)
             ->where("nome", "like", "%" . $search . "%")
             ->orderBy("nome")
-            ->paginate(40);
+            ->paginate(5);
     }
 
 }
