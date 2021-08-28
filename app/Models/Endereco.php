@@ -16,4 +16,12 @@ class Endereco extends Model
         'municipio',
         'uf',
     ];
+
+    //////////////////////////////////////
+    public static function search($search)
+    {
+        return Endereco::where("endereco", "like", "%" . $search . "%")
+            ->orderBy("endereco")
+            ->simplePaginate(15);
+    }
 }

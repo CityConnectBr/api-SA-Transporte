@@ -46,6 +46,7 @@ Route::group([
                 Route::resource('/usuarios', 'Admin\UsuarioController');
                 Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');
                 Route::resource('/municipios', 'Admin\MunicipioController');
+                Route::resource('/enderecos', 'Admin\EnderecoController');
                 Route::resource('/permissionarios', 'Admin\PermissionarioController');
             });
         });
