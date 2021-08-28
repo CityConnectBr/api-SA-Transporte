@@ -33,6 +33,11 @@ class EnderecoController extends AdminSuperController
                     'max:100',
                     'min:1'
                 ],
+                'uf' => [
+                    'required',
+                    'max:2',
+                    'min:2'
+                ],
                 'municipio_id' => [
                     'required',
                     'numeric',
