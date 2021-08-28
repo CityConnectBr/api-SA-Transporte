@@ -88,6 +88,10 @@ class PermissionarioController extends AdminSuperController
                     'max:2',
                     'min:1'
                 ],
+                'endereco_id' => [
+                    'required',
+                    'exists:enderecos,id'
+                ],
                 'vencimento_cnh' => [
                     'regex:'.Util::REGEX_DATE
                 ]
