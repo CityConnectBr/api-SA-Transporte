@@ -22,7 +22,7 @@ class CreatePermissionariosTable extends Migration
             //$table->string('situacao', 1);//A/I/C
             $table->string('cpf_cnpj', 14)->nullable();
             $table->string('rg', 15)->nullable();
-            $table->string('estado_civil', 1)->nullable();
+            $table->string('estado_civil', 2)->nullable();
             $table->string('inscricao_municipal', 15)->nullable();
             $table->string('alvara_de_funcionamento', 15)->nullable();
             $table->string('responsavel', 40)->nullable();
