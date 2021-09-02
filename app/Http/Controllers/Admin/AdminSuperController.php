@@ -60,7 +60,7 @@ class AdminSuperController extends Controller
         $validator = Validator::make($request->all(), $this->validatorList);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return Parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $obj = new $this->objectModel();
@@ -109,7 +109,7 @@ class AdminSuperController extends Controller
         $validator = Validator::make($request->all(), $this->validatorList);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return Parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $obj = $this->objectModel::find($id);
