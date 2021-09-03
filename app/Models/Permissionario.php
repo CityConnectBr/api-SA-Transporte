@@ -29,6 +29,7 @@ class Permissionario extends Model
         'cnh',
         'categoria_cnh',
         'vencimento_cnh',
+        'endereco_id'
     ];
 
     protected $temporaly = [
