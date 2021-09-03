@@ -13,7 +13,7 @@ class Endereco extends Model
         'numero',
         'complemento',
         'bairro',
-        'municipio',
+        'municipio_id',
         'uf',
     ];
 
