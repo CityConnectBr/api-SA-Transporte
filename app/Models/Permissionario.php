@@ -27,9 +27,12 @@ class Permissionario extends Model
         'naturalidade',
         'nacionalidade',
         'cnh',
+        'prefixo',
+        'inss',
         'categoria_cnh',
         'vencimento_cnh',
-        'endereco_id'
+        'endereco_id',
+        'modalidade_id',
     ];
 
     protected $temporaly = [

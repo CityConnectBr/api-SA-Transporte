@@ -38,8 +38,8 @@ class CreatePermissionariosTable extends Migration
             $table->string('categoria_cnh', 2)->nullable();
             $table->date('vencimento_cnh')->nullable();
 
-            //$table->string('inss', 15)->nullable();//??
-
+            $table->string('inss', 15)->nullable();
+            $table->string('prefixo', 10)->nullable();
 
             $table->boolean('atestado_de_saude')->nullable();
             $table->boolean('certidao_negativa')->nullable();
