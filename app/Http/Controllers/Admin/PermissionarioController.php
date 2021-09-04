@@ -11,6 +11,7 @@ class PermissionarioController extends AdminSuperController
 
     function __construct(Request $request)
     {
+        $postMethod = $request->method() == 'POST';
         parent::__construct(
             Permissionario::class, [
                 'numero_de_cadastro_antigo' => [
@@ -30,7 +31,7 @@ class PermissionarioController extends AdminSuperController
                     'max:14',
                     'min:11',
                     'regex:'.Util::REGEX_CPF_CNPJ,
-                    'unique:permissionarios'
+                    $postMethod?'unique:permissionarios':''
                 ],
                 'rg' => [
                     'max:9',
@@ -89,7 +90,7 @@ class PermissionarioController extends AdminSuperController
                     'min:1'
                 ],
                 'endereco_id' => [
-                    'required',
+                    $postMethod?'required':'',
                     'exists:enderecos,id'
                 ],
                 'vencimento_cnh' => [
