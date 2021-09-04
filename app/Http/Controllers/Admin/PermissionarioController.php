@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminSuperController;
 use App\Models\Permissionario;
 use App\Utils\Util;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PermissionarioController extends AdminSuperController
 {
@@ -99,5 +100,47 @@ class PermissionarioController extends AdminSuperController
             ],
             $request
         );
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateModalidade(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'modalidade_id' => [
+                'required',
+                'exists:modalidades,id'
+            ],
+            'inss' => [
+                'required',
+                'max:10',
+                'min:3'
+            ],
+            'prefixo' => [
+                'required',
+                'max:15',
+                'min:3'
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $obj = Permissionario::find($id);
+        if (isset($obj)) {
+            $obj->fill($request->all());
+            $obj->update();
+
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
     }
 }

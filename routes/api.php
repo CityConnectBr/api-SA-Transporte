@@ -51,6 +51,7 @@ Route::group([
                 Route::resource('/municipios', 'Admin\MunicipioController');
                 Route::resource('/enderecos', 'Admin\EnderecoController');
                 Route::resource('/permissionarios', 'Admin\PermissionarioController');
+                Route::put('/permissionarios/{id}/modalidade', 'Admin\PermissionarioController@updateModalidade');
             });
         });
 
