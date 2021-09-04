@@ -43,6 +43,8 @@ Route::group([
                     return "admin ok";
                 });
                 Route::resource('/perfis', 'Admin\PerfilController');
+                Route::resource('/pontos', 'Admin\PontoController');
+                Route::resource('/pontosdousuario', 'Admin\PontoDoUsuarioController');
                 Route::resource('/usuarios', 'Admin\UsuarioController');
                 Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');
                 Route::resource('/municipios', 'Admin\MunicipioController');
