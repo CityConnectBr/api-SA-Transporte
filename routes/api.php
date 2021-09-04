@@ -44,6 +44,7 @@ Route::group([
                 });
                 Route::resource('/perfis', 'Admin\PerfilController');
                 Route::resource('/pontos', 'Admin\PontoController');
+                Route::resource('/modalidades', 'Admin\ModalidadeController');
                 Route::resource('/pontosdopermissionario', 'Admin\PontoDoUsuarioController');
                 Route::resource('/usuarios', 'Admin\UsuarioController');
                 Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');
