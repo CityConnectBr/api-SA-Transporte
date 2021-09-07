@@ -28,6 +28,13 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456'),
         ]);*/
 
+        DB::table('permissionarios')->insert([
+            'nome_razao_social' => 'teste',
+            'tipo' => '1',
+            'cpf_cnpj' => '67958010800',
+            'cnh' => '123',
+        ]);
+
         for($i = 0;$i < 100;$i++){
             DB::table('municipios')->insert([
                 'nome' => "Municipio RJ $i",

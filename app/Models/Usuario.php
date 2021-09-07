@@ -78,9 +78,10 @@ class Usuario extends Authenticatable implements JWTSubject
         return Usuario::where("email", $email)->first();
     }
 
+    /*
     public static function findByCpfCnpj($cpfCnpj){
         return Usuario::where("cpf_cnpj", $cpfCnpj)->first();
-    }
+    }*/
 
     public static function findByCNH($cnh){
         return Usuario::where("cnh", $cnh)->first();
@@ -91,9 +92,9 @@ class Usuario extends Authenticatable implements JWTSubject
         return Usuario::where("email", $email)->where("codigo_de_recuperacao", $code)->first();
     }
 
-    public static function findByEmailOrCpfCnpj($email, $cpfCnpj){
-        return Usuario::where("email", $email)->orWhere("cpf_cnpj", $cpfCnpj)->get();
-    }
+    /*public static function findByEmailOrCpfCnpj($email, $cpfCnpj){
+        return Usuario::where("email", $email)->get();
+    }*/
 
     //////////////////////////////////////
     public static function search($search)

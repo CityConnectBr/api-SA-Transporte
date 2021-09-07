@@ -63,35 +63,35 @@ class UsuarioController extends Controller
         }
 
         // PESQUISANDO USUARIOS
-        $user = Usuario::findByCpfCnpj($request['cpf_cnpj']);
+        /*$user = Usuario::findByCpfCnpj($request['cpf_cnpj']);
         if (isset($user)) {
             return parent::responseMsgJSON("CPF ou CNPJ já cadastrado", 400);
-        }
+        }*/
 
         $user = Usuario::findByEmail($request['email']);
         if (isset($user)) {
             return parent::responseMsgJSON("E-mail já cadastrado", 400);
         }
 
-        if (isset($request['cnh']) && ! empty($request['cnh'])) {
+        /*if (isset($request['cnh']) && ! empty($request['cnh'])) {
             $user = Usuario::findByCNH($request['cnh']);
             if (isset($user)) {
                 return parent::responseMsgJSON("CNH já cadastrada", 400);
             }
-        }
+        }*/
 
         $user = new Usuario();
         $user->fill($request->all());
         $user->password = hash::make($request->input("password"));
 
         // BUSCANDO PERMISSIONARIO
-        $permissionario = Permissionario::firstByCpfCnpj($user->cpf_cnpj);
+        $permissionario = Permissionario::firstByCpfCnpj($request->input("cpf_cnpj"));
         if (! isset($permissionario) && isset($user->cnh)) {
             $permissionario = Permissionario::firstByCnh($user->cnh);
         }
 
         // BUSCANDO FISCAL
-        $fiscal = Fiscal::firstByCpf($user->cpf_cnpj);
+        $fiscal = Fiscal::firstByCpf($request->input("cpf_cnpj"));
 
         // BUSCANDO condutor
         $condutor = Condutor::firstByCNH($user->cnh);
@@ -100,7 +100,10 @@ class UsuarioController extends Controller
             return parent::responseMsgJSON("Nenhum permissionário, fiscal ou condutor previamente cadastrado", 404);
         }
 
-        if (count(Usuario::findByEmailOrCpfCnpj($user->email, $user->cpf_cnpj)) > 0) {
+        /*if (count(Usuario::findByEmailOrCpfCnpj($user->email, $request->input("cpf_cnpj"))) > 0) {
+            return parent::responseMsgJSON("Usuário já cadastrado", 404);
+        }*/
+        if (Usuario::findByEmail($user->email)!==null) {
             return parent::responseMsgJSON("Usuário já cadastrado", 404);
         }
 
