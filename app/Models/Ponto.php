@@ -27,6 +27,6 @@ class Ponto extends Model
     {
         return Ponto::where("descricao", "like", "%" . $search . "%")
             ->orderBy("descricao")
-            ->simplePaginate(15);
+            ->simplePaginate(5);
     }
 }
