@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriasVeiculosSeeder::class);
         $this->call(TiposSolicitacaoDeAlteracaoSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(EntidadeAssociativaSeeder::class);
 
         //$this->call(UserSeeder::class);
         /*DB::table('users')->insert([
