@@ -14,7 +14,7 @@ class PermissionarioController extends IntegracaoController
     function __construct()
     {
         parent::__construct(Permissionario::class, [
-            'nome' => [
+            'nome_razao_social' => [
                 'required',
                 'max:40',
                 'min:3'
