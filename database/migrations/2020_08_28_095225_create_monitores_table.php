@@ -24,9 +24,9 @@ class CreateMonitoresTable extends Migration
             $table->string('email', 200)->nullable();
             $table->date('data_nascimento')->nullable();
             $table->integer('versao');
-            $table->boolean('certidao_negativa');
+            $table->boolean('certidao_negativa')->nullable();
             $table->date('validade_da_certidao_negativa')->nullable();
-            $table->boolean('curso_de_primeiro_socorros');
+            $table->boolean('curso_de_primeiro_socorros')->nullable();
             $table->date('emissao_curso_de_primeiro_socorros')->nullable();
 
             $table->integer('permissionario_id')->unsigned();
