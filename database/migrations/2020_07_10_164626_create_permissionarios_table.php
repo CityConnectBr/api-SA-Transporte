@@ -38,6 +38,11 @@ class CreatePermissionariosTable extends Migration
             $table->string('categoria_cnh', 2)->nullable();
             $table->date('vencimento_cnh')->nullable();
 
+            $table->date('inicio_atividades')->nullable();
+            $table->date('termino_atividades')->nullable();
+            $table->string('termino_atividades_motivo', 15)->nullable();
+            $table->date('data_transferencia')->nullable();
+
             $table->string('inss', 15)->nullable();
             $table->string('prefixo', 10)->nullable();
 
@@ -47,14 +52,27 @@ class CreatePermissionariosTable extends Migration
             $table->boolean('comprovante_de_endereco')->nullable();
             $table->boolean('inscricao_do_cadastro_mobiliario')->nullable();
             $table->string('numero_do_cadastro_mobiliario', 10)->nullable();
+            $table->boolean('curso_primeiro_socorros')->nullable();
+            $table->date('curso_primeiro_socorros_emissao')->nullable();
             $table->boolean('crlv')->nullable();
             $table->boolean('dpvat')->nullable();
             $table->boolean('certificado_pontuacao_cnh')->nullable();
+            $table->boolean('contrato_comodato')->nullable();
+            $table->date('contrato_comodato_validade')->nullable();
+            $table->boolean('ipva')->nullable();
+            $table->boolean('relacao_dos_alunos_transportados')->nullable();
+            $table->boolean('laudo_vistoria_com_aprovacao_da_sa_trans')->nullable();
+            $table->boolean('ciretran_vistoria')->nullable();
+            $table->boolean('ciretran_autorizacao')->nullable();
+            $table->boolean('selo_gnv')->nullable();
+            $table->date('selo_gnv_validade')->nullable();
+            $table->boolean('taximetro_tacografo')->nullable();
+            $table->string('taximetro_tacografo_numero', 10)->nullable();
+            $table->date('taximetro_tacografo_afericao')->nullable();
 
             $table->string('classificacao_do_processo', 2)->nullable();
             $table->string('numero_do_processo', 10)->nullable();
             $table->date('data_processo_seletivo')->nullable();
-
 
             $table->integer('entidade_associativa_id')->unsigned()->nullable();
             $table->integer('modalidade_id')->unsigned()->nullable();
