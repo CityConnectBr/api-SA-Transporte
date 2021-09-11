@@ -13,9 +13,11 @@ class PontoDoUsuarioController extends AdminSuperController
             PontoDoPermissionario::class, [
                 'permissionario_id' => [
                     'required',
+                    'exists:permissionarios,id'
                 ],
                 'ponto_id' => [
                     'required',
+                    'exists:pontos,id'
                 ],
             ],
             $request
