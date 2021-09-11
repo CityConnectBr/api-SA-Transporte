@@ -44,6 +44,7 @@ Route::group([
                 });
                 Route::resource('/perfis', 'Admin\PerfilController');
                 Route::resource('/pontos', 'Admin\PontoController');
+                Route::resource('/tipodecurso', 'Admin\TipoDeCursoController');
                 Route::resource('/modalidades', 'Admin\ModalidadeController');
                 Route::resource('/entidadesassiciativa', 'Admin\EntidadeAssociativaController');
                 Route::resource('/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
