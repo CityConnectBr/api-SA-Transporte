@@ -26,13 +26,19 @@ class AdminSuperController extends Controller
      */
     public function index()
     {
-        $search = $this->request->input('search');
-        if( $search == null ) {
-            $search = $this->request->query('search');
+        $obj = null;
+        if(method_exists($this->objectModel, 'search')){
+            $search = $this->request->input('search');
+            if( $search == null ) {
+                $search = $this->request->query('search');
+            }
+
+            $obj = $this->objectModel::search($search);
+        }else{
+            $obj = $this->objectModel::simplePaginate(15);
         }
 
-        $obj = $this->objectModel::search($search);
-        if (isset($obj)) {
+        if ($obj!=null) {
             return $obj;
         } else {
             return parent::responseMsgJSON("Não encontrado", 404);
