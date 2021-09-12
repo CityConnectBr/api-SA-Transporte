@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TiposSolicitacaoDeAlteracaoSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(EntidadeAssociativaSeeder::class);
+        $this->call(AplicativoSeeder::class);
 
         //$this->call(UserSeeder::class);
         /*DB::table('users')->insert([
@@ -47,6 +48,12 @@ class DatabaseSeeder extends Seeder
                 'descricao' => "Ponto $i",
                 'base_legal' => 'teste',
                 'capacidade_legal' => 'teste'
+            ]);
+        }
+
+        for($i = 0;$i < 10;$i++){
+            DB::table('aplicativos')->insert([
+                'descricao' => "Aplicativo $i",
             ]);
         }
 
