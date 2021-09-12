@@ -73,6 +73,7 @@ Route::group([
                         Route::resource('/{id}/aplicativosdopermissionario', 'Admin\AplicativoDoPermissionarioController');
                         Route::resource('/{id}/cursosdopermissionario', 'Admin\CursoDoPermissionarioController');
                         Route::resource('/{id}/alvaradopermissionario', 'Admin\AlvaraDoPermissionarioController');
+                        Route::resource('/{id}/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
                     });
                 });
 

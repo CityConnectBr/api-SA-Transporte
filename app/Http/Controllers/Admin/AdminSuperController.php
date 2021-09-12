@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
@@ -7,16 +8,19 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class AdminSuperController extends Controller
 {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    function __construct($objectModel, $validatorList, $request) {
+    function __construct($objectModel, $validatorList, $request, $showOnlyFile = false)
+    {
         $this->objectModel = $objectModel;
         $this->validatorList = $validatorList;
         $this->request = $request;
+        $this->showOnlyFile = $showOnlyFile;
     }
 
     /**
@@ -27,18 +31,18 @@ class AdminSuperController extends Controller
     public function index()
     {
         $obj = null;
-        if(method_exists($this->objectModel, 'search')){
+        if (method_exists($this->objectModel, 'search')) {
             $search = $this->request->input('search');
-            if( $search == null ) {
+            if ($search == null) {
                 $search = $this->request->query('search');
             }
 
             $obj = $this->objectModel::search($search);
-        }else{
+        } else {
             $obj = $this->objectModel::simplePaginate(15);
         }
 
-        if ($obj!=null) {
+        if ($obj != null) {
             return $obj;
         } else {
             return parent::responseMsgJSON("Não encontrado", 404);
@@ -71,7 +75,16 @@ class AdminSuperController extends Controller
 
         $obj = new $this->objectModel();
         $obj->fill($request->all());
+        //caso contenha arquivo anexo
+        if (isset($request->file)) {
+            $obj->original_file_name = $request->file->getClientOriginalName();
+            $obj->file_name = 'file_' . $obj->id . "." . $request->file->extension();
+        }
         $obj->save();
+
+        if (isset($request->file)) {
+            $request->file->storeAs('/' . $obj->getTable(), $obj->file_name);
+        }
 
         return $obj;
     }
@@ -86,6 +99,11 @@ class AdminSuperController extends Controller
     {
         $obj = $this->objectModel::find($id);
         if (isset($obj)) {
+
+            if ($this->showOnlyFile) {
+                return Storage::download($obj->getTable().'/' . $obj->file_name);
+            }
+
             return $obj;
         } else {
             return parent::responseMsgJSON("Não encontrado", 404);
@@ -120,6 +138,13 @@ class AdminSuperController extends Controller
 
         $obj = $this->objectModel::find($id);
         if (isset($obj)) {
+
+            if (isset($request->file)) {
+                $obj->original_file_name = $request->file->getClientOriginalName();
+                $obj->file_name = 'file_' . $obj->id . "." . $request->file->extension();
+                $request->file->storeAs('/' . $obj->getTable(), $obj->file_name);
+            }
+
             $obj->fill($request->all());
             $obj->update();
 
