@@ -42,22 +42,41 @@ Route::group([
                 Route::get('/', function () {
                     return "admin ok";
                 });
+                //--------- CRUDS BASE -------------------
                 Route::resource('/perfis', 'Admin\PerfilController');
                 Route::resource('/pontos', 'Admin\PontoController');
                 Route::resource('/aplicativos', 'Admin\AplicativoController');
                 Route::resource('/tiposdecurso', 'Admin\TipoDeCursoController');
                 Route::resource('/modalidades', 'Admin\ModalidadeController');
                 Route::resource('/entidadesassiciativa', 'Admin\EntidadeAssociativaController');
-                Route::resource('/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
-                Route::resource('/aplicativosdopermissionario', 'Admin\AplicativoDoPermissionarioController');
-                Route::resource('/cursosdopermissionario', 'Admin\CursoDoPermissionarioController');
-                Route::resource('/alvaradopermissionario', 'Admin\AlvaraDoPermissionarioController');
                 Route::resource('/usuarios', 'Admin\UsuarioController');
-                Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');
-                Route::resource('/municipios', 'Admin\MunicipioController');
                 Route::resource('/enderecos', 'Admin\EnderecoController');
-                Route::resource('/permissionarios', 'Admin\PermissionarioController');
-                Route::put('/permissionarios/{id}/modalidade', 'Admin\PermissionarioController@updateModalidade');
+
+                Route::group([
+                    'prefix' => 'municipios'
+                ], function () {
+                    Route::name('municipios.')->group(function () {
+                        Route::resource('/', 'Admin\MunicipioController');
+                        Route::get('/uf', 'Admin\MunicipioController@indexByUf');
+                    });
+                });
+
+                Route::group([
+                    'prefix' => 'permissionarios'
+                ], function () {
+                    Route::name('permissionarios.')->group(function () {
+                        Route::resource('/', 'Admin\PermissionarioController');
+                        Route::put('/{id}/modalidade', 'Admin\PermissionarioController@updateModalidade');
+                        Route::put('/{id}/documentos', 'Admin\PermissionarioController@updateDocumentos');
+                        Route::put('/{id}/falecimento', 'Admin\PermissionarioController@falecimento');
+                        Route::resource('/{id}/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
+                        Route::resource('/{id}/aplicativosdopermissionario', 'Admin\AplicativoDoPermissionarioController');
+                        Route::resource('/{id}/cursosdopermissionario', 'Admin\CursoDoPermissionarioController');
+                        Route::resource('/{id}/alvaradopermissionario', 'Admin\AlvaraDoPermissionarioController');
+                    });
+                });
+
+
             });
         });
 
