@@ -29,6 +29,8 @@ class Permissionario extends Model
         'cnh',
         'prefixo',
         'inss',
+        'modalidade_id',
+        'entidade_associativa_id',
         'categoria_cnh',
         'vencimento_cnh',
         'endereco_id',
