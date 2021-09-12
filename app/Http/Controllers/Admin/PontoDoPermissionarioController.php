@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\AdminSuperController;
 use App\Models\PontoDoPermissionario;
 use Illuminate\Http\Request;
 
-class PontoDoUsuarioController extends AdminSuperController
+class PontoDoPermissionarioController extends AdminSuperController
 {
     function __construct(Request $request)
     {

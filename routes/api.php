@@ -52,31 +52,18 @@ Route::group([
                 Route::resource('/usuarios', 'Admin\UsuarioController');
                 Route::resource('/enderecos', 'Admin\EnderecoController');
 
-                Route::group([
-                    'prefix' => 'municipios'
-                ], function () {
-                    Route::name('municipios.')->group(function () {
-                        Route::resource('/', 'Admin\MunicipioController');
-                        Route::get('/uf', 'Admin\MunicipioController@indexByUf');
-                    });
-                });
+                Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');//precisa estar na frente de /municipios
+                Route::resource('/municipios', 'Admin\MunicipioController');
 
-                Route::group([
-                    'prefix' => 'permissionarios'
-                ], function () {
-                    Route::name('permissionarios.')->group(function () {
-                        Route::resource('/', 'Admin\PermissionarioController');
-                        Route::put('/{id}/modalidade', 'Admin\PermissionarioController@updateModalidade');
-                        Route::put('/{id}/documentos', 'Admin\PermissionarioController@updateDocumentos');
-                        Route::put('/{id}/falecimento', 'Admin\PermissionarioController@falecimento');
-                        Route::resource('/{id}/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
-                        Route::resource('/{id}/aplicativosdopermissionario', 'Admin\AplicativoDoPermissionarioController');
-                        Route::resource('/{id}/cursosdopermissionario', 'Admin\CursoDoPermissionarioController');
-                        Route::resource('/{id}/alvaradopermissionario', 'Admin\AlvaraDoPermissionarioController');
-                        Route::resource('/{id}/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
-                    });
-                });
-
+                Route::resource('/permissionarios', 'Admin\PermissionarioController');
+                Route::put('/permissionarios/{id}/modalidade', 'Admin\PermissionarioController@updateModalidade');
+                Route::put('/permissionarios/{id}/documentos', 'Admin\PermissionarioController@updateDocumentos');
+                Route::put('/permissionarios/{id}/falecimento', 'Admin\PermissionarioController@falecimento');
+                Route::resource('/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
+                Route::resource('/aplicativosdopermissionario', 'Admin\AplicativoDoPermissionarioController');
+                Route::resource('/cursosdopermissionario', 'Admin\CursoDoPermissionarioController');
+                Route::resource('/alvaradopermissionario', 'Admin\AlvaraDoPermissionarioController');
+                Route::resource('/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
 
             });
         });
