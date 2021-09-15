@@ -143,4 +143,139 @@ class PermissionarioController extends AdminSuperController
             return parent::responseMsgJSON("Não encontrado", 404);
         }
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateDocumentos(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'atestado_de_saude' => [
+                'boolean',
+                'nullable'
+            ],
+            'certidao_negativa' => [
+                'boolean',
+                'nullable'
+            ],
+            'validade_certidao_negativa' => [
+                'boolean',
+                'nullable'
+            ],
+            'comprovante_de_endereco' => [
+                'boolean',
+                'nullable'
+            ],
+            'inscricao_do_cadastro_mobiliario' => [
+                'boolean',
+                'nullable'
+            ],
+            'numero_do_cadastro_mobiliario' => [
+                'max:10',
+                'nullable'
+            ],
+            'curso_primeiro_socorros' => [
+                'boolean',
+                'nullable'
+            ],
+            'curso_primeiro_socorros_emissao' => [
+                'regex:'.Util::REGEX_DATE,
+                'nullable'
+            ],
+            'crlv' => [
+                'boolean',
+                'nullable'
+            ],
+            'dpvat' => [
+                'boolean',
+                'nullable'
+            ],
+            'certificado_pontuacao_cnh' => [
+                'boolean',
+                'nullable'
+            ],
+            'contrato_comodato' => [
+                'boolean',
+                'nullable'
+            ],
+            'contrato_comodato_validade' => [
+                'regex:'.Util::REGEX_DATE,
+                'nullable'
+            ],
+            'ipva' => [
+                'boolean',
+                'nullable'
+            ],
+            'relacao_dos_alunos_transportados' => [
+                'boolean',
+                'nullable'
+            ],
+            'laudo_vistoria_com_aprovacao_da_sa_trans' => [
+                'boolean',
+                'nullable'
+            ],
+            'ciretran_vistoria' => [
+                'boolean',
+                'nullable'
+            ],
+            'ciretran_autorizacao' => [
+                'boolean',
+                'nullable'
+            ],
+            'selo_gnv' => [
+                'boolean',
+                'nullable'
+            ],
+            'selo_gnv_validade' => [
+                'regex:'.Util::REGEX_DATE,
+                'nullable'
+            ],
+            'taximetro_tacografo' => [
+                'boolean',
+                'nullable'
+            ],
+            'taximetro_tacografo_numero' => [
+                'max:10',
+                'nullable'
+            ],
+            'taximetro_tacografo_afericao' => [
+                'boolean',
+                'nullable'
+            ],
+            'inicio_atividades' => [
+                'boolean',
+                'nullable'
+            ],
+            'termino_atividades' => [
+                'boolean',
+                'nullable'
+            ],
+            'termino_atividades_motivo' => [
+                'max:15',
+                'nullable'
+            ],
+            'data_transferencia' => [
+                'regex:'.Util::REGEX_DATE,
+                'nullable'
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $obj = Permissionario::find($id);
+        if (isset($obj)) {
+            $obj->fill($request->all());
+            $obj->update();
+
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
 }
