@@ -163,7 +163,7 @@ class PermissionarioController extends AdminSuperController
                 'nullable'
             ],
             'validade_certidao_negativa' => [
-                'boolean',
+                'regex:'.Util::REGEX_DATE,
                 'nullable'
             ],
             'comprovante_de_endereco' => [
