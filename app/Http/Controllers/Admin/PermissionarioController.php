@@ -243,15 +243,15 @@ class PermissionarioController extends AdminSuperController
                 'nullable'
             ],
             'taximetro_tacografo_afericao' => [
-                'boolean',
+                'regex:'.Util::REGEX_DATE,
                 'nullable'
             ],
             'inicio_atividades' => [
-                'boolean',
+                'regex:'.Util::REGEX_DATE,
                 'nullable'
             ],
             'termino_atividades' => [
-                'boolean',
+                'regex:'.Util::REGEX_DATE,
                 'nullable'
             ],
             'termino_atividades_motivo' => [
