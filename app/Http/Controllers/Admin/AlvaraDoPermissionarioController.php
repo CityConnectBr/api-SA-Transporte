@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminSuperController;
@@ -12,21 +13,24 @@ class AlvaraDoPermissionarioController extends AdminSuperController
     function __construct(Request $request)
     {
         parent::__construct(
-            Alvara::class, [
+            Alvara::class,
+            [
+                'permissionario_id' => [
+                    'required',
+                ],
                 'data_emissao' => [
                     'required',
-                    'regex:'.Util::REGEX_DATE,
+                    'regex:' . Util::REGEX_DATE,
                 ],
                 'data_vencimento' => [
                     'required',
-                    'regex:'.Util::REGEX_DATE,
+                    'regex:' . Util::REGEX_DATE,
                 ],
                 'data_retorno' => [
-                    'regex:'.Util::REGEX_DATE,
+                    'regex:' . Util::REGEX_DATE,
                 ],
                 'observacao_retorno' => [
                     'max:15',
-                    'min:3'
                 ]
             ],
             $request
