@@ -15,9 +15,12 @@ class CursoDoPermissionarioController extends AdminSuperController
                     'required',
                     'exists:permissionarios,id'
                 ],
-                'tipo_de_curso_id' => [
+                'tipo_do_curso_id' => [
                     'required',
                     'exists:tipos_de_curso,id'
+                ],
+                'data_emissao' => [
+                    'required',
                 ],
             ],
             $request
