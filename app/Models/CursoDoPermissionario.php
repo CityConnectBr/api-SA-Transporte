@@ -8,7 +8,8 @@ class CursoDoPermissionario extends Model
 {
     protected $fillable = [
         'permissionario_id',
-        'tipo_do_curso_id'
+        'tipo_do_curso_id',
+        'data_emissao'
     ];
 
     protected $table = 'cursos_de_permissionarios';
