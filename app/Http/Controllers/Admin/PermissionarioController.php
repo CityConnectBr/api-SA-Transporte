@@ -301,13 +301,13 @@ class PermissionarioController extends AdminSuperController
             'nome_inventariante' => [
                 'max:40',
             ],
-            'grau_de_paretesco' => [
+            'grau_de_paretesco_inventariante' => [
                 'max:15',
             ],
-            'numero_do_processo' => [
+            'numero_do_processo_do_inventario' => [
                 'max:15',
             ],
-            'parecer_do_juiz' => [
+            'parecer_do_juiz_sobre_inventario' => [
                 'max:500',
             ],
         ]);
