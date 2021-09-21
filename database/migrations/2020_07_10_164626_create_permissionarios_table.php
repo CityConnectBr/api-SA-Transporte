@@ -43,6 +43,13 @@ class CreatePermissionariosTable extends Migration
             $table->string('termino_atividades_motivo', 15)->nullable();
             $table->date('data_transferencia')->nullable();
 
+            $table->date('data_obito')->nullable();
+            $table->string('certidao_de_obito', 15)->nullable();
+            $table->string('nome_inventariante', 40)->nullable();
+            $table->string('grau_de_paretesco_inventariante', 15)->nullable();
+            $table->string('numero_do_processo_do_inventario', 15)->nullable();
+            $table->string('parecer_do_juiz_sobre_inventario', 500)->nullable();
+
             $table->string('inss', 15)->nullable();
             $table->string('prefixo', 10)->nullable();
 

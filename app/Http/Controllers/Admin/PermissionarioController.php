@@ -278,4 +278,53 @@ class PermissionarioController extends AdminSuperController
             return parent::responseMsgJSON("Não encontrado", 404);
         }
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateFalecimento(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'data_obito' => [
+                'required',
+                'regex:'.Util::REGEX_DATE,
+            ],
+            'certidao_de_obito' => [
+                'required',
+                'max:15',
+                'min:3'
+            ],
+            'nome_inventariante' => [
+                'max:40',
+            ],
+            'grau_de_paretesco' => [
+                'max:15',
+            ],
+            'numero_do_processo' => [
+                'max:15',
+            ],
+            'parecer_do_juiz' => [
+                'max:500',
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $obj = Permissionario::find($id);
+        if (isset($obj)) {
+            $obj->fill($request->all());
+            $obj->nome_razao_social = $obj->nome_razao_social." (FALECIDO)";
+            $obj->update();
+
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
 }

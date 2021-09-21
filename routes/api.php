@@ -58,7 +58,7 @@ Route::group([
                 Route::resource('/permissionarios', 'Admin\PermissionarioController');
                 Route::put('/permissionarios/{id}/modalidade', 'Admin\PermissionarioController@updateModalidade');
                 Route::put('/permissionarios/{id}/documentos', 'Admin\PermissionarioController@updateDocumentos');
-                Route::put('/permissionarios/{id}/falecimento', 'Admin\PermissionarioController@falecimento');
+                Route::put('/permissionarios/{id}/falecimento', 'Admin\PermissionarioController@updateFalecimento');
                 Route::resource('/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
                 Route::resource('/aplicativosdopermissionario', 'Admin\AplicativoDoPermissionarioController');
                 Route::resource('/cursosdopermissionario', 'Admin\CursoDoPermissionarioController');
