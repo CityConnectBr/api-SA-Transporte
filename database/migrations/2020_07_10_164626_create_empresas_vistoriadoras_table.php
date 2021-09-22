@@ -18,7 +18,6 @@ class CreateEmpresasVistoriadorasTable extends Migration
             $table->integer('id_integracao')->nullable()->unique();
             $table->string('nome', 40);
             $table->string('tipo', 1)->nullable();
-            $table->string('cep', 8)->nullable();
             $table->string('telefone', 11)->nullable();
             $table->string('email', 200)->nullable();
             $table->string('cnpj', 14)->nullable();
