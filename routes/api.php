@@ -43,6 +43,7 @@ Route::group([
                     return "admin ok";
                 });
                 //--------- CRUDS BASE -------------------
+                Route::resource('/empresas', 'Admin\EmpresaController');
                 Route::resource('/perfis', 'Admin\PerfilController');
                 Route::resource('/pontos', 'Admin\PontoController');
                 Route::resource('/aplicativos', 'Admin\AplicativoController');
