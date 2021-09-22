@@ -31,7 +31,7 @@ class Empresa extends Model
     //////////////////////////////////////
     public static function search($search)
     {
-        return EntidadeAssociativa::where("nome", "like", "%" . $search . "%")
+        return Empresa::where("nome", "like", "%" . $search . "%")
         ->orderBy("nome")
         ->paginate(15);
     }
