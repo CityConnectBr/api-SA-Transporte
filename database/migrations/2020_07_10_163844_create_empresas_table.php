@@ -33,7 +33,7 @@ class CreateEmpresasTable extends Migration
             $table->string('decreto_municipal_escolar', 60)->nullable();
             $table->integer('endereco_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('endereco_id')->references('id')->on('enderecos')->onDelete('cascade');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
 
