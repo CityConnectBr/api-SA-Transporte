@@ -19,8 +19,8 @@ class CreateCursosDeMonitoresTable extends Migration
             $table->integer('monitor_id')->unsigned();
             $table->integer('tipo_do_curso_id')->unsigned();
             $table->timestamps();
-            $table->foreign('monitor_id')->references('id')->on('monitores')->onDelete('cascade');
-            $table->foreign('tipo_do_curso_id')->references('id')->on('tipos_de_curso')->onDelete('cascade');
+            $table->foreign('monitor_id')->references('id')->on('monitores');
+            $table->foreign('tipo_do_curso_id')->references('id')->on('tipos_de_curso');
         });
     }
 

@@ -21,7 +21,7 @@ class CreateAnexosDoPermissionarioTable extends Migration
             $table->string('file_name', 60);
             $table->integer('permissionario_id')->unsigned();
             $table->timestamps();
-            $table->foreign('permissionario_id')->references('id')->on('permissionarios')->onDelete('cascade');
+            $table->foreign('permissionario_id')->references('id')->on('permissionarios');
         });
     }
 

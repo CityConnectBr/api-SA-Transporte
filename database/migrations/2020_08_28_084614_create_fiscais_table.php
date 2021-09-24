@@ -24,7 +24,7 @@ class CreateFiscaisTable extends Migration
             $table->integer('versao');
             $table->integer('endereco_id')->unsigned();
             $table->timestamps();
-            $table->foreign('endereco_id')->references('id')->on('enderecos')->onDelete('cascade');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
 

@@ -28,7 +28,7 @@ class CreateEmpresasVistoriadorasTable extends Migration
             $table->integer('total_vistorias_dia')->nullable();
             $table->integer('endereco_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('endereco_id')->references('id')->on('enderecos')->onDelete('cascade');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
 
