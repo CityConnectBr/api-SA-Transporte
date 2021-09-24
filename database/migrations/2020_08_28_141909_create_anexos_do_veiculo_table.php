@@ -19,7 +19,7 @@ class CreateAnexosDoVeiculoTable extends Migration
             $table->string('descricao', 60);
             $table->integer('veiculo_id')->unsigned();
             $table->timestamps();
-            $table->foreign('veiculo_id')->references('id')->on('veiculos')->onDelete('cascade');
+            $table->foreign('veiculo_id')->references('id')->on('veiculos');
         });
     }
 

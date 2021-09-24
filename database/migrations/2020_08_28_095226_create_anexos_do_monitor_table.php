@@ -19,7 +19,7 @@ class CreateAnexosDoMonitorTable extends Migration
             $table->string('descricao', 60);
             $table->integer('monitor_id')->unsigned();
             $table->timestamps();
-            $table->foreign('monitor_id')->references('id')->on('monitores')->onDelete('cascade');
+            $table->foreign('monitor_id')->references('id')->on('monitores');
         });
     }
 

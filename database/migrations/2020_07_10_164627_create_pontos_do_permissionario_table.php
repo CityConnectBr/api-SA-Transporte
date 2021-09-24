@@ -19,8 +19,8 @@ class CreatePontosDoPermissionarioTable extends Migration
             $table->integer('permissionario_id')->unsigned()->nullable();
             $table->integer('ponto_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('permissionario_id')->references('id')->on('permissionarios')->onDelete('cascade');
-            $table->foreign('ponto_id')->references('id')->on('pontos')->onDelete('cascade');
+            $table->foreign('permissionario_id')->references('id')->on('permissionarios');
+            $table->foreign('ponto_id')->references('id')->on('pontos');
         });
     }
 

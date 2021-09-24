@@ -88,7 +88,7 @@ class CreatePermissionariosTable extends Migration
             $table->timestamps();
             $table->foreign('entidade_associativa_id')->references('id')->on('entidades_associativa');
             $table->foreign('modalidade_id')->references('id')->on('modalidades');
-            $table->foreign('endereco_id')->references('id')->on('enderecos')->onDelete('cascade');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
             $table->foreign('foto_uid')->references('id')->on('arquivos');
         });
     }

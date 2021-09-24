@@ -23,7 +23,7 @@ class CreateEnderecosTable extends Migration
             $table->string('uf', 2)->nullable();
             $table->integer('municipio_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('municipio_id')->references('id')->on('municipios')->onDelete('cascade');
+            $table->foreign('municipio_id')->references('id')->on('municipios');
 
         });
     }

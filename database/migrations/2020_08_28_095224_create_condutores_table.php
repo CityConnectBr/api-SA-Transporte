@@ -32,7 +32,7 @@ class CreateCondutoresTable extends Migration
             $table->string('foto_uid')->nullable();
             $table->timestamps();
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
-            $table->foreign('endereco_id')->references('id')->on('enderecos')->onDelete('cascade');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
             $table->foreign('foto_uid')->references('id')->on('arquivos');
         });
     }

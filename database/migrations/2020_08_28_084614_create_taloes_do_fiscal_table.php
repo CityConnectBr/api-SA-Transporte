@@ -23,7 +23,7 @@ class CreateTaloesDoFiscalTable extends Migration
             $table->date('data_recebimento');
             $table->integer('fiscal_id')->unsigned();
             $table->timestamps();
-            $table->foreign('fiscal_id')->references('id')->on('fiscais')->onDelete('cascade');
+            $table->foreign('fiscal_id')->references('id')->on('fiscais');
         });
     }
 

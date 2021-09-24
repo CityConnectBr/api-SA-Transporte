@@ -19,8 +19,8 @@ class CreateCursosDePermissionariosTable extends Migration
             $table->integer('permissionario_id')->unsigned();
             $table->integer('tipo_do_curso_id')->unsigned();
             $table->timestamps();
-            $table->foreign('permissionario_id')->references('id')->on('permissionarios')->onDelete('cascade');
-            $table->foreign('tipo_do_curso_id')->references('id')->on('tipos_de_curso')->onDelete('cascade');
+            $table->foreign('permissionario_id')->references('id')->on('permissionarios');
+            $table->foreign('tipo_do_curso_id')->references('id')->on('tipos_de_curso');
         });
     }
 

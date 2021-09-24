@@ -38,7 +38,7 @@ class CreateCertidoesTable extends Migration
             $table->foreign('chassis_id')->references('id')->on('marcas_modelos_chassis');
             $table->foreign('tipo_combustivel_id')->references('id')->on('tipos_combustiveis');
             $table->foreign('cor_id')->references('id')->on('cores_veiculos');
-            $table->foreign('ponto_id')->references('id')->on('pontos')->onDelete('cascade');
+            $table->foreign('ponto_id')->references('id')->on('pontos');
 
         });
     }

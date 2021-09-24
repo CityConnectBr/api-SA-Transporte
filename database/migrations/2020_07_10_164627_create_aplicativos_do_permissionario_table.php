@@ -19,8 +19,8 @@ class CreateAplicativosDoPermissionarioTable extends Migration
             $table->integer('permissionario_id')->unsigned()->nullable();
             $table->integer('aplicativo_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('permissionario_id')->references('id')->on('permissionarios')->onDelete('cascade');
-            $table->foreign('aplicativo_id')->references('id')->on('aplicativos')->onDelete('cascade');
+            $table->foreign('permissionario_id')->references('id')->on('permissionarios');
+            $table->foreign('aplicativo_id')->references('id')->on('aplicativos');
         });
     }
 

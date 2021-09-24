@@ -19,7 +19,7 @@ class CreateAnexosDoCondutorTable extends Migration
             $table->string('descricao', 60);
             $table->integer('condutor_id')->unsigned();
             $table->timestamps();
-            $table->foreign('condutor_id')->references('id')->on('condutores')->onDelete('cascade');
+            $table->foreign('condutor_id')->references('id')->on('condutores');
         });
     }
 
