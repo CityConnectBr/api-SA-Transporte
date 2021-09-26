@@ -67,6 +67,10 @@ Route::group([
                 Route::resource('/observacoesdopermissionario', 'Admin\ObservacaoDoPermissionarioController');
                 Route::resource('/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
 
+                Route::resource('/condutores', 'Admin\CondutorController');
+                Route::resource('/cursosdocondutor', 'Admin\CursoDoCondutorController');
+                Route::resource('/anexosdocondutor', 'Admin\AnexoDoCondutorController');
+
             });
         });
 

@@ -120,11 +120,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('condutores')->insert([
-            'situacao' => 'A',
+            //'situacao' => 'A',
             'nome' => 'Fulano',
             'permissionario_id' => 1,
             'endereco_id' => 1,
-            'versao' => 0,
+            //'versao' => 0,
         ]);
 
         DB::table('monitores')->insert([

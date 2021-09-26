@@ -10,33 +10,29 @@ class Condutor extends Model
     protected $fillable = [
         'nome',
         'id_integracao',
-        'situacao',
         'cpf',
         'rg',
-        'ddd',
         'telefone',
         'celular',
         'email',
         'cnh',
         'categoria_cnh',
         'vencimento_cnh',
+        'atestado_de_saude',
+        'certidao_negativa',
+        'validade_certidao_negativa',
+        'registro_ctps',
+        'primeiros_socorros',
+        'emissao_primeiros_socorros',
+        'motivo_afastamento',
+        'data_inicio_afastamento',
+        'data_termino_afastamento',
+        'endereco_id',
         'permissionario_id',
-        'versao',
         'foto_uid'
     ];
 
     protected $table = 'condutores';
-
-    protected $attributes = [
-        'versao' => 0
-    ];
-
-    protected static function booted()
-    {
-        static::addGlobalScope('situacao', function (Builder $builder) {
-            $builder->where('situacao', "A");
-        });
-    }
 
     public function endereco()
     {
@@ -48,7 +44,23 @@ class Condutor extends Model
         return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
     }
 
-    // /////////////////
+    //////////////////////////////////////
+    public static function search($search)
+    {
+        return Condutor::where("nome", "like", "%" . $search . "%")
+            ->orderBy("nome")
+            ->simplePaginate(15);
+    }
+
+    public static function searchByPermissionario($permissionario_id, $search)
+    {
+        return Condutor::where("permissionario_id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
+            ->with("endereco")
+            ->with("permissionario")
+            ->orderBy("nome")
+            ->paginate(40);
+    }
+
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
@@ -73,15 +85,6 @@ class Condutor extends Model
         }
     }
 
-    public static function search($permissionario_id, $search)
-    {
-        return Condutor::where("permissionario_id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
-            ->with("endereco")
-            ->with("permissionario")
-            ->orderBy("nome")
-            ->paginate(40);
-    }  
-    
     public static function firstByCNH($cnh)
     {
         return Condutor::where("cnh", $cnh)->first();

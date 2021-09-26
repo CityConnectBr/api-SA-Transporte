@@ -16,10 +16,10 @@ class CreateCursosDeCondutoresTable extends Migration
         Schema::create('cursos_de_condutores', function (Blueprint $table) {
             $table->increments('id');
             $table->date('data_emissao');
-            $table->integer('contudor_id')->unsigned();
+            $table->integer('condutor_id')->unsigned();
             $table->integer('tipo_do_curso_id')->unsigned();
             $table->timestamps();
-            $table->foreign('contudor_id')->references('id')->on('condutores');
+            $table->foreign('condutor_id')->references('id')->on('condutores');
             $table->foreign('tipo_do_curso_id')->references('id')->on('tipos_de_curso');
         });
     }

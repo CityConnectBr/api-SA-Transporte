@@ -16,9 +16,10 @@ class CreateCondutoresTable extends Migration
         Schema::create('condutores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_integracao', 11)->nullable();
+            $table->string('numero_de_cadastro_antigo', 10)->nullable();
             $table->string('nome', 40);
-            $table->string('situacao', 1);//A/I/C
-            $table->string('cpf', 14)->nullable();
+            //$table->string('situacao', 1);//A/I/C
+            $table->string('cpf', 11)->nullable();
             $table->string('rg', 15)->nullable();
             $table->string('telefone', 11)->nullable();
             $table->string('celular', 11)->nullable();
@@ -26,7 +27,16 @@ class CreateCondutoresTable extends Migration
             $table->string('cnh', 15)->nullable();
             $table->string('categoria_cnh', 2)->nullable();
             $table->date('vencimento_cnh', 100)->nullable();
-            $table->integer('versao');
+            $table->boolean('atestado_de_saude')->nullable();
+            $table->boolean('certidao_negativa')->nullable();
+            $table->date('validade_certidao_negativa')->nullable();
+            $table->boolean('registro_ctps')->nullable();
+            $table->boolean('primeiros_socorros')->nullable();
+            $table->date('emissao_primeiros_socorros')->nullable();
+            $table->string('motivo_afastamento', 40)->nullable();
+            $table->date('data_inicio_afastamento')->nullable();
+            $table->date('data_termino_afastamento')->nullable();
+
             $table->integer('permissionario_id')->unsigned();
             $table->integer('endereco_id')->unsigned();
             $table->string('foto_uid')->nullable();
