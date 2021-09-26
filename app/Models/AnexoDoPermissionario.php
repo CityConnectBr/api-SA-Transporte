@@ -9,6 +9,8 @@ class AnexoDoPermissionario extends Model
     protected $fillable = [
         'permissionario_id',
         'id_integracao',
+        'file_name',
+        'original_file_name',
         'descricao'
     ];
 
