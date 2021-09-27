@@ -16,14 +16,15 @@ class CreateMonitoresTable extends Migration
         Schema::create('monitores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_integracao', 15)->nullable();
+            $table->string('numero_de_cadastro_antigo', 10)->nullable();
             $table->string('nome', 40);
-            $table->string('situacao', 1);//A/I/C
+            //$table->string('situacao', 1);//A/I/C
             $table->string('cpf', 11)->nullable();
             $table->string('rg', 15)->nullable();
             $table->string('telefone', 11)->nullable();
             $table->string('email', 200)->nullable();
             $table->date('data_nascimento')->nullable();
-            $table->integer('versao');
+            //$table->integer('versao');
             $table->boolean('certidao_negativa')->nullable();
             $table->date('validade_da_certidao_negativa')->nullable();
             $table->boolean('curso_de_primeiro_socorros')->nullable();

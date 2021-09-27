@@ -9,20 +9,24 @@ class Monitor extends Model
 
     protected $fillable = [
         'nome',
+        'numero_de_cadastro_antigo',
         'id_integracao',
-        'situacao',
+        //'situacao',
         'cpf',
         'rg',
         'telefone',
         'email',
-        'data_nascimento',
-        'versao',
+        'certidao_negativa',
+        'validade_da_certidao_negativa',
+        'curso_de_primeiro_socorros',
+        'emissao_curso_de_primeiro_socorros',
+        //'versao',
         'foto_uid'
     ];
-    
+
     protected $table = 'monitores';
-    
-    protected $attributes = [
+
+    /*protected $attributes = [
         'versao' => 0
     ];
 
@@ -31,7 +35,7 @@ class Monitor extends Model
         static::addGlobalScope('situacao', function (Builder $builder) {
             $builder->where('situacao', "A");
         });
-    }
+    }*/
 
     public function endereco()
     {
@@ -44,6 +48,13 @@ class Monitor extends Model
     }
 
     // /////////////////
+    public static function search($search)
+    {
+        return Monitor::where("nome", "like", "%" . $search . "%")
+            ->orderBy("nome")
+            ->simplePaginate(15);
+    }
+
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
@@ -55,7 +66,7 @@ class Monitor extends Model
             return Monitor::with('endereco')->with('permissionario')->find($id);
         }
     }
-    
+
     public static function findByIntegracaoComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
@@ -67,8 +78,8 @@ class Monitor extends Model
             return Monitor::with('endereco')->with('permissionario')->firstWhere("id_integracao", $id);
         }
     }
-    
-    public static function search($permissionario_id, $search)
+
+    public static function searchPorPermissionario($permissionario_id, $search)
     {
         return Monitor::where("permissionario_id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
         ->with("endereco")

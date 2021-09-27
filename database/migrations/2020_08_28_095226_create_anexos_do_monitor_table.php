@@ -17,6 +17,8 @@ class CreateAnexosDoMonitorTable extends Migration
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
             $table->string('descricao', 60);
+            $table->string('original_file_name', 200);
+            $table->string('file_name', 60);
             $table->integer('monitor_id')->unsigned();
             $table->timestamps();
             $table->foreign('monitor_id')->references('id')->on('monitores');

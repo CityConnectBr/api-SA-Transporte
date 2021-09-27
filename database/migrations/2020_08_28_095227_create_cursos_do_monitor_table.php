@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCursosDeMonitoresTable extends Migration
+class CreateCursosDoMonitorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCursosDeMonitoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('cursos_de_monitores', function (Blueprint $table) {
+        Schema::create('cursos_do_monitor', function (Blueprint $table) {
             $table->increments('id');
             $table->date('data_emissao');
             $table->integer('monitor_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateCursosDeMonitoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cursos_de_monitores');
+        Schema::dropIfExists('cursos_do_monitor');
     }
 }

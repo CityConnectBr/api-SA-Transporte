@@ -128,11 +128,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('monitores')->insert([
-            'situacao' => 'A',
+            //'situacao' => 'A',
             'nome' => 'Fulano Monitor',
             'permissionario_id' => 1,
             'endereco_id' => 2,
-            'versao' => 0,
+            //'versao' => 0,
         ]);
 
 

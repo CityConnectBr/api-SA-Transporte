@@ -4,20 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CursoDoCondutor extends Model
+class AnexoDoMonitor extends Model
 {
     protected $fillable = [
-        'condutor_id',
-        'tipo_do_curso_id',
-        'data_emissao'
+        'monitor_id',
+        'id_integracao',
+        'file_name',
+        'original_file_name',
+        'descricao'
     ];
 
-    protected $table = 'cursos_do_condutor';
+    protected $table = 'anexos_do_monitor';
 
     //////////////////////////////////////
     public static function search($search)
     {
-        return CursoDoCondutor::where("condutor_id", $search)
+        return AnexoDoMonitor::where("monitor_id", $search)
             ->orderBy("created_at")
             ->simplePaginate(15);
     }

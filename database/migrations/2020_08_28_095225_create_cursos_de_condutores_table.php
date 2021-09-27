@@ -13,7 +13,7 @@ class CreateCursosDeCondutoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('cursos_de_condutores', function (Blueprint $table) {
+        Schema::create('cursos_do_condutor', function (Blueprint $table) {
             $table->increments('id');
             $table->date('data_emissao');
             $table->integer('condutor_id')->unsigned();
@@ -31,6 +31,6 @@ class CreateCursosDeCondutoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cursos_de_condutores');
+        Schema::dropIfExists('cursos_do_condutor');
     }
 }
