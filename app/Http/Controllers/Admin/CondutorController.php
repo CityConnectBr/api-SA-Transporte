@@ -68,7 +68,7 @@ class CondutorController extends AdminSuperController
                     'nullable'
                 ],
                 'validade_certidao_negativa' => [
-                    'required',
+                    'nullable',
                     'regex:'.Util::REGEX_DATE
                 ],
                 'registro_ctps' => [
@@ -80,19 +80,19 @@ class CondutorController extends AdminSuperController
                     'nullable'
                 ],
                 'emissao_primeiros_socorros' => [
-                    'required',
+                    'nullable',
                     'regex:'.Util::REGEX_DATE
                 ],
                 'motivo_afastamento' => [
-                    'required',
-                    'regex:'.Util::REGEX_DATE
+                    'nullable',
+                    'max:40',
                 ],
                 'data_inicio_afastamento' => [
-                    'required',
+                    'nullable',
                     'regex:'.Util::REGEX_DATE
                 ],
                 'data_termino_afastamento' => [
-                    'required',
+                    'nullable',
                     'regex:'.Util::REGEX_DATE
                 ],
                 'endereco_id' => [
