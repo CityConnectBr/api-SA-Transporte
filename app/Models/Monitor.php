@@ -22,6 +22,7 @@ class Monitor extends Model
         'emissao_curso_de_primeiro_socorros',
         //'versao',
         'permissionario_id',
+        'endereco_id',
         'foto_uid'
     ];
 
