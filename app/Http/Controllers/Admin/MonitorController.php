@@ -45,10 +45,6 @@ class MonitorController extends AdminSuperController
                     'email',
                     'max:200',
                 ],
-                'vencimento_cnh' => [
-                    'required',
-                    'regex:'.Util::REGEX_DATE
-                ],
                 'data_nascimento' => [
                     'required',
                     'regex:'.Util::REGEX_DATE
