@@ -16,6 +16,7 @@ class Monitor extends Model
         'rg',
         'telefone',
         'email',
+        'data_nascimento',
         'certidao_negativa',
         'validade_da_certidao_negativa',
         'curso_de_primeiro_socorros',
