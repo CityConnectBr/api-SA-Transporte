@@ -17,8 +17,8 @@ class CreatePontosTable extends Migration
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
             $table->string('descricao', 40);
-            $table->string('base_legal', 40);
-            $table->string('capacidade_legal', 40);
+            //$table->string('base_legal', 40);
+            //$table->string('capacidade_legal', 40);
 
             $table->string('telefone', 11)->nullable();
             $table->date('data_criacao')->nullable();

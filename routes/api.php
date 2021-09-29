@@ -75,6 +75,8 @@ Route::group([
                 Route::resource('/cursosdomonitor', 'Admin\CursoDoMonitorController');
                 Route::resource('/anexosdomonitor', 'Admin\AnexoDoMonitorController');
 
+                Route::resource('/pontos', 'Admin\PontoController');
+                Route::resource('/coordenadoresdoponto', 'Admin\CoordenadorDoPontoController');
             });
         });
 

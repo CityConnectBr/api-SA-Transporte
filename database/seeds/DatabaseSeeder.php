@@ -46,8 +46,6 @@ class DatabaseSeeder extends Seeder
         for($i = 0;$i < 100;$i++){
             DB::table('pontos')->insert([
                 'descricao' => "Ponto $i",
-                'base_legal' => 'teste',
-                'capacidade_legal' => 'teste'
             ]);
         }
 
