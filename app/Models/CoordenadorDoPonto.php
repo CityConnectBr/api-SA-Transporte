@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class CoordenadorDoPonto extends Model
 {
     protected $fillable = [
-        'id_integracao',
         'data_inicial',
         'data_termino',
         'observacoes',
