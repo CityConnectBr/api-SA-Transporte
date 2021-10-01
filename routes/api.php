@@ -53,6 +53,7 @@ Route::group([
                 Route::resource('/coresdeveiculo', 'Admin\CorDeVeiculoController');
                 Route::resource('/marcasmodelosveiculo', 'Admin\MarcaModeloVeiculoController');
                 Route::resource('/tiposdeveiculo', 'Admin\TipoDeVeiculoController');
+                Route::resource('/tiposdecombustivel', 'Admin\TipoDeCombustivelController');
                 Route::resource('/usuarios', 'Admin\UsuarioController');
                 Route::resource('/enderecos', 'Admin\EnderecoController');
 
