@@ -20,7 +20,7 @@ class CoordenadorDoPonto extends Model
     public static function search($search)
     {
         return CoordenadorDoPonto::where("ponto_id", $search)
-            ->orderBy("created_at")
+            ->orderBy("created_at", "desc")
             ->simplePaginate(15);
     }
 }
