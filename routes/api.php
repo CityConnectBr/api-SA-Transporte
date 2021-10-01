@@ -52,6 +52,7 @@ Route::group([
                 Route::resource('/entidadesassiciativa', 'Admin\EntidadeAssociativaController');
                 Route::resource('/coresdeveiculo', 'Admin\CorDeVeiculoController');
                 Route::resource('/marcasmodelosveiculo', 'Admin\MarcaModeloVeiculoController');
+                Route::resource('/tiposdeveiculo', 'Admin\TipoDeVeiculoController');
                 Route::resource('/usuarios', 'Admin\UsuarioController');
                 Route::resource('/enderecos', 'Admin\EnderecoController');
 
