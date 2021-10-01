@@ -13,12 +13,12 @@ class EntidadeAssociativaSeeder extends Seeder
     public function run()
     {
         DB::table('entidades_associativa')->insert([
-            'nome' => 'SINDTAXI',
+            'descricao' => 'SINDTAXI',
             'id_integracao' => 1,
         ]);
 
         DB::table('entidades_associativa')->insert([
-            'nome' => 'SITEM',
+            'descricao' => 'SITEM',
             'id_integracao' => 2,
         ]);
     }

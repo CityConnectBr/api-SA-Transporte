@@ -12,7 +12,7 @@ class EntidadeAssociativaController extends AdminSuperController
     {
         parent::__construct(
             EntidadeAssociativa::class, [
-                'nome' => [
+                'descricao' => [
                     'required',
                     'max:40',
                     'min:2',

@@ -8,7 +8,7 @@ class EntidadeAssociativa extends Model
 {
     protected $fillable = [
         'id_integracao',
-        'nome'
+        'descricao'
     ];
 
     protected $table = 'entidades_associativa';
@@ -17,8 +17,8 @@ class EntidadeAssociativa extends Model
 
     public static function search($search)
     {
-        return EntidadeAssociativa::where("nome", "like", "%" . $search . "%")
-        ->orderBy("nome")
+        return EntidadeAssociativa::where("descricao", "like", "%" . $search . "%")
+        ->orderBy("descricao")
         ->paginate(15);
     }
 
