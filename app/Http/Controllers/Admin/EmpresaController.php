@@ -63,7 +63,8 @@ class EmpresaController extends AdminSuperController
                     'max:60',
                 ],
                 'endereco_id' => [
-                    'required'
+                    'required',
+                    'exists:enderecos,id'
                 ],
 
             ],
