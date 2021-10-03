@@ -15,7 +15,7 @@ class CreateTiposVeiculosTable extends Migration
     {
         Schema::create('tipos_veiculos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_integracao')->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 40);
             $table->string('modalidade_transporte', 1);
             $table->integer('idade_limite_ingresso');

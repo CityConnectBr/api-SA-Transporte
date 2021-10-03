@@ -15,7 +15,7 @@ class CreateMarcasModelosChassisTable extends Migration
     {
         Schema::create('marcas_modelos_chassis', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_integracao')->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 40);
             $table->string('modelo', 20);
             $table->timestamps();

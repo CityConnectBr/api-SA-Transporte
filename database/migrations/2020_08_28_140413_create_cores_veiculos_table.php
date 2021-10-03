@@ -15,9 +15,9 @@ class CreateCoresVeiculosTable extends Migration
     {
         Schema::create('cores_veiculos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_integracao')->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 40);
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 
