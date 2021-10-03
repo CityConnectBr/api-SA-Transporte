@@ -51,7 +51,7 @@ Route::group([
                 Route::resource('/modalidades', 'Admin\ModalidadeController');
                 Route::resource('/entidadesassiciativa', 'Admin\EntidadeAssociativaController');
                 Route::resource('/coresdeveiculo', 'Admin\CorDeVeiculoController');
-                Route::resource('/marcasmodelosveiculo', 'Admin\MarcaModeloVeiculoController');
+                Route::resource('/marcasmodelosdeveiculo', 'Admin\MarcaModeloVeiculoController');
                 Route::resource('/tiposdeveiculo', 'Admin\TipoDeVeiculoController');
                 Route::resource('/tiposdecombustivel', 'Admin\TipoDeCombustivelController');
                 Route::resource('/empresasvistoriadoras', 'Admin\EmpresaVistoriadoraController');
