@@ -82,6 +82,9 @@ Route::group([
 
                 Route::resource('/pontos', 'Admin\PontoController');
                 Route::resource('/coordenadoresdoponto', 'Admin\CoordenadorDoPontoController');
+
+                Route::resource('/veiculos', 'Admin\VeiculoController');
+                Route::resource('/anexosdoveiculo', 'Admin\AnexoDoVeiculoController');
             });
         });
 

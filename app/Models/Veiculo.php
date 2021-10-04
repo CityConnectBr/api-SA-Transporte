@@ -33,7 +33,7 @@ class Veiculo extends Model
 
     protected $table = 'veiculos';
 
-    protected $attributes = [
+    /*protected $attributes = [
         'versao' => 0
     ];
 
@@ -42,7 +42,7 @@ class Veiculo extends Model
         static::addGlobalScope('situacao', function (Builder $builder) {
             $builder->where('situacao', "A");
         });
-    }
+    }*/
 
     public function marcaModeloCarroceria()
     {
