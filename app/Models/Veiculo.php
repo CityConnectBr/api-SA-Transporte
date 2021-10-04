@@ -33,6 +33,13 @@ class Veiculo extends Model
 
     protected $table = 'veiculos';
 
+    public static function search($search)
+    {
+        return Veiculo::where("placa", "like", "%" . $search . "%")
+            ->orderBy("placa")
+            ->simplePaginate(15);
+    }
+
     /*protected $attributes = [
         'versao' => 0
     ];
@@ -124,7 +131,7 @@ class Veiculo extends Model
         }
     }
 
-    public static function search($permissionario_id, $search)
+    public static function searchById($permissionario_id, $search)
     {
         return Veiculo::where("permissionario_id", "=", $permissionario_id)->where(function ($q) use ($search) {
             $q->where("placa", "like", "%" . $search . "%")

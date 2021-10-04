@@ -34,6 +34,10 @@ class VeiculoController extends AdminSuperController
                     'required',
                     'max:15',
                     'min:1'
+                ],'tipo_capacidade' => [
+                    'required',
+                    'max:1',
+                    'min:1'
                 ],'observacao_capacidade' => [
                     'required',
                     'max:40',
