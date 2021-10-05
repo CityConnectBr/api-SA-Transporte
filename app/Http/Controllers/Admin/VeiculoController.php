@@ -27,10 +27,10 @@ class VeiculoController extends AdminSuperController
                     'min:3'
                 ],'ano_fabricacao' => [
                     'required',
-                    'number'
+                    'regex:'.Util::REGEX_NUMBER
                 ],'ano_modelo' => [
                     'required',
-                    'number'
+                    'regex:'.Util::REGEX_NUMBER
                 ],'capacidade' => [
                     'required',
                     'max:15',
