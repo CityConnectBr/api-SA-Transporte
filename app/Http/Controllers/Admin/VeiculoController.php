@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminSuperController;
 use App\Models\Veiculo;
+use App\Utils\Util;
 use Illuminate\Http\Request;
 
 class VeiculoController extends AdminSuperController
@@ -44,7 +45,7 @@ class VeiculoController extends AdminSuperController
                     'min:3'
                 ],'anos_vida_util_veiculo' => [
                     'required',
-                    'number'
+                    'regex:'.Util::REGEX_NUMBER
                 ],'observacao_capacidade' => [
                     'max:40',
                 ],'marca_modelo_veiculo_id' => [
