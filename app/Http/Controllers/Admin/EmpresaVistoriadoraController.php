@@ -18,6 +18,10 @@ class EmpresaVistoriadoraController extends AdminSuperController
                     'max:40',
                     'min:2',
                 ],
+                'tipo' => [
+                    'required',
+                    'regex:/(A|V)/'
+                ],
                 'telefone' => [
                     'max:11',
                 ],
