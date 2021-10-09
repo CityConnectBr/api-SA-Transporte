@@ -18,7 +18,10 @@ class CreateVistoriadoresTable extends Migration
             $table->integer('id_integracao')->nullable()->unique();
             $table->string('nome', 40);
             $table->string('cargo', 20)->nullable();
+
+            $table->integer('empresa_vistoriadora_id')->unsigned();
             $table->timestamps();
+            $table->foreign('empresa_vistoriadora_id')->references('id')->on('empresas_vistoriadoras');
         });
     }
 

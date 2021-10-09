@@ -23,7 +23,6 @@ class CreateCoordenadorDePontoTable extends Migration
             $table->integer('ponto_id')->unsigned();
             $table->timestamps();
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
-            //$table->foreign('vistoriador_id')->references('id')->on('vistoriadores');
             $table->foreign('ponto_id')->references('id')->on('pontos');
         });
     }
