@@ -14,14 +14,14 @@ class VistoriadorController extends AdminSuperController
             Vistoriador::class, [
                 'nome' => [
                     'required',
-                    'max:7',
-                    'min:7'
+                    'max:40',
+                    'min:3'
                 ],'cargo' => [
                     'required',
-                    'max:11',
-                    'min:11'
+                    'max:20',
+                    'min:2'
                 ],'empresa_vistoriadora_id' => [
-                    'required',
+                    'nullable',
                     'exists:empresas_vistoriadoras,id'
                 ]
             ],
