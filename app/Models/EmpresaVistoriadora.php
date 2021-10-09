@@ -15,7 +15,7 @@ class EmpresaVistoriadora extends Model
         'cnpj',
         'inscricao_estadual',
         'inscricao_municipal',
-        'nome_do_diretor',
+        'nome_diretor',
         'nome_delegado',
         'total_vistorias_dia',
         'endereco_id',

@@ -38,7 +38,7 @@ class EmpresaVistoriadoraController extends AdminSuperController
                 'inscricao_municipal' => [
                     'max:9',
                 ],
-                'nome_do_diretor' => [
+                'nome_diretor' => [
                     'max:40',
                 ],
                 'nome_delegado' => [
