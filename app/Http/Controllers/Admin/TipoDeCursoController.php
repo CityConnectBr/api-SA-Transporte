@@ -16,6 +16,9 @@ class TipoDeCursoController extends AdminSuperController
                     'required',
                     'max:40',
                     'min:3'
+                ],'modalidade' => [
+                    'required',
+                    'regex:/(E|G|T)/'
                 ],
             ],
             $request

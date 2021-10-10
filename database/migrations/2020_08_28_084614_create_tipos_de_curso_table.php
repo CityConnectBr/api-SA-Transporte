@@ -17,6 +17,7 @@ class CreateTiposDeCursoTable extends Migration
             $table->increments('id');
             $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 40);
+            $table->string('modalidade', 1);
             $table->timestamps();
         });
     }

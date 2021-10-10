@@ -59,6 +59,7 @@ class DatabaseSeeder extends Seeder
         for($i = 0;$i < 3;$i++){
             DB::table('tipos_de_curso')->insert([
                 'descricao' => "Tipo de Curso $i",
+                'modalidade' => "E",
             ]);
         }
 
