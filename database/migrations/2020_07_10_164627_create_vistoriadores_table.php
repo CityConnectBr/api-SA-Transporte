@@ -19,7 +19,7 @@ class CreateVistoriadoresTable extends Migration
             $table->string('nome', 40);
             $table->string('cargo', 20)->nullable();
 
-            $table->integer('empresa_vistoriadora_id')->unsigned();
+            $table->integer('empresa_vistoriadora_id')->nullable()->unsigned();
             $table->timestamps();
             $table->foreign('empresa_vistoriadora_id')->references('id')->on('empresas_vistoriadoras');
         });
