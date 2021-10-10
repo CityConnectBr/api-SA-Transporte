@@ -62,6 +62,8 @@ Route::group([
                 Route::resource('/enderecos', 'Admin\EnderecoController');
                 Route::resource('/quadrodeinfracoes', 'Admin\QuadroDeInfracoesController');
                 Route::resource('/naturezasdainfracao', 'Admin\NaturezaDaInfracaoController');
+                Route::resource('/valoresdainfracao', 'Admin\ValoresDaInfracaoController');
+                Route::resource('/tiposdemoeda', 'Admin\TiposDeMoedaController');
 
                 Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');//precisa estar na frente de /municipios
                 Route::resource('/municipios', 'Admin\MunicipioController');
