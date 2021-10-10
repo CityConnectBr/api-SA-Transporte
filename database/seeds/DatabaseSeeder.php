@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EntidadeAssociativaSeeder::class);
         $this->call(AplicativoSeeder::class);
         $this->call(TiposDeCertidaoSeeder::class);
+        $this->call(NaturezaDaInfracaoSeeder::class);
 
         //$this->call(UserSeeder::class);
         /*DB::table('users')->insert([

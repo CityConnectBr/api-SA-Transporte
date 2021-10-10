@@ -60,6 +60,8 @@ Route::group([
                 Route::resource('/entidadescurso', 'Admin\EntidadeCursoController');
                 Route::resource('/usuarios', 'Admin\UsuarioController');
                 Route::resource('/enderecos', 'Admin\EnderecoController');
+                Route::resource('/quadrodeinfracoes', 'Admin\QuadroDeInfracoesController');
+                Route::resource('/naturezasdainfracao', 'Admin\NaturezaDaInfracaoController');
 
                 Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');//precisa estar na frente de /municipios
                 Route::resource('/municipios', 'Admin\MunicipioController');
