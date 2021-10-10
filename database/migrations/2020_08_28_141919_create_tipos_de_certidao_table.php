@@ -15,7 +15,6 @@ class CreateTiposDeCertidaoTable extends Migration
     {
         Schema::create('tipos_de_certidao', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 60);
             $table->timestamps();
         });

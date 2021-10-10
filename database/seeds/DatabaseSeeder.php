@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(EntidadeAssociativaSeeder::class);
         $this->call(AplicativoSeeder::class);
+        $this->call(TiposDeCertidaoSeeder::class);
 
         //$this->call(UserSeeder::class);
         /*DB::table('users')->insert([
