@@ -57,6 +57,7 @@ Route::group([
                 Route::resource('/empresasvistoriadoras', 'Admin\EmpresaVistoriadoraController');
                 Route::resource('/vistoriadores', 'Admin\VistoriadorController');
                 Route::resource('/tiposdecertidao', 'Admin\TipoDeCertidaoController');
+                Route::resource('/entidadescurso', 'Admin\EntidadeCursoController');
                 Route::resource('/usuarios', 'Admin\UsuarioController');
                 Route::resource('/enderecos', 'Admin\EnderecoController');
 
