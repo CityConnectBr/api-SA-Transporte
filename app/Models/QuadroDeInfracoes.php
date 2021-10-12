@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class QuadroDeInfracoes extends Model
 {
     protected $fillable = [
+        'id_integracao',
         'descricao',
         'acao',
         'reincidencia',
