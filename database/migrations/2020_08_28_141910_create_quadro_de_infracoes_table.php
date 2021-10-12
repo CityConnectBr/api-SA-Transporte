@@ -18,10 +18,10 @@ class CreateQuadroDeInfracoesTable extends Migration
             $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 500);
             $table->string('acao', 500);
-            $table->string('reincidencia', 60);
-            $table->string('modalidade_transporte', 1);
-            $table->integer('qtd_reincidencia');
-            $table->string('unidade_reincidencia', 5);
+            $table->string('reincidencia', 60)->nullable();
+            $table->string('modalidade_transporte', 1)->nullable();
+            $table->integer('qtd_reincidencia')->nullable();
+            $table->string('unidade_reincidencia', 5)->nullable();
 
             $table->integer('natureza_infracao_id')->unsigned();
             $table->timestamps();

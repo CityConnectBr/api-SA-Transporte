@@ -23,9 +23,7 @@ class QuadroDeInfracoesController extends AdminSuperController
                     'min:2',
                 ],
                 'reincidencia' => [
-                    'required',
                     'max:60',
-                    'min:2',
                 ]
             ],
             $request
