@@ -2,8 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminSuperController;
-use App\Models\Empresa;
-use App\Utils\Util;
+use App\Models\NaturezaDaInfracao;
 use Illuminate\Http\Request;
 
 class NaturezaDaInfracaoController extends AdminSuperController
