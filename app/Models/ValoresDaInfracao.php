@@ -9,6 +9,7 @@ class ValoresDaInfracao extends Model
     protected $fillable = [
         'id_integracao',
         'modalidade_transporte',
+        'descricao',
         'quantidade',
         'natureza_infracao_id',
         'moeda_id',
@@ -18,8 +19,8 @@ class ValoresDaInfracao extends Model
 
     public static function search($search)
     {
-        return ValoresDaInfracao::where("moeda_id", "like", "%" . $search . "%")
-        ->orderBy("moeda_id")
+        return ValoresDaInfracao::where("descricao", "like", "%" . $search . "%")
+        ->orderBy("descricao")
         ->paginate(40);
     }
 }

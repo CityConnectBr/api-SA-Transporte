@@ -17,6 +17,7 @@ class CreateValoresDaInfracaoTable extends Migration
             $table->increments('id');
             $table->string('id_integracao')->nullable()->unique();
             $table->string('modalidade_transporte', 1);
+            $table->string('descricao', 40);
             $table->integer('quantidade');
 
             $table->integer('natureza_infracao_id')->unsigned();
