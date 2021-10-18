@@ -15,14 +15,14 @@ class Fiscal extends Model
         'telefone',
         'email',
         'cargo',
-        'versao'
+        'unidade_trabalho'
     ];
 
     protected $table = 'fiscais';
 
-    protected $attributes = [
+    /*protected $attributes = [
         'versao' => 0
-    ];
+    ];*/
 
     public function endereco()
     {
@@ -46,7 +46,7 @@ class Fiscal extends Model
             ->orderBy("nome")
             ->paginate(40);
     }
-    
+
     public static function firstByCpf($cpf)
     {
         return Fiscal::where("cpf", $cpf)->first();

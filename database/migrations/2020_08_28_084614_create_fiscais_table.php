@@ -21,7 +21,8 @@ class CreateFiscaisTable extends Migration
             $table->string('telefone', 11)->nullable();
             $table->string('email', 200)->nullable();
             $table->string('cargo', 40)->nullable();
-            $table->integer('versao');
+            $table->string('unidade_trabalho', 40)->nullable();
+            //$table->integer('versao');
             $table->integer('endereco_id')->unsigned();
             $table->timestamps();
             $table->foreign('endereco_id')->references('id')->on('enderecos');
