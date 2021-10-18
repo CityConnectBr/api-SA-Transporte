@@ -15,7 +15,8 @@ class Fiscal extends Model
         'telefone',
         'email',
         'cargo',
-        'unidade_trabalho'
+        'unidade_trabalho',
+        'endereco_id'
     ];
 
     protected $table = 'fiscais';
