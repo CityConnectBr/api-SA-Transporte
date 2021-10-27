@@ -17,10 +17,10 @@ class CreateTaloesDoFiscalTable extends Migration
             $table->increments('id');
             $table->integer('numero')->nullable()->unique();
             $table->string('tipo_documento', 11);
-            $table->string('serie_documento', 2);
-            $table->integer('numero_primeira_folha');
-            $table->integer('numero_ultima_folha');
-            $table->date('data_recebimento');
+            $table->string('serie_documento', 2)->nullable();
+            $table->integer('numero_primeira_folha')->nullable();
+            $table->integer('numero_ultima_folha')->nullable();
+            $table->date('data_recebimento')->nullable();
             $table->integer('fiscal_id')->unsigned();
             $table->timestamps();
             $table->foreign('fiscal_id')->references('id')->on('fiscais');
