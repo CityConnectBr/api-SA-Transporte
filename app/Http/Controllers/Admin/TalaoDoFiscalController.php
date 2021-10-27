@@ -14,7 +14,10 @@ class TalaoDoFiscalController extends AdminSuperController
         parent::__construct(
             TalaoDoFiscal::class,
             [
-                'tipo_documento' => [
+                'numero' => [
+                    'required',
+                    'max:11',
+                ],'tipo_documento' => [
                     'required',
                     'max:11',
                     'min:2',

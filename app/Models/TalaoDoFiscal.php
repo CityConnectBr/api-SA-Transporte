@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TalaoDoFiscal extends Model
 {
     protected $fillable = [
-        'id_integracao',
+        'numero',
         'tipo_documento',
         'serie_documento',
         'numero_primeira_folha',
