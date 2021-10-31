@@ -19,7 +19,9 @@ class CreateFPMTable extends Migration
             $table->date('data_inicial')->nullable();
             $table->date('data_final')->nullable();
             $table->double('valor', 15)->nullable();
+            $table->integer('moeda_id')->unsigned()->nullable();
             $table->timestamps();
+            $table->foreign('moeda_id')->references('id')->on('moedas');
         });
     }
 

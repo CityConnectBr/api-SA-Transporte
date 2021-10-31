@@ -66,6 +66,7 @@ Route::group([
                 Route::resource('/fiscais', 'Admin\FiscalController');
                 Route::resource('/tiposdemoeda', 'Admin\TiposDeMoedaController');
                 Route::resource('/taloesdofiscal', 'Admin\TalaoDoFiscalController');
+                Route::resource('/fpm', 'Admin\FPMController');
 
                 Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');//precisa estar na frente de /municipios
                 Route::resource('/municipios', 'Admin\MunicipioController');
