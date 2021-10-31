@@ -2,17 +2,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminSuperController;
-use App\Models\FPM;
+use App\Models\FMP;
 use App\Utils\Util;
 use Illuminate\Http\Request;
 
-class FPMController extends AdminSuperController
+class FMPController extends AdminSuperController
 {
 
     function __construct(Request $request)
     {
         parent::__construct(
-            FPM::class, [
+            FMP::class, [
                 'data_inicial' => [
                     'required',
                     'regex:'.Util::REGEX_DATE

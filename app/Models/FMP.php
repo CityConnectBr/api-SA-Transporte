@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FPM extends Model
+class FMP extends Model
 {
     protected $fillable = [
         'id_integracao',
@@ -14,11 +14,11 @@ class FPM extends Model
         'moeda_id'
     ];
 
-    protected $table = 'fpm';
+    protected $table = 'fmp';
 
     public static function search($search)
     {
-        return FPM::where("moeda_id", $search)
+        return FMP::where("moeda_id", $search)
             ->paginate(15);
     }
 }

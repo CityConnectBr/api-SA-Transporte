@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFPMTable extends Migration
+class CreateFMPTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFPMTable extends Migration
      */
     public function up()
     {
-        Schema::create('fpm', function (Blueprint $table) {
+        Schema::create('fmp', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
             $table->date('data_inicial')->nullable();
@@ -32,6 +32,7 @@ class CreateFPMTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fpm');
+        Schema::dropIfExists('fmp');
+        Schema::dropIfExists('fpm');//nome errado comitado anteriormente
     }
 }
