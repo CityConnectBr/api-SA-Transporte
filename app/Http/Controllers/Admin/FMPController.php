@@ -13,6 +13,11 @@ class FMPController extends AdminSuperController
     {
         parent::__construct(
             FMP::class, [
+                'descricao' => [
+                    'required',
+                    'max:40',
+                    'min:2',
+                ],
                 'data_inicial' => [
                     'required',
                     'regex:'.Util::REGEX_DATE

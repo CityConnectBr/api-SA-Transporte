@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class FMP extends Model
 {
     protected $fillable = [
+        'descricao',
         'id_integracao',
         'data_inicial',
         'data_final',
