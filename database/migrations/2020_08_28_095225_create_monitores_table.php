@@ -21,7 +21,7 @@ class CreateMonitoresTable extends Migration
             //$table->string('situacao', 1);//A/I/C
             $table->string('cpf', 11)->nullable();
             $table->string('rg', 15)->nullable();
-            $table->string('telefone', 11)->nullable();
+            $table->string('telefone', 20)->nullable();
             $table->string('email', 200)->nullable();
             $table->date('data_nascimento')->nullable();
             //$table->integer('versao');

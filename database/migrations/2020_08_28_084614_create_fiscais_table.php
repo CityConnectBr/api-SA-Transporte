@@ -18,7 +18,7 @@ class CreateFiscaisTable extends Migration
             $table->integer('id_integracao')->nullable()->unique();
             $table->string('nome', 40);
             $table->string('cpf', 11)->nullable();
-            $table->string('telefone', 11)->nullable();
+            $table->string('telefone', 20)->nullable();
             $table->string('email', 200)->nullable();
             $table->string('cargo', 40)->nullable();
             $table->string('unidade_trabalho', 40)->nullable();

@@ -20,7 +20,7 @@ class CreatePontosTable extends Migration
             //$table->string('base_legal', 40);
             //$table->string('capacidade_legal', 40);
 
-            $table->string('telefone', 11)->nullable();
+            $table->string('telefone', 20)->nullable();
             $table->date('data_criacao')->nullable();
             $table->date('data_extincao')->nullable();
             $table->string('ocupacao_atual', 40)->nullable();

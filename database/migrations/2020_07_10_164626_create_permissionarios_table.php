@@ -27,9 +27,9 @@ class CreatePermissionariosTable extends Migration
             $table->string('alvara_de_funcionamento', 15)->nullable();
             $table->string('responsavel', 40)->nullable();
             $table->string('procurador_responsavel', 40)->nullable();
-            $table->string('telefone', 11)->nullable();
-            $table->string('telefone2', 11)->nullable();
-            $table->string('celular', 11)->nullable();
+            $table->string('telefone', 20)->nullable();
+            $table->string('telefone2', 20)->nullable();
+            $table->string('celular', 20)->nullable();
             $table->string('email', 200)->nullable();
             $table->date('data_nascimento')->nullable();
             $table->string('naturalidade', 15)->nullable();

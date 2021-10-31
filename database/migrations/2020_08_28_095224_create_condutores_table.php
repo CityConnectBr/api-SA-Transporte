@@ -21,8 +21,8 @@ class CreateCondutoresTable extends Migration
             //$table->string('situacao', 1);//A/I/C
             $table->string('cpf', 11)->nullable();
             $table->string('rg', 15)->nullable();
-            $table->string('telefone', 11)->nullable();
-            $table->string('celular', 11)->nullable();
+            $table->string('telefone', 20)->nullable();
+            $table->string('celular', 20)->nullable();
             $table->string('email', 200)->nullable();
             $table->string('cnh', 15)->nullable();
             $table->string('categoria_cnh', 2)->nullable();

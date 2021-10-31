@@ -17,7 +17,7 @@ class CreateAlunosTable extends Migration
             $table->increments('id');
             $table->string('nome', 40);
             $table->date('data_nascimento')->nullable();
-            $table->string('telefone', 11)->nullable();
+            $table->string('telefone', 20)->nullable();
             $table->time('hora_entrada')->nullable();
             $table->time('hora_saida')->nullable();
             $table->string('email', 200)->nullable();

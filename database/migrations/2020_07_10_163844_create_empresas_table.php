@@ -17,7 +17,7 @@ class CreateEmpresasTable extends Migration
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
             $table->string('nome', 40);
-            $table->string('telefone', 11)->nullable();
+            $table->string('telefone', 20)->nullable();
             $table->string('fax', 11)->nullable();
             $table->string('home_page', 200)->nullable();
             $table->string('email', 200)->nullable();
