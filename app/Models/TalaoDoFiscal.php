@@ -25,4 +25,11 @@ class TalaoDoFiscal extends Model
             ->orderBy("tipo_documento")
             ->simplePaginate(15);
     }
+
+    public static function findFiscalAndNumero($fiscalId, $numero)
+    {
+        return TalaoDoFiscal::where("fiscal_id", $fiscalId)
+            ->where("numero", $numero )
+            ->simplePaginate(15);
+    }
 }
