@@ -18,7 +18,7 @@ class FMP extends Model
 
     public static function search($search)
     {
-        return FMP::where("moeda_id", $search)
+        return FMP::where("moeda_id", "like", "%" . $search . "%")
             ->paginate(15);
     }
 }
