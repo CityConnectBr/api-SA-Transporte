@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminSuperController;
 use App\Models\Permissionario;
 use App\Utils\Util;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionarioController extends AdminSuperController
@@ -14,7 +16,8 @@ class PermissionarioController extends AdminSuperController
     {
         $postMethod = $request->method() == 'POST';
         parent::__construct(
-            Permissionario::class, [
+            Permissionario::class,
+            [
                 'numero_de_cadastro_antigo' => [
                     'max:10',
                 ],
@@ -31,8 +34,8 @@ class PermissionarioController extends AdminSuperController
                     'required',
                     'max:14',
                     'min:11',
-                    'regex:'.Util::REGEX_CPF_CNPJ,
-                    $postMethod?'unique:permissionarios':''
+                    'regex:' . Util::REGEX_CPF_CNPJ,
+                    $postMethod ? 'unique:permissionarios' : ''
                 ],
                 'rg' => [
                     'max:9',
@@ -58,15 +61,15 @@ class PermissionarioController extends AdminSuperController
                 ],
                 'telefone' => [
                     'nullable',
-                    'regex:'.Util::REGEX_PHONE,
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'telefone2' => [
                     'nullable',
-                    'regex:'.Util::REGEX_PHONE,
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'celular' => [
                     'nullable',
-                    'regex:'.Util::REGEX_PHONE,
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'email' => [
                     'nullable',
@@ -75,7 +78,7 @@ class PermissionarioController extends AdminSuperController
                 ],
                 'data_nascimento' => [
                     'nullable',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'naturalidade' => [
                     'max:15',
@@ -91,11 +94,11 @@ class PermissionarioController extends AdminSuperController
                     'min:1'
                 ],
                 'endereco_id' => [
-                    $postMethod?'required':'',
+                    $postMethod ? 'required' : '',
                     'exists:enderecos,id'
                 ],
                 'vencimento_cnh' => [
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ]
             ],
             $request
@@ -163,7 +166,7 @@ class PermissionarioController extends AdminSuperController
                 'nullable'
             ],
             'validade_certidao_negativa' => [
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
                 'nullable'
             ],
             'comprovante_de_endereco' => [
@@ -183,7 +186,7 @@ class PermissionarioController extends AdminSuperController
                 'nullable'
             ],
             'curso_primeiro_socorros_emissao' => [
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
                 'nullable'
             ],
             'crlv' => [
@@ -203,7 +206,7 @@ class PermissionarioController extends AdminSuperController
                 'nullable'
             ],
             'contrato_comodato_validade' => [
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
                 'nullable'
             ],
             'ipva' => [
@@ -231,7 +234,7 @@ class PermissionarioController extends AdminSuperController
                 'nullable'
             ],
             'selo_gnv_validade' => [
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
                 'nullable'
             ],
             'taximetro_tacografo' => [
@@ -243,15 +246,15 @@ class PermissionarioController extends AdminSuperController
                 'nullable'
             ],
             'taximetro_tacografo_afericao' => [
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
                 'nullable'
             ],
             'inicio_atividades' => [
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
                 'nullable'
             ],
             'termino_atividades' => [
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
                 'nullable'
             ],
             'termino_atividades_motivo' => [
@@ -259,13 +262,13 @@ class PermissionarioController extends AdminSuperController
                 'nullable'
             ],
             'data_transferencia' => [
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
                 'nullable'
             ],
         ]);
 
         if ($validator->fails()) {
-            return Parent::responseMsgsJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $obj = Permissionario::find($id);
@@ -291,7 +294,7 @@ class PermissionarioController extends AdminSuperController
         $validator = Validator::make($request->all(), [
             'data_obito' => [
                 'required',
-                'regex:'.Util::REGEX_DATE,
+                'regex:' . Util::REGEX_DATE,
             ],
             'certidao_de_obito' => [
                 'required',
@@ -319,10 +322,48 @@ class PermissionarioController extends AdminSuperController
         $obj = Permissionario::find($id);
         if (isset($obj)) {
             $obj->fill($request->all());
-            $obj->nome_razao_social = $obj->nome_razao_social." (FALECIDO)";
+            $obj->nome_razao_social = $obj->nome_razao_social . " (FALECIDO)";
             $obj->update();
 
             return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
+
+    public function storeFoto($id, Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'foto' => [
+                'required',
+                'file',
+            ]
+        ]);
+
+        if ($validator->fails()) {
+            return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $obj = Permissionario::find($id);
+        if (isset($obj)) {
+            $obj->foto = true;
+            if (isset($request->foto)) {
+                $request->foto->storeAs('/' . $obj->getTable(), 'foto_' . $obj->id);
+            }
+            $obj->save();
+
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
+
+    public function showFoto($id)
+    {
+        $obj = Permissionario::find($id);
+        if ($obj !== null && $obj->foto == 1) {
+            return Storage::download($obj->getTable() . '/foto_' . $obj->id);
         } else {
             return parent::responseMsgJSON("Não encontrado", 404);
         }

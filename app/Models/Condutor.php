@@ -10,6 +10,7 @@ class Condutor extends Model
     protected $fillable = [
         'nome',
         'id_integracao',
+        'foto',
         'cpf',
         'rg',
         'telefone',

@@ -11,6 +11,7 @@ class Monitor extends Model
         'nome',
         'numero_de_cadastro_antigo',
         'id_integracao',
+        'foto',
         //'situacao',
         'cpf',
         'rg',

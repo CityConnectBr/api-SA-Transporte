@@ -16,6 +16,7 @@ class CreateCondutoresTable extends Migration
         Schema::create('condutores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_integracao', 11)->nullable();
+            $table->boolean('foto')->default(0);
             $table->string('numero_de_cadastro_antigo', 10)->nullable();
             $table->string('nome', 40);
             //$table->string('situacao', 1);//A/I/C

@@ -63,16 +63,20 @@ Route::group([
                 Route::resource('/quadrodeinfracoes', 'Admin\QuadroDeInfracoesController');
                 Route::resource('/naturezasdainfracao', 'Admin\NaturezaDaInfracaoController');
                 Route::resource('/valoresdainfracao', 'Admin\ValoresDaInfracaoController');
-                Route::resource('/fiscais', 'Admin\FiscalController');
                 Route::resource('/tiposdemoeda', 'Admin\TiposDeMoedaController');
                 Route::resource('/taloesdofiscal', 'Admin\TalaoDoFiscalController');
                 Route::resource('/fmp', 'Admin\FMPController');
+
+                Route::resource('/fiscais', 'Admin\FiscalController');
+                Route::post('/fiscais/{id}/foto', 'Admin\FiscalController@storeFoto');
+                Route::get('/fiscais/{id}/foto', 'Admin\FiscalController@showFoto');
 
                 Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');//precisa estar na frente de /municipios
                 Route::resource('/municipios', 'Admin\MunicipioController');
 
                 Route::resource('/permissionarios', 'Admin\PermissionarioController');
-                Route::put('/permissionarios/{id}/modalidade', 'Admin\PermissionarioController@updateModalidade');
+                Route::post('/permissionarios/{id}/foto', 'Admin\PermissionarioController@storeFoto');
+                Route::get('/permissionarios/{id}/foto', 'Admin\PermissionarioController@showFoto');
                 Route::put('/permissionarios/{id}/documentos', 'Admin\PermissionarioController@updateDocumentos');
                 Route::put('/permissionarios/{id}/falecimento', 'Admin\PermissionarioController@updateFalecimento');
                 Route::resource('/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
@@ -83,10 +87,14 @@ Route::group([
                 Route::resource('/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
 
                 Route::resource('/condutores', 'Admin\CondutorController');
+                Route::post('/condutores/{id}/foto', 'Admin\CondutorController@storeFoto');
+                Route::get('/condutores/{id}/foto', 'Admin\CondutorController@showFoto');
                 Route::resource('/cursosdocondutor', 'Admin\CursoDoCondutorController');
                 Route::resource('/anexosdocondutor', 'Admin\AnexoDoCondutorController');
 
                 Route::resource('/monitores', 'Admin\MonitorController');
+                Route::post('/monitores/{id}/foto', 'Admin\MonitorController@storeFoto');
+                Route::get('/monitores/{id}/foto', 'Admin\MonitorController@showFoto');
                 Route::resource('/cursosdomonitor', 'Admin\CursoDoMonitorController');
                 Route::resource('/anexosdomonitor', 'Admin\AnexoDoMonitorController');
 

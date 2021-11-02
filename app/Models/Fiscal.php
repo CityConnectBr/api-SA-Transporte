@@ -9,6 +9,7 @@ class Fiscal extends Model
     protected $fillable = [
         'nome',
         'id_integracao',
+        'foto',
         'nome',
         'cpf',
         'ddd',
