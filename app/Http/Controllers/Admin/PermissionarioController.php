@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminSuperController;
+use App\Models\Condutor;
 use App\Models\Permissionario;
+use App\Models\Veiculo;
 use App\Utils\Util;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -367,5 +369,25 @@ class PermissionarioController extends AdminSuperController
         } else {
             return parent::responseMsgJSON("Não encontrado", 404);
         }
+    }
+
+    public function indexVeiculos($id)
+    {
+        $obj = Permissionario::find($id);
+        if ($obj == null) {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+
+        return Veiculo::searchByIdPermissionario($id, "");
+    }
+
+    public function indexCondutores($id)
+    {
+        $obj = Permissionario::find($id);
+        if ($obj == null) {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+
+        return Condutor::searchByPermissionario($id, "");
     }
 }

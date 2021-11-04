@@ -77,6 +77,8 @@ Route::group([
                 Route::resource('/permissionarios', 'Admin\PermissionarioController');
                 Route::post('/permissionarios/{id}/foto', 'Admin\PermissionarioController@storeFoto');
                 Route::get('/permissionarios/{id}/foto', 'Admin\PermissionarioController@showFoto');
+                Route::get('/permissionarios/{id}/veiculos', 'Admin\PermissionarioController@indexVeiculos');
+                Route::get('/permissionarios/{id}/condutores', 'Admin\PermissionarioController@indexCondutores');
                 Route::put('/permissionarios/{id}/documentos', 'Admin\PermissionarioController@updateDocumentos');
                 Route::put('/permissionarios/{id}/falecimento', 'Admin\PermissionarioController@updateFalecimento');
                 Route::resource('/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
