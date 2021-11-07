@@ -38,8 +38,10 @@ class AdminSuperController extends Controller
             }
 
             $obj = $this->objectModel::search($search);
+
         } else {
             $obj = $this->objectModel::simplePaginate(15);
+
         }
 
         if ($obj != null) {

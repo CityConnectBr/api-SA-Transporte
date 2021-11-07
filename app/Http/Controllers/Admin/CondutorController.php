@@ -11,7 +11,7 @@ class CondutorController extends AdminSuperController
 {
 
     function __construct(Request $request)
-    {
+    {dd('hgere');
         $postMethod = $request->method() == 'POST';
         parent::__construct(
             Condutor::class, [
