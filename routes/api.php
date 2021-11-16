@@ -105,6 +105,8 @@ Route::group([
 
                 Route::resource('/veiculos', 'Admin\VeiculoController');
                 Route::resource('/anexosdoveiculo', 'Admin\AnexoDoVeiculoController');
+
+                Route::resource('/solicitacoes', 'Admin\SolicitacaoController');
             });
         });
 

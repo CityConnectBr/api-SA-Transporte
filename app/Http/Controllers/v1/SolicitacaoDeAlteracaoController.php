@@ -60,7 +60,7 @@ class SolicitacaoDeAlteracaoController extends Controller
      */
     public function index()
     {
-        return SolicitacaoDeAlteracao::search(parent::getUserLogged(), $this->request->query->get("tipo"), $this->request->query->get("referencia"), $this->request->query->get("status"));
+        return SolicitacaoDeAlteracao::searchComplete(parent::getUserLogged(), $this->request->query->get("tipo"), $this->request->query->get("referencia"), $this->request->query->get("status"));
     }
 
     /**
@@ -226,7 +226,7 @@ class SolicitacaoDeAlteracaoController extends Controller
                 $arquivo = new Arquivo();
                 $arquivo->origem = "app";
                 $arquivo->save();
-                
+
                 $request["arquivo" . $i]->storeAs('/arquivos', $arquivo->id . ".jpg");
 
                 $solicitacao["arquivo" . $i . "_uid"] = $arquivo->id;

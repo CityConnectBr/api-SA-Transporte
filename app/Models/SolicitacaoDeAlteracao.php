@@ -79,7 +79,15 @@ class SolicitacaoDeAlteracao extends Model
         return $this->hasOne(Fiscal::class, 'id', 'fiscal_id');
     }
 
-    // /////////////////
+    ///////////////////
+
+    public static function search($search)
+    {
+        return TipoDeCertidao::where("descricao", "like", "%" . $search . "%")
+        ->orderBy("descricao")
+        ->paginate(40);
+    }
+
     public static function findComplete($id)
     {
         return SolicitacaoDeAlteracao::with("tipo")->with("permissionario")
@@ -126,7 +134,7 @@ class SolicitacaoDeAlteracao extends Model
         return SolicitacaoDeAlteracao::where('status', null)->where('sincronizado', false)->get();
     }
 
-    public static function search($usuario, $tipo, $referencia, $status)
+    public static function searchComplete($usuario, $tipo, $referencia, $status)
     {
         if (isset($usuario->permissionario_id)) {
             $query = SolicitacaoDeAlteracao::where("permissionario_id", "=", $usuario->permissionario_id)->with("permissionario");
