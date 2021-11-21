@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Arquivo;
 use Illuminate\Support\Facades\Storage;
 
 class AdminSuperController extends Controller
@@ -101,7 +102,7 @@ class AdminSuperController extends Controller
         if (isset($obj)) {
 
             if ($this->showOnlyFile) {
-                return Storage::download($obj->getTable().'/' . $obj->file_name);
+                return Storage::download($obj->getTable() . '/' . $obj->file_name);
             }
 
             return $obj;
@@ -169,6 +170,53 @@ class AdminSuperController extends Controller
             } else {
                 return parent::responseMsgJSON("Não pode ser deletado.", 500);
             }
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
+
+    private function storePhoto(Request $request)
+    {
+        $arquivo = new Arquivo();
+        $arquivo->origem = "web";
+        $arquivo->save();
+
+        $request["foto"]->storeAs('/arquivos', $arquivo->id . ".jpg");
+
+        return $arquivo;
+    }
+
+    public function storeFoto($id, Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'foto' => [
+                'required',
+                'file',
+            ]
+        ]);
+
+        if ($validator->fails()) {
+            return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $obj = $this->objectModel::find($id);
+        if (isset($obj)) {
+            $arquivo = $this->storePhoto($request);
+            $obj->foto_uid = $arquivo->id;
+            $obj->update();
+
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
+
+    public function showFoto($id)
+    {
+        $obj = $this->objectModel::find($id);
+        if ($obj !== null && $obj->foto_uid != null) {
+            return Storage::download('/arquivos/' . $obj->foto_uid . ".jpg");
         } else {
             return parent::responseMsgJSON("Não encontrado", 404);
         }

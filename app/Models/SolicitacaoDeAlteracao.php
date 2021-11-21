@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -7,8 +8,7 @@ class SolicitacaoDeAlteracao extends Model
 {
 
     protected $fillable = [
-        'referencia_remota_id',
-        'sincronizado',
+        'referencia_id',
         'status', // A-ACEITO,R-RECUSADO,C-CANCELADO,NULL-AGUARDANDO
         'motivo_recusado',
         'campo1',
@@ -51,10 +51,6 @@ class SolicitacaoDeAlteracao extends Model
         'arquivo4_uid',
     ];
 
-    protected $attributes = [
-        'sincronizado' => false
-    ];
-
     public $referencia_id;
 
     protected $table = 'solicitacoes_de_alteracao';
@@ -79,13 +75,59 @@ class SolicitacaoDeAlteracao extends Model
         return $this->hasOne(Fiscal::class, 'id', 'fiscal_id');
     }
 
+    public function permissionarioReferencia()
+    {
+        return $this->hasOne(Permissionario::class, 'id', 'referencia_permissionario_id');
+    }
+
+    public function condutorReferencia()
+    {
+        return $this->hasOne(Condutor::class, 'id', 'referencia_condutor_id');
+    }
+
+    public function fiscalReferencia()
+    {
+        return $this->hasOne(Fiscal::class, 'id', 'referencia_fiscal_id');
+    }
+
+    public function veiculoReferencia()
+    {
+        return $this->hasOne(Fiscal::class, 'id', 'referencia_veiculo_id');
+    }
+
     ///////////////////
 
-    public static function search($search)
+    public static function search($search, $inverseOrder = false)
     {
-        return TipoDeCertidao::where("descricao", "like", "%" . $search . "%")
-        ->orderBy("descricao")
-        ->paginate(40);
+        if ($search == null || $search == '') {
+            $query = SolicitacaoDeAlteracao::where("id", "like", "%"); //figurante...
+        } else if ($search == 'null'){
+            $query = SolicitacaoDeAlteracao::whereNull("status");
+        }else {
+            $query = SolicitacaoDeAlteracao::where("status", "like", "%" . $search . "%");
+        }
+
+        $query->with("tipo");
+        $query->with("permissionario");
+        $query->with("condutor");
+        $query->with("fiscal");
+        $query->with("permissionarioReferencia");
+        $query->with("condutorReferencia");
+        $query->with("fiscalReferencia");
+        $query->with("veiculoReferencia");
+
+        if ($inverseOrder) {
+            $query->orderBy("created_at", 'DESC');
+        } else {
+            $query->orderBy("status");
+        }
+
+        return $query->paginate(40);
+    }
+
+    public static function searchInverseOrder($search)
+    {
+        return SolicitacaoDeAlteracao::search($search, true);
     }
 
     public static function findComplete($id)
@@ -99,13 +141,13 @@ class SolicitacaoDeAlteracao extends Model
     public static function findAllWaitingByReference($tipo, $referenceId)
     {
         return SolicitacaoDeAlteracao::where('status', null)->where('tipo_solicitacao_id', $tipo)
-        ->where(function ($q) use ($referenceId){
-            $q->orWhere('referencia_fiscal_id', $referenceId)
-            ->orWhere('referencia_permissionario_id', $referenceId)
-            ->orWhere('referencia_monitor_id', $referenceId)
-            ->orWhere('referencia_condutor_id', $referenceId)
-            ->orWhere('referencia_veiculo_id', $referenceId);
-        })->get();
+            ->where(function ($q) use ($referenceId) {
+                $q->orWhere('referencia_fiscal_id', $referenceId)
+                    ->orWhere('referencia_permissionario_id', $referenceId)
+                    ->orWhere('referencia_monitor_id', $referenceId)
+                    ->orWhere('referencia_condutor_id', $referenceId)
+                    ->orWhere('referencia_veiculo_id', $referenceId);
+            })->get();
     }
 
     public static function cancel($solicitacao)
@@ -144,25 +186,25 @@ class SolicitacaoDeAlteracao extends Model
             $query = SolicitacaoDeAlteracao::where("condutor_id", "=", $usuario->condutor_id)->with("condutor");
         }
 
-        if(isset($tipo)){
+        if (isset($tipo)) {
             $query->where("tipo_solicitacao_id", "=", $tipo);
         }
 
-        if(isset($status)){
-            if(strcmp("null", $status)==0){
+        if (isset($status)) {
+            if (strcmp("null", $status) == 0) {
                 $query->where("status", "=", null);
-            }else{
+            } else {
                 $query->where("status", "=", $status);
             }
         }
 
-        if(isset($referencia)){
-            $query->where(function ($q) use ($referencia){
+        if (isset($referencia)) {
+            $query->where(function ($q) use ($referencia) {
                 $q->orWhere('referencia_fiscal_id', $referencia)
-                ->orWhere('referencia_permissionario_id', $referencia)
-                ->orWhere('referencia_monitor_id', $referencia)
-                ->orWhere('referencia_condutor_id', $referencia)
-                ->orWhere('referencia_veiculo_id', $referencia);
+                    ->orWhere('referencia_permissionario_id', $referencia)
+                    ->orWhere('referencia_monitor_id', $referencia)
+                    ->orWhere('referencia_condutor_id', $referencia)
+                    ->orWhere('referencia_veiculo_id', $referencia);
             });
         }
 

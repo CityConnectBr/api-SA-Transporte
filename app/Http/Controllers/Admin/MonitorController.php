@@ -80,42 +80,4 @@ class MonitorController extends AdminSuperController
         );
     }
 
-    public function storeFoto($id, Request $request)
-    {
-
-        $validator = Validator::make($request->all(), [
-            'foto' => [
-                'required',
-                'file',
-            ]
-        ]);
-
-        if ($validator->fails()) {
-            return Parent::responseMsgsJSON($validator->errors(), 400);
-        }
-
-        $obj = Monitor::find($id);
-        if (isset($obj)) {
-            $obj->foto = true;
-            if (isset($request->foto)) {
-                $request->foto->storeAs('/' . $obj->getTable(), 'foto_' . $obj->id);
-            }
-            $obj->save();
-
-            return $obj;
-        } else {
-            return parent::responseMsgJSON("Não encontrado", 404);
-        }
-    }
-
-    public function showFoto($id)
-    {
-        $obj = Monitor::find($id);
-        if ($obj !== null && $obj->foto == 1) {
-            return Storage::download($obj->getTable() . '/foto_' . $obj->id);
-        } else {
-            return parent::responseMsgJSON("Não encontrado", 404);
-        }
-    }
-
 }

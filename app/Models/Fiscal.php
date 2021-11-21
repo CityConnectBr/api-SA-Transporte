@@ -9,7 +9,6 @@ class Fiscal extends Model
     protected $fillable = [
         'nome',
         'id_integracao',
-        'foto',
         'nome',
         'cpf',
         'ddd',
@@ -17,7 +16,8 @@ class Fiscal extends Model
         'email',
         'cargo',
         'unidade_trabalho',
-        'endereco_id'
+        'endereco_id',
+        'foto_uid'
     ];
 
     protected $table = 'fiscais';

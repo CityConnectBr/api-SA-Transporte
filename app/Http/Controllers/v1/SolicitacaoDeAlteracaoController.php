@@ -143,7 +143,6 @@ class SolicitacaoDeAlteracaoController extends Controller
         $solicitacao->fill($request->all());
         if (isset($idReferenciaRemota)) {
             $solicitacao->referencia_id = $request["referencia_id"];
-            $solicitacao->referencia_remota_id = $idReferenciaRemota;
         }
 
         // setando tando referencia local

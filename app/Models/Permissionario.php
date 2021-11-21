@@ -9,7 +9,6 @@ class Permissionario extends Model
 
     protected $fillable = [
         'id_integracao',
-        'foto',
         'numero_de_cadastro_antigo',
         'nome_razao_social',
         'tipo',
@@ -63,6 +62,7 @@ class Permissionario extends Model
         'termino_atividades',
         'termino_atividades_motivo',
         'data_transferencia',
+        'foto_uid'
     ];
 
     protected $temporaly = [

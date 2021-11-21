@@ -16,9 +16,9 @@ class CreateSolicitacoesDeAlteracaoTable extends Migration
     {
         Schema::create('solicitacoes_de_alteracao', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('referencia_remota_id', 250)->nullable();
+            $table->string('referencia_id', 250)->nullable();
             $table->string('motivo_recusado', 40)->nullable();
-            $table->boolean('sincronizado');
+            //$table->boolean('sincronizado');
             $table->string('status', 1)->nullable();//A-ACEITO,R-RECUSADO,C-CANCELADO,NULL-AGUARDANDO
             $table->string('campo1', 250)->nullable();
             $table->string('campo2', 250)->nullable();
