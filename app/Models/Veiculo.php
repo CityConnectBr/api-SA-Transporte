@@ -40,6 +40,13 @@ class Veiculo extends Model
             ->simplePaginate(15);
     }
 
+    public static function returnPaginated()
+    {
+        return Veiculo::paginate(15);//where("placa", "like", "%" . $search . "%")
+            //->orderBy("placa")
+            //->simplePaginate(15);
+    }
+
     /*protected $attributes = [
         'versao' => 0
     ];
@@ -146,5 +153,27 @@ class Veiculo extends Model
             ->with("permissionario")
             ->orderBy("placa")
             ->paginate(40);
+    }
+
+    public static function returnComplete($withoutGlobalScope = false)
+    {
+        if ($withoutGlobalScope) {
+            return Veiculo::withoutGlobalScope('situacao')->with('marcaModeloCarroceria')
+                ->with('marcaModeloChassi')
+                ->with('marcaModeloVeiculo')
+                ->with('tipoCombustivel')
+                ->with('tipoVeiculo')
+                ->with('cor')
+                ->with('permissionario')
+                ->get();
+        } else {
+            return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
+                ->with('marcaModeloVeiculo')
+                ->with('tipoCombustivel')
+                ->with('tipoVeiculo')
+                ->with('cor')
+                ->with('permissionario')
+                ->get();
+        }
     }
 }
