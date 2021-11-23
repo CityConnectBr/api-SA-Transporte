@@ -109,6 +109,8 @@ Route::group([
                 Route::get('/solicitacoes', 'Admin\SolicitacaoController@index');
                 Route::get('/solicitacoes/{id}', 'Admin\SolicitacaoController@show');
                 Route::patch('/solicitacoes/{id}/concluir', 'Admin\SolicitacaoController@concluir');
+
+                Route::get('/arquivos/{id}', 'Admin\ArquivoController@show');
             });
         });
 
