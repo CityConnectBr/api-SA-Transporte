@@ -133,6 +133,10 @@ Route::group([
                 Route::get('/v1/condutores/{id}', 'v1\CondutorController@show');
                 Route::get('/v1/condutores/{id}/foto', 'v1\CondutorController@showPhoto');
 
+                Route::get('/v1/permissionarios', 'v1\PermissionarioController@index');  
+                Route::get('/v1/permissionarios/{id}', 'v1\PermissionarioController@show');  
+                Route::get('/v1/permissionarios/{id}/foto', 'v1\PermissionarioController@showPhoto');  
+
                 Route::get('/v1/monitores', 'v1\MonitorController@index');
                 Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');
                 Route::get('/v1/monitores/{id}/foto', 'v1\MonitorController@showPhoto');

@@ -98,6 +98,15 @@ class Permissionario extends Model
         }
     }
 
+    public static function searchByPermissionario($permissionario_id, $search)
+    {
+        return Permissionario::where("id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
+            ->with("endereco")
+            ->orderBy("nome")
+            ->paginate(40);
+    }
+
+
     public static function findByIntegracaoComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
