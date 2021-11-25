@@ -21,4 +21,11 @@ class MarcaModeloVeiculo extends Model
         ->orderBy("descricao")
         ->paginate(40);
     }
+
+
+    // public function marcaModeloVeiculo()
+    // {
+    //     return $this->belongsTo(Veiculo::class, 'id', 'marca_modelo_veiculo_id');
+    // }
+
 }

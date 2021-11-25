@@ -62,6 +62,7 @@ class Permissionario extends Model
         'termino_atividades',
         'termino_atividades_motivo',
         'data_transferencia',
+        'veiculo_id',
     ];
 
     protected $temporaly = [
@@ -71,6 +72,11 @@ class Permissionario extends Model
     public function endereco()
     {
         return $this->hasOne(Endereco::class, 'id', 'endereco_id');
+    }
+
+    public function veiculo()
+    {
+        return $this->hasOne(Veiculo::class, 'id', 'veiculo_id')->withoutGlobalScopes();
     }
 
     public function modalidade()
@@ -100,9 +106,12 @@ class Permissionario extends Model
 
     public static function searchByPermissionario($permissionario_id, $search)
     {
-        return Permissionario::where("id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
+       
+        return Permissionario::where("id", "=", $permissionario_id)->where("nome_razao_social", "like", "%" . $search . "%")
             ->with("endereco")
-            ->orderBy("nome")
+            ->with("veiculo")
+            ->with("veiculo.marcaModeloVeiculo")
+            ->orderBy("nome_razao_social")
             ->paginate(40);
     }
 

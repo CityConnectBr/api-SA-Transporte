@@ -70,12 +70,12 @@ class VeiculoController extends Controller
      */
     public function index()
     {
-        if($this->request->query->get("search")){
+
             return Veiculo::search($this->request->query->get("search"), parent::getUserLogged()->permissionario_id);
-        }
-        else {
-            return Veiculo::returnPaginated();
-        }
+        
+        // else {
+        //     return Veiculo::returnPaginated();
+        // }
     }
 
     /**

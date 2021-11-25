@@ -27,7 +27,7 @@ class PermissionarioController extends Controller
     public function index()
     {
         //dd('parent::getUserLogged()->permissionario_id')
-       // return Condutor::search(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
+        //return Condutor::search(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
         return Permissionario::searchByPermissionario(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
     }
 

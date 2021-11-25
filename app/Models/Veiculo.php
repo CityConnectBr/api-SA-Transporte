@@ -33,12 +33,7 @@ class Veiculo extends Model
 
     protected $table = 'veiculos';
 
-    public static function search($search)
-    {
-        return Veiculo::where("placa", "like", "%" . $search . "%")
-            ->orderBy("placa")
-            ->simplePaginate(15);
-    }
+    
 
     public static function returnPaginated()
     {
@@ -90,10 +85,26 @@ class Veiculo extends Model
 
     public function permissionario()
     {
-        return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
+        return $this->belongsTo(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
     }
 
     // /////////////////
+
+    public static function search($search)
+    {   
+        if($search){
+        return Veiculo::where("placa", "like", "%" . $search . "%")
+            ->with("marcaModeloVeiculo")
+            ->orderBy("placa")
+            ->simplePaginate(15);
+        }
+        else {
+            return Veiculo::with("marcaModeloVeiculo")
+            ->orderBy("placa")
+            ->simplePaginate(15);
+        }
+    }
+
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
