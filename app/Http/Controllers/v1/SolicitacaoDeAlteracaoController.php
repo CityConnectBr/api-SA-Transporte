@@ -169,10 +169,6 @@ class SolicitacaoDeAlteracaoController extends Controller
             $regexField = $tipoDeSolicitacao['regex_campo' . $i];
 
             if (isset($regexField)) {
-                // alterações na expressao para PHP
-                $regexField = str_replace('-', '\-', $regexField);
-                //
-
                 $field = $solicitacao['campo' . $i];
 
                 if (! preg_match("/" . $regexField . "/", $field)) {
