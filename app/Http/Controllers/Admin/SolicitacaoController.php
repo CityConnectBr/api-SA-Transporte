@@ -146,6 +146,9 @@ class SolicitacaoController extends AdminSuperController
         ) {
             $obj->permissionario_id = $permissionarioId;
             $obj->fill($array);
+
+            if(Str::contains($tipoDaSolicitacao->nome, ['veiculo']))
+                $obj->categoria_id = 1;//Setando categoria veículo
         }
 
         if (
@@ -168,10 +171,11 @@ class SolicitacaoController extends AdminSuperController
             $obj->foto_uid = $solicitacao->arquivo1_uid;
         }
 
+
         if ($id != null) {
             $obj->update();
         } else {
-            if ($enderecoObj->id !== null)
+            if ($enderecoObj!==null && $enderecoObj->id !== null)
                 $obj->endereco_id = $enderecoObj->id;
 
             $obj->save();
