@@ -113,6 +113,7 @@ Route::group([
                 Route::get('/arquivos/{id}', 'Admin\ArquivoController@show');
 
                 Route::resource('/certidoes', 'Admin\CertidaoController');
+                Route::resource('/infracoes', 'Admin\InfracaoController');
             });
         });
 
