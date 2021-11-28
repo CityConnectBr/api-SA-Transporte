@@ -16,6 +16,7 @@ class CreateVistoriaPontoTable extends Migration
         Schema::create('vistoria_ponto', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_integracao')->nullable()->unique();
+            $table->date('data_vistoria');
             $table->integer('condicoes_de_pintura');
             $table->integer('condicoes_de_cobertura');
             $table->integer('condicoes_de_emplacamento');

@@ -114,6 +114,7 @@ Route::group([
 
                 Route::resource('/certidoes', 'Admin\CertidaoController');
                 Route::resource('/infracoes', 'Admin\InfracaoController');
+                Route::resource('/vistoriadepontos', 'Admin\VistoriaPontoController');
             });
         });
 
