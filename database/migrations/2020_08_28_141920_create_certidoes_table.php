@@ -27,7 +27,6 @@ class CreateCertidoesTable extends Migration
             $table->integer('marca_modelo_veiculo_id')->nullable()->unsigned();
             $table->integer('tipo_de_certidao_id')->nullable()->unsigned();
             $table->integer('permissionario_id')->nullable()->unsigned();
-            $table->integer('chassis_id')->nullable()->unsigned();
             $table->integer('tipo_combustivel_id')->nullable()->unsigned();
             $table->integer('cor_id')->nullable()->unsigned();
             $table->integer('ponto_id')->unsigned()->nullable();
@@ -35,7 +34,6 @@ class CreateCertidoesTable extends Migration
             $table->foreign('tipo_de_certidao_id')->references('id')->on('tipos_de_certidao');
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
             $table->foreign('marca_modelo_veiculo_id')->references('id')->on('marcas_modelos_veiculos');
-            $table->foreign('chassis_id')->references('id')->on('marcas_modelos_chassis');
             $table->foreign('tipo_combustivel_id')->references('id')->on('tipos_combustiveis');
             $table->foreign('cor_id')->references('id')->on('cores_veiculos');
             $table->foreign('ponto_id')->references('id')->on('pontos');

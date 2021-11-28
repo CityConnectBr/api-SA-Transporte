@@ -111,6 +111,8 @@ Route::group([
                 Route::patch('/solicitacoes/{id}/concluir', 'Admin\SolicitacaoController@concluir');
 
                 Route::get('/arquivos/{id}', 'Admin\ArquivoController@show');
+
+                Route::resource('/certidoes', 'Admin\CertidaoController');
             });
         });
 
