@@ -75,14 +75,4 @@ class CertidaoController extends AdminSuperController
             $request
         );
     }
-
-    public function update(Request $request, $id)
-    {
-        return parent::responseMsgJSON("Não permitido para este item!", 401);
-    }
-
-    public function destroy($id)
-    {
-        return parent::responseMsgJSON("Não permitido para este item!", 401);
-    }
 }
