@@ -16,13 +16,13 @@ class CreateCertidoesTable extends Migration
         Schema::create('certidoes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_integracao',11)->nullable()->unique();
-            $table->string('ano',4);
             $table->date('data');
             $table->string('renavam', 11)->nullable();
             $table->string('placa', 7)->nullable();
             $table->string('ano_fabricacao', 4)->nullable();
             $table->string('chassis', 25)->nullable();
             $table->string('prefixo', 15)->nullable();
+            $table->string('observacao', 200)->nullable();
 
             $table->integer('marca_modelo_veiculo_id')->nullable()->unsigned();
             $table->integer('tipo_de_certidao_id')->nullable()->unsigned();

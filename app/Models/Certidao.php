@@ -8,7 +8,6 @@ class Certidao extends Model
 {
     protected $fillable = [
         'id_integracao',
-        'ano',
         'data',
         'renavam',
         'placa',
@@ -21,6 +20,7 @@ class Certidao extends Model
         'tipo_combustivel_id',
         'cor_id',
         'ponto_id',
+        'observacao'
     ];
 
     protected $table = 'certidoes';
@@ -29,8 +29,8 @@ class Certidao extends Model
 
     public static function search($search)
     {
-        return Certidao::where("ano", "like", "%" . $search . "%")
-        ->orderBy("ano")
+        return Certidao::where("placa", "like", "%" . $search . "%")
+        ->orderBy("data")
         ->paginate(40);
     }
 }

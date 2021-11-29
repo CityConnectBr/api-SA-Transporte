@@ -13,11 +13,6 @@ class CertidaoController extends AdminSuperController
     {
         parent::__construct(
             Certidao::class, [
-                'ano' => [
-                    'required',
-                    'max:4',
-                    'regex:'.Util::REGEX_NUMBER
-                ],
                 'data' => [
                     'required',
                     'regex:' . Util::REGEX_DATE,
@@ -47,6 +42,9 @@ class CertidaoController extends AdminSuperController
                     'max:15',
                     'min:3'
                 ],
+                'observacao' => [
+                    'max:200',
+                ],
                 'tipo_de_certidao_id' => [
                     'required',
                     'exists:tipos_de_certidao,id'
@@ -57,7 +55,7 @@ class CertidaoController extends AdminSuperController
                 ],
                 'marca_modelo_veiculo_id' => [
                     'required',
-                    'exists:marcas_modelos_chassis,id'
+                    'exists:marcas_modelos_veiculos,id'
                 ],
                 'tipo_combustivel_id' => [
                     'required',
