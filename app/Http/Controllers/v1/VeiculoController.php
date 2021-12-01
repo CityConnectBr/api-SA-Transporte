@@ -111,7 +111,9 @@ class VeiculoController extends Controller
      */
     public function show($id)
     {
-        $veiculo = Veiculo::findComplete($id);
+        $type = parent::getUserLogged()->tipo->id;
+        //dd($type);
+        $veiculo = Veiculo::findComplete($id, $type);
         if (isset($veiculo)) {
             return $veiculo;
         } else {

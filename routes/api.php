@@ -127,7 +127,7 @@ Route::group([
                 Route::get('/v1/tiposveiculos/{id}', 'v1\TipoVeiculoController@show');
 
                 Route::get('/v1/veiculos', 'v1\VeiculoController@index');
-                Route::get('/veiculos/{id}', 'v1\VeiculoController@show');
+                Route::get('/v1/veiculos/{id}', 'v1\VeiculoController@show');
 
                 Route::get('/v1/condutores', 'v1\CondutorController@index');
                 Route::get('/v1/condutores/{id}', 'v1\CondutorController@show');
@@ -173,8 +173,29 @@ Route::group([
         ], function () {
             Route::name('fiscais.')->group(function () {
 
-                Route::get('/veiculos', 'CondutorController@index');
-                Route::get('/veiculos/{id}', 'CondutorController@show');
+                //Route::get('/veiculos', 'CondutorController@index');
+                //Route::get('/veiculos/{id}', 'CondutorController@show');
+                Route::get('/v1/veiculos', 'v1\VeiculoController@index');
+                Route::get('/v1/veiculos/{id}', 'v1\VeiculoController@show');
+
+                Route::get('/v1/coresveiculos', 'v1\CorVeiculoController@index');
+                Route::get('/v1/coresveiculos/{id}', 'v1\CorVeiculoController@show');
+
+                Route::get('/v1/marcasmodeloscarrocerias', 'v1\MarcaModeloCarroceriaController@index');
+                Route::get('/v1/marcasmodeloscarrocerias/{id}', 'v1\MarcaModeloCarroceriaController@show');
+
+                Route::get('/v1/marcasmodeloschassis', 'v1\MarcaModeloChassiController@index');
+                Route::get('/v1/marcasmodeloschassis/{id}', 'v1\MarcaModeloChassiController@show');
+
+                Route::get('/v1/marcasmodelosveiculos', 'v1\MarcaModeloVeiculoController@index');
+                Route::get('/v1/marcasmodelosveiculos/{id}', 'v1\MarcaModeloVeiculoController@show');
+
+                Route::get('/v1/tiposcombustiveis', 'v1\TipoCombustivelController@index');
+                Route::get('/v1/tiposcombustiveis/{id}', 'v1\TipoCombustivelController@show');
+
+                Route::get('/v1/tiposveiculos', 'v1\TipoVeiculoController@index');
+                Route::get('/v1/tiposveiculos/{id}', 'v1\TipoVeiculoController@show');
+
 
             });
         });

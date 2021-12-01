@@ -85,7 +85,7 @@ class Veiculo extends Model
 
     public function permissionario()
     {
-        return $this->belongsTo(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
+        return $this->belongsTo(Permissionario::class, 'permissionario_id', 'id');//->withoutGlobalScopes();
     }
 
     // /////////////////
@@ -93,20 +93,30 @@ class Veiculo extends Model
     public static function search($search)
     {   
         if($search){
+           
         return Veiculo::where("placa", "like", "%" . $search . "%")
             ->with("marcaModeloVeiculo")
+            ->with("cor")
+            ->with("tipoVeiculo")
+            ->with("tipoCombustivel")
+            ->with("marcaModeloChassi")
+            ->with("marcaModeloCarroceria")
             ->orderBy("placa")
             ->simplePaginate(15);
         }
         else {
+            //dd('1');
             return Veiculo::with("marcaModeloVeiculo")
+            ->with('cor')
+            ->with('tipoVeiculo')
             ->orderBy("placa")
             ->simplePaginate(15);
         }
     }
 
-    public static function findComplete($id, $withoutGlobalScope = false)
+    public static function findComplete($id, $type, $withoutGlobalScope = false)
     {
+        //dd($withoutGlobalScope);
         if ($withoutGlobalScope) {
             return Veiculo::withoutGlobalScope('situacao')->with('marcaModeloCarroceria')
                 ->with('marcaModeloChassi')
@@ -116,7 +126,19 @@ class Veiculo extends Model
                 ->with('cor')
                 ->with('permissionario')
                 ->find($id);
-        } else {
+        }
+        // if($type == '3'){
+         
+        //     return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
+        //         ->with('marcaModeloVeiculo')
+        //         ->with('tipoCombustivel')
+        //         ->with('tipoVeiculo')
+        //         ->with('cor')
+        //         ->with('permissionario.veiculo')
+        //         ->find($id);
+        
+        // }
+         else {
             return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
                 ->with('marcaModeloVeiculo')
                 ->with('tipoCombustivel')

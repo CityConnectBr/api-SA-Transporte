@@ -91,7 +91,8 @@ class UsuarioController extends Controller
         }
 
         // BUSCANDO FISCAL
-        $fiscal = Fiscal::firstByCpf($request->input("cpf_cnpj"));
+        
+        $fiscal = Fiscal::firstByCpf($request->input("cpf"));
 
         // BUSCANDO condutor
         $condutor = Condutor::firstByCNH($user->cnh);
@@ -285,6 +286,7 @@ class UsuarioController extends Controller
 
     public function user()
     {
+       
         $user = parent::getUserLogged();
 
         switch ($user->tipo_id) {
