@@ -160,6 +160,9 @@ Route::group([
         ], function () {
             Route::name('condutores.')->group(function () {
 
+                Route::get('/v1/condutores', 'v1\CondutorController@index');
+                Route::get('/v1/condutores/{id}', 'v1\CondutorController@show');
+                Route::get('/v1/condutores/{id}/foto', 'v1\CondutorController@showPhoto');
 
             });
         });

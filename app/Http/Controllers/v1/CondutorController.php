@@ -21,9 +21,16 @@ class CondutorController extends Controller
      */
     public function index()
     {
-        //dd('parent::getUserLogged()->permissionario_id')
+       // dd(parent::getUserLogged()->tipo->id);
        // return Condutor::search(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
-        return Condutor::searchByPermissionario(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
+      // dd('here'); 
+      if(parent::getUserLogged()->tipo->id === '3'){
+       return Condutor::searchByPermissionario(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
+      }
+
+      else {
+        return Condutor::search( $this->request->query->get("search"));
+      }
     }
 
 
