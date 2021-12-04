@@ -15,6 +15,7 @@ class Infracao extends Model
         'descricao',
         'acao_tomada',
         'num_processo',
+        'num_boleto',
         'data_vendimento_boleto',
         'qtd_moeda',
         'reincidente',

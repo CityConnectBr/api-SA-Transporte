@@ -26,7 +26,6 @@ class InfracaoController extends AdminSuperController
                     'regex:' . Util::REGEX_HOUR,
                 ],
                 'obs_aip' => [
-                    'required',
                     'max:500',
                 ],
                 'descricao' => [
