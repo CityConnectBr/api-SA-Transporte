@@ -20,9 +20,21 @@ class VistoriaPonto extends Model
 
     protected $table = 'vistoria_ponto';
 
+    public function ponto()
+    {
+        return $this->hasOne(Ponto::class, 'id', 'ponto_id');
+    }
+
+    public function vistoriador()
+    {
+        return $this->hasOne(Vistoriador::class, 'id', 'vistoriador_id');
+    }
+
     public static function search($search)
     {
         return VistoriaPonto::where("ponto_id", "like", "%" . $search . "%")
+        ->with("ponto")
+        ->with("vistoriador")
         ->orderBy("data_vistoria")
         ->paginate(15);
     }
