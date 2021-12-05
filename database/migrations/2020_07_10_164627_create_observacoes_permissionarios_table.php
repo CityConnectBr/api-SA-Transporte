@@ -18,6 +18,7 @@ class CreateObservacoesPermissionariosTable extends Migration
             $table->integer('id_integracao')->nullable()->unique();
             $table->string('titulo', 40);
             $table->string('observacao', 500);
+            $table->date('data')->nullable();
             $table->integer('permissionario_id')->unsigned();
             $table->timestamps();
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');

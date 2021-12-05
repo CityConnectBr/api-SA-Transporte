@@ -9,7 +9,8 @@ class ObservacaoDoPermissionario extends Model
     protected $fillable = [
         'permissionario_id',
         'titulo',
-        'observacao'
+        'observacao',
+        'data'
     ];
 
     protected $table = 'observacoes_permissionarios';
