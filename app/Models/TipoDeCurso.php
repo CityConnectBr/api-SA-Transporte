@@ -9,6 +9,7 @@ class TipoDeCurso extends Model
     protected $fillable = [
         'id_integracao',
         'descricao',
+        'modalidade',
     ];
 
     protected $table = 'tipos_de_curso';
