@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminSuperController;
@@ -12,7 +13,8 @@ class EmpresaVistoriadoraController extends AdminSuperController
     function __construct(Request $request)
     {
         parent::__construct(
-            EmpresaVistoriadora::class, [
+            EmpresaVistoriadora::class,
+            [
                 'nome' => [
                     'required',
                     'max:40',
@@ -23,14 +25,15 @@ class EmpresaVistoriadoraController extends AdminSuperController
                     'regex:/(A|V)/'
                 ],
                 'telefone' => [
-                    'max:11',
+                    'nullable',
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'email' => [
                     'max:200',
                 ],
                 'cnpj' => [
                     'required',
-                    'regex:'.Util::REGEX_CPF_CNPJ,
+                    'regex:' . Util::REGEX_CPF_CNPJ,
                 ],
                 'inscricao_estadual' => [
                     'max:20',

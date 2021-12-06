@@ -20,10 +20,12 @@ class EmpresaController extends IntegracaoController
                 'min:2',
             ],
             'telefone' => [
-                'max:11',
+                'nullable',
+                'regex:'.Util::REGEX_PHONE,
             ],
             'fax' => [
-                'max:11',
+                'nullable',
+                'regex:'.Util::REGEX_PHONE,
             ],
             'home_page' => [
                 'max:200',
