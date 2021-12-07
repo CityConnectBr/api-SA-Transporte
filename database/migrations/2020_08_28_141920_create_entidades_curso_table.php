@@ -17,7 +17,7 @@ class CreateEntidadesCursoTable extends Migration
             $table->increments('id');
             $table->string('id_integracao',11)->nullable()->unique();
             $table->string('descricao',40);
-            $table->string('base_legal',40);
+            $table->string('base_legal',40)->nullable();
 
             $table->timestamps();
         });
