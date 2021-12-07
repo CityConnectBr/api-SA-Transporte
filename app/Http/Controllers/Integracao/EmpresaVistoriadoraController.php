@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace app\Http\Controllers\Integracao;
 
-use App\Http\Controllers\Admin\AdminSuperController;
+use App\Http\Controllers\Integracao\IntegracaoController;
 use App\Models\EmpresaVistoriadora;
-use App\Utils\Util;
+use App\Models\Endereco;
 use Illuminate\Http\Request;
+use App\Utils\Util;
+use Illuminate\Support\Facades\Validator;
 
-class EmpresaVistoriadoraController extends AdminSuperController
+class EmpresaVistoriadoraController extends IntegracaoController
 {
 
-    function __construct(Request $request)
+    function __construct()
     {
         parent::__construct(
             EmpresaVistoriadora::class,
@@ -32,7 +34,7 @@ class EmpresaVistoriadoraController extends AdminSuperController
                     'max:200',
                 ],
                 'cnpj' => [
-                    'required',
+                    'nullable',
                     'regex:' . Util::REGEX_CPF_CNPJ,
                 ],
                 'inscricao_estadual' => [
@@ -51,12 +53,34 @@ class EmpresaVistoriadoraController extends AdminSuperController
                     'nullable',
                     'regex:' . Util::REGEX_NUMBER,
                 ],
-                'endereco_id' => [
-                    'required',
-                    'exists:enderecos,id'
-                ],
-            ],
-            $request
+            ]
         );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), $this->validatorList);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $endereco = new Endereco();
+        $endereco->fill($request->all());
+        $endereco->save();
+
+        $obj = new EmpresaVistoriadora();
+        $obj->fill($request->all());
+        $obj->endereco_id = $endereco->id;
+
+        $obj->save();
+
+        return $obj;
     }
 }
