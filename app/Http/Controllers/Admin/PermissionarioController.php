@@ -37,7 +37,7 @@ class PermissionarioController extends AdminSuperController
                     'max:14',
                     'min:11',
                     'regex:' . Util::REGEX_CPF_CNPJ,
-                    $postMethod ? 'unique:permissionarios' : ''
+                    //$postMethod ? 'unique:permissionarios' : ''
                 ],
                 'rg' => [
                     'max:9',
