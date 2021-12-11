@@ -16,7 +16,7 @@ class CreateTiposDeCursoTable extends Migration
         Schema::create('tipos_de_curso', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_integracao')->nullable()->unique();
-            $table->string('descricao', 40);
+            $table->string('descricao', 40)->nullable();
             $table->string('modalidade', 1);
             $table->timestamps();
         });

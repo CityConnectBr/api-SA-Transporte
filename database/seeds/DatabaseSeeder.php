@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456'),
         ]);*/
 
-        for($i = 0;$i < 100;$i++){
+        /*for($i = 0;$i < 100;$i++){
             DB::table('municipios')->insert([
                 'nome' => "Municipio RJ $i",
                 'uf' => 'RJ',
@@ -136,7 +136,7 @@ class DatabaseSeeder extends Seeder
             'endereco_id' => 2,
             //'versao' => 0,
         ]);
-
+*/
 
     }
 }
