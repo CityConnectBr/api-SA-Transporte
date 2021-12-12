@@ -70,6 +70,10 @@ class VeiculoController extends Controller
      */
     public function index()
     {
+            if(parent::getUserLogged()-> tipo_id === 2) {
+                //dd(parent::getUserLogged());
+                return Veiculo::returnCondutor($this->request->query->get("search"), parent::getUserLogged()->condutor_id);
+            }
 
             return Veiculo::search($this->request->query->get("search"), parent::getUserLogged()->permissionario_id);
         

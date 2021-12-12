@@ -164,6 +164,8 @@ Route::group([
                 Route::get('/v1/condutores/{id}', 'v1\CondutorController@show');
                 Route::get('/v1/condutores/{id}/foto', 'v1\CondutorController@showPhoto');
 
+                Route::get('/v1/veiculos', 'v1\VeiculoController@index');
+
             });
         });
 

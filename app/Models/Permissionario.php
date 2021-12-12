@@ -63,6 +63,7 @@ class Permissionario extends Model
         'termino_atividades_motivo',
         'data_transferencia',
         'veiculo_id',
+ 
     ];
 
     protected $temporaly = [

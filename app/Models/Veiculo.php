@@ -209,4 +209,36 @@ class Veiculo extends Model
                 ->get();
         }
     }
+
+    public static function returnCondutor ($search, $id){
+        //dd($id);
+       //
+            // return Condutor::where('condutores.id','=',$id)
+            // ->join('permissionarios', 'condutores.permissionario_id', '=', 'permissionarios.id')
+            // ->join('veiculos', 'permissionarios.veiculo_id', '=', 'veiculos.id')
+            // ->select('veiculos.*')
+            // ->with('permissionario.veiculo.marcaModeloVeiculo')
+            // ->get();
+            // return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
+            //     ->with('marcaModeloVeiculo')
+            //     ->with('tipoCombustivel')
+            //     ->with('tipoVeiculo')
+            //     ->with('cor')
+            //     ->with('permissionario')
+            //     //->with('permissionario.condutor')
+            //     ///->where('permissionario.condutor.id', '=', $id)
+            //     // ->join('permissionarios', 'veiculos.permissionario_id', '=', 'permissionarios.id')
+            //     // ->rightJoin('condutores', 'permissionarios.id','=', 'condutores.permissionario_id')
+            //     //->where('condutor.id', '=', $id)
+            //     ->get();
+            return Veiculo::with("marcaModeloVeiculo")
+            ->with('cor')
+            ->with('tipoVeiculo')
+            ->join('permissionarios', 'veiculos.id', '=', 'permissionarios.veiculo_id')
+            ->join('condutores', 'condutores.permissionario_id', '=', 'permissionarios.id')
+            ->where('condutores.id', '=', $id)
+            ->select('veiculos.*')
+            //->orderBy("placa")
+            ->simplePaginate(15);
+    }
 }
