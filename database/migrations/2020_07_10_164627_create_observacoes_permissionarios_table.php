@@ -15,7 +15,7 @@ class CreateObservacoesPermissionariosTable extends Migration
     {
         Schema::create('observacoes_permissionarios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('titulo', 40);
             $table->string('observacao', 500);
             $table->date('data')->nullable();

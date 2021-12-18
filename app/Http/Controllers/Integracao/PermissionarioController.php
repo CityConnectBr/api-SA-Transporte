@@ -2,6 +2,7 @@
 namespace app\Http\Controllers\Integracao;
 
 use App\Http\Controllers\Integracao\IntegracaoController;
+use App\Models\Alvara;
 use App\Models\Endereco;
 use App\Models\Modalidade;
 use Illuminate\Http\Request;
@@ -146,6 +147,11 @@ class PermissionarioController extends IntegracaoController
 
         $permissionario->save();
 
+        $alvara = new Alvara();
+        $alvara->fill($request->all());
+        $permissionario->permissionario_id = $permissionario->id;
+        $alvara->save();
+
         return $permissionario;
     }
 
@@ -157,7 +163,7 @@ class PermissionarioController extends IntegracaoController
      */
     public function show($id)
     {
-        $permissionario = Permissionario::findByIntegracaoComplete($id, true);
+        $permissionario = Permissionario::findByIntegracaoComplete($id);
         if (isset($permissionario)) {
             return $permissionario;
             // return (new PermissionarioTransformer)->transform(Permissionario::find($id));
@@ -194,7 +200,7 @@ class PermissionarioController extends IntegracaoController
             return parent::responseJSON($validator->errors(), 400);
         }
 
-        $permissionario = Permissionario::findByIntegracaoComplete($id, true);
+        $permissionario = Permissionario::findByIntegracaoComplete($id);
         if (isset($permissionario)) {
             $permissionario->fill($request->all());
             $permissionario->versao ++;

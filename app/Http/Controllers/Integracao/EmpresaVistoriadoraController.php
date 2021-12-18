@@ -26,10 +26,6 @@ class EmpresaVistoriadoraController extends IntegracaoController
                     'required',
                     'regex:/(A|V)/'
                 ],
-                'telefone' => [
-                    'nullable',
-                    'regex:' . Util::REGEX_PHONE,
-                ],
                 'email' => [
                     'max:200',
                 ],

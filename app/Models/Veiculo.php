@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,6 @@ class Veiculo extends Model
         'tipo_capacidade',
         'observacao_capacidade',
         'anos_vida_util_veiculo',
-        'situacao',
         //'prefixo',//onibus
         'versao',
         'categoria_id',
@@ -39,17 +39,6 @@ class Veiculo extends Model
             ->orderBy("placa")
             ->simplePaginate(15);
     }
-
-    /*protected $attributes = [
-        'versao' => 0
-    ];
-
-    protected static function booted()
-    {
-        static::addGlobalScope('situacao', function (Builder $builder) {
-            $builder->where('situacao', "A");
-        });
-    }*/
 
     public function marcaModeloCarroceria()
     {
@@ -89,46 +78,24 @@ class Veiculo extends Model
     // /////////////////
     public static function findComplete($id, $withoutGlobalScope = false)
     {
-        if ($withoutGlobalScope) {
-            return Veiculo::withoutGlobalScope('situacao')->with('marcaModeloCarroceria')
-                ->with('marcaModeloChassi')
-                ->with('marcaModeloVeiculo')
-                ->with('tipoCombustivel')
-                ->with('tipoVeiculo')
-                ->with('cor')
-                ->with('permissionario')
-                ->find($id);
-        } else {
-            return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
-                ->with('marcaModeloVeiculo')
-                ->with('tipoCombustivel')
-                ->with('tipoVeiculo')
-                ->with('cor')
-                ->with('permissionario')
-                ->find($id);
-        }
+        return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
+            ->with('marcaModeloVeiculo')
+            ->with('tipoCombustivel')
+            ->with('tipoVeiculo')
+            ->with('cor')
+            ->with('permissionario')
+            ->find($id);
     }
 
     public static function findByIntegracaoComplete($id, $withoutGlobalScope = false)
     {
-        if ($withoutGlobalScope) {
-            return Veiculo::withoutGlobalScope('situacao')->with('marcaModeloCarroceria')
-                ->with('marcaModeloChassi')
-                ->with('marcaModeloVeiculo')
-                ->with('tipoCombustivel')
-                ->with('tipoVeiculo')
-                ->with('cor')
-                ->with('permissionario')
-                ->firstWhere("id_integracao", $id);
-        } else {
-            return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
-                ->with('marcaModeloVeiculo')
-                ->with('tipoCombustivel')
-                ->with('tipoVeiculo')
-                ->with('cor')
-                ->with('permissionario')
-                ->firstWhere("id_integracao", $id);
-        }
+        return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
+            ->with('marcaModeloVeiculo')
+            ->with('tipoCombustivel')
+            ->with('tipoVeiculo')
+            ->with('cor')
+            ->with('permissionario')
+            ->firstWhere("id_integracao", $id);
     }
 
     public static function searchByIdPermissionario($permissionario_id, $search)

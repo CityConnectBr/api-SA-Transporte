@@ -15,7 +15,7 @@ class CreateEmpresasVistoriadorasTable extends Migration
     {
         Schema::create('empresas_vistoriadoras', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('nome', 40);
             $table->string('tipo', 1)->nullable();
             $table->string('telefone', 20)->nullable();

@@ -64,7 +64,7 @@ class Condutor extends Model
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
-            return Condutor::withoutGlobalScope('situacao')->with('permissionario')
+            return Condutor::with('permissionario')
                 ->with('endereco')
                 ->with("permissionario")
                 ->find($id);
@@ -76,7 +76,7 @@ class Condutor extends Model
     public static function findByIntegracaoComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
-            return Condutor::withoutGlobalScope('situacao')->with('permissionario')
+            return Condutor::with('permissionario')
                 ->with('endereco')
                 ->with("permissionario")
                 ->firstWhere("id_integracao", $id);

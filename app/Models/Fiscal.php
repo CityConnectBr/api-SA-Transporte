@@ -11,7 +11,6 @@ class Fiscal extends Model
         'id_integracao',
         'nome',
         'cpf',
-        'ddd',
         'telefone',
         'email',
         'cargo',

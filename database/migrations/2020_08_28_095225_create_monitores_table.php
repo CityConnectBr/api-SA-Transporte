@@ -18,7 +18,6 @@ class CreateMonitoresTable extends Migration
             $table->string('id_integracao', 15)->nullable();
             $table->string('numero_de_cadastro_antigo', 10)->nullable();
             $table->string('nome', 40);
-            //$table->string('situacao', 1);//A/I/C
             $table->string('cpf', 11)->nullable();
             $table->string('rg', 15)->nullable();
             $table->string('telefone', 20)->nullable();

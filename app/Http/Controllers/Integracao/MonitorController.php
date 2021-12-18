@@ -10,7 +10,7 @@ use App\Models\Permissionario;
 
 class MonitorController extends IntegracaoController
 {
-    
+
     function __construct()
     {
         parent::__construct(Monitor::class, [
@@ -22,18 +22,13 @@ class MonitorController extends IntegracaoController
             'id_integracao' => [
                 'required',
             ],
-            'situacao' => [
-                'required',
-                'max:1',
-                'min:1'
-            ],
             'permissionario_id' => [
                 'required',
                 'numeric'
             ]
         ]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +40,7 @@ class MonitorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -57,7 +52,7 @@ class MonitorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -67,31 +62,31 @@ class MonitorController extends IntegracaoController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->validatorList);
-        
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'), true);
+
+        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'));
         if (! isset($permissionario)) {
             return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
         }
-        
+
         $endereco = new Endereco();
         $endereco->fill($request->all());
         $endereco->save();
-        
+
         $monitor = new Monitor();
         $monitor->fill($request->all());
         $monitor->rg = $monitor->id_integracao;
         $monitor->permissionario_id = $permissionario->id;
         $monitor->endereco_id = $endereco->id;
-        
+
         $monitor->save();
-        
+
         return $monitor;
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -107,7 +102,7 @@ class MonitorController extends IntegracaoController
             return parent::responseMsgJSON("Monitor não encontrado", 404);
         }
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -120,7 +115,7 @@ class MonitorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -131,40 +126,40 @@ class MonitorController extends IntegracaoController
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), $this->validatorList);
-        
+
         if ($validator->fails()) {
             return parent::responseJSON($validator->errors(), 400);
         }
-        
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'), true);
+
+        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'));
         if (! isset($permissionario)) {
             return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
         }
-        
+
         $monitor = Monitor::findByIntegracaoComplete($id, true);
         if (isset($request["id_real"])) {
             $monitor = Monitor::findComplete($id, true);
         }
-        
+
         if (isset($monitor)) {
             unset($request['id']);
             unset($request['endereco_id']);
-            
+
             $monitor->fill($request->all());
             $monitor->versao ++;
             $monitor->endereco->fill($request->all());
             $monitor->rg = $monitor->id_integracao;
             $monitor->permissionario_id = $permissionario->id;
-            
+
             $monitor->save();
             $monitor->endereco->save();
-            
+
             return $monitor;
         } else {
             return parent::responseMsgJSON("Monitor não encontrado", 404);
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *

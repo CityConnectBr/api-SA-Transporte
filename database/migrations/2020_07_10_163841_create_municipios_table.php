@@ -15,7 +15,7 @@ class CreateMunicipiosTable extends Migration
     {
         Schema::create('municipios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('nome', 40)->nullable();
             $table->string('uf', 2)->nullable();
             $table->timestamps();

@@ -6,6 +6,7 @@ use App\Models\Endereco;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Fiscal;
+use App\Utils\Util;
 
 class FiscalController extends IntegracaoController
 {
@@ -18,9 +19,24 @@ class FiscalController extends IntegracaoController
                 'max:40',
                 'min:3'
             ],
-            'id_integracao' => [
-                'required',
-                'numeric'
+            'cpf' => [
+                'max:11',
+                'regex:'.Util::REGEX_CPF_CNPJ,
+            ],
+            'telefone' => [
+                'nullable',
+                'regex:'.Util::REGEX_PHONE,
+            ],
+            'email' => [
+                'nullable',
+                'email',
+                'max:200',
+            ],
+            'cargo' => [
+                'max:40',
+            ],
+            'unidade_trabalho' => [
+                'max:40',
             ]
         ]);
     }

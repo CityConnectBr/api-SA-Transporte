@@ -88,35 +88,14 @@ class Permissionario extends Model
             ->simplePaginate(15);
     }
 
-    public static function findComplete($id, $withoutGlobalScope = false)
+    public static function findByIntegracaoComplete($id)
     {
-        if ($withoutGlobalScope) {
-            return Permissionario::withoutGlobalScope('situacao')->with('modalidade')
-                ->with('endereco')
-                ->find($id);
-        } else {
-            return Permissionario::with('modalidade')->with('endereco')->find($id);
-        }
+        return Permissionario::with('modalidade')->with('endereco')->firstWhere("id_integracao", $id);
     }
 
-    public static function findByIntegracaoComplete($id, $withoutGlobalScope = false)
+    public static function firstWhereByIntegracao($id)
     {
-        if ($withoutGlobalScope) {
-            return Permissionario::withoutGlobalScope('situacao')->with('modalidade')
-                ->with('endereco')
-                ->firstWhere("id_integracao", $id);
-        } else {
-            return Permissionario::with('modalidade')->with('endereco')->firstWhere("id_integracao", $id);
-        }
-    }
-
-    public static function firstWhereByIntegracao($id, $withoutGlobalScope = false)
-    {
-        if ($withoutGlobalScope) {
-            return Permissionario::withoutGlobalScope('situacao')->firstWhere("id_integracao", $id);
-        } else {
-            return Permissionario::firstWhere("id_integracao", $id);
-        }
+        return Permissionario::firstWhere("id_integracao", $id);
     }
 
     public static function firstByCpfCnpj($cpfCnj)

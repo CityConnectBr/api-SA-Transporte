@@ -10,15 +10,22 @@ class TipoCombustivel extends Model
         'id_integracao',
         'descricao',
     ];
-    
+
     protected $table = 'tipos_combustiveis';
-    
+
     ///////////////////
-    
+
     public static function search($search)
     {
         return TipoCombustivel::where("descricao", "like", "%" . $search . "%")
         ->orderBy("descricao")
         ->paginate(40);
+    }
+
+    public static function getByDescricao($search)
+    {
+        return TipoCombustivel::where("descricao", "like", $search)
+        ->orderBy("descricao")
+        ->get();
     }
 }

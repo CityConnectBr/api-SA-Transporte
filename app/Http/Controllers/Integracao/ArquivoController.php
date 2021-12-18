@@ -22,7 +22,7 @@ class ArquivoController extends Controller
      */
     public function storeFotoPermissionario(Request $request, $id)
     {
-        $permissionario = Permissionario::findByIntegracaoComplete($id, true);
+        $permissionario = Permissionario::findByIntegracaoComplete($id);
         if (! isset($permissionario)) {
             return parent::responseMsgJSON("Permissionário não encontrado", 404);
         }
@@ -45,7 +45,7 @@ class ArquivoController extends Controller
             return parent::responseMsgJSON("Concluído!");
         }
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -58,26 +58,26 @@ class ArquivoController extends Controller
         if (! isset($conditor)) {
             return parent::responseMsgJSON("Condutor não encontrado", 404);
         }
-        
+
         if (! isset($request['foto'])) {
             return parent::responseMsgJSON("É necessário enviar um arquivo.", 404);
         }
-        
+
         $arquivo = new Arquivo();
         $arquivo->origem = "integrador";
         $arquivo->save();
-        
+
         if (isset($arquivo)) {
-            
+
             $request->foto->storeAs('/arquivos', $arquivo->id . ".jpg");
-            
+
             $conditor->foto_uid = $arquivo->id;
             $conditor->save();
-            
+
             return parent::responseMsgJSON("Concluído!");
         }
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -90,22 +90,22 @@ class ArquivoController extends Controller
         if (! isset($monitor)) {
             return parent::responseMsgJSON("Monitor não encontrado", 404);
         }
-        
+
         if (! isset($request['foto'])) {
             return parent::responseMsgJSON("É necessário enviar um arquivo.", 404);
         }
-        
+
         $arquivo = new Arquivo();
         $arquivo->origem = "integrador";
         $arquivo->save();
-        
+
         if (isset($arquivo)) {
-            
+
             $request->foto->storeAs('/arquivos', $arquivo->id . ".jpg");
-            
+
             $monitor->foto_uid = $arquivo->id;
             $monitor->save();
-            
+
             return parent::responseMsgJSON("Concluído!");
         }
     }

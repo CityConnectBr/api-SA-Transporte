@@ -3,13 +3,9 @@
 namespace app\Http\Controllers\Integracao;
 
 use App\Http\Controllers\Integracao\IntegracaoController;
-use App\Models\FMP;
-use App\Models\EmpresaVistoriadora;
-use App\Models\Endereco;
 use App\Models\ObservacaoDoPermissionario;
 use App\Models\Permissionario;
 use Illuminate\Http\Request;
-use App\Utils\Util;
 use Illuminate\Support\Facades\Validator;
 
 class ObservacaoDoPermissionarioController extends IntegracaoController
@@ -18,7 +14,6 @@ class ObservacaoDoPermissionarioController extends IntegracaoController
     function __construct()
     {
         parent::__construct(
-            FMP::class,
             ObservacaoDoPermissionario::class,
             [
                 'titulo' => [
@@ -49,7 +44,7 @@ class ObservacaoDoPermissionarioController extends IntegracaoController
             return response()->json($validator->errors(), 400);
         }
 
-        $permissionario = Permissionario::firstWhereByIntegracao($request->permissionario_id, true);
+        $permissionario = Permissionario::firstWhereByIntegracao($request->permissionario_id);
 
         if ($permissionario==null) {
             return response()->json('Permissionário não encontrado', 404);

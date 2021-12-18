@@ -15,7 +15,7 @@ class CreateModalidadesTable extends Migration
     {
         Schema::create('modalidades', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('identificador', 1);
             $table->string('descricao', 40);
             $table->integer('limite');

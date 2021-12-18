@@ -25,8 +25,6 @@ class CreateVeiculosTable extends Migration
             $table->string('tipo_capacidade', 1)->nullable();
             $table->string('observacao_capacidade', 40)->nullable();
             $table->integer('anos_vida_util_veiculo')->nullable();
-            //$table->string('situacao', 1);//A/I/C
-            //$table->integer('versao');
 
             //exclusivo para onibus
             $table->string('prefixo', 15)->nullable();

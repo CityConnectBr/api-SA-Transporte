@@ -15,7 +15,7 @@ class CreatePontosTable extends Migration
     {
         Schema::create('pontos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 40);
             //$table->string('base_legal', 40);
             //$table->string('capacidade_legal', 40);

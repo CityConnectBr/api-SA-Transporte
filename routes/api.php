@@ -205,25 +205,41 @@ Route::group([
     'prefix' => 'integracao'
 ], function () {
     Route::name('integracao.')->group(function () {
-        Route::resource('/fiscais', 'Integracao\FiscalController');
-        Route::resource('/monitores', 'Integracao\MonitorController');
-        Route::post('/monitores/{id}/foto', 'Integracao\ArquivoController@storeFotoMonitor')->name('monitor.storeFoto');
-        Route::resource('/permissionarios', 'Integracao\PermissionarioController');
-        Route::post('/permissionarios/{id}/foto', 'Integracao\ArquivoController@storeFotoPermissionario')->name('arquivo.storeFotoPermissionario');
-        Route::resource('/coresveiculos', 'Integracao\CorVeiculoController');
+
+        //REVALIDADOS
+        Route::resource('/coresveiculos', 'Admin\CorDeVeiculoController');
+        Route::resource('/empresas', 'Integracao\EmpresaController');
+        Route::resource('/entidadesassiciativa', 'Admin\EntidadeAssociativaController');
+        Route::resource('/empresasvistoriadoras', 'Integracao\EmpresaVistoriadoraController');
+        Route::resource('/entidadescurso', 'Admin\EntidadeCursoController');
+        Route::resource('/fmp', 'Integracao\FMPController');
         Route::resource('/marcasmodeloscarrocerias', 'Integracao\MarcaModeloCarroceriaController');
         Route::resource('/marcasmodeloschassis', 'Integracao\MarcaModeloChassiController');
         Route::resource('/marcasmodelosveiculos', 'Integracao\MarcaModeloVeiculoController');
+        Route::resource('/municipios', 'Admin\MunicipioController');
+        Route::resource('/observacoesdopermissionario', 'Integracao\ObservacaoDoPermissionarioController');
+        Route::resource('/pontos', 'Integracao\PontoController');
+        Route::resource('/quadrodeinfracoes', 'Admin\QuadroDeInfracoesController');
+        Route::resource('/tiposdecurso', 'Integracao\TipoDeCursoController');
         Route::resource('/tiposcombustiveis', 'Integracao\TipoCombustivelController');
         Route::resource('/tiposveiculos', 'Integracao\TipoVeiculoController');
+        Route::resource('/valoresdainfracao', 'Admin\ValoresDaInfracaoController');
+        Route::resource('/vistoriadores', 'Admin\VistoriadorController');
+        Route::resource('/permissionarios', 'Integracao\PermissionarioController');
+        Route::post('/permissionarios/{id}/foto', 'Integracao\ArquivoController@storeFotoPermissionario')->name('arquivo.storeFotoPermissionario');
+        Route::resource('/fiscais', 'Integracao\FiscalController');
+        Route::resource('/taloesdofiscal', 'Integracao\TalaoDoFiscalController');
         Route::resource('/condutores', 'Integracao\CondutorController');
         Route::post('/condutores/{id}/foto', 'Integracao\ArquivoController@storeFotoCondutor')->name('condutores.storeFoto');
-        Route::resource('/onibus', 'Integracao\OnibusController');
+        Route::resource('/monitores', 'Integracao\MonitorController');
+        Route::post('/monitores/{id}/foto', 'Integracao\ArquivoController@storeFotoMonitor')->name('monitor.storeFoto');
         Route::resource('/veiculos', 'Integracao\VeiculoController');
-        Route::resource('/tiposdesolicitacao', 'Integracao\TiposDeSolicitacaoDeAlteracaoController');
-        Route::resource('/solicitacaodealteracao', 'Integracao\SolicitacaoDeAlteracaoController');
-        Route::put('/solicitacaodealteracao/{id}/setsinc', 'Integracao\SolicitacaoDeAlteracaoController@setSinc')->name('solicitacaodealteracao.setSinc');
-        Route::put('/solicitacaodealteracao/{id}/setstatus/{status}', 'Integracao\SolicitacaoDeAlteracaoController@setStatus')->name('solicitacaodealteracao.setStatus');
+        Route::resource('/onibus', 'Integracao\OnibusController');
+        Route::resource('/cursodopermissionario', 'Integracao\CursoDoPermissionarioController');
+        Route::resource('/cursodocondutor', 'Integracao\CursoDoCondutorController');
+        Route::resource('/certidoes', 'Integracao\CertidaoController');
+        Route::resource('/coordenadoresdeponto', 'Integracao\CoordenadorDePontoController');
+
     });
 });
 

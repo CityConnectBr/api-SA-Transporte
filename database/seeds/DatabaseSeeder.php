@@ -110,7 +110,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('veiculos')->insert([
-            //'situacao' => 'A',
             'placa' => 'AAA2211',
             'cod_renavam' => '321',
             'ano_modelo' => '2010',
@@ -122,7 +121,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('condutores')->insert([
-            //'situacao' => 'A',
             'nome' => 'Fulano',
             'permissionario_id' => 1,
             'endereco_id' => 1,
@@ -130,7 +128,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('monitores')->insert([
-            //'situacao' => 'A',
             'nome' => 'Fulano Monitor',
             'permissionario_id' => 1,
             'endereco_id' => 2,

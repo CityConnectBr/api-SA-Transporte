@@ -2,38 +2,34 @@
 namespace app\Http\Controllers\Integracao;
 
 use App\Http\Controllers\Integracao\IntegracaoController;
-use App\Models\Endereco;
+use App\Models\CoordenadorDoPonto;
+use App\Models\Permissionario;
 use App\Models\Ponto;
 use Illuminate\Http\Request;
 use App\Utils\Util;
 use Illuminate\Support\Facades\Validator;
 
-class PontoController extends IntegracaoController
+class CoordenadorDePontoController extends IntegracaoController
 {
-
     function __construct()
     {
-        parent::__construct(Ponto::class, [
-            'modalidade_transporte' => [
-                'nullable',
-                'regex:/(E|T|G)/'
-            ],
-            'id_integracao' => [
-                'max:40',
-            ],
-            'data_criacao' => [
+        parent::__construct(CoordenadorDoPonto::class, [
+            'data_inicial' => [
                 'nullable',
                 'regex:'.Util::REGEX_DATE
             ],
-            'data_extincao' => [
+            'data_termino' => [
                 'nullable',
                 'regex:'.Util::REGEX_DATE
-            ],
-            'ocupacao_atual' => [
-                'max:40',
             ],
             'observacao' => [
                 'max:500',
+            ],
+            'permissionario_id' => [
+                'required',
+            ],
+            'ponto_id' => [
+                'required',
             ],
         ]);
     }
@@ -51,18 +47,15 @@ class PontoController extends IntegracaoController
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-
-        $endereco = new Endereco();
-        $endereco->fill($request->all());
-        $endereco->save();
-
-        $obj = new Ponto();
+        $obj = new CoordenadorDoPonto();
         $obj->fill($request->all());
-        $obj->endereco_id = $endereco->id;
+        $obj->permissionario_id = Permissionario::firstWhere("id_integracao", $request->input("permissionario_id"))->id;
+        $obj->ponto_id = Ponto::firstWhere("id_integracao", $request->input("ponto_id"))->id;
 
         $obj->save();
 
         return $obj;
     }
+
 
 }

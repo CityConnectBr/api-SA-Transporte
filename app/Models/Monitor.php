@@ -11,7 +11,6 @@ class Monitor extends Model
         'nome',
         'numero_de_cadastro_antigo',
         'id_integracao',
-        //'situacao',
         'cpf',
         'rg',
         'telefone',
@@ -28,17 +27,6 @@ class Monitor extends Model
     ];
 
     protected $table = 'monitores';
-
-    /*protected $attributes = [
-        'versao' => 0
-    ];
-
-    protected static function booted()
-    {
-        static::addGlobalScope('situacao', function (Builder $builder) {
-            $builder->where('situacao', "A");
-        });
-    }*/
 
     public function endereco()
     {
@@ -61,7 +49,7 @@ class Monitor extends Model
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
-            return Monitor::withoutGlobalScope('situacao')->with('permissionario')
+            return Monitor::with('permissionario')
             ->with('endereco')
             ->with("permissionario")
             ->find($id);
@@ -73,7 +61,7 @@ class Monitor extends Model
     public static function findByIntegracaoComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
-            return Monitor::withoutGlobalScope('situacao')->with('permissionario')
+            return Monitor::with('permissionario')
             ->with('endereco')
             ->with("permissionario")
             ->firstWhere("id_integracao", $id);

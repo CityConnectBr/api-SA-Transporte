@@ -15,7 +15,7 @@ class CreateEntidadeAssociativaTable extends Migration
     {
         Schema::create('entidades_associativa', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 40)->nullable();
             $table->timestamps();
         });

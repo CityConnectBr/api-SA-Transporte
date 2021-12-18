@@ -15,7 +15,7 @@ class CreateVistoriadoresTable extends Migration
     {
         Schema::create('vistoriadores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('nome', 40);
             $table->string('cargo', 20)->nullable();
 

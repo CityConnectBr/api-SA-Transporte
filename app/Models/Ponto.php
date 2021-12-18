@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ponto extends Model
 {
     protected $fillable = [
+        'id_integracao',
         'descricao',
         'telefone',
         'data_criacao',
@@ -25,5 +26,12 @@ class Ponto extends Model
         return Ponto::where("descricao", "like", "%" . $search . "%")
             ->orderBy("descricao")
             ->simplePaginate(15);
+    }
+
+    public static function getByDescricao($search)
+    {
+        return Ponto::where("descricao", "like", $search)
+            ->orderBy("descricao")
+            ->get();
     }
 }

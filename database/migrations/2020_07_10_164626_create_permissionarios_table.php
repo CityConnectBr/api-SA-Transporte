@@ -15,11 +15,10 @@ class CreatePermissionariosTable extends Migration
     {
         Schema::create('permissionarios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_integracao')->nullable()->unique();
+            $table->string('id_integracao')->nullable()->unique();
             $table->string('numero_de_cadastro_antigo', 10)->nullable();
             $table->string('nome_razao_social', 40);
             $table->string('tipo', 1)->nullable();//J/F
-            //$table->string('situacao', 1);//A/I/C
             $table->string('cpf_cnpj', 14)->nullable();
             $table->string('rg', 15)->nullable();
             $table->string('estado_civil', 2)->nullable();

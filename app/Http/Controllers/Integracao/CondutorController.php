@@ -7,34 +7,88 @@ use Illuminate\Http\Request;
 use App\Models\Condutor;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Permissionario;
+use App\Utils\Util;
 
 class CondutorController extends IntegracaoController
 {
-    
+
     function __construct()
     {
         parent::__construct(Condutor::class, [
+            'numero_de_cadastro_antigo' => [
+                'max:10',
+            ],
             'nome' => [
                 'required',
                 'max:40',
                 'min:3'
             ],
-            'id_integracao' => [
-                'required',
-                'numeric'
+            'cpf' => [
+                'max:11',
             ],
-            'situacao' => [
+            'rg' => [
+                'max:9',
+            ],
+            'telefone' => [
+                'nullable',
+                'regex:'.Util::REGEX_PHONE,
+            ],
+            'celular' => [
+                'nullable',
+                'regex:'.Util::REGEX_PHONE,
+            ],
+            'email' => [
+                'max:200',
+            ],
+            'cnh' => [
                 'required',
-                'max:1',
-                'min:1'
+                'max:15',
+            ],
+            'categoria_cnh' => [
+                'max:2',
+            ],
+            'atestado_de_saude' => [
+                'boolean',
+                'nullable'
+            ],
+            'certidao_negativa' => [
+                'boolean',
+                'nullable'
+            ],
+            'validade_certidao_negativa' => [
+                'nullable',
+                'regex:'.Util::REGEX_DATE
+            ],
+            'registro_ctps' => [
+                'boolean',
+                'nullable'
+            ],
+            'primeiros_socorros' => [
+                'boolean',
+                'nullable'
+            ],
+            'emissao_primeiros_socorros' => [
+                'nullable',
+                'regex:'.Util::REGEX_DATE
+            ],
+            'motivo_afastamento' => [
+                'nullable',
+                'max:40',
+            ],
+            'data_inicio_afastamento' => [
+                'nullable',
+                'regex:'.Util::REGEX_DATE
+            ],
+            'data_termino_afastamento' => [
+                'nullable',
+                'regex:'.Util::REGEX_DATE
             ],
             'permissionario_id' => [
                 'required',
-                'numeric'
-            ]
+            ],
         ]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +100,7 @@ class CondutorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -58,7 +112,7 @@ class CondutorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -68,31 +122,31 @@ class CondutorController extends IntegracaoController
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->validatorList);
-        
+
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'), true);
+
+        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'));
         if (! isset($permissionario)) {
             return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
         }
-        
+
         $endereco = new Endereco();
         $endereco->fill($request->all());
         $endereco->save();
-        
+
         $condutor = new Condutor();
         $condutor->fill($request->all());
         $condutor->permissionario_id = $permissionario->id;
         $condutor->cpf = $condutor->id_integracao;
         $condutor->endereco_id = $endereco->id;
-        
+
         $condutor->save();
-        
+
         return $condutor;
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -108,7 +162,7 @@ class CondutorController extends IntegracaoController
             return parent::responseMsgJSON("Condutor não encontrado", 404);
         }
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -121,7 +175,7 @@ class CondutorController extends IntegracaoController
             "Message" => "Não implementado!"
         ], 501);
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -132,40 +186,40 @@ class CondutorController extends IntegracaoController
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), $this->validatorList);
-        
+
         if ($validator->fails()) {
             return parent::responseJSON($validator->errors(), 400);
         }
-        
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'), true);
+
+        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'));
         if (! isset($permissionario)) {
             return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
         }
-        
+
         $condutor = Condutor::findByIntegracaoComplete($id, true);
         if (isset($request["id_real"])) {
             $condutor = Condutor::findComplete($id, true);
         }
-        
+
         if (isset($condutor)) {
             unset($request['id']);
             unset($request['endereco_id']);
-            
+
             $condutor->fill($request->all());
             $condutor->versao ++;
             $condutor->endereco->fill($request->all());
             $condutor->cpf = $condutor->id_integracao;
             $condutor->permissionario_id = $permissionario->id;
-            
+
             $condutor->save();
             $condutor->endereco->save();
-            
+
             return $condutor;
         } else {
             return parent::responseMsgJSON("Condutor não encontrado", 404);
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *

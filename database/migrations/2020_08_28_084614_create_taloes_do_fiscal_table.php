@@ -15,8 +15,8 @@ class CreateTaloesDoFiscalTable extends Migration
     {
         Schema::create('taloes_do_fiscal', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('numero')->nullable()->unique();
-            $table->string('tipo_documento', 11);
+            $table->integer('numero')->nullable();
+            $table->string('tipo_documento', 11)->nullable();
             $table->string('serie_documento', 2)->nullable();
             $table->integer('numero_primeira_folha')->nullable();
             $table->integer('numero_ultima_folha')->nullable();

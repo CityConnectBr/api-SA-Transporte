@@ -20,9 +20,6 @@ class OnibusController extends IntegracaoController
                 'required',
                 'max:7',
             ],
-            'id_integracao' => [
-                'required',
-            ],
             'marca_modelo_carroceria_id' => [
                 'required',
             ],
@@ -75,16 +72,16 @@ class OnibusController extends IntegracaoController
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-      
+
         $veiculo = new Veiculo();
         $veiculo->fill($request->all());
-        $veiculo->situacao = "A";
         $veiculo->categoria_id = 2;//Onibus
+        //$veiculo->id_integracao = $veiculo->placa;
         $veiculo->marca_modelo_carroceria_id = MarcaModeloCarroceria::firstWhere("id_integracao", $request->input("marca_modelo_carroceria_id"))->id;
         $veiculo->marca_modelo_chassi_id = MarcaModeloChassi::firstWhere("id_integracao", $request->input("marca_modelo_chassi_id"))->id;
         $veiculo->tipo_combustivel_id = TipoCombustivel::firstWhere("id_integracao", $request->input("tipo_combustivel_id"))->id;
         $veiculo->cor_id = CorVeiculo::firstWhere("id_integracao", $request->input("cor_id"))->id;
-        
+
         $veiculo->save();
 
         return $veiculo;
@@ -133,15 +130,14 @@ class OnibusController extends IntegracaoController
 
         if ($validator->fails()) {
             return parent::responseJSON($validator->errors(), 400);
-        }        
+        }
 
         $id = str_replace("-", "/", $id);
-        
+
         $veiculo = Veiculo::findByIntegracaoComplete($id, true);
         if (isset($veiculo)) {
             $veiculo->fill($request->all());
             $veiculo->versao ++;
-            $veiculo->situacao = "A";
             $veiculo->categoria_id = 2;//Onibus
             $veiculo->marca_modelo_carroceria_id = MarcaModeloCarroceria::firstWhere("id_integracao", $request->input("marca_modelo_carroceria_id"))->id;
             $veiculo->marca_modelo_chassi_id = MarcaModeloChassi::firstWhere("id_integracao", $request->input("marca_modelo_chassi_id"))->id;
