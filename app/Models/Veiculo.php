@@ -35,9 +35,44 @@ class Veiculo extends Model
 
     public static function search($search)
     {
-        return Veiculo::where("placa", "like", "%" . $search . "%")
+        return Veiculo::where("placa", "like", "%" . $search==null?$search:"" . "%")
+            ->with("marcaModeloVeiculo")
+            ->with("cor")
+            ->with("tipoVeiculo")
+            ->with("tipoCombustivel")
+            ->with("marcaModeloChassi")
+            ->with("marcaModeloCarroceria")
             ->orderBy("placa")
             ->simplePaginate(15);
+    }
+
+    public static function returnPaginated()
+    {
+        return Veiculo::paginate(15);//where("placa", "like", "%" . $search . "%")
+            //->orderBy("placa")
+            //->simplePaginate(15);
+    }
+
+    public static function returnComplete($withoutGlobalScope = false)
+    {
+        if ($withoutGlobalScope) {
+            return Veiculo::withoutGlobalScope('situacao')->with('marcaModeloCarroceria')
+                ->with('marcaModeloChassi')
+                ->with('marcaModeloVeiculo')
+                ->with('tipoCombustivel')
+                ->with('tipoVeiculo')
+                ->with('cor')
+                ->with('permissionario')
+                ->get();
+        } else {
+            return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
+                ->with('marcaModeloVeiculo')
+                ->with('tipoCombustivel')
+                ->with('tipoVeiculo')
+                ->with('cor')
+                ->with('permissionario')
+                ->get();
+        }
     }
 
     public function marcaModeloCarroceria()
