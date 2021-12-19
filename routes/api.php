@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -71,7 +72,7 @@ Route::group([
                 Route::post('/fiscais/{id}/foto', 'Admin\FiscalController@storeFoto');
                 Route::get('/fiscais/{id}/foto', 'Admin\FiscalController@showFoto');
 
-                Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf');//precisa estar na frente de /municipios
+                Route::get('/municipios/uf', 'Admin\MunicipioController@indexByUf'); //precisa estar na frente de /municipios
                 Route::resource('/municipios', 'Admin\MunicipioController');
 
                 Route::resource('/permissionarios', 'Admin\PermissionarioController');
@@ -164,7 +165,6 @@ Route::group([
                 Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
 
                 Route::get('/v1/arquivo/{id}', 'v1\ArquivoController@show');
-
             });
         });
 
@@ -176,8 +176,6 @@ Route::group([
             'prefix' => 'condutores'
         ], function () {
             Route::name('condutores.')->group(function () {
-
-
             });
         });
 
@@ -189,10 +187,8 @@ Route::group([
             'prefix' => 'fiscais'
         ], function () {
             Route::name('fiscais.')->group(function () {
-
-                Route::get('/veiculos', 'CondutorController@index');
-                Route::get('/veiculos/{id}', 'CondutorController@show');
-
+                Route::get('/v1/veiculos', 'v1\VeiculoController@index');
+                Route::get('/veiculos/{id}', 'v1\VeiculoController@show');
             });
         });
     });
@@ -239,7 +235,6 @@ Route::group([
         Route::resource('/cursodocondutor', 'Integracao\CursoDoCondutorController');
         Route::resource('/certidoes', 'Integracao\CertidaoController');
         Route::resource('/coordenadoresdeponto', 'Integracao\CoordenadorDePontoController');
-
     });
 });
 
