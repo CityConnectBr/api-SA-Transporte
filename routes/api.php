@@ -127,7 +127,6 @@ Route::group([
             'prefix' => 'permissionarios'
         ], function () {
             Route::name('permissionarios.')->group(function () {
-
                 // Route::get('/condutores', 'CondutorController@index')->name('condutores.index');
 
                 Route::get('/v1/coresveiculos', 'v1\CorVeiculoController@index');
@@ -149,7 +148,7 @@ Route::group([
                 Route::get('/v1/tiposveiculos/{id}', 'v1\TipoVeiculoController@show');
 
                 Route::get('/v1/veiculos', 'v1\VeiculoController@index');
-                Route::get('/veiculos/{id}', 'v1\VeiculoController@show');
+                Route::get('/v1/veiculos/{id}', 'v1\VeiculoController@show');
 
                 Route::get('/v1/condutores', 'v1\CondutorController@index');
                 Route::get('/v1/condutores/{id}', 'v1\CondutorController@show');
@@ -188,7 +187,7 @@ Route::group([
         ], function () {
             Route::name('fiscais.')->group(function () {
                 Route::get('/v1/veiculos', 'v1\VeiculoController@index');
-                Route::get('/veiculos/{id}', 'v1\VeiculoController@show');
+                Route::get('/v1/veiculos/{id}', 'v1\VeiculoController@show');
             });
         });
     });
