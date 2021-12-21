@@ -5,6 +5,7 @@ use App\Http\Controllers\Integracao\IntegracaoController;
 use App\Models\Alvara;
 use App\Models\Endereco;
 use App\Models\Modalidade;
+use App\Models\Municipio;
 use Illuminate\Http\Request;
 use App\Models\Permissionario;
 use App\Utils\Util;
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Validator;
 
 class PermissionarioController extends IntegracaoController
 {
-
     function __construct()
     {
         parent::__construct(Permissionario::class, [
@@ -97,6 +97,16 @@ class PermissionarioController extends IntegracaoController
         ]);
     }
 
+    private $estadoCivilDePara = [
+        1=>'S',
+        2=>'C',
+        3=>'Di',
+        4=>'V',
+        5=>'De',
+        6=>'M',
+        7=>'O',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -138,13 +148,18 @@ class PermissionarioController extends IntegracaoController
 
         $endereco = new Endereco();
         $endereco->fill($request->all());
+        $municipios = Municipio::searchByUf($endereco->uf, $request['municipio']);
+        if(sizeof($municipios)>0){
+            $endereco->municipio_id = $municipios[0]->id;
+        }
         $endereco->save();
 
         $permissionario = new Permissionario();
         $permissionario->fill($request->all());
         $permissionario->modalidade_id = Modalidade::findOne($request->input('modalidade_transporte'))->id;
         $permissionario->endereco_id = $endereco->id;
-
+        $permissionario->estado_civil =
+            $permissionario->estado_civil!=null?$this->estadoCivilDePara[$permissionario->estado_civil]:null;
         $permissionario->save();
 
         $alvara = new Alvara();
