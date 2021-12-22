@@ -4,10 +4,13 @@ namespace app\Http\Controllers\Integracao;
 use App\Http\Controllers\Integracao\IntegracaoController;
 use App\Models\Alvara;
 use App\Models\Endereco;
+use App\Models\EntidadeAssociativa;
 use App\Models\Modalidade;
 use App\Models\Municipio;
 use Illuminate\Http\Request;
 use App\Models\Permissionario;
+use App\Models\Ponto;
+use App\Models\PontoDoPermissionario;
 use App\Utils\Util;
 use Illuminate\Support\Facades\Validator;
 
@@ -160,7 +163,20 @@ class PermissionarioController extends IntegracaoController
         $permissionario->endereco_id = $endereco->id;
         $permissionario->estado_civil =
             $permissionario->estado_civil!=null?$this->estadoCivilDePara[$permissionario->estado_civil]:null;
+
+        if($request['entidade_associativa_id']!=null)
+            $permissionario->entidade_associativa_id = EntidadeAssociativa::firstWhere("id_integracao", $request->input("entidade_associativa_id"))->id;
+
         $permissionario->save();
+
+        for($i= 1;$i < 10;$i++){
+            if($request['ponto'.$i]!=null){
+                $ponto = new PontoDoPermissionario();
+                $ponto->ponto_id = Ponto::firstWhere("id_integracao", $request['ponto'.$i])->id;
+                $ponto->permissionario_id = $permissionario->id;
+                $ponto->save();
+            }
+        }
 
         $alvara = new Alvara();
         $alvara->fill($request->all());
