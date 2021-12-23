@@ -40,7 +40,6 @@ class Permissionario extends Model
         'comprovante_de_endereco',
         'inscricao_do_cadastro_mobiliario',
         'numero_do_cadastro_mobiliario',
-        'numero_do_cadastro_mobiliario',
         'curso_primeiro_socorros',
         'curso_primeiro_socorros_emissao',
         'crlv',
@@ -62,6 +61,15 @@ class Permissionario extends Model
         'termino_atividades',
         'termino_atividades_motivo',
         'data_transferencia',
+        'data_obito',
+        'certidao_de_obito',
+        'nome_inventariante',
+        'numero_do_processo_do_inventario',
+        'grau_de_paretesco_inventariante',
+        'parecer_do_juiz_sobre_inventario',
+        'data_processo_seletivo',
+        'classificacao_do_processo',
+        'numero_do_processo',
         'foto_uid'
     ];
 

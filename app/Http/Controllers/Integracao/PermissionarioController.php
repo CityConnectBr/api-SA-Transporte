@@ -13,6 +13,7 @@ use App\Models\Ponto;
 use App\Models\PontoDoPermissionario;
 use App\Utils\Util;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class PermissionarioController extends IntegracaoController
 {
@@ -161,8 +162,30 @@ class PermissionarioController extends IntegracaoController
         $permissionario->fill($request->all());
         $permissionario->modalidade_id = Modalidade::findOne($request->input('modalidade_transporte'))->id;
         $permissionario->endereco_id = $endereco->id;
+
         $permissionario->estado_civil =
             $permissionario->estado_civil!=null?$this->estadoCivilDePara[$permissionario->estado_civil]:null;
+
+            Log::channel('stderr')->info($permissionario->certidao_negativa);
+            Log::channel('stderr')->info($permissionario->certidao_negativa!=null?$permissionario->certidao_negativa=="S":null);
+
+        $permissionario->atestado_de_saude = $permissionario->atestado_de_saude!=null?$permissionario->atestado_de_saude=="S":null;
+        $permissionario->certidao_negativa = $permissionario->certidao_negativa!=null?$permissionario->certidao_negativa=="S":null;
+        $permissionario->comprovante_de_endereco = $permissionario->comprovante_de_endereco!=null?$permissionario->comprovante_de_endereco=="S":null;
+        $permissionario->inscricao_do_cadastro_mobiliario = $permissionario->inscricao_do_cadastro_mobiliario!=null?$permissionario->inscricao_do_cadastro_mobiliario=="S":null;
+        $permissionario->curso_primeiro_socorros = $permissionario->curso_primeiro_socorros!=null?$permissionario->curso_primeiro_socorros=="S":null;
+        $permissionario->crlv = $permissionario->crlv!=null?$permissionario->crlv=="S":null;
+        $permissionario->dpvat = $permissionario->dpvat!=null?$permissionario->dpvat=="S":null;
+        $permissionario->certificado_pontuacao_cnh = $permissionario->certificado_pontuacao_cnh!=null?$permissionario->certificado_pontuacao_cnh=="S":null;
+        $permissionario->contrato_comodato = $permissionario->contrato_comodato!=null?$permissionario->contrato_comodato=="S":null;
+        $permissionario->ipva = $permissionario->ipva!=null?$permissionario->ipva=="S":null;
+        $permissionario->relacao_dos_alunos_transportados = $permissionario->relacao_dos_alunos_transportados!=null?$permissionario->relacao_dos_alunos_transportados=="S":null;
+        $permissionario->laudo_vistoria_com_aprovacao_da_sa_trans = $permissionario->laudo_vistoria_com_aprovacao_da_sa_trans!=null?$permissionario->laudo_vistoria_com_aprovacao_da_sa_trans=="S":null;
+        $permissionario->ciretran_vistoria = $permissionario->ciretran_vistoria!=null?$permissionario->ciretran_vistoria=="S":null;
+        $permissionario->ciretran_autorizacao = $permissionario->ciretran_autorizacao!=null?$permissionario->ciretran_autorizacao=="S":null;
+        $permissionario->selo_gnv = $permissionario->selo_gnv!=null?$permissionario->selo_gnv=="S":null;
+        $permissionario->taximetro_tacografo = $permissionario->taximetro_tacografo!=null?$permissionario->taximetro_tacografo=="S":null;
+
 
         if($request['entidade_associativa_id']!=null)
             $permissionario->entidade_associativa_id = EntidadeAssociativa::firstWhere("id_integracao", $request->input("entidade_associativa_id"))->id;
@@ -180,7 +203,7 @@ class PermissionarioController extends IntegracaoController
 
         $alvara = new Alvara();
         $alvara->fill($request->all());
-        $permissionario->permissionario_id = $permissionario->id;
+        $alvara->permissionario_id = $permissionario->id;
         $alvara->save();
 
         return $permissionario;
