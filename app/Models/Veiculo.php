@@ -35,22 +35,23 @@ class Veiculo extends Model
 
     public static function search($search)
     {
-        return Veiculo::where("placa", "like", "%" . $search==null?$search:"" . "%")
-            ->with("marcaModeloVeiculo")
-            ->with("cor")
-            ->with("tipoVeiculo")
-            ->with("tipoCombustivel")
-            ->with("marcaModeloChassi")
+        return Veiculo::where("placa", "like", "%" . $search == null ? $search : "" . "%")
             ->with("marcaModeloCarroceria")
+            ->with("marcaModeloChassi")
+            ->with("marcaModeloVeiculo")
+            ->with("tipoCombustivel")
+            ->with("tipoVeiculo")
+            ->with("cor")
+            ->with("permissionario")
             ->orderBy("placa")
             ->simplePaginate(15);
     }
 
     public static function returnPaginated()
     {
-        return Veiculo::paginate(15);//where("placa", "like", "%" . $search . "%")
-            //->orderBy("placa")
-            //->simplePaginate(15);
+        return Veiculo::paginate(15); //where("placa", "like", "%" . $search . "%")
+        //->orderBy("placa")
+        //->simplePaginate(15);
     }
 
     public static function returnComplete($withoutGlobalScope = false)
@@ -147,6 +148,6 @@ class Veiculo extends Model
             ->with("cor")
             ->with("permissionario")
             ->orderBy("placa")
-            ->paginate(40);
+            ->simplePaginate(20);
     }
 }

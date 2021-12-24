@@ -175,6 +175,7 @@ Route::group([
             'prefix' => 'condutores'
         ], function () {
             Route::name('condutores.')->group(function () {
+                Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
             });
         });
 
@@ -188,6 +189,8 @@ Route::group([
             Route::name('fiscais.')->group(function () {
                 Route::get('/v1/veiculos', 'v1\VeiculoController@index');
                 Route::get('/v1/veiculos/{id}', 'v1\VeiculoController@show');
+
+                Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
             });
         });
     });
