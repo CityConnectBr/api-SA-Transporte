@@ -115,6 +115,7 @@ class Veiculo extends Model
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         return Veiculo::with('marcaModeloCarroceria')->with('marcaModeloChassi')
+            ->with('marcaModeloChassi')
             ->with('marcaModeloVeiculo')
             ->with('tipoCombustivel')
             ->with('tipoVeiculo')
