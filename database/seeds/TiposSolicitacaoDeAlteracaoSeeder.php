@@ -406,7 +406,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '40',
             'nome' => 'veiculo',
-            'nome_campo1' => 'Placa',
+            'nome_campo1' => 'placa',
             'desc_campo1' => 'placa',
             'regex_campo1' => '^.{7,7}$',
             'nome_campo2' => 'cod_renavam',
@@ -450,43 +450,59 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
         ////////////////////////////////////
         ///////////////// ONIBUS
         ///////////////////////////////////
-        /*DB::table('tipos_solicitacao_de_alteracao')->insert([
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '50',
             'nome' => 'onibus',
-            'nome_campo1' => 'Placa',
+            'nome_campo1' => 'placa',
             'desc_campo1' => 'placa',
             'regex_campo1' => '^.{7,7}$',
-            'nome_campo2' => 'CodRenavam',
+            'nome_campo2' => 'cod_renavam',
             'desc_campo2' => 'código renavam',
             'regex_campo2' => '^(\d{11})$',
-            'nome_campo3' => 'CodMarcaModeloCarroceria',
+            'nome_campo3' => 'marca_modelo_carroceria_id',
             'desc_campo3' => 'marca modelo da carroceria',
             'regex_campo3' => '^(\d+)$',
-            'nome_campo4' => 'CodMarcaModeloChassis',
+            'nome_campo4' => 'marca_modelo_chassi_id',
             'desc_campo4' => 'marca modelo do chassi',
             'regex_campo4' => '^(\d+)$',
-            'nome_campo5' => 'Chassis',
+            'nome_campo5' => 'chassi',
             'desc_campo5' => 'chassi',
             'regex_campo5' => '^.{1,25}$',
-            'nome_campo6' => 'CodCombustivel',
+            'nome_campo6' => 'tipo_combustivel_id',
             'desc_campo6' => 'tipo de combustivel',
             'regex_campo6' => '^(\d+)$',
-            'nome_campo7' => 'AnoFabricacao',
+            'nome_campo7' => 'ano_fabricacao',
             'desc_campo7' => 'ano de fabricação',
             'regex_campo7' => '^\d{4}$',
-            'nome_campo8' => 'AnoModelo',
+            'nome_campo8' => 'ano_modelo',
             'desc_campo8' => 'ano do modelo',
             'regex_campo8' => '^\d{4}$',
-            'nome_campo9' => 'CodCor',
+            'nome_campo9' => 'cor_id',
             'desc_campo9' => 'cor',
             'regex_campo9' => '^(\d+)$',
-            'nome_campo10' => 'Capacidade',
+            'nome_campo10' => 'capacidade',
             'desc_campo10' => 'capacidade',
             'regex_campo10' => '^.{0,15}$',
-            'nome_campo11' => 'Prefixo',
+            'nome_campo11' => 'prefixo',
             'desc_campo11' => 'prefixo',
             'regex_campo11' => '^(\d+)$',
             'desc_arquivo1' => 'Documento do Veículo',
-        ]);*/
+        ]);
+        ////////////////////////////////////
+        ///////////////// INFRACAO
+        ///////////////////////////////////
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
+            'id' => '60',
+            'nome' => 'infracao',
+            'nome_campo1' => 'data_infracao',
+            'desc_campo1' => 'data da infração',
+            'regex_campo4' => '^\d{4}\-\d{2}\-\d{2}$',
+            'nome_campo2' => 'hora_infracao',
+            'desc_campo1' => 'hora da infração',
+            'regex_campo2' => '^/d{2}\:\d{2}$',
+            'nome_campo3' => 'descricao',
+            'desc_campo3' => 'descrição',
+            'regex_campo4' => '^.{0,500}$'
+        ]);
     }
 }

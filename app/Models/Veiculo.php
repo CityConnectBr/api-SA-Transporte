@@ -19,11 +19,11 @@ class Veiculo extends Model
         'tipo_capacidade',
         'observacao_capacidade',
         'anos_vida_util_veiculo',
-        //'prefixo',//onibus
+        'prefixo',
         'versao',
         'categoria_id',
-        //'marca_modelo_carroceria_id',//onibus
-        //'marca_modelo_chassi_id',//onibus
+        'marca_modelo_carroceria_id',
+        'marca_modelo_chassi_id',
         'marca_modelo_veiculo_id',
         'tipo_combustivel_id',
         'cor_id',
