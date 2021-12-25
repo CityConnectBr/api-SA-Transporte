@@ -13,7 +13,6 @@ use App\Models\Ponto;
 use App\Models\PontoDoPermissionario;
 use App\Utils\Util;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 
 class PermissionarioController extends IntegracaoController
 {
@@ -160,14 +159,14 @@ class PermissionarioController extends IntegracaoController
 
         $permissionario = new Permissionario();
         $permissionario->fill($request->all());
+
         $permissionario->modalidade_id = Modalidade::findOne($request->input('modalidade_transporte'))->id;
         $permissionario->endereco_id = $endereco->id;
 
         $permissionario->estado_civil =
             $permissionario->estado_civil!=null?$this->estadoCivilDePara[$permissionario->estado_civil]:null;
 
-            Log::channel('stderr')->info($permissionario->certidao_negativa);
-            Log::channel('stderr')->info($permissionario->certidao_negativa!=null?$permissionario->certidao_negativa=="S":null);
+        //Log::channel('stderr')->info($permissionario->certidao_negativa);
 
         $permissionario->atestado_de_saude = $permissionario->atestado_de_saude!=null?$permissionario->atestado_de_saude=="S":null;
         $permissionario->certidao_negativa = $permissionario->certidao_negativa!=null?$permissionario->certidao_negativa=="S":null;

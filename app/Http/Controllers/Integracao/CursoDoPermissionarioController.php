@@ -16,11 +16,9 @@ class CursoDoPermissionarioController extends IntegracaoController
         parent::__construct(CursoDoPermissionario::class, [
             'permissionario_id' => [
                 'required',
-                'exists:permissionarios,id'
             ],
             'tipo_do_curso_id' => [
                 'required',
-                'exists:tipos_de_curso,id'
             ],
             'data_emissao' => [
                 'required',
