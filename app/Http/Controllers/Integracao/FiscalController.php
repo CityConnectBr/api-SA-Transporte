@@ -6,6 +6,7 @@ use App\Models\Endereco;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Fiscal;
+use App\Models\Municipio;
 use App\Utils\Util;
 
 class FiscalController extends IntegracaoController
@@ -81,6 +82,10 @@ class FiscalController extends IntegracaoController
 
         $endereco = new Endereco();
         $endereco->fill($request->all());
+        $municipios = Municipio::searchByUf($endereco->uf, $request['municipio']);
+        if(sizeof($municipios)>0){
+            $endereco->municipio_id = $municipios[0]->id;
+        }
         $endereco->save();
 
         $fiscal = new Fiscal();

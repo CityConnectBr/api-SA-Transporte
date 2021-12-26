@@ -20,7 +20,6 @@ class Monitor extends Model
         'validade_da_certidao_negativa',
         'curso_de_primeiro_socorros',
         'emissao_curso_de_primeiro_socorros',
-        //'versao',
         'permissionario_id',
         'endereco_id',
         'foto_uid'

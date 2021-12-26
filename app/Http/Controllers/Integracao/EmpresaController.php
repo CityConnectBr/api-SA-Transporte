@@ -4,6 +4,7 @@ namespace app\Http\Controllers\Integracao;
 use App\Http\Controllers\Integracao\IntegracaoController;
 use App\Models\Empresa;
 use App\Models\Endereco;
+use App\Models\Municipio;
 use Illuminate\Http\Request;
 use App\Utils\Util;
 use Illuminate\Support\Facades\Validator;
@@ -84,6 +85,10 @@ class EmpresaController extends IntegracaoController
 
         $endereco = new Endereco();
         $endereco->fill($request->all());
+        $municipios = Municipio::searchByUf($endereco->uf, $request['municipio']);
+        if(sizeof($municipios)>0){
+            $endereco->municipio_id = $municipios[0]->id;
+        }
         $endereco->save();
 
         $obj = new Empresa();

@@ -6,6 +6,7 @@ use App\Models\Endereco;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Monitor;
+use App\Models\Municipio;
 use App\Models\Permissionario;
 
 class MonitorController extends IntegracaoController
@@ -74,13 +75,20 @@ class MonitorController extends IntegracaoController
 
         $endereco = new Endereco();
         $endereco->fill($request->all());
+        $municipios = Municipio::searchByUf($endereco->uf, $request['municipio']);
+        if(sizeof($municipios)>0){
+            $endereco->municipio_id = $municipios[0]->id;
+        }
         $endereco->save();
 
         $monitor = new Monitor();
         $monitor->fill($request->all());
+        $monitor->endereco_id = $endereco->id;
         $monitor->rg = $monitor->id_integracao;
         $monitor->permissionario_id = $permissionario->id;
-        $monitor->endereco_id = $endereco->id;
+
+        $monitor->certidao_negativa = $monitor->certidao_negativa!=null?$monitor->certidao_negativa=="S":null;
+        $monitor->curso_de_primeiro_socorros = $monitor->curso_de_primeiro_socorros!=null?$monitor->curso_de_primeiro_socorros=="S":null;
 
         $monitor->save();
 
@@ -114,50 +122,6 @@ class MonitorController extends IntegracaoController
         return response()->json([
             "Message" => "Não implementado!"
         ], 501);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), $this->validatorList);
-
-        if ($validator->fails()) {
-            return parent::responseJSON($validator->errors(), 400);
-        }
-
-        $permissionario = Permissionario::findByIntegracaoComplete($request->input('permissionario_id'));
-        if (! isset($permissionario)) {
-            return parent::responseMsgJSON("Permissionário relacionado não encontrado", 404);
-        }
-
-        $monitor = Monitor::findByIntegracaoComplete($id, true);
-        if (isset($request["id_real"])) {
-            $monitor = Monitor::findComplete($id, true);
-        }
-
-        if (isset($monitor)) {
-            unset($request['id']);
-            unset($request['endereco_id']);
-
-            $monitor->fill($request->all());
-            $monitor->versao ++;
-            $monitor->endereco->fill($request->all());
-            $monitor->rg = $monitor->id_integracao;
-            $monitor->permissionario_id = $permissionario->id;
-
-            $monitor->save();
-            $monitor->endereco->save();
-
-            return $monitor;
-        } else {
-            return parent::responseMsgJSON("Monitor não encontrado", 404);
-        }
     }
 
     /**
