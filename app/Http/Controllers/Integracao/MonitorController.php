@@ -18,14 +18,12 @@ class MonitorController extends IntegracaoController
             'nome' => [
                 'required',
                 'max:40',
-                'min:3'
             ],
             'id_integracao' => [
                 'required',
             ],
             'permissionario_id' => [
                 'required',
-                'numeric'
             ]
         ]);
     }
