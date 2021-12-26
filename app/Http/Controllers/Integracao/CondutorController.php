@@ -47,25 +47,9 @@ class CondutorController extends IntegracaoController
             'categoria_cnh' => [
                 'max:2',
             ],
-            'atestado_de_saude' => [
-                'boolean',
-                'nullable'
-            ],
-            'certidao_negativa' => [
-                'boolean',
-                'nullable'
-            ],
             'validade_certidao_negativa' => [
                 'nullable',
                 'regex:'.Util::REGEX_DATE
-            ],
-            'registro_ctps' => [
-                'boolean',
-                'nullable'
-            ],
-            'primeiros_socorros' => [
-                'boolean',
-                'nullable'
             ],
             'emissao_primeiros_socorros' => [
                 'nullable',
@@ -141,6 +125,11 @@ class CondutorController extends IntegracaoController
         $condutor->permissionario_id = $permissionario->id;
         $condutor->cpf = $condutor->id_integracao;
         $condutor->endereco_id = $endereco->id;
+
+        $condutor->atestado_de_saude = $condutor->atestado_de_saude!=null?$condutor->atestado_de_saude=="S":null;
+        $condutor->certidao_negativa = $condutor->certidao_negativa!=null?$condutor->certidao_negativa=="S":null;
+        $condutor->registro_ctps = $condutor->registro_ctps!=null?$condutor->registro_ctps=="S":null;
+        $condutor->primeiros_socorros = $condutor->primeiros_socorros!=null?$condutor->primeiros_socorros=="S":null;
 
         $condutor->save();
 
