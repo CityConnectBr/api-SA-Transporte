@@ -193,10 +193,13 @@ class PermissionarioController extends IntegracaoController
 
         for($i= 1;$i < 10;$i++){
             if($request['ponto'.$i]!=null){
-                $ponto = new PontoDoPermissionario();
-                $ponto->ponto_id = Ponto::firstWhere("id_integracao", $request['ponto'.$i])->id;
-                $ponto->permissionario_id = $permissionario->id;
-                $ponto->save();
+                $ponto = Ponto::firstWhere("id_integracao", $request['ponto'.$i]);
+                if($ponto!=null){
+                    $pontoDoPermissionario = new PontoDoPermissionario();
+                    $pontoDoPermissionario->ponto_id = $ponto->id;
+                    $pontoDoPermissionario->permissionario_id = $permissionario->id;
+                    $pontoDoPermissionario->save();
+                }
             }
         }
 
