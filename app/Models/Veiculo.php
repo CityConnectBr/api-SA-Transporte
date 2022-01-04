@@ -35,16 +35,44 @@ class Veiculo extends Model
 
     public static function search($search)
     {
-        return Veiculo::where("placa", "like", "%" . $search == null ? $search : "" . "%")
+        //dd($search);
+        $veiculo = Veiculo::where("placa", "like", "%" . $search == null ? "" : $search . "%")
             ->with("marcaModeloCarroceria")
             ->with("marcaModeloChassi")
             ->with("marcaModeloVeiculo")
             ->with("tipoCombustivel")
             ->with("tipoVeiculo")
             ->with("cor")
+            // ->with(["permissionario" => function($q) use($search){
+            //     $q->where("nome","like", "%" . $search == null ? "" : $search . "%");
+            // }])
             ->with("permissionario")
             ->orderBy("placa")
             ->simplePaginate(15);
+
+            if($veiculo->isEmpty()){
+               
+                $veiculo = Veiculo::with("marcaModeloCarroceria")
+                    ->with("marcaModeloChassi")
+                    ->with("marcaModeloVeiculo")
+                    ->with("tipoCombustivel")
+                    ->with("tipoVeiculo")
+                    ->with("cor")
+                    ->whereHas('permissionario', function($q) use($search){
+                        //dd($search);
+                        $q->where("nome_razao_social", "like", "%". $search . "%");
+                        //dd($q);
+                    })
+                    // ->with(["permissionario" => function($q) use($search){
+                    //     $q->where("nome_razao_social", "like", "%".$search == null ? "" : $search. "%");
+                    //     //dd($q);
+                    // }])
+                    ->with("permissionario")
+                    ->orderBy("placa")
+                    ->simplePaginate(15);
+            } 
+
+            return $veiculo;
     }
 
     public static function returnPaginated()
