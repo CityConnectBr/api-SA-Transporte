@@ -502,7 +502,11 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo2' => '^/d{2}\:\d{2}$',
             'nome_campo3' => 'descricao',
             'desc_campo3' => 'descrição',
-            'regex_campo4' => '^.{0,500}$'
+            'regex_campo4' => '^.{0,500}$',
+            'nome_campo8' => 'veiculo_id',
+            'desc_campo8' => 'veiculo',
+            'regex_campo8' => '^(\d+)$',
+            'desc_arquivo1' => 'Imagem da Infração'
         ]);
     }
 }
