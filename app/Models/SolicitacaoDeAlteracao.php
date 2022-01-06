@@ -100,11 +100,11 @@ class SolicitacaoDeAlteracao extends Model
     public static function search($search, $inverseOrder = false)
     {
         if ($search == null || $search == '') {
-            $query = SolicitacaoDeAlteracao::where("id", "like", "%"); //figurante...
-        } else if ($search == 'null'){
             $query = SolicitacaoDeAlteracao::whereNull("status");
+        } else if ($search == 'T'){
+            $query = SolicitacaoDeAlteracao::where("id", "like", "%"); //figurante...
         }else {
-            $query = SolicitacaoDeAlteracao::where("status", "like", "%" . $search . "%");
+            $query = SolicitacaoDeAlteracao::where("status", "like", $search);
         }
 
         $query->with("tipo");
