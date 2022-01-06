@@ -30,14 +30,6 @@ class CondutorController extends IntegracaoController
             'rg' => [
                 'max:9',
             ],
-            'telefone' => [
-                'nullable',
-                'regex:'.Util::REGEX_PHONE,
-            ],
-            'celular' => [
-                'nullable',
-                'regex:'.Util::REGEX_PHONE,
-            ],
             'email' => [
                 'max:200',
             ],

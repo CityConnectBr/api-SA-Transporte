@@ -11,7 +11,6 @@ use App\Models\TipoCombustivel;
 use App\Utils\Util;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 
 class CertidaoController extends IntegracaoController
 {
@@ -24,41 +23,24 @@ class CertidaoController extends IntegracaoController
                 'regex:' . Util::REGEX_DATE,
             ],
             'renavam' => [
-                'required',
                 'max:11',
-                'min:11'
             ],
             'placa' => [
-                'required',
                 'max:7',
-                'min:7'
             ],
             'ano_fabricacao' => [
-                'required',
                 'max:4',
-                'regex:'.Util::REGEX_NUMBER
             ],
             'chassis' => [
                 'max:25',
             ],
             'prefixo' => [
-                'required',
                 'max:15',
-                'min:3'
             ],
             'observacao' => [
                 'max:200',
             ],
             'permissionario_id' => [
-                'required',
-            ],
-            'marca_modelo_veiculo_id' => [
-                'required',
-            ],
-            'cor_id' => [
-                'required',
-            ],
-            'ponto_id' => [
                 'required',
             ],
         ]);

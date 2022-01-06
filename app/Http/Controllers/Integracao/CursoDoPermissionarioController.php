@@ -39,10 +39,17 @@ class CursoDoPermissionarioController extends IntegracaoController
             return response()->json($validator->errors(), 400);
         }
 
+        $permissionario = Permissionario::firstWhere("id_integracao", $request->input("permissionario_id"));
+        $tipo = TipoDeCurso::firstWhere("id_integracao", $request->input("tipo_do_curso_id"));
+
+        if($permissionario==null || $tipo==null){
+            return response()->json("Permissionário ou tipo não encontrado.", 404);
+        }
+
         $obj = new CursoDoPermissionario();
         $obj->fill($request->all());
-        $obj->permissionario_id = Permissionario::firstWhere("id_integracao", $request->input("permissionario_id"))->id;
-        $obj->tipo_do_curso_id = TipoDeCurso::firstWhere("id_integracao", $request->input("tipo_do_curso_id"))->id;
+        $obj->permissionario_id = $permissionario->id;
+        $obj->tipo_do_curso_id = $tipo->id;
 
         $obj->save();
 
