@@ -23,4 +23,15 @@ class ArquivoController extends Controller
 
         return Storage::download('arquivos/' . $arquivo->id . '.jpg');
     }
+
+    public function create(Request $request)
+    {
+        $arquivo = new Arquivo();
+        $arquivo->origem = "web";
+        $arquivo->save();
+
+        $request["foto"]->storeAs('/arquivos', $arquivo->id . ".jpg");
+
+        return $arquivo;
+    }
 }

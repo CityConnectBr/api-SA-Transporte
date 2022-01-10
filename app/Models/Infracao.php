@@ -19,11 +19,11 @@ class Infracao extends Model
         'data_vendimento_boleto',
         'qtd_moeda',
         'reincidente',
-        'valor_moeda',
         'moeda_id',
         'permissionario_id',
         'quadro_infracao_id',
         'natureza_infracao_id',
+        'foto_uid'
     ];
 
     protected $table = 'infracoes';

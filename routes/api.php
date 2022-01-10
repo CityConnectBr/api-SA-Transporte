@@ -112,9 +112,12 @@ Route::group([
                 Route::patch('/solicitacoes/{id}/concluir', 'Admin\SolicitacaoController@concluir');
 
                 Route::get('/arquivos/{id}', 'Admin\ArquivoController@show');
+                Route::post('/arquivos', 'Admin\ArquivoController@create');
 
                 Route::resource('/certidoes', 'Admin\CertidaoController');
                 Route::resource('/infracoes', 'Admin\InfracaoController');
+                Route::post('/infracoes/{id}/foto', 'Admin\InfracaoController@storeFoto');
+                Route::get('/infracoes/{id}/foto', 'Admin\InfracaoController@showFoto');
                 Route::resource('/vistoriadepontos', 'Admin\VistoriaPontoController');
             });
         });

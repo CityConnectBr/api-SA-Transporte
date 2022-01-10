@@ -28,7 +28,6 @@ class CreateInfracoesTable extends Migration
             $table->date('data_vendimento_boleto')->nullable();
             $table->integer('qtd_moeda')->nullable();
             $table->integer('reincidente')->default(0);
-            $table->double('valor_moeda')->nullable();
 
             $table->integer('moeda_id')->nullable()->unsigned();
             $table->integer('permissionario_id')->nullable()->unsigned();
