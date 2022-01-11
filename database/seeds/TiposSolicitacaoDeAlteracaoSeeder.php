@@ -496,16 +496,16 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'nome' => 'infracao',
             'nome_campo1' => 'data_infracao',
             'desc_campo1' => 'data da infração',
-            'regex_campo4' => '^\d{4}\-\d{2}\-\d{2}$',
+            'regex_campo1' => '^\d{4}\-\d{2}\-\d{2}$',
             'nome_campo2' => 'hora_infracao',
-            'desc_campo1' => 'hora da infração',
+            'desc_campo2' => 'hora da infração',
             'regex_campo2' => '^/d{2}\:\d{2}$',
             'nome_campo3' => 'descricao',
             'desc_campo3' => 'descrição',
-            'regex_campo4' => '^.{0,500}$',
-            'nome_campo8' => 'veiculo_id',
-            'desc_campo8' => 'veiculo',
-            'regex_campo8' => '^(\d+)$',
+            'regex_campo3' => '^.{0,500}$',
+            'nome_campo4' => 'veiculo_id',
+            'desc_campo4' => 'veiculo',
+            'regex_campo4' => '^(\d+)$',
             'desc_arquivo1' => 'Imagem da Infração'
         ]);
     }
