@@ -499,7 +499,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo1' => '^\d{4}\-\d{2}\-\d{2}$',
             'nome_campo2' => 'hora_infracao',
             'desc_campo2' => 'hora da infração',
-            'regex_campo2' => '^/d{2}\:\d{2}$',
+            'regex_campo2' => '^\d{2}\:\d{2}$',
             'nome_campo3' => 'descricao',
             'desc_campo3' => 'descrição',
             'regex_campo3' => '^.{0,500}$',
