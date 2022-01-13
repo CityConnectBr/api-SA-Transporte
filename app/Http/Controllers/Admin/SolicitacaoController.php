@@ -27,6 +27,16 @@ class SolicitacaoController extends AdminSuperController
         );
     }
 
+    public function show($id)
+    {
+        $obj = $this->objectModel::findComplete($id);
+        if (isset($obj)) {
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -92,7 +92,7 @@ class SolicitacaoDeAlteracao extends Model
 
     public function veiculoReferencia()
     {
-        return $this->hasOne(Fiscal::class, 'id', 'referencia_veiculo_id');
+        return $this->hasOne(Veiculo::class, 'id', 'referencia_veiculo_id');
     }
 
     ///////////////////
@@ -101,9 +101,9 @@ class SolicitacaoDeAlteracao extends Model
     {
         if ($search == null || $search == '') {
             $query = SolicitacaoDeAlteracao::whereNull("status");
-        } else if ($search == 'T'){
+        } else if ($search == 'T') {
             $query = SolicitacaoDeAlteracao::where("id", "like", "%"); //figurante...
-        }else {
+        } else {
             $query = SolicitacaoDeAlteracao::where("status", "like", $search);
         }
 
@@ -132,9 +132,15 @@ class SolicitacaoDeAlteracao extends Model
 
     public static function findComplete($id)
     {
-        return SolicitacaoDeAlteracao::with("tipo")->with("permissionario")
+        return SolicitacaoDeAlteracao::with("tipo")
+            ->with("tipo")
+            ->with("permissionario")
             ->with("condutor")
             ->with("fiscal")
+            ->with("permissionarioReferencia")
+            ->with("condutorReferencia")
+            ->with("fiscalReferencia")
+            ->with("veiculoReferencia")
             ->find($id);
     }
 
