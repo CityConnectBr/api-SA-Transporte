@@ -30,6 +30,7 @@ class CreateInfracoesTable extends Migration
             $table->integer('reincidente')->default(0);
 
             $table->integer('moeda_id')->nullable()->unsigned();
+            $table->integer('veiculo_id')->nullable()->unsigned();
             $table->integer('permissionario_id')->nullable()->unsigned();
             $table->integer('quadro_infracao_id')->nullable()->unsigned();
             $table->integer('natureza_infracao_id')->nullable()->unsigned();
@@ -37,6 +38,7 @@ class CreateInfracoesTable extends Migration
 
             $table->timestamps();
             $table->foreign('moeda_id')->references('id')->on('moedas');
+            $table->foreign('veiculo_id')->references('id')->on('veiculos');
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
             $table->foreign('quadro_infracao_id')->references('id')->on('quadro_de_infracoes');
             $table->foreign('natureza_infracao_id')->references('id')->on('naturezas_da_infracao');

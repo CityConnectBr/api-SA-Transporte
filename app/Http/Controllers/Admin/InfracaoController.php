@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AdminSuperController;
 use App\Models\Infracao;
 use App\Models\SolicitacaoDeAlteracao;
+use App\Models\Veiculo;
 use Illuminate\Http\Request;
 use App\Utils\Util;
 use Illuminate\Support\Facades\Validator;
@@ -62,6 +63,9 @@ class InfracaoController extends AdminSuperController
                     'required',
                     'exists:permissionarios,id'
                 ],
+                'veiculo_id' => [
+                    'exists:veiculos,id'
+                ],
                 'quadro_infracao_id' => [
                     'required',
                     'exists:quadro_de_infracoes,id'
@@ -81,6 +85,13 @@ class InfracaoController extends AdminSuperController
 
         if ($validator->fails()) {
             return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        if($request['veiculo_id']!=null){
+            $veiculo = Veiculo::find($request['veiculo_id']);
+            if($veiculo!=null && $veiculo->permissionario_id!=$request['permissionario_id']){
+                return Parent::responseMsgsJSON("Veículo não pertence ao permissionário", 400);
+            }
         }
 
         $obj = new $this->objectModel();

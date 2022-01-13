@@ -21,6 +21,7 @@ class Infracao extends Model
         'reincidente',
         'moeda_id',
         'permissionario_id',
+        'veiculo_id',
         'quadro_infracao_id',
         'natureza_infracao_id',
         'foto_uid'
