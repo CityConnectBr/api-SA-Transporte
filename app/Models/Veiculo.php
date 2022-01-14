@@ -51,7 +51,7 @@ class Veiculo extends Model
             ->simplePaginate(15);
 
             if($veiculo->isEmpty()){
-               
+
                 $veiculo = Veiculo::with("marcaModeloCarroceria")
                     ->with("marcaModeloChassi")
                     ->with("marcaModeloVeiculo")
@@ -70,7 +70,7 @@ class Veiculo extends Model
                     ->with("permissionario")
                     ->orderBy("placa")
                     ->simplePaginate(15);
-            } 
+            }
 
             return $veiculo;
     }
@@ -167,7 +167,7 @@ class Veiculo extends Model
     {
         return Veiculo::where("permissionario_id", "=", $permissionario_id)->where(function ($q) use ($search) {
             $q->where("placa", "like", "%" . $search . "%")
-                ->orWhere("cod_renavam", "like", "%" . $search . "%");
+            ->orWhere("cod_renavam", "like", "%" . $search . "%");
         })
             ->with("marcaModeloCarroceria")
             ->with("marcaModeloChassi")

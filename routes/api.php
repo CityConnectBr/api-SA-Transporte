@@ -105,6 +105,7 @@ Route::group([
                 Route::resource('/coordenadoresdoponto', 'Admin\CoordenadorDoPontoController');
 
                 Route::resource('/veiculos', 'Admin\VeiculoController');
+                Route::get('/veiculosporpermissionario', 'Admin\VeiculoController@indexByPermissionario');
                 Route::resource('/anexosdoveiculo', 'Admin\AnexoDoVeiculoController');
 
                 Route::get('/solicitacoes', 'Admin\SolicitacaoController@index');

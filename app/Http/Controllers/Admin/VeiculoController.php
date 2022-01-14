@@ -71,4 +71,9 @@ class VeiculoController extends AdminSuperController
             $request
         );
     }
+
+    public function indexByPermissionario()
+    {
+        return Veiculo::searchByIdPermissionario($this->request->query->get("permissionario_id"), $this->request->query->get("search"), );
+    }
 }
