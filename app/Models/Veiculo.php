@@ -36,7 +36,10 @@ class Veiculo extends Model
     public static function search($search)
     {
         //dd($search);
-        $veiculo = Veiculo::where("placa", "like", "%" . $search == null ? "" : $search . "%")
+        $veiculo = Veiculo::where(function ($q) use ($search) {
+            $q->where("placa", "like", "%" . $search . "%")
+            ->orWhere("cod_renavam", "like", "%" . $search . "%");
+        })
             ->with("marcaModeloCarroceria")
             ->with("marcaModeloChassi")
             ->with("marcaModeloVeiculo")
