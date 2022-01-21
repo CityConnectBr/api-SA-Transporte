@@ -94,7 +94,7 @@ class UsuarioController extends Controller
         $fiscal = Fiscal::firstByCpf($request->input("cpf_cnpj"));
 
         // BUSCANDO condutor
-        $condutor = Condutor::firstByCNH($user->cnh);
+        $condutor = Condutor::firstByCNH($request->input("cnh"));
 
         if (! isset($permissionario) && ! isset($fiscal) && ! isset($condutor)) {
             return parent::responseMsgJSON("Nenhum permissionário, fiscal ou condutor previamente cadastrado", 404);
