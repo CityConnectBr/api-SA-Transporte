@@ -12,6 +12,7 @@ use App\Models\Permissionario;
 use App\Models\Monitor;
 use App\Models\Fiscal;
 use App\Models\Arquivo;
+use Illuminate\Support\Str;
 
 class SolicitacaoDeAlteracaoController extends Controller
 {
@@ -147,19 +148,37 @@ class SolicitacaoDeAlteracaoController extends Controller
 
         // setando tando referencia local
         if (isset($request["referencia_id"])) {
-            if (strpos($tipoDeSolicitacao->nome, 'condutor') !== false) {
+            $objRef = null;
+
+            //referencias
+            if (Str::contains($tipoDeSolicitacao->nome, 'condutor')) {
                 $solicitacao->referencia_condutor_id = $request["referencia_id"];
-            } else if (strpos($tipoDeSolicitacao->nome, 'veiculo') !== false) {
+                if(Str::contains($tipoDeSolicitacao->nome, 'endereco')){
+                    $objRef = Condutor::find($request["referencia_id"]);
+                }
+            } else if (Str::contains($tipoDeSolicitacao->nome, 'veiculo')) {
                 $solicitacao->referencia_veiculo_id = $request["referencia_id"];
-            } else if (strpos($tipoDeSolicitacao->nome, 'onibus') !== false) {
+            } else if (Str::contains($tipoDeSolicitacao->nome, 'onibus')) {
                 $solicitacao->referencia_veiculo_id = $request["referencia_id"];
-            } else if (strpos($tipoDeSolicitacao->nome, 'permissionario') !== false) {
+            } else if (Str::contains($tipoDeSolicitacao->nome, 'permissionario')) {
                 $solicitacao->referencia_permissionario_id = $request["referencia_id"];
-            } else if (strpos($tipoDeSolicitacao->nome, 'monitor') !== false) {
+                if(Str::contains($tipoDeSolicitacao->nome, 'endereco')){
+                    $objRef = Permissionario::find($request["referencia_id"]);
+                }
+            } else if (Str::contains($tipoDeSolicitacao->nome, 'monitor')) {
                 $solicitacao->referencia_monitor_id = $request["referencia_id"];
-            } else if (strpos($tipoDeSolicitacao->nome, 'fiscal') !== false) {
+                if(Str::contains($tipoDeSolicitacao->nome, 'endereco')){
+                    $objRef = Monitor::find($request["referencia_id"]);
+                }
+            } else if (Str::contains($tipoDeSolicitacao->nome, 'fiscal')) {
                 $solicitacao->referencia_fiscal_id = $request["referencia_id"];
+                if(Str::contains($tipoDeSolicitacao->nome, 'endereco')){
+                    $objRef = Fiscal::find($request["referencia_id"]);
+                }
             }
+
+            //setando endereco
+            $solicitacao->endereco_id = $objRef!=null?$objRef->endereco_id:null;
         }
 
         $errors = array();

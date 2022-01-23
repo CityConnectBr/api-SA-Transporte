@@ -7,6 +7,7 @@ use App\Models\Condutor;
 use App\Models\Endereco;
 use App\Models\Fiscal;
 use App\Models\Monitor;
+use App\Models\Municipio;
 use App\Models\Permissionario;
 use App\Models\SolicitacaoDeAlteracao;
 use App\Models\TipoDeSolicitacaoDeAlteracao;
@@ -144,7 +145,7 @@ class SolicitacaoController extends AdminSuperController
         if ($id != null) {
             $obj = $obj::find($id);
             if ($obj->endereco_id !== null)
-                $enderecoObj = Endereco::find($obj->endereco_id);
+                $enderecoObj = Endereco::findComplete($obj->endereco_id);
         }
 
         if (
@@ -157,8 +158,8 @@ class SolicitacaoController extends AdminSuperController
             $obj->permissionario_id = $permissionarioId;
             $obj->fill($array);
 
-            if(Str::contains($tipoDaSolicitacao->nome, ['veiculo']))
-                $obj->categoria_id = 1;//Setando categoria veículo
+            if (Str::contains($tipoDaSolicitacao->nome, ['veiculo']))
+                $obj->categoria_id = 1; //Setando categoria veículo
         }
 
         if (
@@ -167,8 +168,16 @@ class SolicitacaoController extends AdminSuperController
         ) {
             if ($enderecoObj == null)
                 $enderecoObj = new Endereco();
+            else
+                $solicitacao->fill($this->getArrayOriginalValues($tipoDaSolicitacao, $enderecoObj));
 
             $enderecoObj->fill($array);
+            if ($array['uf'] != null && $array['municipio'] != null) {
+                $municipios = Municipio::searchByUf($array['uf'], $array['municipio']);
+                if (sizeof($municipios) > 0) {
+                    $enderecoObj->municipio_id = $municipios[0]->id;
+                }
+            }
 
             if ($enderecoObj->id !== null) {
                 $enderecoObj->update();
@@ -181,11 +190,10 @@ class SolicitacaoController extends AdminSuperController
             $obj->foto_uid = $solicitacao->arquivo1_uid;
         }
 
-
         if ($id != null) {
             $obj->update();
         } else {
-            if ($enderecoObj!==null && $enderecoObj->id !== null)
+            if ($enderecoObj !== null && $enderecoObj->id !== null)
                 $obj->endereco_id = $enderecoObj->id;
 
             $obj->save();
@@ -195,7 +203,7 @@ class SolicitacaoController extends AdminSuperController
     private function getArrayInfoToSave($tipoDaSolicitacao, $solicitacao)
     {
         $toSave = array();
-        for ($i = 1; $i < 21; $i++) {
+        for ($i = 1; $i < 26; $i++) {
             $nameField = $tipoDaSolicitacao["nome_campo" . $i];
             $contentField = $solicitacao["campo" . $i];
             if (
@@ -205,6 +213,34 @@ class SolicitacaoController extends AdminSuperController
                 continue;
             }
             $toSave[$nameField] = $contentField;
+        }
+
+        return $toSave;
+    }
+
+    private function getArrayOriginalValues($tipoDaSolicitacao, $obj)
+    {
+        $toSave = array();
+        for ($i = 1; $i < 26; $i++) {
+            $key = $tipoDaSolicitacao["nome_campo" . $i];
+            $contentField = $obj[$key];
+            if (
+                $contentField == null || $contentField == ''
+            ) {
+                continue;
+            }
+
+            if (
+                $contentField instanceof Municipio ||
+                $contentField instanceof Fiscal ||
+                $contentField instanceof Permissionario ||
+                $contentField instanceof Monitor ||
+                $contentField instanceof Condutor
+            ) {
+                $toSave['valor_anterior_campo' . $i] = $contentField->nome;
+            } else {
+                $toSave['valor_anterior_campo' . $i] = $contentField;
+            }
         }
 
         return $toSave;

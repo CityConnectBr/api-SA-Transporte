@@ -36,6 +36,31 @@ class SolicitacaoDeAlteracao extends Model
         'campo23',
         'campo24',
         'campo25',
+        'valor_anterior_campo1',
+        'valor_anterior_campo2',
+        'valor_anterior_campo3',
+        'valor_anterior_campo4',
+        'valor_anterior_campo5',
+        'valor_anterior_campo6',
+        'valor_anterior_campo7',
+        'valor_anterior_campo8',
+        'valor_anterior_campo9',
+        'valor_anterior_campo10',
+        'valor_anterior_campo11',
+        'valor_anterior_campo12',
+        'valor_anterior_campo13',
+        'valor_anterior_campo14',
+        'valor_anterior_campo15',
+        'valor_anterior_campo16',
+        'valor_anterior_campo17',
+        'valor_anterior_campo18',
+        'valor_anterior_campo19',
+        'valor_anterior_campo20',
+        'valor_anterior_campo21',
+        'valor_anterior_campo22',
+        'valor_anterior_campo23',
+        'valor_anterior_campo24',
+        'valor_anterior_campo25',
         'tipo_solicitacao_id',
         'permissionario_id',
         'condutor_id',
@@ -45,6 +70,7 @@ class SolicitacaoDeAlteracao extends Model
         'referencia_monitor_id',
         'referencia_condutor_id',
         'referencia_veiculo_id',
+        'endereco_id',
         'arquivo1_uid',
         'arquivo2_uid',
         'arquivo3_uid',
@@ -95,6 +121,11 @@ class SolicitacaoDeAlteracao extends Model
         return $this->hasOne(Veiculo::class, 'id', 'referencia_veiculo_id');
     }
 
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class, 'id', 'endereco_id');
+    }
+
     ///////////////////
 
     public static function search($search, $inverseOrder = false)
@@ -115,6 +146,7 @@ class SolicitacaoDeAlteracao extends Model
         $query->with("condutorReferencia");
         $query->with("fiscalReferencia");
         $query->with("veiculoReferencia");
+        $query->with("endereco");
 
         if ($inverseOrder) {
             $query->orderBy("created_at", 'DESC');
@@ -141,6 +173,7 @@ class SolicitacaoDeAlteracao extends Model
             ->with("condutorReferencia")
             ->with("fiscalReferencia")
             ->with("veiculoReferencia")
+            ->with("endereco")
             ->find($id);
     }
 
