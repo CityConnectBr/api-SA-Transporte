@@ -21,6 +21,9 @@ class CreateCursosDoMonitorTable extends Migration
             $table->timestamps();
             $table->foreign('monitor_id')->references('id')->on('monitores');
             $table->foreign('tipo_do_curso_id')->references('id')->on('tipos_de_curso');
+
+            $table->softDeletes();
+            $table->boolean('ativo')->default(0);
         });
     }
 

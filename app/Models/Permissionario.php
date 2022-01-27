@@ -2,12 +2,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permissionario extends Model
 {
+    use SoftDeletes;
 
     protected $fillable = [
+        'ativo',
         'id_integracao',
         'numero_de_cadastro_antigo',
         'nome_razao_social',

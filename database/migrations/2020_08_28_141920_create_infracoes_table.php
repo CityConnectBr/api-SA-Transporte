@@ -44,6 +44,7 @@ class CreateInfracoesTable extends Migration
             $table->foreign('natureza_infracao_id')->references('id')->on('naturezas_da_infracao');
             $table->foreign('foto_uid')->references('id')->on('arquivos');
 
+            $table->softDeletes();
         });
     }
 

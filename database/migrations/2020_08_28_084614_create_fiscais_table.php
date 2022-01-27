@@ -28,6 +28,9 @@ class CreateFiscaisTable extends Migration
             $table->timestamps();
             $table->foreign('endereco_id')->references('id')->on('enderecos');
             $table->foreign('foto_uid')->references('id')->on('arquivos');
+
+            $table->softDeletes();
+            $table->boolean('ativo')->default(0);
         });
     }
 

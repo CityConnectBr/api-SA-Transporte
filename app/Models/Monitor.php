@@ -2,12 +2,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Monitor extends Model
 {
+    use SoftDeletes;
 
     protected $fillable = [
+        'ativo',
         'nome',
         'numero_de_cadastro_antigo',
         'id_integracao',

@@ -38,6 +38,7 @@ class CreateCertidoesTable extends Migration
             $table->foreign('cor_id')->references('id')->on('cores_veiculos');
             $table->foreign('ponto_id')->references('id')->on('pontos');
 
+            $table->softDeletes();
         });
     }
 

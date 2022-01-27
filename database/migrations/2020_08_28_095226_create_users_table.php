@@ -34,6 +34,9 @@ class CreateUsersTable extends Migration
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
             $table->foreign('condutor_id')->references('id')->on('condutores');
             $table->foreign('fiscal_id')->references('id')->on('fiscais');
+
+            $table->softDeletes();
+            $table->boolean('ativo')->default(0);
         });
     }
 

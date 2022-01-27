@@ -34,6 +34,9 @@ class CreateEmpresasTable extends Migration
             $table->integer('endereco_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('endereco_id')->references('id')->on('enderecos');
+
+            $table->softDeletes();
+            $table->boolean('ativo')->default(0);
         });
     }
 

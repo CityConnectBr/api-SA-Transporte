@@ -24,6 +24,8 @@ class CreateAlvaraDoPermissionarioTable extends Migration
             $table->integer('permissionario_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
+
+            $table->softDeletes();
         });
     }
 

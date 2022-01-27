@@ -1,12 +1,14 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Usuario extends Authenticatable implements JWTSubject
 {
+    use SoftDeletes;
     use Notifiable;
 
     /**
@@ -15,6 +17,7 @@ class Usuario extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
+        'ativo',
         'nome',
         'email',
         'password',

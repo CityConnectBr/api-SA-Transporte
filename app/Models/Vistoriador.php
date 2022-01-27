@@ -2,11 +2,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Vistoriador extends Model
 {
+    use SoftDeletes;
 
     protected $fillable = [
+        'ativo',
         'id_integracao',
         'nome',
         'cargo',
