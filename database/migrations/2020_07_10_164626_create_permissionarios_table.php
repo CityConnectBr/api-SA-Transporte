@@ -91,7 +91,7 @@ class CreatePermissionariosTable extends Migration
             $table->foreign('foto_uid')->references('id')->on('arquivos');
 
             $table->softDeletes();
-            $table->boolean('ativo')->default(0);
+            $table->boolean('ativo')->default(1);
         });
     }
 
