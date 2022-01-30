@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->foreign('fiscal_id')->references('id')->on('fiscais');
 
             $table->softDeletes();
-            $table->boolean('ativo')->default(0);
+            $table->boolean('ativo')->default(1);
         });
     }
 

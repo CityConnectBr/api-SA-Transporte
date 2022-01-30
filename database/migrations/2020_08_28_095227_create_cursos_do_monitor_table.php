@@ -23,7 +23,7 @@ class CreateCursosDoMonitorTable extends Migration
             $table->foreign('tipo_do_curso_id')->references('id')->on('tipos_de_curso');
 
             $table->softDeletes();
-            $table->boolean('ativo')->default(0);
+            $table->boolean('ativo')->default(1);
         });
     }
 

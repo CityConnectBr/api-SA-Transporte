@@ -36,7 +36,7 @@ class CreateEmpresasTable extends Migration
             $table->foreign('endereco_id')->references('id')->on('enderecos');
 
             $table->softDeletes();
-            $table->boolean('ativo')->default(0);
+            $table->boolean('ativo')->default(1);
         });
     }
 

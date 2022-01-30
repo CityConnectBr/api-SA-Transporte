@@ -50,7 +50,7 @@ class CreateVeiculosTable extends Migration
             $table->foreign('categoria_id')->references('id')->on('categorias_veiculos');
 
             $table->softDeletes();
-            $table->boolean('ativo')->default(0);
+            $table->boolean('ativo')->default(1);
         });
     }
 
