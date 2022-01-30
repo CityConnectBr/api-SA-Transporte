@@ -13,8 +13,9 @@ class Authenticate extends Middleware
     {
         try {
             JWTAuth::parseToken()->authenticate();
-            assert(auth()->id()!=null);
-            assert(Usuario::findComplete(auth()->id())!=null);
+            $id = auth()->id()!=null?auth()->id():auth('api')->id();
+            assert($id!=null);
+            assert(Usuario::findComplete($id)!=null);
         } catch (\Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
                 return response()->json([
