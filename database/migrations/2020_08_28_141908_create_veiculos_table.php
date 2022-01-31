@@ -31,8 +31,9 @@ class CreateVeiculosTable extends Migration
             $table->integer('marca_modelo_carroceria_id')->nullable()->unsigned();
             $table->integer('marca_modelo_chassi_id')->nullable()->unsigned();
 
-            //
+            //exclusivo para veiculo
             $table->integer('marca_modelo_veiculo_id')->nullable()->unsigned();
+
             $table->integer('tipo_combustivel_id')->nullable()->unsigned();
             $table->integer('cor_id')->nullable()->unsigned();
             $table->integer('tipo_veiculo_id')->nullable()->unsigned();

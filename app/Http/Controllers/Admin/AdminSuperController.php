@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminSuperController extends Controller
 {
-
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     function __construct($objectModel, $validatorList, $request, $showOnlyFile = false)
