@@ -149,6 +149,7 @@ class VeiculoController extends AdminSuperController
 
         $obj = new $this->objectModel();
         $obj->fill($request->all());
+        $obj->save();
 
         return $obj;
     }
