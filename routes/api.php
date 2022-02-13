@@ -124,6 +124,8 @@ Route::group([
                 Route::resource('/vistoriadepontos', 'Admin\VistoriaPontoController');
 
                 Route::get('/relatorios/entradasaidadeveiculos', 'Admin\RelatorioController@entradaSaudaDeVeiculos');
+
+                Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formulariorenovacaopermissao');
             });
         });
 
