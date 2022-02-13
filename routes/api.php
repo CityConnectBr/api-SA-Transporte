@@ -122,6 +122,8 @@ Route::group([
                 Route::post('/infracoes/{id}/foto', 'Admin\InfracaoController@storeFoto');
                 Route::get('/infracoes/{id}/foto', 'Admin\InfracaoController@showFoto');
                 Route::resource('/vistoriadepontos', 'Admin\VistoriaPontoController');
+
+                Route::get('/relatorios/entradasaidadeveiculos', 'Admin\RelatorioController@entradaSaudaDeVeiculos');
             });
         });
 
