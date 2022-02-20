@@ -105,7 +105,7 @@
                 <br>
                 <br>
                 <p>____________________________________________</p>
-                <p>{{ $obj['nome_razao_social'] }}</p>
+                <p>{{ $permissionario['nome_razao_social'] }}</p>
             </div>
         </div>
 
