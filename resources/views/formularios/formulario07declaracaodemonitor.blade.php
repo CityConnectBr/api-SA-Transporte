@@ -100,7 +100,7 @@
         <p>Declaro estar ciente que o monitor no exercício de sua atividade deve obrigatoriamente documento de identidade (RG).</p>
 
         <div class="content-signature content-signature-right">
-            <p>Santo André, 13 de fevereiro de 2022</p>
+            <p>Santo André, {{ $dataFormatada }}</p>
             <div>
                 <br>
                 <br>
