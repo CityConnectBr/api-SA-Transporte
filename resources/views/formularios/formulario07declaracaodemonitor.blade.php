@@ -91,8 +91,8 @@
 
         <p>INCLUÃO DE:</p>
         <p>Nome: <b>{{$solicitacao!=null && $solicitacao['campo10']!=null?$solicitacao['campo10']:'_________________________'}}</b> RG: <b>{{$solicitacao!=null && $solicitacao['campo11']!=null?$solicitacao['campo11']:'__________________'}}</b>, CPF: <b>{{$solicitacao!=null && $solicitacao['campo12']!=null?$solicitacao['campo12']:'______________'}}</b>,</p>
-        <p>Endereço: <b>{{$solicitacao!=null && $solicitacao['campo4']!=null?$solicitacao['campo4']:'_____________________________________________'}}</b> Tel: <b>{{$solicitacao!=null && $solicitacao['campo2']!=null?$solicitacao['campo2']:'______________'}}</b>,</p>
-        <p>E-mail: <b>{{$solicitacao!=null && $solicitacao['campo1']!=null?$solicitacao['campo1']:'____________________________________________________________________'}}</b></p>
+        <p>Endereço: <b>{{$enderecoSolicitacao!=null?$enderecoSolicitacao:'_____________________________________________'}}</b>,</p>
+        <p>E-mail: <b>{{$solicitacao!=null && $solicitacao['campo1']!=null?$solicitacao['campo1']:'__________________________________________________'}}</b>Tel: <b>{{$solicitacao!=null && $solicitacao['campo2']!=null?$solicitacao['campo2']:'______________.'}}</b></p>
         <p>OBS: Na inclusão deverão ser apresentados: cópia do RG e do CPF e Informado endereço, telefone e e-mail.</p>
 
         <p>EXCLUSÃO DE:</p>
