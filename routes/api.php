@@ -128,6 +128,7 @@ Route::group([
                 Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formulariorenovacaopermissao');
                 Route::get('/formularios/formulariodeclaracaomonitor', 'Admin\FormularioController@formulariodeclaracaomonitor');
                 Route::get('/formularios/condutorauxiliar', 'Admin\FormularioController@condutorauxiliar');
+                Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
             });
         });
 

@@ -179,4 +179,44 @@ class FormularioController extends Controller
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
+
+    function solicitacaodebaixadecondutorauxiliar(){
+
+        if ($this->request['id'] == null) {
+            return parent::responseMsgJSON("Id não encontrado", 404);
+        }
+        $id = $this->request['id'];
+
+        $permissionario = Permissionario::find($id);
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+        $modalidadeDoPermissionario = $permissionario->modalidade_id!=null?Modalidade::find($permissionario->modalidade_id):null;
+
+        /*if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }*/
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+
+        $condutor = null;
+        if ($this->request['condutor_id'] != null) {
+            $condutor = Condutor::findComplete($this->request['condutor_id']);
+            if ($condutor->permissionario_id != $permissionario->id) {
+                return parent::responseMsgJSON("Condutor não pertence ao permissionário", 404);
+            }
+        }
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario17solicitacaodebaixadecondutorauxiliar";
+
+        $pdf = PDF::loadView('formularios/'.$formlario, compact('permissionario', 'modalidadeDoPermissionario', 'condutor', 'dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
 }
