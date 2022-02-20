@@ -87,7 +87,7 @@
         <img src="http://santoandretransporte.cityconnect.com.br/assets/images/sa_logo.png" alt="logo" class="logo">
 
         <h3>ANEXO 07 - DECLARAÇÃO DE MONITOR</h3>
-        <p>Eu, <b>{{$permissionario['nome_razao_social']}}</b>, permissionário(a) do serviço de transporte escolar neste município com o prefixo <b>{{$permissionario['prefixo']}}</b>, em cumprimento à Lei Municipal nº. 8.038 de 09 de junho de 2000, art. 7º "no transporte de estudantes será obrigatória a presença de um Monitor, para auxiliar o condutor nas operações de embarque e desembarque" e ao Decreto Municipal nº. 14.538 de 15 de agosto de 2000, Art. 8º Parágrafo único "os monitores deverão estar devidamente cadastrados junto à SA-TRANS" , solicito a</p>
+        <p>Eu, <b>{{$permissionario['nome_razao_social']}}</b>, permissionário(a) do serviço de transporte escolar neste município com o prefixo <b>{{$permissionario['prefixo']}}</b>, em cumprimento à Lei Municipal nº. 8.038 de 09 de junho de 2000, art. 7º "no transporte de estudantes será obrigatória a presença de um Monitor, para auxiliar o condutor nas operações de embarque e desembarque" e ao Decreto Municipal nº. 14.538 de 15 de agosto de 2000, Art. 8º Parágrafo único <b>"os monitores deverão estar devidamente cadastrados junto à SA-TRANS"</b> , solicito a</p>
 
         <p>INCLUÃO DE:</p>
         <p>Nome: <b>{{$solicitacao!=null && $solicitacao['campo10']!=null?$solicitacao['campo10']:'_________________________'}}</b> RG: <b>{{$solicitacao!=null && $solicitacao['campo11']!=null?$solicitacao['campo11']:'__________________'}}</b>, CPF: <b>{{$solicitacao!=null && $solicitacao['campo12']!=null?$solicitacao['campo12']:'______________'}}</b>,</p>
@@ -102,16 +102,15 @@
         <div class="content-signature content-signature-right">
             <p>Santo André, 13 de fevereiro de 2022</p>
             <div>
+                <br>
+                <br>
                 <p>____________________________________________</p>
                 <p>ABIGAIL RUEDA BERNEIRA</p>
             </div>
         </div>
 
-        <p>Solicitação recebida e documentos conferidos por ____________________ em ____/_____/______</p>
-        <p>Assinatura: ________________________________________________________________________________</p>
-
         <footer>
-            <p>Impresso por Nome do Usuario em Data</p>
+            <p>Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p>
         </footer>
     </div>
 
