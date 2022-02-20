@@ -107,4 +107,9 @@ class CondutorController extends AdminSuperController
         );
     }
 
+    public function getByPermissionario($permissionarioId)
+    {
+        return Condutor::searchByPermissionario($permissionarioId, "");
+    }
+
 }

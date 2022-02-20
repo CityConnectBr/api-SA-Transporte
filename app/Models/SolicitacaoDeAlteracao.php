@@ -157,6 +157,24 @@ class SolicitacaoDeAlteracao extends Model
         return $query->paginate(40);
     }
 
+    public static function findByPermissionarioAndTipo($permissionarioId, $tipo)
+    {
+        $query = SolicitacaoDeAlteracao::where("permissionario_id", $permissionarioId);
+        $query->where("tipo_solicitacao_id", $tipo);
+        $query->with("tipo");
+        $query->with("permissionario");
+        $query->with("condutor");
+        $query->with("fiscal");
+        $query->with("permissionarioReferencia");
+        $query->with("condutorReferencia");
+        $query->with("fiscalReferencia");
+        $query->with("veiculoReferencia");
+        $query->with("endereco");
+        $query->orderBy("status");
+
+        return $query->get();
+    }
+
     public static function searchInverseOrder($search)
     {
         return SolicitacaoDeAlteracao::search($search, true);

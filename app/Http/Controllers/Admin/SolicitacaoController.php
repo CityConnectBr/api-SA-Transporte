@@ -59,6 +59,20 @@ class SolicitacaoController extends AdminSuperController
         }
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function indexByPermissionarioAndTipo()
+    {
+        $permissionarioId = $this->request->input('permissionario_id');
+        $tipoId = $this->request->input('tipo_id');
+
+        return SolicitacaoDeAlteracao::findByPermissionarioAndTipo($permissionarioId, $tipoId);
+    }
+
     public function concluir($id, Request $request)
     {
         $validator = Validator::make($request->all(), [

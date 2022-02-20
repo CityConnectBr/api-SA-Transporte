@@ -92,6 +92,7 @@ Route::group([
                 Route::resource('/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
 
                 Route::resource('/condutores', 'Admin\CondutorController');
+                Route::get('/condutores/permissionario/{permissionarioId}', 'Admin\CondutorController@getByPermissionario');
                 Route::post('/condutores/{id}/foto', 'Admin\CondutorController@storeFoto');
                 Route::get('/condutores/{id}/foto', 'Admin\CondutorController@showFoto');
                 Route::resource('/cursosdocondutor', 'Admin\CursoDoCondutorController');
@@ -111,6 +112,7 @@ Route::group([
                 Route::resource('/anexosdoveiculo', 'Admin\AnexoDoVeiculoController');
 
                 Route::get('/solicitacoes', 'Admin\SolicitacaoController@index');
+                Route::get('/solicitacoesbypermissionarioandtipo', 'Admin\SolicitacaoController@indexByPermissionarioAndTipo');
                 Route::get('/solicitacoes/{id}', 'Admin\SolicitacaoController@show');
                 Route::patch('/solicitacoes/{id}/concluir', 'Admin\SolicitacaoController@concluir');
 
