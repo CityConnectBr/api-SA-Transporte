@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Condutor;
 use App\Models\Endereco;
+use App\Models\Modalidade;
 use App\Models\Monitor;
 use App\Models\Municipio;
 use App\Models\Permissionario;
@@ -119,6 +120,7 @@ class FormularioController extends Controller
         if ($permissionario == null) {
             return parent::responseMsgJSON("Permissionário não encontrado", 404);
         }
+        $modalidadeDoPermissionario = $permissionario->modalidade_id!=null?Modalidade::find($permissionario->modalidade_id):null;
 
         /*if ($permissionario['ativo'] == 0) {
             return parent::responseMsgJSON("Permissionário inativo", 404);
@@ -173,7 +175,7 @@ class FormularioController extends Controller
 
         $formlario = "formulario08condutorauxiliar";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('permissionario', 'inscricaoOuRenovacao', 'nomeCondutor', 'rgCondutor', 'cnhCondutor', 'categoriaCNHCondutor', 'telefoneCondutor', 'enderecoCondutor', 'emailCondutor', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/'.$formlario, compact('permissionario', 'modalidadeDoPermissionario', 'inscricaoOuRenovacao', 'nomeCondutor', 'rgCondutor', 'cnhCondutor', 'categoriaCNHCondutor', 'telefoneCondutor', 'enderecoCondutor', 'emailCondutor', 'dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
