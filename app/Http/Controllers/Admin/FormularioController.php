@@ -155,11 +155,15 @@ class FormularioController extends Controller
             $enderecoCondutor = $enderecoObj['endereco'].', '.$enderecoObj['numero'].', '.$enderecoObj['bairro'].', '.$municipioObj['nome'].'-'.$enderecoObj['uf'];
             $emailCondutor = $condutor->email;
         }else if ($this->request['solicitacao_id'] != null) {
-            $solicitacao = SolicitacaoDeAlteracao::findComplete($id, $this->request['solicitacao_id']);
-            if ($solicitacao->nome != 'condutor_cadastro') {
+            $solicitacao = SolicitacaoDeAlteracao::findComplete($this->request['solicitacao_id']);
+            if ($solicitacao->tipo_solicitacao_id != 5) {//5 = condutor_cadastro
                 return parent::responseMsgJSON("Solicitação não é do tipo de cadastro de monitor", 404);
             }
-            $inscricaoOuRenovacao = 0;
+            if($solicitacao->permissionario_id != $permissionario->id){
+                return parent::responseMsgJSON("Solicitação não esta relacionada a permissionário", 404);
+            }
+
+            $inscricaoOuRenovacao = 2;
             $nomeCondutor = $solicitacao['campo15'];
             $rgCondutor = $solicitacao['campo17'];
             $cnhCondutor = $solicitacao['campo1'];
@@ -168,7 +172,6 @@ class FormularioController extends Controller
             $enderecoCondutor = $solicitacao['campo9'].', '.$solicitacao['campo10'].', '.$solicitacao['campo12'].', '.$solicitacao['campo13'].'-'.$solicitacao['campo14'];
             $emailCondutor = $solicitacao['campo11'];
         }
-
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
         $usuario = auth()->user();
