@@ -112,7 +112,7 @@ Route::group([
                 Route::resource('/anexosdoveiculo', 'Admin\AnexoDoVeiculoController');
 
                 Route::get('/solicitacoes', 'Admin\SolicitacaoController@index');
-                Route::get('/solicitacoesbypermissionarioandtipo', 'Admin\SolicitacaoController@indexByPermissionarioAndTipo');
+                Route::get('/solicitacoes/bypermissionarioandtipo', 'Admin\SolicitacaoController@indexByPermissionarioAndTipo');
                 Route::get('/solicitacoes/{id}', 'Admin\SolicitacaoController@show');
                 Route::patch('/solicitacoes/{id}/concluir', 'Admin\SolicitacaoController@concluir');
 
