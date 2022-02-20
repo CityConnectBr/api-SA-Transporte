@@ -177,6 +177,11 @@ Route::group([
                 Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
 
                 Route::get('/v1/arquivo/{id}', 'v1\ArquivoController@show');
+
+                Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formulariorenovacaopermissao');
+                Route::get('/formularios/formulariodeclaracaomonitor', 'Admin\FormularioController@formulariodeclaracaomonitor');
+                Route::get('/formularios/condutorauxiliar', 'Admin\FormularioController@condutorauxiliar');
+                Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
             });
         });
 
