@@ -99,6 +99,7 @@ Route::group([
                 Route::resource('/anexosdocondutor', 'Admin\AnexoDoCondutorController');
 
                 Route::resource('/monitores', 'Admin\MonitorController');
+                Route::get('/monitoresbypermissionario', 'Admin\MonitorController@indexByPermissionario');
                 Route::post('/monitores/{id}/foto', 'Admin\MonitorController@storeFoto');
                 Route::get('/monitores/{id}/foto', 'Admin\MonitorController@showFoto');
                 Route::resource('/cursosdomonitor', 'Admin\CursoDoMonitorController');

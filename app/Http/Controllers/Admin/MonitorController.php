@@ -80,4 +80,18 @@ class MonitorController extends AdminSuperController
         );
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function indexByPermissionario()
+    {
+        $permissionarioId = $this->request->input('permissionario_id');
+        $search = $this->request->input('search');
+
+        return Monitor::searchByPermissionario($permissionarioId, $search);
+    }
+
 }

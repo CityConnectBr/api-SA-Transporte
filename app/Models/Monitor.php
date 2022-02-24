@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -51,9 +52,9 @@ class Monitor extends Model
     {
         if ($withoutGlobalScope) {
             return Monitor::with('permissionario')
-            ->with('endereco')
-            ->with("permissionario")
-            ->find($id);
+                ->with('endereco')
+                ->with("permissionario")
+                ->find($id);
         } else {
             return Monitor::with('endereco')->with('permissionario')->find($id);
         }
@@ -63,9 +64,9 @@ class Monitor extends Model
     {
         if ($withoutGlobalScope) {
             return Monitor::with('permissionario')
-            ->with('endereco')
-            ->with("permissionario")
-            ->firstWhere("id_integracao", $id);
+                ->with('endereco')
+                ->with("permissionario")
+                ->firstWhere("id_integracao", $id);
         } else {
             return Monitor::with('endereco')->with('permissionario')->firstWhere("id_integracao", $id);
         }
@@ -74,10 +75,18 @@ class Monitor extends Model
     public static function searchPorPermissionario($permissionario_id, $search)
     {
         return Monitor::where("permissionario_id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
-        ->with("endereco")
-        ->with("permissionario")
-        ->orderBy("nome")
-        ->paginate(40);
+            ->with("endereco")
+            ->with("permissionario")
+            ->orderBy("nome")
+            ->paginate(40);
     }
 
+    public static function searchByPermissionario($permissionarioId, $search)
+    {
+        return Monitor::where("permissionario_id", "=", $permissionarioId)->where("nome", "like", "%" . $search . "%")
+            ->with("endereco")
+            ->with("permissionario")
+            ->orderBy("nome")
+            ->simplePaginate(40);
+    }
 }
