@@ -22,6 +22,7 @@ class FormularioController extends Controller
         $this->request = $request;
     }
 
+    //formulario1
     function formulariorenovacaopermissao(){
 
         if ($this->request['id'] == null) {
@@ -60,6 +61,7 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    //formulario7
     function formulariodeclaracaomonitor(){
 
         if ($this->request['id'] == null) {
@@ -92,10 +94,12 @@ class FormularioController extends Controller
         $solicitacao = null;
         if ($this->request['solicitacao_id'] != null) {
             $solicitacao = SolicitacaoDeAlteracao::findComplete($id, $this->request['solicitacao_id']);
-            if ($solicitacao->nome != 'monitor_cadastro') {
+            if ($solicitacao!=null && $solicitacao->tipo_solicitacao_id != 23) {// 23 = monitor_cadastro
                 return parent::responseMsgJSON("Solicitação não é do tipo de cadastro de monitor", 404);
             }
-            $enderecoSolicitacao = $solicitacao['campo4'].', '.$solicitacao['campo5'].', '.$solicitacao['campo7'].', '.$solicitacao['campo8'].'-'.$solicitacao['campo9'];
+
+            if($solicitacao!=null)
+                $enderecoSolicitacao = $solicitacao['campo4'].', '.$solicitacao['campo5'].', '.$solicitacao['campo7'].', '.$solicitacao['campo8'].'-'.$solicitacao['campo9'];
         }
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
@@ -109,6 +113,7 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    //formulario8
     function condutorauxiliar(){
 
         if ($this->request['id'] == null) {
@@ -183,6 +188,7 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    //formulario17
     function solicitacaodebaixadecondutorauxiliar(){
 
         if ($this->request['id'] == null) {
