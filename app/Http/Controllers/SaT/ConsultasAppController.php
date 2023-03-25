@@ -17,6 +17,11 @@ class ConsultasAppController extends Controller
     public function consultaStatusVeiculo(Request $request)
     {
         $veiculo = Veiculo::where('placa', $request->placa)->first();
+
+        if (!isset($veiculo)) {
+            return parent::responseMsgJSON('Veículo não encontrado', 404);
+        }
+
         $alvarasPermissionario = Alvara::findByPermissionario($veiculo->permissionario_id);
 
         $alvaraValido = false;
