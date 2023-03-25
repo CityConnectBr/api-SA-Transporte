@@ -273,5 +273,8 @@ Route::group([
 ], function () {
     Route::name('solicitacaodealteracao.')->group(function () {
         Route::get('/arquivo/{id}', 'SaT\ArquivoController@show');
+    });    
+    Route::name('statusveiculo.')->group(function () {
+        Route::get('/statusveiculo/{placa}', 'SaT\ConsultasAppController@consultaStatusVeiculo');
     });
 });
