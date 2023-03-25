@@ -1,49 +1,15 @@
 version: '3'
 
 services:
-  database:
+  mysql:
     image: mysql:5.6
-    container_name: dados_container
+    container_name: mysql
+    restart: always
     environment:
-      - "MYSQL_DATABASE=satransportes"
-      - "MYSQL_USER=admin"
-      - "MYSQL_PASSWORD=123456"
-      - "MYSQL_ROOT_PASSWORD=123456"
-    networks:
-      - network
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: satransportes
     ports:
       - "3306:3306"
-
-  database1.1:
-    image: mysql:5.6
-    container_name: dados_container1.1
-    environment:
-      - "MYSQL_DATABASE=satransportes"
-      - "MYSQL_USER=admin"
-      - "MYSQL_PASSWORD=123456"
-      - "MYSQL_ROOT_PASSWORD=123456"
-    networks:
-      - network
-    ports:
-      - "33061:3306"
-
-  database2:
-    image: mysql:5.7
-    container_name: dados_container2
-    environment:
-      - "MYSQL_DATABASE=database"
-      - "MYSQL_USER=admin"
-      - "MYSQL_PASSWORD=123456"
-      - "MYSQL_ROOT_PASSWORD=123456"
-    networks:
-      - network
-    ports:
-      - "3307:3306"
-
-volumes:
-  "dbdata":
-    driver: local
-
-networks:
-  "network":
-    driver: bridge
+    command: ["mysqld", "--bind-address=0.0.0.0", "--user=root", "--default-authentication-plugin=mysql_native_password"]

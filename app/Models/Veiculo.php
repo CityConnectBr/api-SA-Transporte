@@ -184,4 +184,12 @@ class Veiculo extends Model
             ->orderBy("placa")
             ->simplePaginate(20);
     }
+
+    public static function searchByPlaca($placa)
+    {
+        return Veiculo::where("placa", "like", "%" . $placa . "%")
+            ->with("permissionario")
+            ->orderBy("placa")
+            ->get();
+    }
 }

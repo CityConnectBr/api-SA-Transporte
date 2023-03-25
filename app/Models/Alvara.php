@@ -26,4 +26,11 @@ class Alvara extends Model
             ->orderBy("created_at", "desc")
             ->simplePaginate(20);
     }
+
+    public static function findByPermissionario($permissionario_id)
+    {
+        return Alvara::where("permissionario_id", $permissionario_id)
+            ->orderBy("created_at", "desc")
+            ->get();
+    }
 }
