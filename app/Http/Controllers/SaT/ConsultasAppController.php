@@ -18,9 +18,10 @@ class ConsultasAppController extends Controller
     {
         $veiculo = Veiculo::where('placa', $request->placa)->first();
 
-        if (!isset($veiculo)) {
-            return parent::responseMsgJSON('Veículo não encontrado', 404);
-        }
+        return parent::responseJSON([
+            'alvaraValido' => false,
+            'mensagem' => 'Veículo não encontrado'
+        ], 200);
 
         $alvarasPermissionario = Alvara::findByPermissionario($veiculo->permissionario_id);
 
@@ -34,7 +35,8 @@ class ConsultasAppController extends Controller
         }
 
         return parent::responseJSON([
-            'alvaraValido' => $alvaraValido
+            'alvaraValido' => $alvaraValido,
+            'mensagem' => $alvaraValido ? 'Alvará válido' : 'Alvará inválido'
         ], 200);
     }
 
