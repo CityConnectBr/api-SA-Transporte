@@ -27,7 +27,14 @@ class Infracao extends Model
         'veiculo_id',
         'quadro_infracao_id',
         'natureza_infracao_id',
-        'foto_uid'
+        'foto_uid',
+        'tipo_pagamento',
+        'chave_pix',
+        'codigo_pix',
+        'data_pagamento',
+        'status',
+        'arquivo_comprovante_uid',
+        'data_envio_comprovante',
     ];
 
     protected $table = 'infracoes';

@@ -32,23 +32,23 @@ class InfracaoController extends AdminSuperController
                     'max:500',
                 ],
                 'descricao' => [
-                    'required',
+                    'nullable',
                     'max:500',
                 ],
                 'acao_tomada' => [
-                    'required',
+                    'nullable',
                     'max:500',
                 ],
                 'num_processo' => [
-                    'required',
+                    'nullable',
                     'max:15',
                 ],
                 'num_boleto' => [
-                    'required',
+                    'nullable',
                     'max:15',
                 ],
                 'data_vendimento_boleto' => [
-                    'required',
+                    'nullable',
                     'regex:' . Util::REGEX_DATE,
                 ],
                 'qtd_moeda' => [
@@ -74,6 +74,24 @@ class InfracaoController extends AdminSuperController
                     'required',
                     'exists:naturezas_da_infracao,id'
                 ],
+                'tipo_pagamento' => [
+                    'required',
+                    'regex:/^(boleto|pix)$/'
+                ],
+                'chave_pix' => [
+                    'max:200',
+                ],
+                'codigo_pix' => [
+                    'max:200',
+                ],
+                /*'data_pagamento' => [
+                    'nullable',
+                    'regex:' . Util::REGEX_DATE,
+                ],
+                'status' => [
+                    'nullable',
+                    'regex:/^(pendente|pago|cancelado|aguardando_confirmacao)$/'
+                ],*/
             ],
             $request
         );
