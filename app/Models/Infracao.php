@@ -32,9 +32,14 @@ class Infracao extends Model
         'chave_pix',
         'codigo_pix',
         'data_pagamento',
-        'status',
+        'status',//(pendente, pago, cancelado, aguardando_confirmacao)
         'arquivo_comprovante_uid',
         'data_envio_comprovante',
+        'valor_fmp_atual',
+        'fmp_id',
+        'qtd_fmp',
+        'valor_fmp',//valor automatico: qtd_moeda * valor_fmp_atual
+        'valor_final',
     ];
 
     protected $table = 'infracoes';

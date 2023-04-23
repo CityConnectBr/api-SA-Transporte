@@ -18,9 +18,14 @@ class UpdateInfracoes extends Migration
             $table->string('chave_pix', 200)->nullable();
             $table->string('codigo_pix', 200)->nullable();
             $table->date('data_pagamento')->nullable();
-            $table->double('status');//(pendente, pago, cancelado, aguardando_confirmacao)
+            $table->string('status', 20);//(pendente, pago, cancelado, aguardando_confirmacao)
             $table->string('arquivo_comprovante_uid')->nullable();
-            $table->string('data_envio_comprovante')->nullable();
+            $table->string('data_envio_comprovante')->nullable();         
+            $table->double('valor_fmp_atual')->nullable();
+            $table->integer('fmp_id')->nullable();
+            $table->integer('qtd_fmp')->nullable();
+            $table->double('valor_fmp')->nullable();
+            $table->double('valor_final')->nullable();
         });
     }
 
@@ -39,6 +44,11 @@ class UpdateInfracoes extends Migration
             $table->dropColumn('status');
             $table->dropColumn('arquivo_comprovante_uid');
             $table->dropColumn('data_envio_comprovante');
+            $table->dropColumn('valor_fmp_atual');
+            $table->dropColumn('fmp_id');
+            $table->dropColumn('qtd_fmp');
+            $table->dropColumn('valor_fmp');
+            $table->dropColumn('valor_final');
         });
     }
 }

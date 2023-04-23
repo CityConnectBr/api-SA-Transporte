@@ -31,10 +31,6 @@ class InfracaoController extends AdminSuperController
                 'obs_aip' => [
                     'max:500',
                 ],
-                'descricao' => [
-                    'nullable',
-                    'max:500',
-                ],
                 'acao_tomada' => [
                     'nullable',
                     'max:500',
@@ -50,10 +46,6 @@ class InfracaoController extends AdminSuperController
                 'data_vendimento_boleto' => [
                     'nullable',
                     'regex:' . Util::REGEX_DATE,
-                ],
-                'qtd_moeda' => [
-                    'required',
-                    'regex:'.Util::REGEX_NUMBER
                 ],
                 'moeda_id' => [
                     'required',
@@ -83,6 +75,26 @@ class InfracaoController extends AdminSuperController
                 ],
                 'codigo_pix' => [
                     'max:200',
+                ],
+                'valor_fmp_atual' => [
+                    'required',
+                    'regex:'.Util::REGEX_NUMBER
+                ],
+                'fmp_id' => [
+                    'required',
+                    'exists:fmp,id'
+                ],
+                'qtd_fmp' => [
+                    'required',
+                    'regex:'.Util::REGEX_NUMBER
+                ],
+                'valor_fmp' => [
+                    'required',
+                    'regex:'.Util::REGEX_NUMBER
+                ],
+                'valor_final' => [
+                    'required',
+                    'regex:'.Util::REGEX_NUMBER
                 ],
                 /*'data_pagamento' => [
                     'nullable',
@@ -114,6 +126,9 @@ class InfracaoController extends AdminSuperController
 
         $obj = new $this->objectModel();
         $obj->fill($request->all());
+
+        $obj->status="pendente";
+
         $obj->save();
 
         $solicitacao = SolicitacaoDeAlteracao::find($request['solicitacao_id']);

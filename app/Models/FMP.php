@@ -22,4 +22,11 @@ class FMP extends Model
         return FMP::where("moeda_id", "like", "%" . $search . "%")
             ->paginate(15);
     }
+
+    public static function findValidos()
+    {
+        return FMP::where("data_final", ">=", date("Y-m-d"))
+            ->orderBy("data_final", "desc")
+            ->get();
+    }
 }

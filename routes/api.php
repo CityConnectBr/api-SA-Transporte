@@ -35,7 +35,7 @@ Route::group([
         // fiscal
         Route::group([
             'middleware' => [
-                 'authPerfilAdmin'
+                'authPerfilAdmin'
             ],
             'prefix' => 'admin'
         ], function () {
@@ -65,9 +65,12 @@ Route::group([
                 Route::resource('/enderecos', 'Admin\EnderecoController');
                 Route::resource('/quadrodeinfracoes', 'Admin\QuadroDeInfracoesController');
                 Route::resource('/naturezasdainfracao', 'Admin\NaturezaDaInfracaoController');
+                Route::get('/valoresdainfracao/findbynaturezaandmodalidade', 'Admin\ValoresDaInfracaoController@findByModalidadeAndNatureza')->name('valoresdainfracao.findByModalidadeAndNatureza');
                 Route::resource('/valoresdainfracao', 'Admin\ValoresDaInfracaoController');
                 Route::resource('/tiposdemoeda', 'Admin\TiposDeMoedaController');
                 Route::resource('/taloesdofiscal', 'Admin\TalaoDoFiscalController');
+
+                Route::get('/fmp/validos', 'Admin\FMPController@indexFMPsValidos')->name('indexFMPsValidos');
                 Route::resource('/fmp', 'Admin\FMPController');
 
                 Route::resource('/fiscais', 'Admin\FiscalController');
@@ -273,7 +276,7 @@ Route::group([
 ], function () {
     Route::name('solicitacaodealteracao.')->group(function () {
         Route::get('/arquivo/{id}', 'SaT\ArquivoController@show');
-    });    
+    });
     Route::name('statusveiculo.')->group(function () {
         Route::get('/statusveiculo/{placa}', 'SaT\ConsultasAppController@consultaStatusVeiculo');
     });

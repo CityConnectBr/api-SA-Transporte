@@ -14,11 +14,16 @@ class Ponto extends Model
         'data_extincao',
         'ocupacao_atual',
         'observacao',
-        'modalidade_transporte',
+        'modalidade_id',
         'endereco_id',
     ];
 
     protected $table = 'pontos';
+    
+    public function modalidade()
+    {
+        return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
+    }
 
     //////////////////////////////////////
     public static function search($search)

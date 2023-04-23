@@ -9,12 +9,17 @@ class TipoVeiculo extends Model
     protected $fillable = [
         'id_integracao',
         'descricao',
-        'modalidade_transporte',
+        'modalidade_id',
         'idade_limite_ingresso',
         'idade_limite_permanencia'
     ];
 
     protected $table = 'tipos_veiculos';
+
+    public function modalidade()
+    {
+        return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
+    }
     
     ///////////////////
     

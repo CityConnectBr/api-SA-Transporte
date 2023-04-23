@@ -10,7 +10,7 @@ class QuadroDeInfracoes extends Model
         'descricao',
         'acao',
         'reincidencia',
-        'modalidade_transporte',
+        'modalidade_id',
         'qtd_reincidencia',
         'unidade_reincidencia',
         'natureza_infracao_id',
@@ -18,9 +18,20 @@ class QuadroDeInfracoes extends Model
 
     protected $table = 'quadro_de_infracoes';
 
+    public function modalidade()
+    {
+        return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
+    }
+
+    public function naturezaInfracao()
+    {
+        return $this->hasOne(NaturezaDaInfracao::class, 'id', 'natureza_infracao_id');
+    }
+
     public static function search($search)
     {
         return QuadroDeInfracoes::where("descricao", "like", "%" . $search . "%")
+            ->with('naturezaInfracao')
             ->orderBy("descricao")
             ->paginate(40);
     }
