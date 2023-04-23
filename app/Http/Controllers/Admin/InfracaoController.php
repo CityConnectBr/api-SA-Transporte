@@ -139,4 +139,49 @@ class InfracaoController extends AdminSuperController
 
         return $obj;
     }
+
+    public function update(Request $request, $id)
+    {
+        $obj = $this->objectModel::find($id);
+
+        if($obj==null){
+            return Parent::responseMsgsJSON("Objeto não encontrado", 400);
+        }
+
+        if($request['veiculo_id']!=null){
+            $veiculo = Veiculo::find($request['veiculo_id']);
+            if($veiculo!=null && $veiculo->permissionario_id!=$request['permissionario_id']){
+                return Parent::responseMsgsJSON("Veículo não pertence ao permissionário", 400);
+            }
+        }
+
+        if($request['status']!=null && $request['status']=="pago"){
+            return Parent::responseMsgsJSON("Não é possível alterar uma infração paga", 400);
+        }
+
+        $obj->fill($request->all());
+
+        $obj->update();
+
+        return $obj;
+    }
+
+    public function destroy($id)
+    {
+        $obj = $this->objectModel::find($id);
+
+        if($obj==null){
+            return Parent::responseMsgsJSON("Objeto não encontrado", 400);
+        }
+
+        if($obj->status=="pago"){
+            return Parent::responseMsgsJSON("Não é possível excluir uma infração paga", 400);
+        }
+
+        $obj->delete();
+
+        return $obj;
+    }
+
+
 }
