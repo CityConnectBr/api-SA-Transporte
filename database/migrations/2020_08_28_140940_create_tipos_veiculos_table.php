@@ -17,10 +17,11 @@ class CreateTiposVeiculosTable extends Migration
             $table->increments('id');
             $table->string('id_integracao')->nullable()->unique();
             $table->string('descricao', 40);
-            $table->string('modalidade_transporte', 1);
+            $table->integer('modalidade_id')->unsigned()->nullable();
             $table->integer('idade_limite_ingresso')->nullable();
             $table->integer('idade_limite_permanencia')->nullable();
             $table->timestamps();
+            $table->foreign('modalidade_id')->references('id')->on('modalidades');
         });
     }
 

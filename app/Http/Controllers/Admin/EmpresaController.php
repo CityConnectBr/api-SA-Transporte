@@ -68,7 +68,13 @@ class EmpresaController extends AdminSuperController
                     'required',
                     'exists:enderecos,id'
                 ],
-
+                'chave_pix' => [
+                    'max:200',
+                ],
+                'tipo_chave_pix' => [
+                    'nullable',
+                    'regex:/^(cpf|telefone|email|aleatoria|cnpj)$/',
+                ],
             ],
             $request
         );

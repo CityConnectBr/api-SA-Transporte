@@ -16,7 +16,7 @@ class CreateValoresDaInfracaoTable extends Migration
         Schema::create('valores_da_infracao', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_integracao')->nullable()->unique();
-            $table->string('modalidade_transporte', 1);
+            $table->integer('modalidade_id')->unsigned()->nullable();
             $table->string('descricao', 40)->default('');
             $table->integer('quantidade');
 
@@ -25,6 +25,7 @@ class CreateValoresDaInfracaoTable extends Migration
             $table->timestamps();
             $table->foreign('natureza_infracao_id')->references('id')->on('naturezas_da_infracao');
             $table->foreign('moeda_id')->references('id')->on('moedas');
+            $table->foreign('modalidade_id')->references('id')->on('modalidades');
         });
     }
 

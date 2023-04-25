@@ -18,9 +18,9 @@ class PontoController extends AdminSuperController
                     'max:40',
                     'min:3'
                 ],
-                'modalidade_transporte' => [
+                'modalidade_id' => [
                     'required',
-                    'regex:/(E|T|G)/'
+                    'exists:modalidades,id'
                 ],
                 'id_integracao' => [
                     'max:40',

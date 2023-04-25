@@ -12,7 +12,8 @@ class FMPController extends AdminSuperController
     function __construct(Request $request)
     {
         parent::__construct(
-            FMP::class, [
+            FMP::class,
+            [
                 'descricao' => [
                     'required',
                     'max:40',
@@ -20,11 +21,11 @@ class FMPController extends AdminSuperController
                 ],
                 'data_inicial' => [
                     'required',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'data_final' => [
                     'required',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'valor' => [
                     'required',
@@ -38,4 +39,10 @@ class FMPController extends AdminSuperController
             $request
         );
     }
+
+    public function indexFMPsValidos()
+    {
+        return parent::responseJSON(FMP::findValidos());
+    }
+
 }

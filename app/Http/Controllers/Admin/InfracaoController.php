@@ -31,29 +31,21 @@ class InfracaoController extends AdminSuperController
                 'obs_aip' => [
                     'max:500',
                 ],
-                'descricao' => [
-                    'required',
-                    'max:500',
-                ],
                 'acao_tomada' => [
-                    'required',
+                    'nullable',
                     'max:500',
                 ],
                 'num_processo' => [
-                    'required',
+                    'nullable',
                     'max:15',
                 ],
                 'num_boleto' => [
-                    'required',
+                    'nullable',
                     'max:15',
                 ],
                 'data_vendimento_boleto' => [
-                    'required',
+                    'nullable',
                     'regex:' . Util::REGEX_DATE,
-                ],
-                'qtd_moeda' => [
-                    'required',
-                    'regex:'.Util::REGEX_NUMBER
                 ],
                 'moeda_id' => [
                     'required',
@@ -74,6 +66,48 @@ class InfracaoController extends AdminSuperController
                     'required',
                     'exists:naturezas_da_infracao,id'
                 ],
+                'tipo_pagamento' => [
+                    'required',
+                    'regex:/^(boleto|pix)$/'
+                ],
+                'chave_pix' => [
+                    'max:200',
+                ],
+                'codigo_pix' => [
+                    'max:200',
+                ],
+                'valor_fmp_atual' => [
+                    'required',
+                    'regex:'.Util::REGEX_NUMBER
+                ],
+                'fmp_id' => [
+                    'required',
+                    'exists:fmp,id'
+                ],
+                'qtd_fmp' => [
+                    'required',
+                    'regex:'.Util::REGEX_NUMBER
+                ],
+                'valor_fmp' => [
+                    'required',
+                    'regex:'.Util::REGEX_NUMBER
+                ],
+                'valor_final' => [
+                    'required',
+                    'regex:'.Util::REGEX_NUMBER
+                ],
+                'empresa_id' => [
+                    'required',
+                    'exists:empresas,id'
+                ],
+                /*'data_pagamento' => [
+                    'nullable',
+                    'regex:' . Util::REGEX_DATE,
+                ],
+                'status' => [
+                    'nullable',
+                    'regex:/^(pendente|pago|cancelado|aguardando_confirmacao)$/'
+                ],*/
             ],
             $request
         );
@@ -96,6 +130,9 @@ class InfracaoController extends AdminSuperController
 
         $obj = new $this->objectModel();
         $obj->fill($request->all());
+
+        $obj->status="pendente";
+
         $obj->save();
 
         $solicitacao = SolicitacaoDeAlteracao::find($request['solicitacao_id']);
@@ -106,4 +143,81 @@ class InfracaoController extends AdminSuperController
 
         return $obj;
     }
+
+    public function update(Request $request, $id)
+    {
+        $obj = $this->objectModel::find($id);
+
+        if($obj==null){
+            return Parent::responseMsgsJSON("Objeto não encontrado", 400);
+        }
+
+        if($request['veiculo_id']!=null){
+            $veiculo = Veiculo::find($request['veiculo_id']);
+            if($veiculo!=null && $veiculo->permissionario_id!=$request['permissionario_id']){
+                return Parent::responseMsgsJSON("Veículo não pertence ao permissionário", 400);
+            }
+        }
+
+        if($request['status']!=null && $request['status']=="pago"){
+            return Parent::responseMsgsJSON("Não é possível alterar uma infração paga", 400);
+        }
+
+        $obj->fill($request->all());
+
+        $obj->update();
+
+        return $obj;
+    }
+
+    public function destroy($id)
+    {
+        $obj = $this->objectModel::find($id);
+
+        if($obj==null){
+            return Parent::responseMsgsJSON("Objeto não encontrado", 400);
+        }
+
+        if($obj->status=="pago"){
+            return Parent::responseMsgsJSON("Não é possível excluir uma infração paga", 400);
+        }
+
+        $obj->delete();
+
+        return $obj;
+    }
+
+
+    public function setPagamento(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'data_pagamento' => [
+                'required',
+                'regex:' . Util::REGEX_DATE,
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $obj = $this->objectModel::find($id);        
+        $obj->usuario_pagamento_id = auth()->id()!=null?auth()->id():auth('api')->id();
+
+        if($obj==null){
+            return Parent::responseMsgsJSON("Objeto não encontrado", 400);
+        }
+
+        if($obj->status=="pago"){
+            return Parent::responseMsgsJSON("Infração já paga", 400);
+        }
+
+        $obj->status="pago";
+        $obj->data_pagamento=$request['data_pagamento'];
+        $obj->update();
+
+        return $obj;
+    }
+
+
 }

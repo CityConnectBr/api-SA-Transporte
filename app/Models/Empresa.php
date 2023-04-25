@@ -28,6 +28,8 @@ class Empresa extends Model
         'decreto_municipal_taxi',
         'decreto_municipal_escolar',
         'endereco_id',
+        'chave_pix',
+        'tipo_chave_pix'
     ];
 
     protected $table = 'empresas';

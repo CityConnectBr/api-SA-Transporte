@@ -17,9 +17,9 @@ class TipoDeVeiculoController extends AdminSuperController
                     'max:40',
                     'min:3'
                 ],
-                'modalidade_transporte' => [
+                'modalidade_id' => [
                     'required',
-                    'regex:/(T|G|E)/'
+                    'exists:modalidades,id'
                 ],
                 'idade_limite_ingresso' => [
                     'nullable',

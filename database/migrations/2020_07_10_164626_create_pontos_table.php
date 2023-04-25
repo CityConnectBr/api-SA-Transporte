@@ -25,11 +25,12 @@ class CreatePontosTable extends Migration
             $table->date('data_extincao')->nullable();
             $table->string('ocupacao_atual', 40)->nullable();
             $table->string('observacao', 500)->nullable();
-            $table->string('modalidade_transporte', 1)->nullable();
+            $table->integer('modalidade_id')->unsigned()->nullable();
 
             $table->integer('endereco_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('endereco_id')->references('id')->on('enderecos');
+            $table->foreign('modalidade_id')->references('id')->on('modalidades');
         });
     }
 
