@@ -124,6 +124,7 @@ Route::group([
                 Route::post('/arquivos', 'Admin\ArquivoController@create');
 
                 Route::resource('/certidoes', 'Admin\CertidaoController');
+                Route::post('/infracoes/{id}/lancarpagamento', 'Admin\InfracaoController@setPagamento');
                 Route::resource('/infracoes', 'Admin\InfracaoController');
                 Route::post('/infracoes/{id}/foto', 'Admin\InfracaoController@storeFoto');
                 Route::get('/infracoes/{id}/foto', 'Admin\InfracaoController@showFoto');

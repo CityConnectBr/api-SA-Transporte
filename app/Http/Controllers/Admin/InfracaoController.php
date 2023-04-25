@@ -96,6 +96,10 @@ class InfracaoController extends AdminSuperController
                     'required',
                     'regex:'.Util::REGEX_NUMBER
                 ],
+                'empresa_id' => [
+                    'required',
+                    'exists:empresas,id'
+                ],
                 /*'data_pagamento' => [
                     'nullable',
                     'regex:' . Util::REGEX_DATE,
@@ -179,6 +183,38 @@ class InfracaoController extends AdminSuperController
         }
 
         $obj->delete();
+
+        return $obj;
+    }
+
+
+    public function setPagamento(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'data_pagamento' => [
+                'required',
+                'regex:' . Util::REGEX_DATE,
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $obj = $this->objectModel::find($id);        
+        $obj->usuario_pagamento_id = auth()->id()!=null?auth()->id():auth('api')->id();
+
+        if($obj==null){
+            return Parent::responseMsgsJSON("Objeto não encontrado", 400);
+        }
+
+        if($obj->status=="pago"){
+            return Parent::responseMsgsJSON("Infração já paga", 400);
+        }
+
+        $obj->status="pago";
+        $obj->data_pagamento=$request['data_pagamento'];
+        $obj->update();
 
         return $obj;
     }

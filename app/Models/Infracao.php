@@ -40,13 +40,51 @@ class Infracao extends Model
         'qtd_fmp',
         'valor_fmp',//valor automatico: qtd_moeda * valor_fmp_atual
         'valor_final',
+        'usuario_pagamento_id',
+        'empresa_id'
     ];
 
     protected $table = 'infracoes';
 
+    public function moeda()
+    {
+        return $this->hasOne(Moeda::class, 'id', 'moeda_id');
+    }
+
+    public function permissionario()
+    {
+        return $this->hasOne(Permissionario::class, 'id', 'permissionario_id');
+    }
+
+    public function veiculo()
+    {
+        return $this->hasOne(Veiculo::class, 'id', 'veiculo_id');
+    }
+
+    public function quadro_infracao()
+    {
+        return $this->hasOne(QuadroInfracao::class, 'id', 'quadro_infracao_id');
+    }
+
+    public function natureza_infracao()
+    {
+        return $this->hasOne(NaturezaInfracao::class, 'id', 'natureza_infracao_id');
+    }
+
+    public function usuario_pagamento()
+    {
+        return $this->hasOne(Usuario::class, 'id', 'usuario_pagamento_id');
+    }
+
+    public function empresa()
+    {
+        return $this->hasOne(Empresa::class, 'id', 'empresa_id');
+    }
+
     public static function search($search)
     {
-        return Infracao::where("num_aip", "like", "%" . $search . "%")
+        return Infracao::where("status", 'like', "%{$search}%")
+            ->with('permissionario', 'veiculo', 'empresa')
             ->orderBy("data_infracao", 'desc')
             ->paginate(40);
     }

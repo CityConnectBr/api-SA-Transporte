@@ -22,10 +22,16 @@ class UpdateInfracoes extends Migration
             $table->string('arquivo_comprovante_uid')->nullable();
             $table->string('data_envio_comprovante')->nullable();         
             $table->double('valor_fmp_atual')->nullable();
-            $table->integer('fmp_id')->nullable();
+            $table->integer('fmp_id')->nullable()->unsigned();
             $table->integer('qtd_fmp')->nullable();
             $table->double('valor_fmp')->nullable();
             $table->double('valor_final')->nullable();
+            $table->bigInteger('usuario_pagamento_id')->nullable()->unsigned();
+            $table->integer('empresa_id')->unsigned();
+            
+            $table->foreign('usuario_pagamento_id')->references('id')->on('usuarios');
+            $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->foreign('fmp_id')->references('id')->on('fmp');
         });
     }
 
@@ -49,6 +55,12 @@ class UpdateInfracoes extends Migration
             $table->dropColumn('qtd_fmp');
             $table->dropColumn('valor_fmp');
             $table->dropColumn('valor_final');
+            $table->dropColumn('usuario_pagamento_id');
+            $table->dropColumn('empresa_id');
+
+            $table->dropForeign('infrações_usuario_pagamento_id_foreign');
+            $table->dropForeign('infrações_empresa_id_foreign');
+            $table->dropForeign('infrações_fmp_id_foreign');
         });
     }
 }
