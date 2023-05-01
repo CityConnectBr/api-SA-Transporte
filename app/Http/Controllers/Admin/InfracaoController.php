@@ -152,6 +152,10 @@ class InfracaoController extends AdminSuperController
             return Parent::responseMsgsJSON("Objeto não encontrado", 400);
         }
 
+        if($obj->status=="pago"){
+            return Parent::responseMsgsJSON("Não é possível alterar uma infração paga", 400);
+        }
+
         if($request['veiculo_id']!=null){
             $veiculo = Veiculo::find($request['veiculo_id']);
             if($veiculo!=null && $veiculo->permissionario_id!=$request['permissionario_id']){

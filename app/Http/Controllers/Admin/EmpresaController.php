@@ -73,7 +73,7 @@ class EmpresaController extends AdminSuperController
                 ],
                 'tipo_chave_pix' => [
                     'nullable',
-                    'regex:/^(cpf|telefone|email|aleatoria|cnpj)$/',
+                    'regex:/^(cpf|telefone|email|aleatorio|cnpj)$/',
                 ],
             ],
             $request
