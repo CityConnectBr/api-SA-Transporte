@@ -21,11 +21,7 @@ class UpdateAlvaraPermissionario extends Migration
             $table->string('status', 20)->nullable();//(pendente, pago, cancelado, aguardando_confirmacao)
             $table->string('arquivo_comprovante_uid')->nullable();
             $table->string('data_envio_comprovante')->nullable();         
-            $table->double('valor_fmp_atual')->nullable();
-            $table->integer('fmp_id')->nullable()->unsigned();
-            $table->integer('qtd_fmp')->nullable();
-            $table->double('valor_fmp')->nullable();
-            $table->double('valor_final')->nullable();
+            $table->double('valor')->nullable();
             $table->bigInteger('usuario_pagamento_id')->nullable()->unsigned();
             $table->integer('empresa_id')->nullable()->unsigned();
             
