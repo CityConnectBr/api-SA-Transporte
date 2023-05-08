@@ -27,7 +27,6 @@ class UpdateAlvaraPermissionario extends Migration
             
             $table->foreign('usuario_pagamento_id')->references('id')->on('usuarios');
             $table->foreign('empresa_id')->references('id')->on('empresas');
-            $table->foreign('fmp_id')->references('id')->on('fmp');
         });
     }
 
