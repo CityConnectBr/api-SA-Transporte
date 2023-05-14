@@ -94,6 +94,9 @@ Route::group([
                 Route::resource('/observacoesdopermissionario', 'Admin\ObservacaoDoPermissionarioController');
                 Route::resource('/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
 
+                Route::get('/lancamentoalvaradopermissionario', 'Admin\AlvaraDoPermissionarioController@indexWithStatusPendenteAndAguardandoConfirmacao');
+                Route::post('/lancamentoalvaradopermissionario/{id}/lancarpagamento', 'Admin\AlvaraDoPermissionarioController@setPagamento');
+
                 Route::resource('/condutores', 'Admin\CondutorController');
                 Route::get('/condutores/permissionario/{permissionarioId}', 'Admin\CondutorController@getByPermissionario');
                 Route::post('/condutores/{id}/foto', 'Admin\CondutorController@storeFoto');

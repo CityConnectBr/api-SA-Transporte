@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateInfracoes extends Migration
+class UpdateAlvaraPermissionario extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class UpdateInfracoes extends Migration
      */
     public function up()
     {        
-        Schema::table('infracoes', function (Blueprint $table) {
+        Schema::table('alvara_do_permissionario', function (Blueprint $table) {
             $table->string('tipo_pagamento', 20)->nullable();
             $table->string('chave_pix', 200)->nullable();
             $table->string('codigo_pix', 200)->nullable();
@@ -21,17 +21,12 @@ class UpdateInfracoes extends Migration
             $table->string('status', 20)->nullable();//(pendente, pago, cancelado, aguardando_confirmacao)
             $table->string('arquivo_comprovante_uid')->nullable();
             $table->string('data_envio_comprovante')->nullable();         
-            $table->double('valor_fmp_atual')->nullable();
-            $table->integer('fmp_id')->nullable()->unsigned();
-            $table->integer('qtd_fmp')->nullable();
-            $table->double('valor_fmp')->nullable();
-            $table->double('valor_final')->nullable();
+            $table->double('valor')->nullable();
             $table->bigInteger('usuario_pagamento_id')->nullable()->unsigned();
             $table->integer('empresa_id')->nullable()->unsigned();
             
             $table->foreign('usuario_pagamento_id')->references('id')->on('usuarios');
             $table->foreign('empresa_id')->references('id')->on('empresas');
-            $table->foreign('fmp_id')->references('id')->on('fmp');
         });
     }
 
@@ -42,7 +37,7 @@ class UpdateInfracoes extends Migration
      */
     public function down()
     {
-        Schema::table('infracoes', function (Blueprint $table) {
+        Schema::table('alvara_do_permissionario', function (Blueprint $table) {
             $table->dropColumn('tipo_pagamento');
             $table->dropColumn('chave_pix');
             $table->dropColumn('codigo_pix');
@@ -58,9 +53,9 @@ class UpdateInfracoes extends Migration
             $table->dropColumn('usuario_pagamento_id');
             $table->dropColumn('empresa_id');
 
-            $table->dropForeign('infrações_usuario_pagamento_id_foreign');
-            $table->dropForeign('infrações_empresa_id_foreign');
-            $table->dropForeign('infrações_fmp_id_foreign');
+            $table->dropForeign('alvara_do_permissionario_usuario_pagamento_id_foreign');
+            $table->dropForeign('alvara_do_permissionario_empresa_id_foreign');
+            $table->dropForeign('alvara_do_permissionario_fmp_id_foreign');
         });
     }
 }

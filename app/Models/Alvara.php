@@ -15,9 +15,29 @@ class Alvara extends Model
         'data_retorno',
         'observacao_retorno',
         'permissionario_id',
+        'tipo_pagamento',
+        'chave_pix',
+        'codigo_pix',
+        'data_pagamento',
+        'status',//(pendente, pago, cancelado, aguardando_confirmacao)
+        'arquivo_comprovante_uid',
+        'data_envio_comprovante',
+        'valor',
+        'usuario_pagamento_id',
+        'empresa_id'
     ];
 
     protected $table = 'alvara_do_permissionario';
+
+    public function permissionario()
+    {
+        return $this->belongsTo(Permissionario::class);
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class);
+    }
 
     //////////////////////////////////////
     public static function search($search)
