@@ -135,7 +135,8 @@ Route::group([
 
                 Route::get('/relatorios/entradasaidadeveiculos', 'Admin\RelatorioController@entradaSaudaDeVeiculos');
 
-                Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formulariorenovacaopermissao');
+                Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formulariorenovacaopermissao');//formulario 1
+                Route::get('/formularios/formulariorequerimentotransferencia', 'Admin\FormularioController@formulariorequerimentotransferencia');//formulario 2
                 Route::get('/formularios/formulariodeclaracaomonitor', 'Admin\FormularioController@formulariodeclaracaomonitor');
                 Route::get('/formularios/condutorauxiliar', 'Admin\FormularioController@condutorauxiliar');
                 Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
