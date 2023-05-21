@@ -85,8 +85,8 @@
 
 <body>
     <div class="content">
-        <img src="http://santoandretransporte.cityconnect.com.br/assets/images/sa_logo.png" alt="logo"
-            class="logo">
+        <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
+
 
         <h3>ANEXO 01 - REQUERIMENTO DE RENOVAÇÃO DE PERMISSÃO</h3>
         <p>O permissionário do serviço de <b>Taxi</b>,<br>
