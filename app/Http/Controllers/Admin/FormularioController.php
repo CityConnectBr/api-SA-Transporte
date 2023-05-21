@@ -23,7 +23,7 @@ class FormularioController extends Controller
     }
 
     //formulario1
-    function formulariorenovacaopermissao(){
+    function formularioRenovacaoPermissao(){
 
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Não encontrado", 404);
@@ -62,13 +62,27 @@ class FormularioController extends Controller
     }
 
     //formulario2
-    function formulariorequerimentotransferencia(){
+    function formularioRequerimentoTransferencia(){
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
         $usuario = auth()->user();
 
         $formlario = "formulario02requerimentodetransferencia";
+
+        $pdf = PDF::loadView('formularios/'.$formlario, compact('dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //formulario3
+    function formularioTransfPermissaoTranspEscolar(){
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario03formulariotransfpermissaotranspescolar";
 
         $pdf = PDF::loadView('formularios/'.$formlario, compact('dataFormatada', 'usuario'));
 
