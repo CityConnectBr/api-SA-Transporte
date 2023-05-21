@@ -100,12 +100,28 @@
             float: right;
         }
 
+        .esquadro-foto{
+            width: 3cm;
+            height: 4cm;
+            border: 1px solid #000;
+            float: right;
+        }
+        
+        .esquadro-foto p{            
+            text-align: center;
+            line-height: 2cm;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="content">
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
+
+        <div class="esquadro-foto">
+            <p>Foto 3x4</p>
+        </div>
 
         <h3>ANEXO 03 - TRANSFERÊNCIA DE PERMISSÃO DE TRANSPORTE ESCOLAR</h3>
         <p style="text-align: justify;">
