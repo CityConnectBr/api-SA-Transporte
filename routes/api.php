@@ -144,8 +144,9 @@ Route::group([
                 //formulario 4
                 Route::get('/formularios/formulariotransfpermissaotransptaxi', 'Admin\FormularioController@formularioTransfPermissaoTranspTaxi');//formulario 4
                 //formulario 5
-                Route::get('/formularios/formularioreqsubsveiculo', 'Admin\FormularioController@formularioRequerimentoSubstituicaoVeiculo');//formulario 4
+                Route::get('/formularios/formularioreqsubsveiculo', 'Admin\FormularioController@formularioRequerimentoSubstituicaoVeiculo');//formulario 5
                 //formulario 6
+                Route::get('/formularios/formularioreqprorrsubsveiculo', 'Admin\FormularioController@formularioRequerimentoProrrogacaoSubstituicaoVeiculo');//formulario 6
                 //formulario 7
                 Route::get('/formularios/formulariodeclaracaomonitor', 'Admin\FormularioController@formulariodeclaracaomonitor');
                 Route::get('/formularios/condutorauxiliar', 'Admin\FormularioController@condutorauxiliar');

@@ -137,6 +137,42 @@ class FormularioController extends Controller
         $pdf = PDF::loadView('formularios/'.$formlario, compact('obj', 'dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }    
+
+    //formulario5
+    function formularioRequerimentoProrrogacaoSubstituicaoVeiculo(){
+
+        if ($this->request['id'] == null) {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+        $id = $this->request['id'];
+
+        $obj = Veiculo::findComplete($id);
+        if ($obj == null) {
+            return parent::responseMsgJSON("veículo não encontrado", 404);
+        }
+
+        if ($obj['ativo'] == 0) {
+            return parent::responseMsgJSON("Veículo inativo", 404);
+        }
+
+        if ($obj->permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($obj['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario06reqprorrsubveiculo";
+
+        $pdf = PDF::loadView('formularios/'.$formlario, compact('obj', 'dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario7
