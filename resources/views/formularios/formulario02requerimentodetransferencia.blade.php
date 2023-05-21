@@ -99,7 +99,7 @@ bairro _____________________________, CEP: ________________, no município de Sa
 proprietário do veículo marca/modelo ______________________________, tipo __________________,
 ano __________, placas _________________, que será utilizado na prestação do serviço, conforme
 Decreto Municipal n.º ( ) 14.537/00 - escolar ( ) 13.803/96 - taxi.</p>
-<p>Declaramos que a documentação necessária seque em anexo e está de acordo com o previsto na
+<p style="text-align: justify;">Declaramos que a documentação necessária seque em anexo e está de acordo com o previsto na
 legislação vigente, e ainda que as informações, supra, são verdadeiras, e estamos cientes que a
 aprovação da transferência fica condicionada à comprovação das informações declaradas.</p>
 
