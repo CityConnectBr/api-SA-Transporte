@@ -302,6 +302,20 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+        //formulario9
+        function declaracaoAtendimentoAoDisposto(){
+
+            $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+    
+            $usuario = auth()->user();
+    
+            $formlario = "formulario09formulariodecatenddisposto";
+    
+            $pdf = PDF::loadView('formularios/'.$formlario, compact('dataFormatada', 'usuario'));
+    
+            return $pdf->setPaper('a4', 'portrait')->download($formlario);
+        }
+
     //formulario17
     function solicitacaodebaixadecondutorauxiliar(){
 

@@ -149,7 +149,11 @@ Route::group([
                 Route::get('/formularios/formularioreqprorrsubsveiculo', 'Admin\FormularioController@formularioRequerimentoProrrogacaoSubstituicaoVeiculo');//formulario 6
                 //formulario 7
                 Route::get('/formularios/formulariodeclaracaomonitor', 'Admin\FormularioController@formulariodeclaracaomonitor');
+                //formulario 8
                 Route::get('/formularios/condutorauxiliar', 'Admin\FormularioController@condutorauxiliar');
+                //formulario 9
+                Route::get('/formularios/declaracaoatenddosposto', 'Admin\FormularioController@declaracaoAtendimentoAoDisposto');
+
                 Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
             });
         });
