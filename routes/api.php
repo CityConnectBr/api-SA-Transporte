@@ -153,6 +153,8 @@ Route::group([
                 Route::get('/formularios/condutorauxiliar', 'Admin\FormularioController@condutorauxiliar');
                 //formulario 9
                 Route::get('/formularios/declaracaoatenddosposto', 'Admin\FormularioController@declaracaoAtendimentoAoDisposto');
+                //formulario 16
+                Route::get('/formularios/solicitacaoressarcimento', 'Admin\FormularioController@solicitacaoDeRessarcimento');
 
                 Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
             });

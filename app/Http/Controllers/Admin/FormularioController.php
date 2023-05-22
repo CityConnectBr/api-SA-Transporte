@@ -17,13 +17,14 @@ use PDF;
 class FormularioController extends Controller
 {
     function __construct(Request $request)
-        {
+    {
         $this->objectModel = Veiculo::class;
         $this->request = $request;
     }
 
     //formulario1
-    function formularioRenovacaoPermissao(){
+    function formularioRenovacaoPermissao()
+    {
 
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Não encontrado", 404);
@@ -56,13 +57,14 @@ class FormularioController extends Controller
 
         $formlario = "formulario01renovacaopermissao";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('obj', 'placas', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('obj', 'placas', 'dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario2
-    function formularioRequerimentoTransferencia(){
+    function formularioRequerimentoTransferencia()
+    {
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
@@ -70,13 +72,14 @@ class FormularioController extends Controller
 
         $formlario = "formulario02requerimentodetransferencia";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario3
-    function formularioTransfPermissaoTranspEscolar(){
+    function formularioTransfPermissaoTranspEscolar()
+    {
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
@@ -84,13 +87,14 @@ class FormularioController extends Controller
 
         $formlario = "formulario03formulariotransfpermissaotranspescolar";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario4
-    function formularioTransfPermissaoTranspTaxi(){
+    function formularioTransfPermissaoTranspTaxi()
+    {
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
@@ -98,13 +102,14 @@ class FormularioController extends Controller
 
         $formlario = "formulario04formulariotransfpermissaotransptaxi";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario5
-    function formularioRequerimentoSubstituicaoVeiculo(){
+    function formularioRequerimentoSubstituicaoVeiculo()
+    {
 
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Não encontrado", 404);
@@ -134,13 +139,14 @@ class FormularioController extends Controller
 
         $formlario = "formulario05reqsubveiculo";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('obj', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('obj', 'dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
-    }    
+    }
 
     //formulario5
-    function formularioRequerimentoProrrogacaoSubstituicaoVeiculo(){
+    function formularioRequerimentoProrrogacaoSubstituicaoVeiculo()
+    {
 
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Não encontrado", 404);
@@ -170,13 +176,14 @@ class FormularioController extends Controller
 
         $formlario = "formulario06reqprorrsubveiculo";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('obj', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('obj', 'dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario7
-    function formulariodeclaracaomonitor(){
+    function formulariodeclaracaomonitor()
+    {
 
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Id não encontrado", 404);
@@ -208,12 +215,12 @@ class FormularioController extends Controller
         $solicitacao = null;
         if ($this->request['solicitacao_id'] != null) {
             $solicitacao = SolicitacaoDeAlteracao::findComplete($id, $this->request['solicitacao_id']);
-            if ($solicitacao!=null && $solicitacao->tipo_solicitacao_id != 23) {// 23 = monitor_cadastro
+            if ($solicitacao != null && $solicitacao->tipo_solicitacao_id != 23) { // 23 = monitor_cadastro
                 return parent::responseMsgJSON("Solicitação não é do tipo de cadastro de monitor", 404);
             }
 
-            if($solicitacao!=null)
-                $enderecoSolicitacao = $solicitacao['campo4'].', '.$solicitacao['campo5'].', '.$solicitacao['campo7'].', '.$solicitacao['campo8'].'-'.$solicitacao['campo9'];
+            if ($solicitacao != null)
+                $enderecoSolicitacao = $solicitacao['campo4'] . ', ' . $solicitacao['campo5'] . ', ' . $solicitacao['campo7'] . ', ' . $solicitacao['campo8'] . '-' . $solicitacao['campo9'];
         }
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
@@ -222,13 +229,14 @@ class FormularioController extends Controller
 
         $formlario = "formulario07declaracaodemonitor";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('permissionario', 'monitor', 'solicitacao', 'enderecoSolicitacao', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('permissionario', 'monitor', 'solicitacao', 'enderecoSolicitacao', 'dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario8
-    function condutorauxiliar(){
+    function condutorauxiliar()
+    {
 
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Id não encontrado", 404);
@@ -239,7 +247,7 @@ class FormularioController extends Controller
         if ($permissionario == null) {
             return parent::responseMsgJSON("Permissionário não encontrado", 404);
         }
-        $modalidadeDoPermissionario = $permissionario->modalidade_id!=null?Modalidade::find($permissionario->modalidade_id):null;
+        $modalidadeDoPermissionario = $permissionario->modalidade_id != null ? Modalidade::find($permissionario->modalidade_id) : null;
 
         /*if ($permissionario['ativo'] == 0) {
             return parent::responseMsgJSON("Permissionário inativo", 404);
@@ -271,14 +279,14 @@ class FormularioController extends Controller
             $cnhCondutor = $condutor->cnh;
             $categoriaCNHCondutor = $condutor->categoria_cnh;
             $telefoneCondutor = $condutor->telefone;
-            $enderecoCondutor = $enderecoObj['endereco'].', '.$enderecoObj['numero'].', '.$enderecoObj['bairro'].', '.$municipioObj['nome'].'-'.$enderecoObj['uf'];
+            $enderecoCondutor = $enderecoObj['endereco'] . ', ' . $enderecoObj['numero'] . ', ' . $enderecoObj['bairro'] . ', ' . $municipioObj['nome'] . '-' . $enderecoObj['uf'];
             $emailCondutor = $condutor->email;
-        }else if ($this->request['solicitacao_id'] != null) {
+        } else if ($this->request['solicitacao_id'] != null) {
             $solicitacao = SolicitacaoDeAlteracao::findComplete($this->request['solicitacao_id']);
-            if ($solicitacao->tipo_solicitacao_id != 5) {//5 = condutor_cadastro
+            if ($solicitacao->tipo_solicitacao_id != 5) { //5 = condutor_cadastro
                 return parent::responseMsgJSON("Solicitação não é do tipo de cadastro de monitor", 404);
             }
-            if($solicitacao->permissionario_id != $permissionario->id){
+            if ($solicitacao->permissionario_id != $permissionario->id) {
                 return parent::responseMsgJSON("Solicitação não esta relacionada a permissionário", 404);
             }
 
@@ -288,7 +296,7 @@ class FormularioController extends Controller
             $cnhCondutor = $solicitacao['campo1'];
             $categoriaCNHCondutor = $solicitacao['campo2'];
             $telefoneCondutor = $solicitacao['campo6'];
-            $enderecoCondutor = $solicitacao['campo9'].', '.$solicitacao['campo10'].', '.$solicitacao['campo12'].', '.$solicitacao['campo13'].'-'.$solicitacao['campo14'];
+            $enderecoCondutor = $solicitacao['campo9'] . ', ' . $solicitacao['campo10'] . ', ' . $solicitacao['campo12'] . ', ' . $solicitacao['campo13'] . '-' . $solicitacao['campo14'];
             $emailCondutor = $solicitacao['campo11'];
         }
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
@@ -297,27 +305,44 @@ class FormularioController extends Controller
 
         $formlario = "formulario08condutorauxiliar";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('permissionario', 'modalidadeDoPermissionario', 'inscricaoOuRenovacao', 'nomeCondutor', 'rgCondutor', 'cnhCondutor', 'categoriaCNHCondutor', 'telefoneCondutor', 'enderecoCondutor', 'emailCondutor', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('permissionario', 'modalidadeDoPermissionario', 'inscricaoOuRenovacao', 'nomeCondutor', 'rgCondutor', 'cnhCondutor', 'categoriaCNHCondutor', 'telefoneCondutor', 'enderecoCondutor', 'emailCondutor', 'dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
-        //formulario9
-        function declaracaoAtendimentoAoDisposto(){
+    //formulario9
+    function declaracaoAtendimentoAoDisposto()
+    {
 
-            $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
-    
-            $usuario = auth()->user();
-    
-            $formlario = "formulario09formulariodecatenddisposto";
-    
-            $pdf = PDF::loadView('formularios/'.$formlario, compact('dataFormatada', 'usuario'));
-    
-            return $pdf->setPaper('a4', 'portrait')->download($formlario);
-        }
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario09formulariodecatenddisposto";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }    
+
+    //formulario16
+    function solicitacaoDeRessarcimento()
+    {
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario16declaracaoressarcimento";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
 
     //formulario17
-    function solicitacaodebaixadecondutorauxiliar(){
+    function solicitacaodebaixadecondutorauxiliar()
+    {
 
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Id não encontrado", 404);
@@ -328,7 +353,7 @@ class FormularioController extends Controller
         if ($permissionario == null) {
             return parent::responseMsgJSON("Permissionário não encontrado", 404);
         }
-        $modalidadeDoPermissionario = $permissionario->modalidade_id!=null?Modalidade::find($permissionario->modalidade_id):null;
+        $modalidadeDoPermissionario = $permissionario->modalidade_id != null ? Modalidade::find($permissionario->modalidade_id) : null;
 
         /*if ($permissionario['ativo'] == 0) {
             return parent::responseMsgJSON("Permissionário inativo", 404);
@@ -352,7 +377,7 @@ class FormularioController extends Controller
 
         $formlario = "formulario17solicitacaodebaixadecondutorauxiliar";
 
-        $pdf = PDF::loadView('formularios/'.$formlario, compact('permissionario', 'modalidadeDoPermissionario', 'condutor', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('permissionario', 'modalidadeDoPermissionario', 'condutor', 'dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
