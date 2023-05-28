@@ -155,8 +155,11 @@ Route::group([
                 Route::get('/formularios/declaracaoatenddosposto', 'Admin\FormularioController@declaracaoAtendimentoAoDisposto');
                 //formulario 16
                 Route::get('/formularios/solicitacaoressarcimento', 'Admin\FormularioController@solicitacaoDeRessarcimento');
-
+                //formulario 17
                 Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
+                //formulario 18
+                Route::get('/formularios/soltranspescestensino', 'Admin\FormularioController@solicitacaoDeTransporteEscolarProprioEstabelecimentoEnsino');
+                
             });
         });
 

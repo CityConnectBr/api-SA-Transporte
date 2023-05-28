@@ -323,7 +323,7 @@ class FormularioController extends Controller
         $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
-    }    
+    }
 
     //formulario16
     function solicitacaoDeRessarcimento()
@@ -378,6 +378,21 @@ class FormularioController extends Controller
         $formlario = "formulario17solicitacaodebaixadecondutorauxiliar";
 
         $pdf = PDF::loadView('formularios/' . $formlario, compact('permissionario', 'modalidadeDoPermissionario', 'condutor', 'dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //formulario18
+    function solicitacaoDeTransporteEscolarProprioEstabelecimentoEnsino()
+    {
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario18formulariosoltranspescolar";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
