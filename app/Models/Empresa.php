@@ -34,6 +34,11 @@ class Empresa extends Model
 
     protected $table = 'empresas';
 
+    public function endereco()
+    {
+        return $this->belongsTo(Endereco::class, 'endereco_id');
+    }
+
     //////////////////////////////////////
     public static function search($search)
     {
@@ -41,4 +46,8 @@ class Empresa extends Model
         ->orderBy("nome")
         ->paginate(15);
     }
+
+    public static function findComplete($id)
+    {
+        return Empresa::where("id", $id)->with('endereco')->first();    }
 }

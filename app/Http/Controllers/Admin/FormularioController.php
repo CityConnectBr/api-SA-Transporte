@@ -467,4 +467,48 @@ class FormularioController extends Controller
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
+
+    //formulario120
+    public function solicitacaoDeAfericaoTaximetro(){
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];
+
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+
+        $empresa = Empresa::findComplete(1);
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario120solicitacaoafericaotaximetro";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'permissionario', 
+            'veiculo',
+            'empresa',
+            'dataFormatada', 
+            'usuario'
+        ));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
 }
