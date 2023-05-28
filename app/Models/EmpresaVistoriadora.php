@@ -23,11 +23,23 @@ class EmpresaVistoriadora extends Model
 
     protected $table = 'empresas_vistoriadoras';
 
+    public function endereco()
+    {
+        return $this->belongsTo(Endereco::class, 'endereco_id');
+    }
+
     //////////////////////////////////////
     public static function search($search)
     {
         return EmpresaVistoriadora::where("nome", "like", "%" . $search . "%")
         ->orderBy("nome")
         ->paginate(15);
+    }
+
+    public static function findComplete($id)
+    {
+        return EmpresaVistoriadora::where("id", $id)
+        ->with("endereco")
+        ->first();
     }
 }

@@ -159,7 +159,8 @@ Route::group([
                 Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
                 //formulario 18
                 Route::get('/formularios/soltranspescestensino', 'Admin\FormularioController@solicitacaoDeTransporteEscolarProprioEstabelecimentoEnsino');
-                
+                //formulario 119
+                Route::get('/formularios/solicitacaoadesivacao', 'Admin\FormularioController@solicitacaoDeAdesivacao');
             });
         });
 

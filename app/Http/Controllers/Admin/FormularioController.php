@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Condutor;
+use App\Models\Empresa;
+use App\Models\EmpresaVistoriadora;
 use App\Models\Endereco;
 use App\Models\Modalidade;
 use App\Models\Monitor;
@@ -393,6 +395,75 @@ class FormularioController extends Controller
         $formlario = "formulario18formulariosoltranspescolar";
 
         $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //formulario119
+    function solicitacaoDeAdesivacao()
+    {
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];
+
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        if ($this->request['data_limite'] == null) {
+            return parent::responseMsgJSON("Data limite não encontrada", 404);
+        }
+        $dataLimite = $this->request['data_limite'];
+
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        $empresa1 = null;
+        $empresa1Nome = null;
+        if ($this->request['empresa1'] != null) {
+            $empresa1 = EmpresaVistoriadora::findComplete($this->request['empresa1']);
+            $empresa1Nome = $empresa1->nome;
+            $empresa1 = $empresa1->nome . ", localizada na " . $empresa1->endereco->endereco . ", " . $empresa1->endereco->numero . ", " . $empresa1->endereco->bairro . ", " . $empresa1->endereco->municipio->nome . ", " . $empresa1->endereco->uf . ", Telefone: " . $empresa1->telefone;
+        }
+
+        $empresa2 = null;
+        $empresa2Nome = null;
+        if ($this->request['empresa2'] != null) {
+            $empresa2 = EmpresaVistoriadora::findComplete($this->request['empresa2']);
+            $empresa2Nome = $empresa2->nome;
+            $empresa2 = $empresa1->nome . ", localizada na " . $empresa1->endereco->endereco . ", " . $empresa1->endereco->numero . ", " . $empresa1->endereco->bairro . ", " . $empresa1->endereco->municipio->nome . ", " . $empresa1->endereco->uf . ", Telefone: " . $empresa1->telefone;
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario119solicitacaoadesivacao";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'veiculo',
+            'permissionario',
+            'empresa1',
+            'empresa1Nome',
+            'empresa2',
+            'empresa2Nome',
+            'dataFormatada',
+            'dataLimite',
+            'usuario'
+        )
+        );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
