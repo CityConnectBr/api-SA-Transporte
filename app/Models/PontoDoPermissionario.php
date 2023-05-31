@@ -26,4 +26,11 @@ class PontoDoPermissionario extends Model
             ->orderBy("created_at")
             ->simplePaginate(15);
     }
+
+    public static function findPontoByPermissionario($permissionarioId)
+    {
+        return PontoDoPermissionario::where("permissionario_id", $permissionarioId)
+            ->with('ponto')
+            ->first();
+    }
 }

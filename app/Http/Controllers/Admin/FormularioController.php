@@ -10,6 +10,8 @@ use App\Models\Modalidade;
 use App\Models\Monitor;
 use App\Models\Municipio;
 use App\Models\Permissionario;
+use App\Models\Ponto;
+use App\Models\PontoDoPermissionario;
 use App\Models\SolicitacaoDeAlteracao;
 use App\Models\Veiculo;
 use Carbon\Carbon;
@@ -505,6 +507,82 @@ class FormularioController extends Controller
             'permissionario', 
             'veiculo',
             'empresa',
+            'dataFormatada', 
+            'usuario'
+        ));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //formulario121
+    public function solicitacaoDeAutorizacaoProvisoria(){
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];        
+        
+        if ($this->request['motivo'] == null) {
+            return parent::responseMsgJSON("Motivo não encontrado", 404);
+        }
+        $motivo = $this->request['motivo'];
+        
+        if ($this->request['dataLimite'] == null) {
+            return parent::responseMsgJSON("Data limite não encontrada", 404);
+        }
+        $dataLimite = $this->request['dataLimite'];
+        
+        if ($this->request['quandoDevera'] == null) {
+            return parent::responseMsgJSON("Quando deverá não encontrada", 404);
+        }
+        $quandoDevera = $this->request['quandoDevera'];        
+
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+
+        $empresa = Empresa::findComplete(1);
+
+        $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+        if($ponto == null){
+            return parent::responseMsgJSON("Ponto não encontrado", 404);
+        }else {
+            $ponto = $ponto->ponto;
+            $enderecoPonto = Endereco::findComplete($ponto->endereco_id);
+            $ponto = $ponto->id_integracao." - ".$enderecoPonto->endereco.", ".$enderecoPonto->numero.", ".$enderecoPonto->bairro.", ".$enderecoPonto->municipio->nome.", ".$enderecoPonto->uf;
+        }
+
+        $condutores = Condutor::findAllByPermissionario($permissionario->id);
+        
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario121solicitacaoautorizacaoprovisoria";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'permissionario', 
+            'veiculo',
+            'empresa',
+            'condutores',
+            'ponto',
+            'motivo',
+            'dataLimite',
+            'quandoDevera',
             'dataFormatada', 
             'usuario'
         ));
