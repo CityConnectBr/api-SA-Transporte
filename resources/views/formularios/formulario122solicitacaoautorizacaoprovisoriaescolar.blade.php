@@ -76,7 +76,7 @@
         @endforeach
         </p>
 
-        <p>N° limite de alunos a transportar: ____ alunos</p><!-- {{$veiculo['capacidade']}} confirmar -->
+        <p>N° limite de alunos a transportar: {{$veiculo['capacidade']}} alunos</p>
 
         <p>Monitores(as):</p>
         @foreach ($monitores as $monitor)
