@@ -67,7 +67,7 @@
         Dados do Veículo:<br>
         Marca/Modelo: {{$veiculo['MarcaModeloVeiculo']['descricao']}}, cor {{$veiculo['cor']['descricao']}}, ano {{$veiculo['ano_fabricacao']}}<br>
         Chassi: {{$veiculo['chassi']}}, Placa: {{$veiculo['placa']}}<br>
-        Taximetro n° ____________________
+        Taximetro n° {{$permissionario['taximetro_tacografo']}}<br>
         </p>
 
         <p>
