@@ -89,4 +89,13 @@ class Monitor extends Model
             ->orderBy("nome")
             ->simplePaginate(40);
     }
+
+    public static function findAllByPermissionario($permissionarioId)
+    {
+        return Monitor::where("permissionario_id", "=", $permissionarioId)
+            ->with("endereco")
+            ->with("permissionario")
+            ->orderBy("nome")
+            ->get();
+    }
 }

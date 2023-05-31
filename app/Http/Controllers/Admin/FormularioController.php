@@ -589,4 +589,73 @@ class FormularioController extends Controller
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
+
+    //formulario122
+    public function solicitacaoDeAutorizacaoProvisoriaEscolar(){
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];        
+        
+        if ($this->request['motivo'] == null) {
+            return parent::responseMsgJSON("Motivo não encontrado", 404);
+        }
+        $motivo = $this->request['motivo'];
+        
+        if ($this->request['dataLimite'] == null) {
+            return parent::responseMsgJSON("Data limite não encontrada", 404);
+        }
+        $dataLimite = $this->request['dataLimite'];
+        
+        if ($this->request['quandoDevera'] == null) {
+            return parent::responseMsgJSON("Quando deverá não encontrada", 404);
+        }
+        $quandoDevera = $this->request['quandoDevera'];        
+
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+
+        $empresa = Empresa::findComplete(1);
+
+        $pontos = PontoDoPermissionario::findPontosByPermissionario($permissionario->id);
+
+        $monitores = Monitor::findAllByPermissionario($permissionario->id);        
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario122solicitacaoautorizacaoprovisoriaescolar";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'permissionario', 
+            'veiculo',
+            'empresa',
+            'monitores',
+            'pontos',
+            'motivo',
+            'dataLimite',
+            'quandoDevera',
+            'dataFormatada', 
+            'usuario'
+        ));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
 }

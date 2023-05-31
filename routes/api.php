@@ -165,7 +165,8 @@ Route::group([
                 Route::get('/formularios/solicitacaoafericaotaximetro', 'Admin\FormularioController@solicitacaoDeAfericaoTaximetro');
                 //formulario 121
                 Route::get('/formularios/solicitacaodeautorizacaoprovisoria', 'Admin\FormularioController@solicitacaoDeAutorizacaoProvisoria');
-            
+                //formulario 122
+                Route::get('/formularios/solicitacaodeautorizacaoprovisoriaescolar', 'Admin\FormularioController@solicitacaoDeAutorizacaoProvisoriaEscolar');
             });
         });
 
