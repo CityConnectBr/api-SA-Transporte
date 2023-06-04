@@ -179,7 +179,8 @@ Route::group([
                 Route::get('/formularios/declaracaoptransporteescular', 'Admin\FormularioController@declaracaoParaTransporteEscolar');
                 //formulario 128
                 Route::get('/formularios/formularioderequerimento', 'Admin\FormularioController@formularioDeRequerimento');
-
+                //formulario 129
+                Route::get('/formularios/laudovistoriatransportesespeciais', 'Admin\FormularioController@laudoDeVistoriaTransportesEspeciais');
             });
         });
 

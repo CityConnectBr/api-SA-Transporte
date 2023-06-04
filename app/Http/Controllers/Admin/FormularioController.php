@@ -783,7 +783,6 @@ class FormularioController extends Controller
         } else {
             $ponto = $ponto->ponto;
             $enderecoPonto = Endereco::findComplete($ponto->endereco_id);
-            $ponto = $enderecoPonto->endereco;
         }
 
         $empresa = Empresa::findComplete(1);
@@ -798,6 +797,66 @@ class FormularioController extends Controller
             'permissionario',
             'empresa',
             'ponto',
+            'dataFormatada',
+            'usuario'
+        )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //formulario129
+    public function laudoDeVistoriaTransportesEspeciais()
+    {
+
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];
+
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }        
+        
+        $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+        $enderecoPonto = null;
+        if ($ponto == null) {
+            return parent::responseMsgJSON("Ponto não encontrado", 404);
+        } else {
+            $ponto = $ponto->ponto;
+            $enderecoPonto = Endereco::findComplete($ponto->endereco_id);
+        }
+
+        $empresa = Empresa::findComplete(1);
+
+        $vencimentoCNHFormatada = Carbon::parse($permissionario->vencimento_cnh)->format('d/m/Y');
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario129laudovistoriatranspespeciais";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'veiculo',
+            'permissionario',
+            'vencimentoCNHFormatada',
+            'empresa',
+            'ponto',
+            'enderecoPonto',
             'dataFormatada',
             'usuario'
         )
