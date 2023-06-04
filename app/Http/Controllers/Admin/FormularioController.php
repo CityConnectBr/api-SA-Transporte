@@ -865,4 +865,56 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    //formulario130
+    public function notificacao()
+    {
+
+        if ($this->request['permissionario'] == null) {
+            return parent::responseMsgJSON("ID do permissionário não encontrado", 404);
+        }
+
+        if ($this->request['prazo'] == null) {
+            return parent::responseMsgJSON("Prazo não encontrado", 404);
+        }
+        $prazo = $this->request['prazo'];
+
+        if ($this->request['notificado'] == null) {
+            return parent::responseMsgJSON("Notificado não encontrado", 404);
+        }
+        $notificado = $this->request['notificado'];
+
+        $permissionario = Permissionario::findByIdWithEndereco($this->request['permissionario']);
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }        
+
+        $empresa = Empresa::findComplete(1);
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario130notificacao";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'permissionario',
+            'empresa',
+            'prazo',
+            'notificado',
+            'dataFormatada',
+            'usuario'
+        )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
 }
