@@ -716,6 +716,7 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    //formulario127
     public function declaracaoParaTransporteEscolar()
     {
 
@@ -747,6 +748,56 @@ class FormularioController extends Controller
         $pdf = PDF::loadView('formularios/' . $formlario, compact(
             'permissionario',
             'empresa',
+            'dataFormatada',
+            'usuario'
+        )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //formulario128
+    public function formularioDeRequerimento()
+    {
+
+        if ($this->request['permissionario'] == null) {
+            return parent::responseMsgJSON("ID do permissionário não encontrado", 404);
+        }
+
+        $permissionario = Permissionario::findByIdWithEndereco($this->request['permissionario']);
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }        
+        
+        $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+        if ($ponto == null) {
+            return parent::responseMsgJSON("Ponto não encontrado", 404);
+        } else {
+            $ponto = $ponto->ponto;
+            $enderecoPonto = Endereco::findComplete($ponto->endereco_id);
+            $ponto = $enderecoPonto->endereco;
+        }
+
+        $empresa = Empresa::findComplete(1);
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario128declaracaoderequerimento";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'permissionario',
+            'empresa',
+            'ponto',
             'dataFormatada',
             'usuario'
         )
