@@ -167,6 +167,15 @@ Route::group([
                 Route::get('/formularios/solicitacaodeautorizacaoprovisoria', 'Admin\FormularioController@solicitacaoDeAutorizacaoProvisoria');
                 //formulario 122
                 Route::get('/formularios/solicitacaodeautorizacaoprovisoriaescolar', 'Admin\FormularioController@solicitacaoDeAutorizacaoProvisoriaEscolar');
+                //formulario 123
+                //
+                //formulario 124
+                //
+                //formulario 125
+                //
+                //formulario 126
+                Route::get('/formularios/declaracaoptaxista', 'Admin\FormularioController@declaracaoParaTaxista');
+            
             });
         });
 
