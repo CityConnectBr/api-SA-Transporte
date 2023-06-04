@@ -175,6 +175,8 @@ Route::group([
                 //
                 //formulario 126
                 Route::get('/formularios/declaracaoptaxista', 'Admin\FormularioController@declaracaoParaTaxista');
+                //formulario 127
+                Route::get('/formularios/declaracaoptransporteescular', 'Admin\FormularioController@declaracaoParaTransporteEscolar');
             
             });
         });

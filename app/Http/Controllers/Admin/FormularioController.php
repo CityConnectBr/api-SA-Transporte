@@ -454,24 +454,27 @@ class FormularioController extends Controller
 
         $formlario = "formulario119solicitacaoadesivacao";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'veiculo',
-            'permissionario',
-            'empresa1',
-            'empresa1Nome',
-            'empresa2',
-            'empresa2Nome',
-            'dataFormatada',
-            'dataLimite',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'veiculo',
+                'permissionario',
+                'empresa1',
+                'empresa1Nome',
+                'empresa2',
+                'empresa2Nome',
+                'dataFormatada',
+                'dataLimite',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario120
-    public function solicitacaoDeAfericaoTaximetro(){
+    public function solicitacaoDeAfericaoTaximetro()
+    {
         if ($this->request['veiculo'] == null) {
             return parent::responseMsgJSON("ID do veículo não encontrado", 404);
         }
@@ -504,37 +507,39 @@ class FormularioController extends Controller
         $formlario = "formulario120solicitacaoafericaotaximetro";
 
         $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario', 
+            'permissionario',
             'veiculo',
             'empresa',
-            'dataFormatada', 
+            'dataFormatada',
             'usuario'
-        ));
+        )
+        );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario121
-    public function solicitacaoDeAutorizacaoProvisoria(){
+    public function solicitacaoDeAutorizacaoProvisoria()
+    {
         if ($this->request['veiculo'] == null) {
             return parent::responseMsgJSON("ID do veículo não encontrado", 404);
         }
-        $id = $this->request['veiculo'];        
-        
+        $id = $this->request['veiculo'];
+
         if ($this->request['motivo'] == null) {
             return parent::responseMsgJSON("Motivo não encontrado", 404);
         }
         $motivo = $this->request['motivo'];
-        
+
         if ($this->request['dataLimite'] == null) {
             return parent::responseMsgJSON("Data limite não encontrada", 404);
         }
         $dataLimite = $this->request['dataLimite'];
-        
+
         if ($this->request['quandoDevera'] == null) {
             return parent::responseMsgJSON("Quando deverá não encontrada", 404);
         }
-        $quandoDevera = $this->request['quandoDevera'];        
+        $quandoDevera = $this->request['quandoDevera'];
 
         $veiculo = Veiculo::findComplete($id);
         if ($veiculo == null) {
@@ -557,16 +562,16 @@ class FormularioController extends Controller
         $empresa = Empresa::findComplete(1);
 
         $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
-        if($ponto == null){
+        if ($ponto == null) {
             return parent::responseMsgJSON("Ponto não encontrado", 404);
-        }else {
+        } else {
             $ponto = $ponto->ponto;
             $enderecoPonto = Endereco::findComplete($ponto->endereco_id);
-            $ponto = $ponto->id_integracao." - ".$enderecoPonto->endereco.", ".$enderecoPonto->numero.", ".$enderecoPonto->bairro.", ".$enderecoPonto->municipio->nome.", ".$enderecoPonto->uf;
+            $ponto = $ponto->id_integracao . " - " . $enderecoPonto->endereco . ", " . $enderecoPonto->numero . ", " . $enderecoPonto->bairro . ", " . $enderecoPonto->municipio->nome . ", " . $enderecoPonto->uf;
         }
 
         $condutores = Condutor::findAllByPermissionario($permissionario->id);
-        
+
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
@@ -575,7 +580,7 @@ class FormularioController extends Controller
         $formlario = "formulario121solicitacaoautorizacaoprovisoria";
 
         $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario', 
+            'permissionario',
             'veiculo',
             'empresa',
             'condutores',
@@ -583,34 +588,36 @@ class FormularioController extends Controller
             'motivo',
             'dataLimite',
             'quandoDevera',
-            'dataFormatada', 
+            'dataFormatada',
             'usuario'
-        ));
+        )
+        );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario122
-    public function solicitacaoDeAutorizacaoProvisoriaEscolar(){
+    public function solicitacaoDeAutorizacaoProvisoriaEscolar()
+    {
         if ($this->request['veiculo'] == null) {
             return parent::responseMsgJSON("ID do veículo não encontrado", 404);
         }
-        $id = $this->request['veiculo'];        
-        
+        $id = $this->request['veiculo'];
+
         if ($this->request['motivo'] == null) {
             return parent::responseMsgJSON("Motivo não encontrado", 404);
         }
         $motivo = $this->request['motivo'];
-        
+
         if ($this->request['dataLimite'] == null) {
             return parent::responseMsgJSON("Data limite não encontrada", 404);
         }
         $dataLimite = $this->request['dataLimite'];
-        
+
         if ($this->request['quandoDevera'] == null) {
             return parent::responseMsgJSON("Quando deverá não encontrada", 404);
         }
-        $quandoDevera = $this->request['quandoDevera'];        
+        $quandoDevera = $this->request['quandoDevera'];
 
         $veiculo = Veiculo::findComplete($id);
         if ($veiculo == null) {
@@ -634,7 +641,7 @@ class FormularioController extends Controller
 
         $pontos = PontoDoPermissionario::findPontosByPermissionario($permissionario->id);
 
-        $monitores = Monitor::findAllByPermissionario($permissionario->id);        
+        $monitores = Monitor::findAllByPermissionario($permissionario->id);
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
@@ -643,7 +650,7 @@ class FormularioController extends Controller
         $formlario = "formulario122solicitacaoautorizacaoprovisoriaescolar";
 
         $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario', 
+            'permissionario',
             'veiculo',
             'empresa',
             'monitores',
@@ -651,16 +658,18 @@ class FormularioController extends Controller
             'motivo',
             'dataLimite',
             'quandoDevera',
-            'dataFormatada', 
+            'dataFormatada',
             'usuario'
-        ));
+        )
+        );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
     //formulario126
-    public function declaracaoParaTaxista(){
-        
+    public function declaracaoParaTaxista()
+    {
+
         if ($this->request['permissionario'] == null) {
             return parent::responseMsgJSON("ID do permissionário não encontrado", 404);
         }
@@ -679,12 +688,12 @@ class FormularioController extends Controller
         }
 
         $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
-        if($ponto == null){
+        if ($ponto == null) {
             return parent::responseMsgJSON("Ponto não encontrado", 404);
-        }else {
+        } else {
             $ponto = $ponto->ponto;
             $enderecoPonto = Endereco::findComplete($ponto->endereco_id);
-            $ponto = $ponto->id_integracao." - ".$enderecoPonto->endereco;
+            $ponto = $ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $empresa = Empresa::findComplete(1);
@@ -696,12 +705,52 @@ class FormularioController extends Controller
         $formlario = "formulario126declaracaoptaxista";
 
         $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario', 
+            'permissionario',
             'empresa',
             'ponto',
-            'dataFormatada', 
+            'dataFormatada',
             'usuario'
-        ));
+        )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    public function declaracaoParaTransporteEscolar()
+    {
+
+        if ($this->request['permissionario'] == null) {
+            return parent::responseMsgJSON("ID do permissionário não encontrado", 404);
+        }
+
+        $permissionario = Permissionario::find($this->request['permissionario']);
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+
+        $empresa = Empresa::findComplete(1);
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario127declaracaoptransporteescolar";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'permissionario',
+            'empresa',
+            'dataFormatada',
+            'usuario'
+        )
+        );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
