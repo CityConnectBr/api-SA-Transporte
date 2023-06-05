@@ -185,6 +185,8 @@ Route::group([
                 Route::get('/formularios/notificacao', 'Admin\FormularioController@notificacao');
                 //formulario 131
                 Route::get('/formularios/substituicaodeveiculo', 'Admin\FormularioController@substituicaoDeVeiculo');
+                //formulario 132
+                Route::get('/formularios/termocredenciamentotaxi', 'Admin\FormularioController@termoDeCredenciamentoTaxi');
 
             });
         });

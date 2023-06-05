@@ -966,4 +966,19 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    //formulario132
+    function termoDeCredenciamentoTaxi()
+    {
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario132termocredenciamentotaxi";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
 }
