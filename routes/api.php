@@ -183,7 +183,9 @@ Route::group([
                 Route::get('/formularios/laudovistoriatransportesespeciais', 'Admin\FormularioController@laudoDeVistoriaTransportesEspeciais');
                 //formulario 130
                 Route::get('/formularios/notificacao', 'Admin\FormularioController@notificacao');
-            
+                //formulario 131
+                Route::get('/formularios/substituicaodeveiculo', 'Admin\FormularioController@substituicaoDeVeiculo');
+
             });
         });
 

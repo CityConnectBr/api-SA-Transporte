@@ -917,4 +917,53 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    public function substituicaoDeVeiculo()
+    {
+
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];
+
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }        
+
+        $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+
+        $empresa = Empresa::findComplete(1);
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario131substituicaoveiculo";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'veiculo',
+            'permissionario',
+            'ponto',
+            'empresa',
+            'dataFormatada',
+            'usuario'
+        )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
 }
