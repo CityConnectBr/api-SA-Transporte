@@ -6,6 +6,7 @@ use App\Models\Condutor;
 use App\Models\Empresa;
 use App\Models\EmpresaVistoriadora;
 use App\Models\Endereco;
+use App\Models\Infracao;
 use App\Models\Modalidade;
 use App\Models\Monitor;
 use App\Models\Municipio;
@@ -992,6 +993,56 @@ class FormularioController extends Controller
         $formlario = "formulario133termocredenciamentoescolar";
 
         $pdf = PDF::loadView('formularios/' . $formlario, compact('dataFormatada', 'usuario'));
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    
+    //formulario134
+    function aip()
+    {
+
+        if ($this->request['infracao'] == null) {
+            return parent::responseMsgJSON("ID da infração não encontrado", 404);
+        }
+
+        $infracao = Infracao::findComplete($this->request['infracao']);
+        if ($infracao == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }        
+
+        //dd($infracao->veiculo);
+        $empresa = Empresa::findComplete(1);
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+        $dataEmissaoFormatada = Carbon::parse($infracao->created_at)->format('d/m/Y');
+        $dataInfracaoFormatada = Carbon::parse($infracao->data_infracao)->format('d/m/Y');
+        $horarioInfracaoFormatado = Carbon::parse($infracao->hora_infracao)->format('H:i');
+        $npixOuBoleto = $infracao->codigo_pix? $infracao->codigo_pix : $infracao->num_boleto;
+        $venctoBoletoFormatado = Carbon::parse($infracao->data_vendimento_boleto)->format('d/m/Y');
+        $valorFMPFormatado = number_format($infracao->FMP->valor, 2, ',', '.');
+        $valorEmFMP = $infracao->FMP->valor*$infracao->FMP->qtd_fmp;
+        $valorEmFMPFormatado = number_format($infracao->FMP->valor*$infracao->qtd_fmp, 2, ',', '.');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario134aip";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, 
+        compact(
+            'infracao',
+            'empresa',
+            'dataFormatada',
+            'dataEmissaoFormatada',
+            'dataInfracaoFormatada',
+            'horarioInfracaoFormatado',
+            'npixOuBoleto',
+            'venctoBoletoFormatado',
+            'valorFMPFormatado',
+            'valorEmFMP',
+            'valorEmFMPFormatado',
+            'usuario'
+        ));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }

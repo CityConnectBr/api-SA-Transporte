@@ -189,7 +189,8 @@ Route::group([
                 Route::get('/formularios/termocredenciamentotaxi', 'Admin\FormularioController@termoDeCredenciamentoTaxi');
                 //formulario 133
                 Route::get('/formularios/termocredenciamentotranspescolar', 'Admin\FormularioController@termoDeCredenciamentoTransporteEscolar');
-
+                //formulario 134
+                Route::get('/formularios/aip', 'Admin\FormularioController@aip');
             });
         });
 
