@@ -93,8 +93,8 @@
 
 <body>
     <div class="content">
-        <img src="http://santoandretransporte.cityconnect.com.br/assets/images/sa_logo.png" alt="logo" class="logo">
-
+        <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
+        
         <div class="foto3x4">Foto 3x4</div>
 
         <h3>ANEXO 08 - CONDUTOR AUXILIAR</h3>

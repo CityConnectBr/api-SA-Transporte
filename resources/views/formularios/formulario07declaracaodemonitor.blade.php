@@ -84,8 +84,8 @@
 
 <body>
     <div class="content">
-        <img src="http://santoandretransporte.cityconnect.com.br/assets/images/sa_logo.png" alt="logo" class="logo">
-
+        <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
+        
         <h3>ANEXO 07 - DECLARAÇÃO DE MONITOR</h3>
         <p>Eu, <b>{{$permissionario['nome_razao_social']}}</b>, permissionário(a) do serviço de transporte escolar neste município com o prefixo <b>{{$permissionario['prefixo']}}</b>, em cumprimento à Lei Municipal nº. 8.038 de 09 de junho de 2000, art. 7º "no transporte de estudantes será obrigatória a presença de um Monitor, para auxiliar o condutor nas operações de embarque e desembarque" e ao Decreto Municipal nº. 14.538 de 15 de agosto de 2000, Art. 8º Parágrafo único <b>"os monitores deverão estar devidamente cadastrados junto à SA-TRANS"</b> , solicito a</p>
 

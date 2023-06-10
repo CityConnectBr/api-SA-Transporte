@@ -105,6 +105,11 @@ class Permissionario extends Model
             ->orderBy("nome")
             ->paginate(40);
     }
+    
+    public static function findByIdWithEndereco($id)
+    {
+        return Permissionario::with('endereco')->firstWhere("id", $id);
+    }
 
     public static function findByIntegracaoComplete($id)
     {

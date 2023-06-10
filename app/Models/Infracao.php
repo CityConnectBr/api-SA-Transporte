@@ -32,13 +32,13 @@ class Infracao extends Model
         'chave_pix',
         'codigo_pix',
         'data_pagamento',
-        'status',//(pendente, pago, cancelado, aguardando_confirmacao)
+        'status', //(pendente, pago, cancelado, aguardando_confirmacao)
         'arquivo_comprovante_uid',
         'data_envio_comprovante',
         'valor_fmp_atual',
         'fmp_id',
         'qtd_fmp',
-        'valor_fmp',//valor automatico: qtd_moeda * valor_fmp_atual
+        'valor_fmp', //valor automatico: qtd_moeda * valor_fmp_atual
         'valor_final',
         'usuario_pagamento_id',
         'empresa_id'
@@ -48,7 +48,7 @@ class Infracao extends Model
 
     public function moeda()
     {
-        return $this->hasOne(Moeda::class, 'id', 'moeda_id');
+        return $this->hasOne(TipoDeMoeda::class, 'id', 'moeda_id');
     }
 
     public function permissionario()
@@ -63,12 +63,12 @@ class Infracao extends Model
 
     public function quadro_infracao()
     {
-        return $this->hasOne(QuadroInfracao::class, 'id', 'quadro_infracao_id');
+        return $this->hasOne(QuadroDeInfracoes::class, 'id', 'quadro_infracao_id');
     }
 
     public function natureza_infracao()
     {
-        return $this->hasOne(NaturezaInfracao::class, 'id', 'natureza_infracao_id');
+        return $this->hasOne(NaturezaDaInfracao::class, 'id', 'natureza_infracao_id');
     }
 
     public function usuario_pagamento()
@@ -81,12 +81,24 @@ class Infracao extends Model
         return $this->hasOne(Empresa::class, 'id', 'empresa_id');
     }
 
+    public function FMP()
+    {
+        return $this->hasOne(FMP::class, 'id', 'fmp_id');
+    }
+
     public static function search($search)
     {
         return Infracao::where("status", 'like', "%{$search}%")
             ->with('permissionario', 'veiculo', 'empresa')
             ->orderBy("data_infracao", 'desc')
             ->paginate(40);
+    }
+
+    public static function findComplete($id)
+    {
+        return Infracao::where("id", $id)
+            ->with('permissionario', 'veiculo', 'empresa', 'moeda', 'quadro_infracao', 'natureza_infracao', 'usuario_pagamento', 'FMP')
+            ->first();
     }
 
 }

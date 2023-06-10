@@ -93,8 +93,8 @@
 
 <body>
     <div class="content">
-        <img src="http://santoandretransporte.cityconnect.com.br/assets/images/sa_logo.png" alt="logo" class="logo">
-
+        <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
+        
         <h3>ANEXO 17 - SOLICITAÇÃO DE BAIXA DE CONDUTOR AUXILIAR NO CADASTRO</h3>
         <p>Eu, {{$permissionario['nome_razao_social']}}, telefone {{$permissionario['telefone']}}, prefixo {{$permissionario['prefixo']}}, permissionário(a) do serviço de <b>{{$modalidadeDoPermissionario!=null?$modalidadeDoPermissionario['descricao']:'--'}}</b>, neste município solicitar a BAIXA da inscrição em cadastro do
             (a) Sr.(a) <b>{{$condutor['nome']}}</b>, RG <b>{{$condutor['rg']}}</b>, CNH <b>{{$condutor['cnh']}}</b>, Categoria, <b>{{$condutor['categoria_cnh']}}</b>, na condição de condutor auxiliar.

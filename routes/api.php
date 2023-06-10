@@ -135,10 +135,62 @@ Route::group([
 
                 Route::get('/relatorios/entradasaidadeveiculos', 'Admin\RelatorioController@entradaSaudaDeVeiculos');
 
-                Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formulariorenovacaopermissao');
+                //formulario 1
+                Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formularioRenovacaoPermissao');
+                //formulario 2
+                Route::get('/formularios/formulariorequerimentotransferencia', 'Admin\FormularioController@formularioRequerimentoTransferencia');//formulario 2
+                //formulario 3
+                Route::get('/formularios/formulariotransfpermissaotranspescolar', 'Admin\FormularioController@formularioTransfPermissaoTranspEscolar');//formulario 3
+                //formulario 4
+                Route::get('/formularios/formulariotransfpermissaotransptaxi', 'Admin\FormularioController@formularioTransfPermissaoTranspTaxi');//formulario 4
+                //formulario 5
+                Route::get('/formularios/formularioreqsubsveiculo', 'Admin\FormularioController@formularioRequerimentoSubstituicaoVeiculo');//formulario 5
+                //formulario 6
+                Route::get('/formularios/formularioreqprorrsubsveiculo', 'Admin\FormularioController@formularioRequerimentoProrrogacaoSubstituicaoVeiculo');//formulario 6
+                //formulario 7
                 Route::get('/formularios/formulariodeclaracaomonitor', 'Admin\FormularioController@formulariodeclaracaomonitor');
+                //formulario 8
                 Route::get('/formularios/condutorauxiliar', 'Admin\FormularioController@condutorauxiliar');
+                //formulario 9
+                Route::get('/formularios/declaracaoatenddosposto', 'Admin\FormularioController@declaracaoAtendimentoAoDisposto');
+                //formulario 16
+                Route::get('/formularios/solicitacaoressarcimento', 'Admin\FormularioController@solicitacaoDeRessarcimento');
+                //formulario 17
                 Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
+                //formulario 18
+                Route::get('/formularios/soltranspescestensino', 'Admin\FormularioController@solicitacaoDeTransporteEscolarProprioEstabelecimentoEnsino');
+                //formulario 119
+                Route::get('/formularios/solicitacaoadesivacao', 'Admin\FormularioController@solicitacaoDeAdesivacao');
+                //formulario 120
+                Route::get('/formularios/solicitacaoafericaotaximetro', 'Admin\FormularioController@solicitacaoDeAfericaoTaximetro');
+                //formulario 121
+                Route::get('/formularios/solicitacaodeautorizacaoprovisoria', 'Admin\FormularioController@solicitacaoDeAutorizacaoProvisoria');
+                //formulario 122
+                Route::get('/formularios/solicitacaodeautorizacaoprovisoriaescolar', 'Admin\FormularioController@solicitacaoDeAutorizacaoProvisoriaEscolar');
+                //formulario 123
+                //
+                //formulario 124
+                //
+                //formulario 125
+                //
+                //formulario 126
+                Route::get('/formularios/declaracaoptaxista', 'Admin\FormularioController@declaracaoParaTaxista');
+                //formulario 127
+                Route::get('/formularios/declaracaoptransporteescular', 'Admin\FormularioController@declaracaoParaTransporteEscolar');
+                //formulario 128
+                Route::get('/formularios/formularioderequerimento', 'Admin\FormularioController@formularioDeRequerimento');
+                //formulario 129
+                Route::get('/formularios/laudovistoriatransportesespeciais', 'Admin\FormularioController@laudoDeVistoriaTransportesEspeciais');
+                //formulario 130
+                Route::get('/formularios/notificacao', 'Admin\FormularioController@notificacao');
+                //formulario 131
+                Route::get('/formularios/substituicaodeveiculo', 'Admin\FormularioController@substituicaoDeVeiculo');
+                //formulario 132
+                Route::get('/formularios/termocredenciamentotaxi', 'Admin\FormularioController@termoDeCredenciamentoTaxi');
+                //formulario 133
+                Route::get('/formularios/termocredenciamentotranspescolar', 'Admin\FormularioController@termoDeCredenciamentoTransporteEscolar');
+                //formulario 134
+                Route::get('/formularios/aip', 'Admin\FormularioController@aip');
             });
         });
 
