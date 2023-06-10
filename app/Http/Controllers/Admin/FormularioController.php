@@ -921,17 +921,27 @@ class FormularioController extends Controller
     public function substituicaoDeVeiculo()
     {
 
-        if ($this->request['veiculo'] == null) {
+        if ($this->request['veiculo1'] == null) {
             return parent::responseMsgJSON("ID do veículo não encontrado", 404);
         }
-        $id = $this->request['veiculo'];
+        $id = $this->request['veiculo1'];
 
-        $veiculo = Veiculo::findComplete($id);
-        if ($veiculo == null) {
+        $veiculo1 = Veiculo::findComplete($id);
+        if ($veiculo1 == null) {
             return parent::responseMsgJSON("Veículo não encontrado", 404);
         }
 
-        $permissionario = $veiculo->permissionario;
+        if ($this->request['veiculo2'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo2'];
+
+        $veiculo2 = Veiculo::findComplete($id);
+        if ($veiculo2 == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        $permissionario = $veiculo1->permissionario;
         if ($permissionario == null) {
             return parent::responseMsgJSON("Permissionário não encontrado", 404);
         }
@@ -953,9 +963,9 @@ class FormularioController extends Controller
         $usuario = auth()->user();
 
         $formlario = "formulario131substituicaoveiculo";
-
         $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'veiculo',
+            'veiculo1',
+            'veiculo2',
             'permissionario',
             'ponto',
             'empresa',

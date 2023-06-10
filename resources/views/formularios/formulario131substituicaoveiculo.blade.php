@@ -67,9 +67,9 @@
 
         <p>Srº Diretor,</p>
         <p style="text-align: justify;">
-        Encaminhamos o Sr. {{$permissionario['nome']}}, Prefixo {{$permissionario['prefixo']}}, para cadastrar o veículo, placa {{$veiculo['placa']}}, 
-        chassis {{$veiculo['MarcaModeloVeiculo']['descricao']}}, ano {{$veiculo['ano_modelo']}}, cor {{$veiculo['cor']['descricao']}}, 
-        para ser utilizado em substituição ao veículo, {{$veiculo['MarcaModeloVeiculo']['descricao']}}, placa {{$veiculo['placa']}}, ano {{$veiculo['ano_modelo']}}, cor {{$veiculo['cor']['descricao']}},
+        Encaminhamos o Sr. {{$permissionario['nome']}}, Prefixo {{$permissionario['prefixo']}}, para cadastrar o veículo, placa {{$veiculo1['placa']}}, 
+        chassis {{$veiculo1['MarcaModeloVeiculo']['descricao']}}, ano {{$veiculo1['ano_modelo']}}, cor {{$veiculo1['cor']['descricao']}}, 
+        para ser utilizado em substituição ao veículo, {{$veiculo2['MarcaModeloVeiculo']['descricao']}}, placa {{$veiculo2['placa']}}, ano {{$veiculo2['ano_modelo']}}, cor {{$veiculo2['cor']['descricao']}},
         como {{$permissionario['modalidade']['descricao']}} no ponto {{$ponto['ponto']['descricao']}}.
         </p>
 
