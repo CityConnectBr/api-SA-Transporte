@@ -333,7 +333,7 @@ Route::group([
     Route::name('solicitacaodealteracao.')->group(function () {
         Route::get('/arquivo/{id}', 'SaT\ArquivoController@show');
     });
-    Route::name('statusveiculo.')->group(function () {
-        Route::get('/statusveiculo/{placa}', 'SaT\ConsultasAppController@consultaStatusVeiculo');
+    Route::name('permissaodeoperacao.')->group(function () {
+        Route::get('/permissaodeoperacao/{param}', 'SaT\ConsultasAppController@permissaoDeOperacao');
     });
 });
