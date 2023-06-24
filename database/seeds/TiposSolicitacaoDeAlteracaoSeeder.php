@@ -26,10 +26,10 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo2' => '^\d{2}$',*/
             'nome_campo3' => 'telefone',
             'desc_campo3' => 'telefone',
-            'regex_campo3' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo3' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
             'nome_campo4' => 'celular',
             'desc_campo4' => 'celular',
-            'regex_campo4' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo4' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '2',
@@ -105,10 +105,10 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo5' => '^\d{2}$',*/
             'nome_campo6' => 'telefone',
             'desc_campo6' => 'telefone',
-            'regex_campo6' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo6' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
             'nome_campo7' => 'celular',
             'desc_campo7' => 'celular',
-            'regex_campo7' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo7' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
             'nome_campo8' => 'cep',
             'desc_campo8' => 'cep',
             'regex_campo8' => '^(\d{8})$',
@@ -162,13 +162,13 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo2' => '^\d{2}$',*/
             'nome_campo3' => 'telefone',
             'desc_campo3' => 'telefone',
-            'regex_campo3' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo3' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
             'nome_campo4' => 'telefone2',
             'desc_campo4' => 'telefone de recados',
-            'regex_campo4' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo4' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
             'nome_campo5' => 'celular',
             'desc_campo5' => 'celular',
-            'regex_campo5' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo5' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '11',
@@ -249,7 +249,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo1' => '^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$',
             'nome_campo2' => 'telefone',
             'desc_campo2' => 'telefone',
-            'regex_campo2' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo2' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '21',
@@ -302,7 +302,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo1' => '^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$',
             'nome_campo2' => 'telefone',
             'desc_campo2' => 'telefone',
-            'regex_campo2' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo2' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
             'nome_campo3' => 'cep',
             'desc_campo3' => 'cep',
             'regex_campo3' => '^(\d{8})$',
@@ -356,7 +356,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo1' => '^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$',
             'nome_campo3' => 'telefone',
             'desc_campo3' => 'telefone',
-            'regex_campo3' => '^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
+            'regex_campo3' => '^(\d+)$',//'^\([1-9]{2}\) ([0-9]{5}|[0-9]{4})\-[0-9]{4}$',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '31',

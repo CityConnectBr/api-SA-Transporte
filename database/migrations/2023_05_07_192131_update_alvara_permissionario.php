@@ -18,7 +18,7 @@ class UpdateAlvaraPermissionario extends Migration
             $table->string('chave_pix', 200)->nullable();
             $table->string('codigo_pix', 200)->nullable();
             $table->date('data_pagamento')->nullable();
-            $table->string('status', 20)->nullable();//(pendente, pago, cancelado, aguardando_confirmacao)
+            $table->string('status', 20)->nullable();//(pendente, pago, cancelado, confirmacao_pendente)
             $table->string('arquivo_comprovante_uid')->nullable();
             $table->string('data_envio_comprovante')->nullable();         
             $table->double('valor')->nullable();

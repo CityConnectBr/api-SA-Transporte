@@ -150,7 +150,7 @@ class AlvaraDoPermissionarioController extends AdminSuperController
         $objs = $this->objectModel::where("status", "pendente")
             ->with("permissionario")
             ->with("empresa")
-            ->orWhere("status", "aguardando_confirmacao")
+            ->orWhere("status", "confirmacao_pendente")
             ->orderBy("created_at", "desc")
             ->simplePaginate(20);
 

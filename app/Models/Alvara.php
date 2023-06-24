@@ -19,7 +19,7 @@ class Alvara extends Model
         'chave_pix',
         'codigo_pix',
         'data_pagamento',
-        'status',//(pendente, pago, cancelado, aguardando_confirmacao)
+        'status',//(pendente, pago, cancelado, confirmacao_pendente)
         'arquivo_comprovante_uid',
         'data_envio_comprovante',
         'valor',

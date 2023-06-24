@@ -244,6 +244,10 @@ Route::group([
                 Route::get('/formularios/formulariodeclaracaomonitor', 'Admin\FormularioController@formulariodeclaracaomonitor');
                 Route::get('/formularios/condutorauxiliar', 'Admin\FormularioController@condutorauxiliar');
                 Route::get('/formularios/solicitacaodebaixadecondutorauxiliar', 'Admin\FormularioController@solicitacaodebaixadecondutorauxiliar');
+            
+                Route::get('/v1/infracoes', 'v1\InfracaoController@index');
+                Route::get('/v1/infracoes/{id}', 'v1\InfracaoController@show');
+                Route::post('/v1/infracoes/{id}/setpagamento', 'v1\InfracaoController@updatePagamento');
             });
         });
 
@@ -333,7 +337,7 @@ Route::group([
     Route::name('solicitacaodealteracao.')->group(function () {
         Route::get('/arquivo/{id}', 'SaT\ArquivoController@show');
     });
-    Route::name('statusveiculo.')->group(function () {
-        Route::get('/statusveiculo/{placa}', 'SaT\ConsultasAppController@consultaStatusVeiculo');
+    Route::name('permissaodeoperacao.')->group(function () {
+        Route::get('/permissaodeoperacao/{param}', 'SaT\ConsultasAppController@permissaoDeOperacao');
     });
 });
