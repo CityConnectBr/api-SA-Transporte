@@ -106,7 +106,7 @@ class InfracaoController extends AdminSuperController
                 ],
                 'status' => [
                     'nullable',
-                    'regex:/^(pendente|pago|cancelado|aguardando_confirmacao)$/'
+                    'regex:/^(pendente|pago|cancelado|confirmacao_pendente)$/'
                 ],*/
             ],
             $request

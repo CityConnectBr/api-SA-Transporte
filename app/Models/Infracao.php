@@ -32,7 +32,7 @@ class Infracao extends Model
         'chave_pix',
         'codigo_pix',
         'data_pagamento',
-        'status', //(pendente, pago, cancelado, aguardando_confirmacao)
+        'status', //(pendente, pago, cancelado, confirmacao_pendente)
         'arquivo_comprovante_uid',
         'data_envio_comprovante',
         'valor_fmp_atual',
@@ -100,5 +100,23 @@ class Infracao extends Model
             ->with('permissionario', 'veiculo', 'empresa', 'moeda', 'quadro_infracao', 'natureza_infracao', 'usuario_pagamento', 'FMP')
             ->first();
     }
+
+    public static function findByPermissionarioByStatus($id, $status)
+    {
+        return Infracao::where("permissionario_id", $id)
+            ->where("status", $status)
+            ->with('permissionario', 'veiculo', 'empresa', 'moeda', 'quadro_infracao', 'natureza_infracao', 'usuario_pagamento', 'FMP')
+            ->orderBy("data_infracao", 'desc')
+            ->get();
+    }
+
+    public static function findByPermissionarioAndId($id, $id_infracao)
+    {
+        return Infracao::where("permissionario_id", $id)
+            ->where("id", $id_infracao)
+            ->with('permissionario', 'veiculo', 'empresa', 'moeda', 'quadro_infracao', 'natureza_infracao', 'usuario_pagamento', 'FMP')
+            ->first();
+    }
+
 
 }
