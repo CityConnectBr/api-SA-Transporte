@@ -1,8 +1,7 @@
 <?php
-namespace app\Http\Controllers\v1;
+namespace App\Http\Controllers\v1;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Veiculo;
 
@@ -13,55 +12,6 @@ class VeiculoController extends Controller
     {
         $this->request = $request;
     }
-
-    private $validatorVeiculosList = [
-        'placa' => [
-            'required',
-            'max:7'
-        ],
-        'cod_renavam' => [
-            'required',
-            'max:11'
-        ],
-        'chassi' => [
-            'required',
-            'max:25'
-        ],
-        'ano_fabricacao' => [
-            'required'
-        ],
-        'capacidade' => [
-            'required',
-            'max:15'
-        ],
-        'observacao_capacidade' => [
-            'max:40'
-        ],
-        'tipo_capacidade' => [
-            'required'
-        ],
-        'anos_vida_util_veiculo' => [
-            'required'
-        ],
-        'marca_modelo_veiculo_id' => [
-            'required'
-        ],
-        'tipo_combustivel_id' => [
-            'required'
-        ],
-        'cor_id' => [
-            'required'
-        ],
-        'tipo_veiculo_id' => [
-            'required'
-        ],
-        'categoria_id' => [
-            'required'
-        ]
-    ];
-
-    private $validatorOnibusList = [ // fazer ainda
-    ];
 
     /**
      * Display a listing of the resource.

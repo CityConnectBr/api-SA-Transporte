@@ -202,8 +202,6 @@ Route::group([
             'prefix' => 'permissionarios'
         ], function () {
             Route::name('permissionarios.')->group(function () {
-                // Route::get('/condutores', 'CondutorController@index')->name('condutores.index');
-
                 Route::get('/v1/coresveiculos', 'v1\CorVeiculoController@index');
                 Route::get('/v1/coresveiculos/{id}', 'v1\CorVeiculoController@show');
 
