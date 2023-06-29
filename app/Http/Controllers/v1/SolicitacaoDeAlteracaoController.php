@@ -49,6 +49,8 @@ class SolicitacaoDeAlteracaoController extends Controller
             $refObj = Monitor::find($referenciaId);
         } else if (strpos($tipoDeSolicitacao->nome, 'fiscal') !== false) {
             $refObj = Fiscal::find($referenciaId);
+        } else if (strpos($tipoDeSolicitacao->nome, 'infracao') !== false) {
+            $refObj = Veiculo::find($referenciaId);
         }
 
         return $refObj != null ? $refObj->id : null;
@@ -85,7 +87,7 @@ class SolicitacaoDeAlteracaoController extends Controller
     {
         $tipoDeSolicitacao = TipoDeSolicitacaoDeAlteracao::find($request["tipo_solicitacao_id"]);
 
-        if (! isset($tipoDeSolicitacao)) {
+        if (!isset($tipoDeSolicitacao)) {
             return parent::responseMsgJSON("Tipo de solicitação não encontrado!", 400);
         }
 
@@ -99,7 +101,7 @@ class SolicitacaoDeAlteracaoController extends Controller
             $referencia = $usuario->condutor_id;
         }
 
-        if (! isset($referencia)) {
+        if (!isset($referencia)) {
             return parent::responseMsgJSON("Usuário logado nao corresponde ao tipo de solicitação de alteração!", 400);
         }
 
@@ -127,7 +129,7 @@ class SolicitacaoDeAlteracaoController extends Controller
 
         $tipoDeSolicitacao = TipoDeSolicitacaoDeAlteracao::find($request["tipo_solicitacao_id"]);
 
-        if (! isset($tipoDeSolicitacao)) {
+        if (!isset($tipoDeSolicitacao)) {
             return parent::responseMsgJSON("Tipo de solicitação não encontrado!", 400);
         }
 
@@ -135,7 +137,7 @@ class SolicitacaoDeAlteracaoController extends Controller
         if (isset($request["referencia_id"])) {
             $idReferenciaRemota = $this->findIdReferenciaId($tipoDeSolicitacao, $request["referencia_id"]);
 
-            if (! isset($idReferenciaRemota)) {
+            if (!isset($idReferenciaRemota)) {
                 return parent::responseMsgJSON("Referência não encontrada!", 400);
             }
         }
@@ -153,7 +155,7 @@ class SolicitacaoDeAlteracaoController extends Controller
             //referencias
             if (Str::contains($tipoDeSolicitacao->nome, 'condutor')) {
                 $solicitacao->referencia_condutor_id = $request["referencia_id"];
-                if(Str::contains($tipoDeSolicitacao->nome, 'endereco')){
+                if (Str::contains($tipoDeSolicitacao->nome, 'endereco')) {
                     $objRef = Condutor::find($request["referencia_id"]);
                 }
             } else if (Str::contains($tipoDeSolicitacao->nome, 'veiculo')) {
@@ -162,35 +164,37 @@ class SolicitacaoDeAlteracaoController extends Controller
                 $solicitacao->referencia_veiculo_id = $request["referencia_id"];
             } else if (Str::contains($tipoDeSolicitacao->nome, 'permissionario')) {
                 $solicitacao->referencia_permissionario_id = $request["referencia_id"];
-                if(Str::contains($tipoDeSolicitacao->nome, 'endereco')){
+                if (Str::contains($tipoDeSolicitacao->nome, 'endereco')) {
                     $objRef = Permissionario::find($request["referencia_id"]);
                 }
             } else if (Str::contains($tipoDeSolicitacao->nome, 'monitor')) {
                 $solicitacao->referencia_monitor_id = $request["referencia_id"];
-                if(Str::contains($tipoDeSolicitacao->nome, 'endereco')){
+                if (Str::contains($tipoDeSolicitacao->nome, 'endereco')) {
                     $objRef = Monitor::find($request["referencia_id"]);
                 }
             } else if (Str::contains($tipoDeSolicitacao->nome, 'fiscal')) {
                 $solicitacao->referencia_fiscal_id = $request["referencia_id"];
-                if(Str::contains($tipoDeSolicitacao->nome, 'endereco')){
+                if (Str::contains($tipoDeSolicitacao->nome, 'endereco')) {
                     $objRef = Fiscal::find($request["referencia_id"]);
                 }
+            } else if (strpos($tipoDeSolicitacao->nome, 'infracao') !== false) {
+                $solicitacao->referencia_veiculo_id = $request["referencia_id"];
             }
 
             //setando endereco
-            $solicitacao->endereco_id = $objRef!=null?$objRef->endereco_id:null;
+            $solicitacao->endereco_id = $objRef != null ? $objRef->endereco_id : null;
         }
 
         $errors = array();
 
         // Validacao de campos
-        for ($i = 1; $i < 26; $i ++) {
+        for ($i = 1; $i < 26; $i++) {
             $regexField = $tipoDeSolicitacao['regex_campo' . $i];
 
             if (isset($regexField)) {
                 $field = $solicitacao['campo' . $i];
 
-                if (! preg_match("/" . $regexField . "/", $field)) {
+                if (!preg_match("/" . $regexField . "/", $field)) {
                     array_push($errors, "O campo " . ($tipoDeSolicitacao['desc_campo' . $i]) . "(campo " . $i . "), contem valor inválido.");
                 }
             } else {
@@ -199,11 +203,11 @@ class SolicitacaoDeAlteracaoController extends Controller
         }
 
         // validação de arquivos
-        for ($i = 1; $i < 10; $i ++) {
+        for ($i = 1; $i < 10; $i++) {
             if (isset($tipoDeSolicitacao['desc_arquivo' . $i])) {
                 $fileField = $request->file('arquivo' . $i);
 
-                if (! isset($fileField) || ! preg_match("/([a-zA-Z0-9\s_\\.\-\(\):])+(.jpg|.jpeg|.png)$/", $fileField->getClientOriginalName())) {
+                if (!isset($fileField) || !preg_match("/([a-zA-Z0-9\s_\\.\-\(\):])+(.jpg|.jpeg|.png)$/", $fileField->getClientOriginalName())) {
                     array_push($errors, "O campo " . ($tipoDeSolicitacao['desc_arquivo' . $i]) . "(arquivo " . $i . "), contem valor inválido.");
                 }
             } else {
@@ -234,7 +238,7 @@ class SolicitacaoDeAlteracaoController extends Controller
         }
 
         // sanvando arquivos
-        for ($i = 1; $i < 10; $i ++) {
+        for ($i = 1; $i < 10; $i++) {
             if (isset($request["arquivo" . $i])) {
 
                 $arquivo = new Arquivo();
