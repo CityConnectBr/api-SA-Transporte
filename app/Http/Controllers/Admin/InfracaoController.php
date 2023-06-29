@@ -223,5 +223,38 @@ class InfracaoController extends AdminSuperController
         return $obj;
     }
 
+    public function reprovarPagamento(Request $request, $id)
+    {
+        //TODO: 
+        /*$validator = Validator::make($request->all(), [
+            'obs_reprovacao' => [
+                'required',
+                'max:500',
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return Parent::responseMsgsJSON($validator->errors(), 400);
+        }
+        */
+
+        $obj = $this->objectModel::find($id);        
+        $obj->usuario_pagamento_id = auth()->id()!=null?auth()->id():auth('api')->id();
+
+        if($obj==null){
+            return Parent::responseMsgsJSON("Objeto não encontrado", 400);
+        }
+
+        if($obj->status!="confirmacao_pendente"){
+            return Parent::responseMsgsJSON("Infração não está com status de confirmação pendente", 400);
+        }
+
+        $obj->status="confirm_rejeitada";
+        //$obj->obs_reprovacao=$request['obs_reprovacao'];//TODO
+        $obj->update();
+
+        return $obj;
+    }
+
 
 }

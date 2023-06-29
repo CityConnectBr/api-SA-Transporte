@@ -128,6 +128,7 @@ Route::group([
 
                 Route::resource('/certidoes', 'Admin\CertidaoController');
                 Route::post('/infracoes/{id}/lancarpagamento', 'Admin\InfracaoController@setPagamento');
+                Route::post('/infracoes/{id}/reprovarpagamento', 'Admin\InfracaoController@reprovarPagamento');
                 Route::resource('/infracoes', 'Admin\InfracaoController');
                 Route::post('/infracoes/{id}/foto', 'Admin\InfracaoController@storeFoto');
                 Route::get('/infracoes/{id}/foto', 'Admin\InfracaoController@showFoto');
