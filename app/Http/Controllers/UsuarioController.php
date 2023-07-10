@@ -291,6 +291,7 @@ class UsuarioController extends Controller
             case 1:
                 $user->permissionario->modalidade; // carregando modalidade
                 $user->permissionario->endereco; // carregando endereco
+                $user->permissionario->lastAlvara; // carregando alvara
                 break;
             case 2:
                 $user->condutor->endereco; // carregando endereco

@@ -89,6 +89,10 @@ class Permissionario extends Model
         return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
     }
 
+    public function lastAlvara(){
+        return $this->hasOne(Alvara::class, 'permissionario_id', 'id')->orderBy('created_at', 'desc');
+    }
+
 
     //////////////////////////////////////
     public static function search($search)
@@ -113,7 +117,10 @@ class Permissionario extends Model
 
     public static function findByIntegracaoComplete($id)
     {
-        return Permissionario::with('modalidade')->with('endereco')->firstWhere("id_integracao", $id);
+        return Permissionario::with('modalidade')
+        ->with('endereco')
+        ->with('alvara')
+        ->firstWhere("id_integracao", $id);
     }
 
     public static function firstWhereByIntegracao($id)
