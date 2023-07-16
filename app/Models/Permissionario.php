@@ -95,9 +95,15 @@ class Permissionario extends Model
 
 
     //////////////////////////////////////
-    public static function search($search)
+    public static function search($search, $ativo = true)
     {
-        return Permissionario::where("nome_razao_social", "like", "%" . $search . "%")
+        return Permissionario::where(function ($query) use ($search) {
+            $query->where("nome_razao_social", "like", "%" . $search . "%")
+                ->orWhere("id_integracao", "like", "%" . $search . "%")
+                ->orWhere("cpf_cnpj", "like", "%" . $search . "%")
+                ->orWhere("prefixo", "like", "%" . $search . "%");
+        })
+            ->where("ativo", "=", $ativo)
             ->orderBy("nome_razao_social")
             ->simplePaginate(15);
     }
