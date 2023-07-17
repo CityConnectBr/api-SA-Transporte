@@ -37,7 +37,13 @@ class AdminSuperController extends Controller
                 $search = $this->request->query('search');
             }
 
-            $obj = $this->objectModel::search($search);
+            $ativo = $this->request->input('ativo');
+
+            if ($ativo == null) {
+                $obj = $this->objectModel::search($search);
+            }else{
+                $obj = $this->objectModel::search($search, $ativo);
+            }
         } else {
             $obj = $this->objectModel::simplePaginate(15);
         }

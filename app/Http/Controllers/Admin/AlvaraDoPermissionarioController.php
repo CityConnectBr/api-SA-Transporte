@@ -20,17 +20,17 @@ class AlvaraDoPermissionarioController extends AdminSuperController
             'regex:' . Util::REGEX_DATE,
         ],
         'data_vencimento' => [
-            'required',
+            'nullable',
             'regex:' . Util::REGEX_DATE,
         ],
         'data_retorno' => [
+            'nullable',
             'regex:' . Util::REGEX_DATE,
         ],
         'observacao_retorno' => [
             'max:15',
         ],                
         'tipo_pagamento' => [
-            'required',
             'regex:/^(boleto|pix)$/'
         ],
         'chave_pix' => [
@@ -40,11 +40,10 @@ class AlvaraDoPermissionarioController extends AdminSuperController
             'max:200',
         ],
         'valor' => [
-            'required',
             'regex:'.Util::REGEX_NUMBER
         ],
         'empresa_id' => [
-            'required',
+            'nullable',
             'exists:empresas,id'
         ],
     ];
