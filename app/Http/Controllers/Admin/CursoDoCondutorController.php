@@ -22,6 +22,12 @@ class CursoDoCondutorController extends AdminSuperController
                 'data_emissao' => [
                     'required',
                 ],
+                'nome'=> [
+                    'max:100'
+                ],
+                'descricao'=> [
+                    'max:150'
+                ]
             ],
             $request
         );
