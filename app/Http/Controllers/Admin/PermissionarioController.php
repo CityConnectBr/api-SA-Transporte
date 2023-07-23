@@ -303,6 +303,9 @@ class PermissionarioController extends AdminSuperController
                 'max:15',
                 'min:3'
             ],
+            'observacao_obito' => [
+                'max:200',
+            ],
             'nome_inventariante' => [
                 'max:40',
             ],
