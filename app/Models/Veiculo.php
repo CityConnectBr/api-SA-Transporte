@@ -30,6 +30,9 @@ class Veiculo extends Model
         'tipo_combustivel_id',
         'cor_id',
         'tipo_veiculo_id',
+        'gnv_numero',
+        'gnv_selo_validade',
+        'gnv_ano_fabricacao',
         'permissionario_id'
     ];
 

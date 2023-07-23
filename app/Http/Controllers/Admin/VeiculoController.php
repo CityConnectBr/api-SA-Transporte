@@ -24,53 +24,68 @@ class VeiculoController extends AdminSuperController
                 'required',
                 'max:7',
                 'min:7'
-            ], 'cod_renavam' => [
+            ],
+            'cod_renavam' => [
                 'required',
                 'max:11',
                 'min:11'
-            ], 'chassi' => [
+            ],
+            'chassi' => [
                 'required',
                 'max:25',
                 'min:3'
-            ], 'ano_fabricacao' => [
+            ],
+            'ano_fabricacao' => [
                 'required',
                 'regex:' . Util::REGEX_NUMBER
-            ], 'ano_modelo' => [
+            ],
+            'ano_modelo' => [
                 'required',
                 'regex:' . Util::REGEX_NUMBER
-            ], 'capacidade' => [
+            ],
+            'capacidade' => [
                 'required',
                 'max:15',
                 'min:1'
-            ], 'tipo_capacidade' => [
+            ],
+            'tipo_capacidade' => [
                 'required',
                 'max:1',
                 'min:1'
-            ], 'observacao_capacidade' => [
+            ],
+            'observacao_capacidade' => [
                 'required',
                 'max:40',
                 'min:3'
-            ], 'anos_vida_util_veiculo' => [
+            ],
+            'anos_vida_util_veiculo' => [
                 'required',
                 'regex:' . Util::REGEX_NUMBER
-            ], 'observacao_capacidade' => [
+            ],
+            'observacao_capacidade' => [
                 'max:40',
-            ], 'marca_modelo_veiculo_id' => [
+            ],
+            'marca_modelo_veiculo_id' => [
                 'required',
                 'exists:marcas_modelos_veiculos,id'
-            ], 'tipo_combustivel_id' => [
+            ],
+            'tipo_combustivel_id' => [
                 'required',
                 'exists:tipos_combustiveis,id'
-            ], 'cor_id' => [
+            ],
+            'cor_id' => [
                 'required',
                 'exists:cores_veiculos,id'
-            ], 'tipo_veiculo_id' => [
+            ],
+            'tipo_veiculo_id' => [
                 'required',
                 'exists:tipos_veiculos,id'
-            ], 'permissionario_id' => [
+            ],
+            'permissionario_id' => [
                 'required',
                 'exists:permissionarios,id'
-            ], 'categoria_id' => [
+            ],
+            'categoria_id' => [
                 'required',
                 'exists:categorias_veiculos,id'
             ]
@@ -82,56 +97,84 @@ class VeiculoController extends AdminSuperController
                 'required',
                 'max:7',
                 'min:7'
-            ], 'cod_renavam' => [
+            ],
+            'cod_renavam' => [
                 'required',
                 'max:11',
                 'min:11'
-            ], 'chassi' => [
+            ],
+            'chassi' => [
                 'required',
                 'max:25',
                 'min:3'
-            ], 'ano_fabricacao' => [
+            ],
+            'ano_fabricacao' => [
                 'required',
                 'regex:' . Util::REGEX_NUMBER
-            ], 'ano_modelo' => [
+            ],
+            'ano_modelo' => [
                 'required',
                 'regex:' . Util::REGEX_NUMBER
-            ], 'capacidade' => [
+            ],
+            'capacidade' => [
                 'required',
                 'max:15',
                 'min:1'
-            ], 'tipo_capacidade' => [
+            ],
+            'tipo_capacidade' => [
                 'required',
                 'max:1',
                 'min:1'
-            ], 'observacao_capacidade' => [
+            ],
+            'observacao_capacidade' => [
                 'required',
                 'max:40',
                 'min:3'
-            ], 'anos_vida_util_veiculo' => [
+            ],
+            'anos_vida_util_veiculo' => [
                 'required',
                 'regex:' . Util::REGEX_NUMBER
-            ], 'observacao_capacidade' => [
+            ],
+            'observacao_capacidade' => [
                 'max:40',
-            ], 'marca_modelo_carroceria_id' => [
+            ],
+            'marca_modelo_carroceria_id' => [
                 'required',
                 'exists:marcas_modelos_carrocerias,id'
-            ], 'marca_modelo_chassi_id' => [
+            ],
+            'marca_modelo_chassi_id' => [
                 'required',
                 'exists:marcas_modelos_chassis,id'
-            ], 'tipo_combustivel_id' => [
+            ],
+            'tipo_combustivel_id' => [
                 'required',
                 'exists:tipos_combustiveis,id'
-            ], 'cor_id' => [
+            ],
+            'cor_id' => [
                 'required',
                 'exists:cores_veiculos,id'
-            ], 'tipo_veiculo_id' => [
+            ],
+            'tipo_veiculo_id' => [
                 'required',
                 'exists:tipos_veiculos,id'
-            ], 'permissionario_id' => [
+            ],
+            'gnv_numero' => [
+                'nullable',
+                'max:20',
+            ],
+            'gnv_selo_validade' => [
+                'nullable',
+                'date_format:Y-m-d'
+            ],
+            'gnv_ano_fabricacao' => [
+                'nullable',
+                'regex:' . Util::REGEX_NUMBER
+            ],
+            'permissionario_id' => [
                 'required',
                 'exists:permissionarios,id'
-            ], 'categoria_id' => [
+            ],
+            'categoria_id' => [
                 'required',
                 'exists:categorias_veiculos,id'
             ]
@@ -140,11 +183,11 @@ class VeiculoController extends AdminSuperController
 
     public function store(Request $request)
     {
-        $categoria = $request['categoria_id']!=null?$request['categoria_id']:1;
-        $validator = Validator::make($request->all(), $categoria==1?$this->validacaoVeiculo:$this->validacaoOnibus);
+        $categoria = $request['categoria_id'] != null ? $request['categoria_id'] : 1;
+        $validator = Validator::make($request->all(), $categoria == 1 ? $this->validacaoVeiculo : $this->validacaoOnibus);
 
         if ($validator->fails()) {
-            return Parent::responseMsgsJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $obj = new $this->objectModel();
@@ -159,7 +202,7 @@ class VeiculoController extends AdminSuperController
         $validator = Validator::make($request->all(), $this->validatorList);
 
         if ($validator->fails()) {
-            return Parent::responseMsgsJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $obj = $this->objectModel::find($id);
@@ -175,6 +218,6 @@ class VeiculoController extends AdminSuperController
 
     public function indexByPermissionario()
     {
-        return Veiculo::searchByIdPermissionario($this->request->query->get("permissionario_id"), $this->request->query->get("search"),);
+        return Veiculo::searchByIdPermissionario($this->request->query->get("permissionario_id"), $this->request->query->get("search"), );
     }
 }
