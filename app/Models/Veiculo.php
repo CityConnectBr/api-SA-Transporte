@@ -30,18 +30,22 @@ class Veiculo extends Model
         'tipo_combustivel_id',
         'cor_id',
         'tipo_veiculo_id',
+        'gnv_numero',
+        'gnv_selo_validade',
+        'gnv_ano_fabricacao',
         'permissionario_id'
     ];
 
     protected $table = 'veiculos';
 
-    public static function search($search)
+    public static function search($search, $ativo = true)
     {
         //dd($search);
         $veiculo = Veiculo::where(function ($q) use ($search) {
             $q->where("placa", "like", "%" . $search . "%")
-            ->orWhere("cod_renavam", "like", "%" . $search . "%");
+                ->orWhere("cod_renavam", "like", "%" . $search . "%");
         })
+            ->where("ativo", "=", $ativo)
             ->with("marcaModeloCarroceria")
             ->with("marcaModeloChassi")
             ->with("marcaModeloVeiculo")
@@ -55,29 +59,27 @@ class Veiculo extends Model
             ->orderBy("placa")
             ->simplePaginate(15);
 
-            if($veiculo->isEmpty()){
+        if ($veiculo->isEmpty()) {
+            $veiculo = Veiculo::with("marcaModeloCarroceria")
+                ->with("marcaModeloChassi")
+                ->with("marcaModeloVeiculo")
+                ->with("tipoCombustivel")
+                ->with("tipoVeiculo")
+                ->with("cor")
+                ->whereHas('permissionario', function ($q) use ($search) {
+                    $q->where("nome_razao_social", "like", "%" . $search . "%");
+                })
+                ->where("ativo", "=", $ativo)
+                // ->with(["permissionario" => function($q) use($search){
+                //     $q->where("nome_razao_social", "like", "%".$search == null ? "" : $search. "%");
+                //     //dd($q);
+                // }])
+                ->with("permissionario")
+                ->orderBy("placa")
+                ->simplePaginate(15);
+        }
 
-                $veiculo = Veiculo::with("marcaModeloCarroceria")
-                    ->with("marcaModeloChassi")
-                    ->with("marcaModeloVeiculo")
-                    ->with("tipoCombustivel")
-                    ->with("tipoVeiculo")
-                    ->with("cor")
-                    ->whereHas('permissionario', function($q) use($search){
-                        //dd($search);
-                        $q->where("nome_razao_social", "like", "%". $search . "%");
-                        //dd($q);
-                    })
-                    // ->with(["permissionario" => function($q) use($search){
-                    //     $q->where("nome_razao_social", "like", "%".$search == null ? "" : $search. "%");
-                    //     //dd($q);
-                    // }])
-                    ->with("permissionario")
-                    ->orderBy("placa")
-                    ->simplePaginate(15);
-            }
-
-            return $veiculo;
+        return $veiculo;
     }
 
     public static function returnPaginated()
@@ -172,7 +174,7 @@ class Veiculo extends Model
     {
         return Veiculo::where("permissionario_id", "=", $permissionario_id)->where(function ($q) use ($search) {
             $q->where("placa", "like", "%" . $search . "%")
-            ->orWhere("cod_renavam", "like", "%" . $search . "%");
+                ->orWhere("cod_renavam", "like", "%" . $search . "%");
         })
             ->with("marcaModeloCarroceria")
             ->with("marcaModeloChassi")

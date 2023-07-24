@@ -65,6 +65,7 @@ class Permissionario extends Model
         'data_transferencia',
         'data_obito',
         'certidao_de_obito',
+        'observacao_obito',
         'nome_inventariante',
         'numero_do_processo_do_inventario',
         'grau_de_paretesco_inventariante',
