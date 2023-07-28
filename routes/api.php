@@ -135,6 +135,7 @@ Route::group([
                 Route::resource('/vistoriadepontos', 'Admin\VistoriaPontoController');
 
                 Route::get('/relatorios/entradasaidadeveiculos', 'Admin\RelatorioController@entradaSaudaDeVeiculos');
+                Route::get('/relatorios/alvaraexpirado', 'Admin\RelatorioController@alvaraExpirado');
 
                 //formulario 1
                 Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formularioRenovacaoPermissao');
