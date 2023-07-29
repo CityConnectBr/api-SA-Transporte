@@ -22,6 +22,10 @@ class CursoDoMonitor extends Model
     {
         return $this->hasOne(TipoDeCurso::class, 'id', 'tipo_do_curso_id');
     }
+    public function monitor()
+    {
+        return $this->hasOne(Monitor::class, 'id', 'monitor_id');
+    }
     public static function search($search)
     {
         return CursoDoMonitor::where("monitor_id", $search)
@@ -33,6 +37,9 @@ class CursoDoMonitor extends Model
     {
         return CursoDoMonitor::where('data_validade', '<', date('Y-m-d'))
             ->with('tipoDeCurso')
+            ->with(['monitor' => function ($query) {
+                $query->select('id', 'nome'); 
+            }])
             ->orderBy("created_at")
             ->simplePaginate(15);
     }

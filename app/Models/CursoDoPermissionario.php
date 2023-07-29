@@ -22,6 +22,10 @@ class CursoDoPermissionario extends Model
     {
         return $this->hasOne(TipoDeCurso::class, 'id', 'tipo_do_curso_id');
     }
+    public function permissionario()
+    {
+        return $this->hasOne(Permissionario::class, 'id', 'permissionario_id');
+    }
     public static function search($search)
     {
         return CursoDoPermissionario::where("permissionario_id", $search)
@@ -33,6 +37,9 @@ class CursoDoPermissionario extends Model
     {
         return CursoDoPermissionario::where('data_validade', '<', date('Y-m-d'))
             ->with('tipoDeCurso')
+            ->with(['permissionario' => function ($query) {
+                $query->select('id', 'nome_razao_social'); 
+            }])
             ->orderBy("created_at")
             ->simplePaginate(15);
     }
