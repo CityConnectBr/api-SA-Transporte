@@ -136,6 +136,9 @@ Route::group([
 
                 Route::get('/relatorios/entradasaidadeveiculos', 'Admin\RelatorioController@entradaSaudaDeVeiculos');
                 Route::get('/relatorios/alvaraexpirado', 'Admin\RelatorioController@alvaraExpirado');
+                Route::get('/relatorios/cursospermissionariovencidos', 'Admin\RelatorioController@cursosPermissionarioVencidos');
+                Route::get('/relatorios/cursoscondutorvencidos', 'Admin\RelatorioController@cursosCondutorVencidos');
+                Route::get('/relatorios/cursosmonitorvencidos', 'Admin\RelatorioController@cursosMonitorVencidos');
 
                 //formulario 1
                 Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formularioRenovacaoPermissao');

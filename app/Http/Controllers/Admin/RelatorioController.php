@@ -3,6 +3,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alvara;
+use App\Models\CursoDoCondutor;
+use App\Models\CursoDoMonitor;
+use App\Models\CursoDoPermissionario;
 use Illuminate\Http\Request;
 
 class RelatorioController extends Controller
@@ -25,6 +28,27 @@ class RelatorioController extends Controller
         $alvaras = Alvara::findAlvaraExpirados();
 
         return parent::responseJSON($alvaras);
+    }
+
+    function cursosPermissionarioVencidos()
+    {
+        $cursosVencidos = CursoDoPermissionario::findCursosVencidos(); 
+        
+        return parent::responseJSON($cursosVencidos);
+    }
+
+    function cursosCondutorVencidos()
+    {
+        $cursos = CursoDoCondutor::findCursosVencidos();
+
+        return parent::responseJSON($cursos);
+    }
+
+    function cursosMonitorVencidos()
+    {
+        $cursos = CursoDoMonitor::findCursosVencidos();
+
+        return parent::responseJSON($cursos);
     }
 
 }

@@ -29,4 +29,11 @@ class CursoDoCondutor extends Model
             ->orderBy("created_at")
             ->simplePaginate(15);
     }
+    public static function findCursosVencidos()
+    {
+        return CursoDoCondutor::where('data_validade', '<', date('Y-m-d'))
+            ->with('tipoDeCurso')
+            ->orderBy("created_at")
+            ->simplePaginate(15);
+    }
 }
