@@ -41,6 +41,6 @@ class CursoDoMonitor extends Model
                 $query->select('id', 'nome'); 
             }])
             ->orderBy("created_at")
-            ->simplePaginate(15);
+            ->get();
     }
 }

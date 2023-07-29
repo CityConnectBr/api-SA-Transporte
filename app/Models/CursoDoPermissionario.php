@@ -41,6 +41,6 @@ class CursoDoPermissionario extends Model
                 $query->select('id', 'nome_razao_social'); 
             }])
             ->orderBy("created_at")
-            ->simplePaginate(15);
+            ->get();
     }
 }
