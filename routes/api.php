@@ -196,6 +196,8 @@ Route::group([
                 Route::get('/formularios/termocredenciamentotranspescolar', 'Admin\FormularioController@termoDeCredenciamentoTransporteEscolar');
                 //formulario 134
                 Route::get('/formularios/aip', 'Admin\FormularioController@aip');
+                //formulario 135
+                Route::get('/formularios/alvaradopermissionario', 'Admin\FormularioController@alvaraDoPermissionario');
             });
         });
 
