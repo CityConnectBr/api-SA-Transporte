@@ -90,6 +90,7 @@ Route::group([
                 Route::resource('/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
                 Route::resource('/aplicativosdopermissionario', 'Admin\AplicativoDoPermissionarioController');
                 Route::resource('/cursosdopermissionario', 'Admin\CursoDoPermissionarioController');
+                Route::resource('/alunosdopermissionario', 'Admin\AlunoDoPermissionarioController');
                 Route::resource('/alvaradopermissionario', 'Admin\AlvaraDoPermissionarioController');
                 Route::resource('/observacoesdopermissionario', 'Admin\ObservacaoDoPermissionarioController');
                 Route::resource('/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');

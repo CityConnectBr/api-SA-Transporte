@@ -105,6 +105,7 @@ class Permissionario extends Model
                 ->orWhere("prefixo", "like", "%" . $search . "%");
         })
             ->where("ativo", "=", $ativo)
+            ->with("modalidade")
             ->orderBy("nome_razao_social")
             ->simplePaginate(15);
     }
