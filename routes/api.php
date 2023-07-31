@@ -90,6 +90,7 @@ Route::group([
                 Route::resource('/pontosdopermissionario', 'Admin\PontoDoPermissionarioController');
                 Route::resource('/aplicativosdopermissionario', 'Admin\AplicativoDoPermissionarioController');
                 Route::resource('/cursosdopermissionario', 'Admin\CursoDoPermissionarioController');
+                Route::resource('/alunosdopermissionario', 'Admin\AlunoDoPermissionarioController');
                 Route::resource('/alvaradopermissionario', 'Admin\AlvaraDoPermissionarioController');
                 Route::resource('/observacoesdopermissionario', 'Admin\ObservacaoDoPermissionarioController');
                 Route::resource('/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
@@ -135,6 +136,10 @@ Route::group([
                 Route::resource('/vistoriadepontos', 'Admin\VistoriaPontoController');
 
                 Route::get('/relatorios/entradasaidadeveiculos', 'Admin\RelatorioController@entradaSaudaDeVeiculos');
+                Route::get('/relatorios/alvaraexpirado', 'Admin\RelatorioController@alvaraExpirado');
+                Route::get('/relatorios/cursospermissionariovencidos', 'Admin\RelatorioController@cursosPermissionarioVencidos');
+                Route::get('/relatorios/cursoscondutorvencidos', 'Admin\RelatorioController@cursosCondutorVencidos');
+                Route::get('/relatorios/cursosmonitorvencidos', 'Admin\RelatorioController@cursosMonitorVencidos');
 
                 //formulario 1
                 Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formularioRenovacaoPermissao');
@@ -192,6 +197,8 @@ Route::group([
                 Route::get('/formularios/termocredenciamentotranspescolar', 'Admin\FormularioController@termoDeCredenciamentoTransporteEscolar');
                 //formulario 134
                 Route::get('/formularios/aip', 'Admin\FormularioController@aip');
+                //formulario 135
+                Route::get('/formularios/alvaradopermissionario', 'Admin\FormularioController@alvaraDoPermissionario');
             });
         });
 
