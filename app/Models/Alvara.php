@@ -53,4 +53,12 @@ class Alvara extends Model
             ->orderBy("created_at", "desc")
             ->get();
     }
+
+    public static function findAlvaraExpirados()
+    {
+        return Alvara::where("data_vencimento", "<", date("Y-m-d"))
+            ->with("permissionario")
+            ->orderBy("created_at", "desc")
+            ->get();
+    }
 }

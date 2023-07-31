@@ -27,7 +27,6 @@ class CreateAlunosTable extends Migration
             $table->timestamps();
             $table->foreign('permissionario_id')->references('id')->on('permissionarios');
             $table->foreign('ponto_id')->references('id')->on('pontos');
-
         });
     }
 

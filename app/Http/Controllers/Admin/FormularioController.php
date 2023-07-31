@@ -1057,4 +1057,56 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    //formulario135
+    function alvaraDoPermissionario()
+    {
+
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];
+
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }   
+        
+        $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+        if ($ponto == null) {
+            return parent::responseMsgJSON("Ponto não encontrado", 404);
+        } else {
+            $ponto = $ponto->ponto;
+        }
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario135alvaradopermissionario";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'veiculo',
+            'permissionario',
+            'ponto',
+            'dataFormatada',
+            'usuario'
+        )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
 }
