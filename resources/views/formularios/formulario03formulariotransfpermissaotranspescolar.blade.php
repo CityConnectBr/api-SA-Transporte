@@ -86,13 +86,17 @@
 
         .parecer{
             width: 100%;
-            margin-top: 2.5cm;
-            border-top: 1px solid #000;
+            margin-top: 1.5cm;
+            border-top: 4px solid #000;
         }
 
         .parecer-p1{
             width: 50%;
             float: left;
+        }
+
+        .parecer-bold p {
+            font-weight: bold;
         }
 
         .parecer-p2{
@@ -106,8 +110,8 @@
             border: 1px solid #000;
             float: right;
         }
-        
-        .esquadro-foto p{            
+
+        .esquadro-foto p{
             text-align: center;
             line-height: 2cm;
         }
@@ -145,79 +149,79 @@
         <p>
         Para Transferência da permissão qualificada acima, foi apresentada a seguinte documentação:
         </p>
-        <div class="questionario">
+        <div class="questionario" style="margin-bottom: 4.5px;">
             <p>
-            ( ) Requerimento padrao preenchido
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Requerimento padrao preenchido
             </p>
             <p>
-            ( ) Foto 3X4
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Foto 3X4
             </p>
             <p>
-            ( ) CNH de Santo André Cat."D" ______________________ Validade ______/______/________ C/Obs: "Exerce Atividade Remunerada Transporte Escolar".
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) CNH de Santo André Cat."D" ______________________ Validade ______/______/________ C/Obs: "Exerce Atividade Remunerada Transporte Escolar".
             </p>
             <p>
-            ( ) Pesquisa de pontuação da CNH - comprovação do atendimento ao Art. 138 do CTB -
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Pesquisa de pontuação da CNH - comprovação do atendimento ao Art. 138 do CTB -
     "não ter cometido nenhuma infração grave ou gravíssima, ou ser reincidente em infrações
     médias nos últimos doze meses" ________ pts.
             </p>
             <p>
-            ( ) Certificado do curso de primeiros socorros realizado em Santo André
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Certificado do curso de primeiros socorros realizado em Santo André
             </p>
             <p>
-            ( ) RG ________________________
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) RG ________________________
             </p>
             <p>
-            ( ) CPF________________________
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) CPF________________________
             </p>
             <p>
-            ( ) Certidão negativa do registro de distribuição criminal, relativa aos crimes de homicídio, roubo,
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Certidão negativa do registro de distribuição criminal, relativa aos crimes de homicídio, roubo,
     estupro e corrupção de menores - Forum de Santo André - Validade ______/______/_______
             </p>
             <p>
-            ( ) Atestado de Saúde
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Atestado de Saúde
             </p>
             <p>
-            ( ) Comprovante de residencia em Santo André
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Comprovante de residencia em Santo André
             </p>
             <p>
-            ( ) CRLV (Categoria Aluguel)
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) CRLV (Categoria Aluguel)
             </p>
             <p>
-            ( ) Comprovante IPVA
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Comprovante IPVA
             </p>
             <p>
-            ( ) DPVAT - seguro obrigatório
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) DPVAT - seguro obrigatório
             </p>
             <p>
-            ( ) Vistoria do CIRETRAN - data ______/_______/_______
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Vistoria do CIRETRAN - data ______/_______/_______
             </p>
             <p>
-            ( ) Autorização para transporte escolar emitida pela CIRETRAN - data ______/_______/_______
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Autorização para transporte escolar emitida pela CIRETRAN - data ______/_______/_______
             </p>
             <p>
-            ( ) Nota Fiscal do tacógrafo, transferência ou doação, exceto original da fábrica do veículo
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Nota Fiscal do tacógrafo, transferência ou doação, exceto original da fábrica do veículo
             </p>
             <p>
-            ( ) Laudo de vistoria com aprovação da SA-TRANS
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Laudo de vistoria com aprovação da SA-TRANS
             </p>
             <p>
-            ( ) Inscrição no Cadastro Mobiliário (CMC) ________________________
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Inscrição no Cadastro Mobiliário (CMC) ________________________
             </p>
             <p>
-            ( ) Declaração de acompanhante (maior de 16 anos) e Xerox do RG do mesmo
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Declaração de acompanhante (maior de 16 anos) e Xerox do RG do mesmo
             </p>
             <p>
-            ( ) Relação dos alunos ( Anexo 9 )
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Relação dos alunos ( Anexo 9 )
             </p>
         </div>
 
-        <p style="text-align: justify;">
+        <p style="text-align: justify; margin-top: 0">
         Informo que o permissionário não possui débito junto à SA-TRANS e que a documentação
 apresentada foi conferida e está de acordo com o Decreto Municipal.
         </p>
 
         <p>
-        Nome: ____________________________ Data: ____/____/_____, Assinatura: ___________________
+        Nome: ___________________________Data: ____/____/_____, Assinatura:__________________
         </p>
         <p>
         Documentos conferido por:
@@ -229,39 +233,39 @@ apresentada foi conferida e está de acordo com o Decreto Municipal.
                 <p>____________________________________________  <span style="margin-left: 2cm;">Data ______/______/_______</span></p>
                 <p>Encarregado Setor de Cadastro</p>
             </div>
-        </div>  
+        </div>
 
         <div class="parecer">
             <div class="parecer-p1">
                 <p>Parecer da GCOC</p>
-                <p>De acordo,</p>
-                <div class="content-signature content-signature-left">
+                <p><b>De acordo,</b></p>
+                <div class="content-signature content-signature-left parecer-bold">
                     <div>
                         <br>
                         <br>
                         <p>______________________________________</p>
                         <p>Gerente de Controle Operacional e Cadastro</p>
                     </div>
-                </div> 
+                </div>
                 <p>Data: ____/____/_______</p>
             </div>
 
-            
+
             <div class="parecer-p2">
                 <p>Parecer da DTP</p>
-                <p>Autorizo,</p>
-                <div class="content-signature content-signature-left">
+                <p><b>Autorizo,</b></p>
+                <div class="content-signature content-signature-left parecer-bold">
                     <div>
                         <br>
                         <br>
                         <p>______________________________________</p>
                         <p>Diretor(a) de Transportes Públicos</p>
                     </div>
-                </div> 
+                </div>
                 <p>Data: ____/____/_______</p>
             </div>
         </div>
-        
+
 
         <footer>
             <p>Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p>

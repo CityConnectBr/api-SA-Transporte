@@ -30,7 +30,6 @@ class FormularioController extends Controller
     //formulario1
     function formularioRenovacaoPermissao()
     {
-
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Não encontrado", 404);
         }
@@ -776,8 +775,8 @@ class FormularioController extends Controller
 
         if ($permissionario['data_obito'] != null) {
             return parent::responseMsgJSON("Permissionário falecido", 404);
-        }        
-        
+        }
+
         $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
         if ($ponto == null) {
             return parent::responseMsgJSON("Ponto não encontrado", 404);
@@ -831,8 +830,8 @@ class FormularioController extends Controller
 
         if ($permissionario['data_obito'] != null) {
             return parent::responseMsgJSON("Permissionário falecido", 404);
-        }        
-        
+        }
+
         $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
         $enderecoPonto = null;
         if ($ponto == null) {
@@ -895,7 +894,7 @@ class FormularioController extends Controller
 
         if ($permissionario['data_obito'] != null) {
             return parent::responseMsgJSON("Permissionário falecido", 404);
-        }        
+        }
 
         $empresa = Empresa::findComplete(1);
 
@@ -952,7 +951,7 @@ class FormularioController extends Controller
 
         if ($permissionario['data_obito'] != null) {
             return parent::responseMsgJSON("Permissionário falecido", 404);
-        }        
+        }
 
         $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
 
@@ -1007,7 +1006,7 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
-    
+
     //formulario134
     function aip()
     {
@@ -1019,7 +1018,7 @@ class FormularioController extends Controller
         $infracao = Infracao::findComplete($this->request['infracao']);
         if ($infracao == null) {
             return parent::responseMsgJSON("Veículo não encontrado", 404);
-        }        
+        }
 
         //dd($infracao->veiculo);
         $empresa = Empresa::findComplete(1);
@@ -1038,7 +1037,7 @@ class FormularioController extends Controller
 
         $formlario = "formulario134aip";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, 
+        $pdf = PDF::loadView('formularios/' . $formlario,
         compact(
             'infracao',
             'empresa',
