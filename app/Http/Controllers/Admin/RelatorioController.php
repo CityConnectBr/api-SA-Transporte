@@ -6,6 +6,7 @@ use App\Models\Alvara;
 use App\Models\CursoDoCondutor;
 use App\Models\CursoDoMonitor;
 use App\Models\CursoDoPermissionario;
+use App\Models\Permissionario;
 use Illuminate\Http\Request;
 
 class RelatorioController extends Controller
@@ -32,8 +33,8 @@ class RelatorioController extends Controller
 
     function cursosPermissionarioVencidos()
     {
-        $cursosVencidos = CursoDoPermissionario::findCursosVencidos(); 
-        
+        $cursosVencidos = CursoDoPermissionario::findCursosVencidos();
+
         return parent::responseJSON($cursosVencidos);
     }
 
@@ -49,6 +50,11 @@ class RelatorioController extends Controller
         $cursos = CursoDoMonitor::findCursosVencidos();
 
         return parent::responseJSON($cursos);
+    }
+
+    function documentosExpirados()
+    {
+        return parent::responseJSON(Permissionario::findPermissionariosComDocumentosExpirados());
     }
 
 }
