@@ -82,7 +82,7 @@
 
         .separacao{
             width: 100%;
-            border-top: 1px solid #000;
+            border-top: 4px solid #000;
         }
 
         .parecer-p1{
@@ -100,67 +100,67 @@
 
         <h3>ANEXO 16 - SOLICITAÇÃO DE RESSARCIMENTO</h3>
         <p style="text-align: justify;">
-Eu, ________________________________________ permissionário do serviço de ________________,
-prefixo nº _____________________________, venho solicitar a devolução do valor
+Eu, ______________________________________ permissionário do serviço de _______________,
+prefixo &nbsp;nº ___________________________________, &nbsp;venho &nbsp;solicitar &nbsp;a &nbsp;devolução do &nbsp;valor&nbsp;
 de R$ ________________________, pago através do boleto nº ______________________, referente à
 multa de transporte deferida através do Processo nº _____________________________________.
         </p>
 
-        <p>
-        ( ) Depósito em Banco: ______________ AG ____________ C/C ___________________
+        <p style="font-weight: bold;">
+        ( &nbsp;&nbsp;&nbsp;) Depósito em Banco: ______________ AG ____________ C/C ___________________
         </p>
 
-        <p>
-        ( ) Cheque nominal em nome do solicitante
+        <p style="font-weight: bold;">
+        ( &nbsp;&nbsp;&nbsp;) Cheque nominal em nome do solicitante
         </p>
 
 
         <div class="content-signature content-signature-right">
             <p>Santo André, {{ $dataFormatada }}</p>
-            <div>
+            <div style="float: right;">
                 <br>
                 <p>____________________________________________</p>
                 <p>Permissionário</p>
             </div>
         </div>
 
-        <div class="separacao">
+        <div style="margin-top: 1.5cm;">
             <p>
-            Solicitação recebida e documentos conferidos por ______________________________________ em _____/______/______, assinatura: _______________________________________________ 
+            Solicitação recebida e documentos conferidos por _____________________________________ em _____/______/______, assinatura: _______________________________________________
             </p>
         </div>
 
         <div class="separacao">
             <p>
-            Situação do Permissionário ( ) Regular ( ) Irregular Obs: ____________________
+            Situação do Permissionário ( &nbsp;&nbsp;&nbsp;) Regular ( &nbsp;&nbsp;&nbsp;) Irregular &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Obs: ____________________
             </p>
             <p>
             Assinatura do encarregado ____________________________ Data ______/______/_______
             </p>
         </div>
 
-        <div class="separacao">            
+        <div class="separacao">
             <p>
             Data do pagamento do boleto __________/__________/________________
             </p>
             <p>
-            valor pago R$ ____________________ (___________________________________________________)
+            valor pago R$ __________________ (________________________________________________)
             </p>
         </div>
 
         <p>
-        Assinatura do Setor Financeiro_____________________________ Data ______/________/__________
+        Assinatura do Setor Financeiro__________________________ Data ______/________/__________
         </p>
-                
+
         <p>Parecer do DTP</p>
-        <p>Autorizo,</p>
-        <div class="content-signature content-signature-left">
-            <div>
+        <p><b>Autorizo,</b></p>
+        <div class="content-signature content-signature-left" style="font-weight: bold; margin-bottom: 1.0cm;">
+            <div style="float: left;">
                 <p>______________________________________</p>
                 <p>Diretori(a) de Transportes Públicos</p>
             </div>
-        </div> 
-        <p>Data: ____/____/_______</p>
+            <p style="float: right">Data: ____/____/_______</p>
+        </div>
 
         <footer style="width: 100%; position: relative;">
             <p>Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p>

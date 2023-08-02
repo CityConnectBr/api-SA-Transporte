@@ -83,13 +83,17 @@
         .separacao{
             width: 100%;
             margin-top: .5cm;
-            border-top: 1px solid #000;
+            border-top: 4px solid #000;
         }
 
         .parecer{
             width: 100%;
-            margin-top: 1.5cm;
-            border-top: 1px solid #000;
+            margin-top: 0.5cm;
+            border-top: 4px solid #000;
+        }
+
+        .parecer-bold p {
+            font-weight: bold;
         }
 
         .parecer-p1{
@@ -111,37 +115,36 @@
 
 
         <h3>ANEXO 06 - REQUERIMENTO P/PRORROGAÇÃO DE SUBSTITUIÇÃO DE VEÍCULO</h3>
-        <p>O permissionário do serviço de <b>Taxi</b>,<br>
+        <p style="text-align: justify">O permissionário do serviço de <b>Taxi</b>,<br>
             Sr.(a) <b>{{ $obj['permissionario']['nome_razao_social'] }}</b>,<br>
-            telefone: <b>{{ $obj['permissionario']['telefone'] }}</b>, prefixo: <b>{{ $obj['permissionario']['prefixo'] }}</b>. 
-            Solicita prazo de 1 ano para a substituição do veículo devido a idade 
-            marca/modelo <b>{{ $obj['marcaModeloVeiculo']['descricao'] }}</b>, ano <b>{{ $obj['ano_modelo'] }}</b>, placa <b>{{ $obj['placa'] }}</b> 
+            telefone: <b>{{ $obj['permissionario']['telefone'] }}</b>, prefixo: <b>{{ $obj['permissionario']['prefixo'] }}</b>.
+            Solicita prazo de 1 ano para a substituição do veículo devido a idade
+            marca/modelo <b>{{ $obj['marcaModeloVeiculo']['descricao'] }}</b>, ano <b>{{ $obj['ano_modelo'] }}</b>, placa <b>{{ $obj['placa'] }}</b>
             esta solicitação esta condicionada à realização de vistoria e sua aprovação.
         </p>
 
         <div class="content-signature content-signature-right">
             <p>Santo André, {{ $dataFormatada }}</p>
-            <div>
-                <br>
+            <div style="float: right;">
                 <br>
                 <p>____________________________________________</p>
                 <p>Permissionário</p>
             </div>
         </div>
 
-        <div class="separacao">
+        <div style="margin-top: 1.5cm">
             <p>
-            Solicitação recebida e documentos conferidos por ______________________________________ em _____/______/______, assinatura: _______________________________________________ 
+            Solicitação recebida e documentos conferidos por ____________________________________ em _____/______/______, assinatura: _______________________________________________
             </p>
         </div>
 
         <div class="separacao">
             <p>
-            Veículo: ( ) Aprovado ( ) Reprovado
+            Veículo: <b>( &nbsp;&nbsp;&nbsp;&nbsp;) Aprovado ( &nbsp;&nbsp;&nbsp;&nbsp;) Reprovado</b>
             </p>
         </div>
 
-        <div class="separacao">            
+        <div class="separacao">
             <p>
             Documentação conferida por:
             </p>
@@ -149,38 +152,34 @@
             Assinatura do encarregado ____________________________ Data ______/______/_______
             </p>
         </div>
-        
+
         <div class="parecer">
             <div class="parecer-p1">
                 <p>Parecer da GCOC</p>
-                <p>De acordo,</p>
-                <div class="content-signature content-signature-left">
+                <p><b>De acordo,</b></p>
+                <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <br>
-                        <br>
                         <p>______________________________________</p>
                         <p>Gerente de Controle Operacional e Cadastro</p>
                     </div>
-                </div> 
+                </div>
                 <p>Data: ____/____/_______</p>
             </div>
 
-            
+
             <div class="parecer-p2">
                 <p>Parecer da DTP</p>
-                <p>Autorizo,</p>
-                <div class="content-signature content-signature-left">
+                <p><b>Autorizo,</b></p>
+                <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <br>
-                        <br>
                         <p>______________________________________</p>
                         <p>Diretor(a) de Transportes Públicos</p>
                     </div>
-                </div> 
+                </div>
                 <p>Data: ____/____/_______</p>
             </div>
         </div>
-        
+
 
         <footer>
             <p>Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p>

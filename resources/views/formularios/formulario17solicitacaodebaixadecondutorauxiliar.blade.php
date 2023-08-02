@@ -94,21 +94,24 @@
 <body>
     <div class="content">
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
-        
+
         <h3>ANEXO 17 - SOLICITAÇÃO DE BAIXA DE CONDUTOR AUXILIAR NO CADASTRO</h3>
-        <p>Eu, {{$permissionario['nome_razao_social']}}, telefone {{$permissionario['telefone']}}, prefixo {{$permissionario['prefixo']}}, permissionário(a) do serviço de <b>{{$modalidadeDoPermissionario!=null?$modalidadeDoPermissionario['descricao']:'--'}}</b>, neste município solicitar a BAIXA da inscrição em cadastro do
-            (a) Sr.(a) <b>{{$condutor['nome']}}</b>, RG <b>{{$condutor['rg']}}</b>, CNH <b>{{$condutor['cnh']}}</b>, Categoria, <b>{{$condutor['categoria_cnh']}}</b>, na condição de condutor auxiliar.
+        <p>Eu, <b>{{$permissionario['nome_razao_social']}}</b>, telefone <b>{{$permissionario['telefone']}}</b>, prefixo <b>{{$permissionario['prefixo']}}</b>, permissionário(a) do serviço de <b>{{$modalidadeDoPermissionario!=null?$modalidadeDoPermissionario['descricao']:'--'}}</b>, neste município solicitar a BAIXA da inscrição em cadastro do
+            (a) Sr.(a) <b>{{$condutor['nome'] ? $condutor['nome'] : '_____________________________________________'}}</b>, RG <b>{{$condutor['rg'] ? $condutor['rg'] : '___________________________'}}</b>, CNH <b>{{$condutor['cnh'] ? $condutor['cnh'] : '_______________________'}}</b>, Categoria, <b>{{$condutor['categoria_cnh'] ? $categoria['categoria_cnh'] : '______________'}}</b>, na condição de condutor auxiliar.
         </p>
 
 
         <div class="content-signature content-signature-right">
             <p>Santo André, {{ $dataFormatada }}</p>
-            <div>
-                <br>
+            <div style="float: right;">
                 <br>
                 <p>____________________________________________</p>
                 <p>{{ $permissionario['nome_razao_social'] }}</p>
             </div>
+        </div>
+
+        <div style="margin-top: 1.5cm;">
+            <p>Solicitação recebida por: _____________________________________ em _____/______/_______, Assinatura ______________________</p>
         </div>
 
         <footer>

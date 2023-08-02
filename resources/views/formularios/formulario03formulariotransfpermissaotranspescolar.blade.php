@@ -11,6 +11,7 @@
 
         html {
             font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
         }
 
         .content {
@@ -24,7 +25,7 @@
 
         .content p {
             margin-bottom: 0.3cm;
-            line-height: 0.6cm;
+            line-height: 0.5cm;
         }
 
         .content .content-left {
@@ -49,8 +50,8 @@
         .content footer p {
             text-align: right;
             font-size: 10px;
-            margin-top: 0.5cm;
-            margin-bottom: 0.5cm;
+            margin-top: 0.0cm;
+            margin-bottom: 0.0cm;
         }
 
         .content .separator-top {
@@ -61,9 +62,6 @@
         .content .separator-bottom {
             border-bottom: 1px solid #000;
             margin-bottom: 0.5cm;
-        }
-
-        .content .content-signature-left {
         }
 
         .content .content-signature-left>p {
@@ -86,8 +84,9 @@
 
         .parecer{
             width: 100%;
-            margin-top: 1.5cm;
+            margin-top: 0.4cm;
             border-top: 4px solid #000;
+            margin-bottom: -1.0cm;
         }
 
         .parecer-p1{
@@ -116,6 +115,11 @@
             line-height: 2cm;
         }
 
+        .diretor p {
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
     </style>
 </head>
 
@@ -128,27 +132,29 @@
         </div>
 
         <h3>ANEXO 03 - TRANSFERÊNCIA DE PERMISSÃO DE TRANSPORTE ESCOLAR</h3>
-        <p style="text-align: justify;">
-        Sr.(a) Diretor(a) do Departamento de Transportes Públicos
-        </p>
-        <p style="text-align: justify;">
-        Prefixo nº _________________________ Data da Transferência anterior _______/_______/_______
-        </p>
-        <p style="text-align: justify;">
-        Ponto nº ____________________ Escola ______________________________________________
-        </p>
-        <p style="text-align: justify;">
-        CESSIONÁRIO: ___________________________________________________________________
-        </p>
-        <p style="text-align: justify;">
-        Endereço ___________________________________________________________ nº __________
-        </p>
-        <p style="text-align: justify;">
-        Bairro _____________________________ CEP.: _______________ Tels. ___________________
-        </p>
-        <p>
-        Para Transferência da permissão qualificada acima, foi apresentada a seguinte documentação:
-        </p>
+        <div class="diretor">
+            <p style="text-align: justify; font-weight: bold;">
+            Sr.(a) Diretor(a) do Departamento de Transportes Públicos
+            </p>
+            <p style="text-align: justify;">
+            Prefixo nº _________________________ Data da Transferência anterior _______/_______/_______
+            </p>
+            <p style="text-align: justify;">
+            Ponto nº ____________________ Escola ______________________________________________
+            </p>
+            <p style="text-align: justify; font-weight: bold;">
+            CESSIONÁRIO: ___________________________________________________________________
+            </p>
+            <p style="text-align: justify;">
+            Endereço ___________________________________________________________ nº __________
+            </p>
+            <p style="text-align: justify;">
+            Bairro _____________________________ CEP.: _______________ Tels. ___________________
+            </p>
+            <p>
+            Para Transferência da permissão qualificada acima, foi apresentada a seguinte documentação:
+            </p>
+        </div>
         <div class="questionario" style="margin-bottom: 4.5px;">
             <p>
             ( &nbsp;&nbsp;&nbsp;&nbsp;) Requerimento padrao preenchido
@@ -215,21 +221,19 @@
             </p>
         </div>
 
-        <p style="text-align: justify; margin-top: 0">
+        <p style="text-align: justify; margin-top: 0.0cm">
         Informo que o permissionário não possui débito junto à SA-TRANS e que a documentação
 apresentada foi conferida e está de acordo com o Decreto Municipal.
         </p>
 
-        <p>
+        <p style="margin-top: -0.1cm;">
         Nome: ___________________________Data: ____/____/_____, Assinatura:__________________
         </p>
-        <p>
+        <p style="margin-bottom: 0.0cm;">
         Documentos conferido por:
         </p>
-        <div class="content-signature content-signature-left">
-            <div>
-                <br>
-                <br>
+        <div class="content-signature-left" style="margin-top: 0.15cm; margin-bottom: 0.0cm">
+            <div class="content-signature">
                 <p>____________________________________________  <span style="margin-left: 2cm;">Data ______/______/_______</span></p>
                 <p>Encarregado Setor de Cadastro</p>
             </div>
@@ -241,8 +245,6 @@ apresentada foi conferida e está de acordo com o Decreto Municipal.
                 <p><b>De acordo,</b></p>
                 <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <br>
-                        <br>
                         <p>______________________________________</p>
                         <p>Gerente de Controle Operacional e Cadastro</p>
                     </div>
@@ -256,8 +258,6 @@ apresentada foi conferida e está de acordo com o Decreto Municipal.
                 <p><b>Autorizo,</b></p>
                 <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <br>
-                        <br>
                         <p>______________________________________</p>
                         <p>Diretor(a) de Transportes Públicos</p>
                     </div>

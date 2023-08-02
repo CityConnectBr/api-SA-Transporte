@@ -83,9 +83,39 @@
             width: 100%;
         }
 
+        .table-border {
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+
+        tr {
+            border: 1px solid #000;
+        }
+
+        thead {
+            height: 2cm;
+        }
+
+        th {
+            border: 1px solid #000;
+            text-align: center;
+            text-decoration: underline;
+        }
+
         td {
-            background-color: #ccc;
-            border: 1px solid #fff;
+            border: 1px solid #000;
+        }
+
+        .content .content-signature-right {
+            margin: 1cm;
+        }
+
+        .content .content-signature-right>p {
+            text-align: right;
+        }
+
+        .content .content-signature-right>div {
+            text-align: center;
         }
 
 
@@ -99,33 +129,33 @@
 
         <h3>ANEXO 09 - DECLARAÇÃO DE ATENDIMENTO AO DISPOSTO NO ART. 9º, INC. II DA LEI MUNICIPAL N.º 8.038/00.</h3>
         <p>
-        Eu, _____________________________________________________________________, transportador
+        Eu, _________________________________________________________________, transportador
         escolar cadastrado na SA-TRANS, com o prefixo nº _________________, declaro que transporto os
         alunos abaixo relacionados, para fins de cumprimento ao disposto no artigo 9º, inciso II da<br>
         Lei 8.038/00:
         </p>
         <p>
-        Art. 9º Na prestação dos serviços, todos os Permissionários obrigam-se a:
+        <b>Art. 9º</b> Na prestação dos serviços, todos os Permissionários obrigam-se a:
         </p>
         <p>
         I - (...)
         </p>
-        <p>
+        <p style="font-weight: bold;">
         "II - Manter contratos individuais de prestação de serviço com os responsáveis pelos alunos transportados;"
         </p>
-        <p>
+        <p style="font-weight: bold;">
         ESCOLA: ___________________________________________
         </p>
 
-        <table>
+        <table class="table-border">
             <thead>
                 <tr>
                     <th>Nome do Aluno</th>
-                    <th>Entrada</th>
-                    <th>Saída</th>
+                    <th style="width: 1.5cm;">Entrada</th>
+                    <th style="width: 1.4cm;">Saída</th>
                     <th>Responsável</th>
                     <th>Telefone</th>
-                    <th>E-mail</th>
+                    <th style="width: 5cm;">E-mail</th>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -194,7 +224,7 @@
             </thead>
         </table>
 
-        <p style="text-decoration: underline;">
+        <p style="text-decoration: underline; font-weight: bold;">
         OBS.: A listagem pode continuar em folha anexa a este formulário
         </p>
 
@@ -206,10 +236,9 @@
         Comprometo-me, em caso de alteração desta listagem, a encaminhar a SA-TRANS, no prazo de 02 dias úteis, as correções efetuadas.
         </p>
 
-        <div class="content-signature content-signature">
+        <div class="content-signature content-signature-right" style="margin-bottom: 2.0cm;">
             <p>Santo André, {{ $dataFormatada }}</p>
-            <div>
-                <br>
+            <div style="float: right;">
                 <br>
                 <p>____________________________________________</p>
                 <p>Permissionário</p>
