@@ -97,9 +97,9 @@ class Permissionario extends Model
 
 
     //////////////////////////////////////
-    public static function search($search, $ativo = true)
+    public static function search($search, $ativo = true, $modalidade_id = null)
     {
-        return Permissionario::where(function ($query) use ($search) {
+        $query = Permissionario::where(function ($query) use ($search) {
             $query->where("nome_razao_social", "like", "%" . $search . "%")
                 ->orWhere("id_integracao", "like", "%" . $search . "%")
                 ->orWhere("cpf_cnpj", "like", "%" . $search . "%")
@@ -107,8 +107,13 @@ class Permissionario extends Model
         })
             ->where("ativo", "=", $ativo)
             ->with("modalidade")
-            ->orderBy("nome_razao_social")
-            ->simplePaginate(15);
+            ->orderBy("nome_razao_social");
+
+        if ($modalidade_id) {
+            $query->where("modalidade_id", "=", $modalidade_id);
+        }
+
+        return $query->simplePaginate(15);
     }
 
     public static function searchByPermissionario($permissionario_id, $search)
