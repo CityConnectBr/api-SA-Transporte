@@ -69,7 +69,7 @@
 
         <p>Permissionário? ( ) Sim ( ) Não</p>
 
-        <p>Local do ponto {{$ponto}}</p>
+        <p>Local do ponto {{$enderecoPonto['endereco']}}</p>
 
         <p>DESCRIÇÃO DO REQUERIMENTO</p>
 
