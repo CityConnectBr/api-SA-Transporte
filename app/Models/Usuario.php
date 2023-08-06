@@ -27,7 +27,8 @@ class Usuario extends Authenticatable implements JWTSubject
         'tipo_id',
         'codigo_de_recuperacao',
         'data_hora_ultimo_codigo_de_recuperacao',
-        'perfil_web_id'
+        'perfil_web_id',
+        'assinatura'
     ];
 
     /**

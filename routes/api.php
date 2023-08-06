@@ -31,6 +31,9 @@ Route::group([
         Route::get('/photouser', 'UsuarioController@photoUser');
         Route::post('/user/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController@storeFromUser');
         Route::patch('/password', 'UsuarioController@updatePassword');
+        
+        Route::post('/user/assinatura', 'UsuarioController@saveAssinatura');
+        Route::get('/user/assinatura/{id}', 'UsuarioController@showAssinatura');
 
         // fiscal
         Route::group([

@@ -324,4 +324,50 @@ class UsuarioController extends Controller
 
         return parent::responseMsgJSON("Foto não encontrada!", 404);
     }
+
+    function saveAssinatura(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'assinatura' => [
+                'required',
+                'image',
+            ],
+            'usuario_id' => [
+                'required',
+                'exists:usuarios,id'
+            ]
+        ]);
+
+        if ($validator->fails()) {
+            return parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $user = Usuario::find($request->usuario_id);
+        if (! isset($user)) {
+            return parent::responseMsgJSON("Usuário não encontrado", 404);
+        }
+
+        $request["assinatura"]->storeAs('/assinaturas', $user->id . ".jpg");
+
+        $user->assinatura = isset($request->assinatura);
+        $user->save();
+
+        return parent::responseMsgJSON("Assinatura salva com sucesso!");
+    }
+
+    function showAssinatura($id)
+    {
+        try {
+            $user = Usuario::find($id);
+            if (! isset($user)) {
+                return parent::responseMsgJSON("Usuário não encontrado", 404);
+            }
+
+            if (isset($user->assinatura)) {
+                return Storage::download('assinaturas/' . $user->id . '.jpg');
+            }
+        } catch (\Exception $e) {}
+
+        return parent::responseMsgJSON("Assinatura não encontrada!", 404);
+    }
 }
