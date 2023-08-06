@@ -330,7 +330,7 @@ class UsuarioController extends Controller
         $validator = Validator::make($request->all(), [
             'assinatura' => [
                 'required',
-                'image',
+                'file',
             ],
             'usuario_id' => [
                 'required',
