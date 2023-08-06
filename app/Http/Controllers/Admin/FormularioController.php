@@ -778,6 +778,7 @@ class FormularioController extends Controller
         }
 
         $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+        $enderecoPonto = null;
         if ($ponto == null) {
             return parent::responseMsgJSON("Ponto não encontrado", 404);
         } else {
@@ -796,7 +797,7 @@ class FormularioController extends Controller
         $pdf = PDF::loadView('formularios/' . $formlario, compact(
             'permissionario',
             'empresa',
-            'ponto',
+            'enderecoPonto',
             'dataFormatada',
             'usuario'
         )

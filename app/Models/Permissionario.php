@@ -90,15 +90,16 @@ class Permissionario extends Model
         return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
     }
 
-    public function lastAlvara(){
+    public function lastAlvara()
+    {
         return $this->hasOne(Alvara::class, 'permissionario_id', 'id')->orderBy('created_at', 'desc');
     }
 
 
     //////////////////////////////////////
-    public static function search($search, $ativo = true)
+    public static function search($search, $ativo = true, $modalidade_id = null)
     {
-        return Permissionario::where(function ($query) use ($search) {
+        $query = Permissionario::where(function ($query) use ($search) {
             $query->where("nome_razao_social", "like", "%" . $search . "%")
                 ->orWhere("id_integracao", "like", "%" . $search . "%")
                 ->orWhere("cpf_cnpj", "like", "%" . $search . "%")
@@ -106,8 +107,13 @@ class Permissionario extends Model
         })
             ->where("ativo", "=", $ativo)
             ->with("modalidade")
-            ->orderBy("nome_razao_social")
-            ->simplePaginate(15);
+            ->orderBy("nome_razao_social");
+
+        if ($modalidade_id) {
+            $query->where("modalidade_id", "=", $modalidade_id);
+        }
+
+        return $query->simplePaginate(15);
     }
 
     public static function searchByPermissionario($permissionario_id, $search)
@@ -117,7 +123,7 @@ class Permissionario extends Model
             ->orderBy("nome")
             ->paginate(40);
     }
-    
+
     public static function findByIdWithEndereco($id)
     {
         return Permissionario::with('endereco')->firstWhere("id", $id);
@@ -126,9 +132,9 @@ class Permissionario extends Model
     public static function findByIntegracaoComplete($id)
     {
         return Permissionario::with('modalidade')
-        ->with('endereco')
-        ->with('alvara')
-        ->firstWhere("id_integracao", $id);
+            ->with('endereco')
+            ->with('alvara')
+            ->firstWhere("id_integracao", $id);
     }
 
     public static function firstWhereByIntegracao($id)
@@ -145,4 +151,14 @@ class Permissionario extends Model
     {
         return Permissionario::where("cnh", $cpfCnj)->first();
     }
+
+    public static function findPermissionariosComDocumentosExpirados()
+    {
+        return Permissionario::where("vencimento_cnh", "<", date("Y-m-d"))
+            ->orWhere("validade_certidao_negativa", "<", date("Y-m-d"))
+            ->orWhere("contrato_comodato_validade", "<", date("Y-m-d"))
+            ->orWhere("selo_gnv_validade", "<", date("Y-m-d"))
+            ->get();
+    }
+
 }
