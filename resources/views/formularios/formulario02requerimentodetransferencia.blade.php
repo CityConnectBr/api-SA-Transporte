@@ -48,7 +48,7 @@
 
         .content footer p {
             text-align: right;
-            font-size: 10px;
+            font-size: 13px;
             margin-top: 0.5cm;
             margin-bottom: 0.5cm;
         }
@@ -87,25 +87,26 @@
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
 
         <h3>ANEXO 02 - REQUERIMENTO DE TRANSFERENCIA</h3>
-        <p style="text-align: justify;">O Sr.(a) ________________________________________________, telefone: ________________,
-portador do RG ________________________________, CMC ______________________________,
-permissionário (a) do serviço de _________________, prefixo ________________, ponto __________,
-localizado à _____________________________________________________, desde ___/___/______,
-solicita autorização para transferir os direitos do referido ponto para o Sr.(a) _____________________
-_______________________, telefone: ________________ , portador do RG _____________________,
+        <p style="line-height: 1.7">O Sr.(a) ________________________________________________, telefone: ________________,
+portador do RG ________________________________, CMC ____________________________,
+permissionário (a) do serviço de ________________, prefixo _______________, ponto _________,
+localizado à _________________________________________________, desde ___/___/______,
+solicita autorização para transferir os direitos do referido ponto para o Sr.(a) __________________
+____________________, telefone: ________________ , portador do RG _____________________,
 CNH __________________________, categoria _______, expedida pela 23ª CIRETRAN de Santo
-André, residente à Rua/Av. _____________________________________________________________,
+André, residente à Rua/Av. __________________________________________________________,
 bairro _____________________________, CEP: ________________, no município de Santo André,
-proprietário do veículo marca/modelo ______________________________, tipo __________________,
+proprietário do veículo marca/modelo _____________________________, tipo _______________,
 ano __________, placas _________________, que será utilizado na prestação do serviço, conforme
 Decreto Municipal n.º ( ) 14.537/00 - escolar ( ) 13.803/96 - taxi.</p>
-<p style="text-align: justify;">Declaramos que a documentação necessária seque em anexo e está de acordo com o previsto na
+<p style="text-align: justify; line-height: 1.8">Declaramos que a documentação necessária seque em anexo e está de acordo com o previsto na
 legislação vigente, e ainda que as informações, supra, são verdadeiras, e estamos cientes que a
 aprovação da transferência fica condicionada à comprovação das informações declaradas.</p>
 
-        <p style="text-align: center; margin-top: 2cm;">NESTES TERMOS P. DEFERIMENTO</p>
+        <p style="text-align: right; margin-top: 2cm; margin-right: 150px; margin-bottom: 10px;">NESTES TERMOS <br>
+            P. DEFERIMENTO</p>
 
-        <p style="text-align: center;">Santo André, {{ $dataFormatada }}</p>
+        <p style="text-align: right;">Santo André, {{ $dataFormatada }}</p>
 
         <div class="content-signature content-signature-left">
             <div>
@@ -114,8 +115,8 @@ aprovação da transferência fica condicionada à comprovação das informaçõ
                 <p>____________________________________________</p>
                 <p>Cedente</p>
             </div>
-        </div>       
-        
+        </div>
+
         <div class="content-signature content-signature-left">
             <div>
                 <br>

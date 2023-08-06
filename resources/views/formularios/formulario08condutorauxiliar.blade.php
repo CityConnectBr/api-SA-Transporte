@@ -11,6 +11,7 @@
 
         html {
             font-family: Arial, Helvetica, sans-serif;
+            font-size: 12.5px;
         }
 
         .content {
@@ -88,94 +89,142 @@
             text-align: center;
             line-height: 4cm;
         }
+
+        .p-bold-underline b {
+            text-decoration: underline;
+        }
+
+        .auxiliar-info p {
+            margin-top: 0.1cm;
+            margin-bottom: 0.1cm;
+        }
+
+        .table-border {
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+
+        .table-border tr td {
+            border: 1px solid #000;
+            padding: 0.2cm;
+            height: 2cm;
+        }
     </style>
 </head>
 
 <body>
     <div class="content">
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
-        
+
         <div class="foto3x4">Foto 3x4</div>
 
-        <h3>ANEXO 08 - CONDUTOR AUXILIAR</h3>
-        <h4>({{$inscricaoOuRenovacao!=null && $inscricaoOuRenovacao==2?'X':'__'}}) INCRIÇÃO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{$inscricaoOuRenovacao!=null && $inscricaoOuRenovacao==1?'X':'__'}}) RENOVAÇÃO</h4>
-        <p>Eu, <b>{{$permissionario['nome_razao_social']}}</b>, permissionário(a) do serviço de <b>{{$modalidadeDoPermissionario!=null?$modalidadeDoPermissionario['descricao']:'--'}}</b>, neste município com o prefixo <b>{{$permissionario['prefixo']}}</b>, telefone <b>{{$permissionario['telefone']}}</b>, venho solicitar a inscrição / renovação em cadastro do(a)</p>
+        <h3>ANEXO 08 - CONDUTOR AUXILIAR ({{$inscricaoOuRenovacao!=null && $inscricaoOuRenovacao==2?'X':'  '}}) INCRIÇÃO &nbsp;({{$inscricaoOuRenovacao!=null && $inscricaoOuRenovacao==1?'X':'   '}}) RENOVAÇÃO</h3>
 
-        <p>Sr(a) <b>{{$nomeCondutor!=null?$nomeCondutor:'_________________________'}}</b> RG: <b>{{$rgCondutor!=null?$rgCondutor:'__________________'}}</b>,</p>
-        <p>CNH <b>{{$cnhCondutor!=null?$cnhCondutor:'_________________________'}}</b>  Categoaria: <b>{{$categoriaCNHCondutor!=null?$categoriaCNHCondutor:'__________________'}}</b>, Telefone: <b>{{$telefoneCondutor!=null?$telefoneCondutor:'_____________'}}</b>,</p>
-        <p>Residente à <b>{{$enderecoCondutor!=null?$enderecoCondutor:'______________________________________________________________________'}}</b>,</p>
-        <p>E-mail: <b>{{$emailCondutor!=null?$emailCondutor:'__________________________________________________________________________'}}</b></p>
+        <p class="p-bold-underline" style="margin-bottom: 0.0cm;">Eu, <b>{{$permissionario['nome_razao_social']}}</b>, permissionário(a) do serviço de <b>{{$modalidadeDoPermissionario!=null?$modalidadeDoPermissionario['descricao']:'--'}}</b>, neste município com o prefixo <b>{{$permissionario['prefixo']}}</b>, telefone <b>{{$permissionario['telefone']}}</b>, venho solicitar a inscrição / renovação em cadastro do(a)</p>
 
+        <div class="auxiliar-info">
+        <p>Sr(a) <b>{{$nomeCondutor!=null?$nomeCondutor:'____________________________________________________'}}</b> RG: <b>{{$rgCondutor!=null?$rgCondutor:'__________________'}}</b>,</p>
+        <p>CNH <b>{{$cnhCondutor!=null?$cnhCondutor:'_________________________'}}</b>, Categoaria: <b>{{$categoriaCNHCondutor!=null?$categoriaCNHCondutor:'__________________'}}</b>, telefone: <b>{{$telefoneCondutor!=null?$telefoneCondutor:'_____________'}}</b>,</p>
+        <p>residente à <b>{{$enderecoCondutor!=null?$enderecoCondutor:'______________________________________________________________________'}}</b>,</p>
+        <p>E-mail: <b>{{$emailCondutor!=null?$emailCondutor:'_____________________________________________________________________'}}</b> na condição de condutor auxiliar.</p>
+        </div>
         <p><b>Declaro que toda documentação necessária segue em anexo e que me responsabalilizo solidariamente, por todos os atos praticados pelo Condutor Auxiliar/Preposto.</b></p>
 
-        <table>
+        <div class="content-signature content-signature-right">
+            <p>Santo André, {{ $dataFormatada }}</p>
+            <div style="float: left;">
+                <br>
+                <p>________________________________</p>
+                <p>Permissionário</p>
+            </div>
+
+            <div style="float: right;">
+                <br>
+                <p>________________________________</p>
+                <p>Condutor Auxiliar/Preposto</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 0.1cm">
+            <p>
+            Solicitação recebida e documentos conferidos por ___________________________________________________ em _____/______/______, assinatura: _____________________________________________________
+            </p>
+        </div>
+
+        <div style="margin-top: 0.1cm">
+            <p>
+                Conferida por ______________________________________________________________ em _____/______/______, assinatura: _____________________________________________________________________________________
+            </p>
+        </div>
+
+        <table class="table-border">
             <tr>
                 <td style="width: 2cm;">
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) CNH</b>
+                       (&nbsp;&nbsp;&nbsp;) CNH - xerox
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Atestado de saúde</b>
+                       (&nbsp;&nbsp;&nbsp;) Atestado de saúde original
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Foto 3x4</b>
+                       (&nbsp;&nbsp;&nbsp;) Foto 3x4
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Docto que comprove vínculo empregatício (escolar)</b>
+                       (&nbsp;&nbsp;&nbsp;) Docto que comprove vínculo empregatício (escolar) - xerox
                     </p>
                 </td>
             </tr>
             <tr>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) RG</b>
+                       (&nbsp;&nbsp;&nbsp;) RG - xerox
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Certidão de distribuição criminal original</b>
+                       (&nbsp;&nbsp;&nbsp;) Certidão de distribuição criminal original
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Credencial DETRAN (escolares)</b>
+                       (&nbsp;&nbsp;&nbsp;) Credencial DETRAN (escolares) - xerox
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Autorização de transporte escolar emitida pela CIRETRAN na CNH</b>
+                       (&nbsp;&nbsp;&nbsp;) Autorização de transporte escolar emitida pela CIRETRAN na CNH - xerox
                     </p>
                 </td>
             </tr>
             <tr>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) CPF</b>
+                       (&nbsp;&nbsp;&nbsp;) CPF - xerox
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Comprovante de residência</b>
+                       (&nbsp;&nbsp;&nbsp;) Comprovante de residência - xerox
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>Boleto Pago: (&nbsp;&nbsp;&nbsp;) sim (&nbsp;&nbsp;&nbsp;) não</b>
+                       {{-- Boleto Pago: (&nbsp;&nbsp;&nbsp;) sim (&nbsp;&nbsp;&nbsp;) não --}}
                     </p>
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Certificado do curso de primeiros socorros realizado em Santo André - Escolar</b>
+                       (&nbsp;&nbsp;&nbsp;) Certificado do curso de primeiros socorros realizado em Santo André - Escolar
                     </p>
                 </td>
             </tr>
-            <tr>
+            {{-- <tr>
                 <td>
                 </td>
                 <td>
@@ -184,10 +233,10 @@
                 </td>
                 <td>
                     <p>
-                        <b>(&nbsp;&nbsp;&nbsp;) Certificado do curso de Taxistas</b>
+                        (&nbsp;&nbsp;&nbsp;) Certificado do curso de Taxistas
                     </p>
                 </td>
-            </tr>
+            </tr> --}}
         </table>
 
         <footer>
