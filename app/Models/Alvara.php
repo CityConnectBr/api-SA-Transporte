@@ -58,7 +58,7 @@ class Alvara extends Model
     {
         return Alvara::where("data_vencimento", "<", date("Y-m-d"))
             ->with("permissionario")
-            ->orderBy("created_at", "desc")
+            ->orderBy("data_vencimento", "desc")
             ->get();
     }
 }
