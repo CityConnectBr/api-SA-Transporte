@@ -778,6 +778,7 @@ class FormularioController extends Controller
         }
 
         $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+
         if ($ponto == null) {
             return parent::responseMsgJSON("Ponto não encontrado", 404);
         } else {

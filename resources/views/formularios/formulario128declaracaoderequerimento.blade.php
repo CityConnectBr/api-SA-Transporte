@@ -35,7 +35,7 @@
             display: flex;
             justify-content: space-between;
             text-align: right;
-        }      
+        }
 
         .content footer .right {
             text-align: right;
@@ -47,6 +47,12 @@
         .content footer .center {
             text-align: center;
             font-size: 11px;
+        }
+
+        .square {
+            height: 50px;
+            width: 50px;
+            border: 1px solid #000;
         }
 
     </style>
@@ -63,13 +69,13 @@
         <p>Dados do solicitante:</p>
 
         <p>
-        Nome: {{$permissionario['nome_razao_social']}}, Prefixo: {{$permissionario['prefixo']}}, Telefone: {{$permissionario['telefone']}}<br>
-        Endereço: {{$permissionario['endereco']['endereco']}}, {{$permissionario['endereco']['numero']}}, {{$permissionario['endereco']['complemento']}}, Bairro {{$permissionario['endereco']['bairro']}}, Município: Santo André, UF: SP, CEP: {{$permissionario['endereco']['cep']}}
+        Nome: <b>{{$permissionario['nome_razao_social']}}</b>, Prefixo: <b>{{$permissionario['prefixo']}}</b>, Telefone: <b>{{$permissionario['telefone']}}</b><br>
+        Endereço: <b>{{$permissionario['endereco']['endereco']}}</b>, <b>{{$permissionario['endereco']['numero']}}</b>, <b>{{$permissionario['endereco']['complemento']}}</b>, Bairro <b>{{$permissionario['endereco']['bairro']}}</b>, Município: <b>Santo André</b>, UF: <b>SP</b>, CEP: {{$permissionario['endereco']['cep']}}
         </p>
 
-        <p>Permissionário? ( ) Sim ( ) Não</p>
+        <p>Permissionário? ( &nbsp;&nbsp;&nbsp;&nbsp;) Sim ( &nbsp;&nbsp;&nbsp;&nbsp;) Não</p>
 
-        <p>Local do ponto {{$ponto}}</p>
+        <p>Local do ponto <b>{{$ponto['descricao']}}</b></p>
 
         <p>DESCRIÇÃO DO REQUERIMENTO</p>
 
@@ -91,14 +97,14 @@
             </div>
         </div>
 
-        <p>
+        <p style="font-weight: bold;">
         Recebido<br>
         por: _______________________ Data ____/____/______ Assinatura: ______________________
         </p>
 
         <footer>
-            <p class="center">{{ $empresa['endereco']['endereco']}}, {{ $empresa['endereco']['numero']}}, {{ $empresa['endereco']['complemento']}} - {{ $empresa['endereco']['bairro']}} - Santo André/SP, CEP {{ $empresa['endereco']['cep']}}</p>
-            <p class="center">Telefone: {{ $empresa['telefone']}} - {{ $empresa['email']}}</p>
+            {{-- <p class="center">{{ $empresa['endereco']['endereco']}}, {{ $empresa['endereco']['numero']}}, {{ $empresa['endereco']['complemento']}} - {{ $empresa['endereco']['bairro']}} - Santo André/SP, CEP {{ $empresa['endereco']['cep']}}</p>
+            <p class="center">Telefone: {{ $empresa['telefone']}} - {{ $empresa['email']}}</p> --}}
 
             <p class="right">Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p>
         </footer>

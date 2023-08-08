@@ -40,7 +40,7 @@
             display: flex;
             justify-content: space-between;
             text-align: center;
-        }      
+        }
 
         .content footer .right {
             text-align: right;
@@ -51,7 +51,14 @@
 
         .content footer .center {
             text-align: center;
-            font-size: 11px;
+            font-size: 15px;
+        }
+
+        footer {
+            position:fixed;
+            left:0px;
+            bottom:0px;
+            width:100%;
         }
 
     </style>
@@ -63,14 +70,14 @@
 
         <p class="data_cabecalho">Santo André, {{ $dataFormatada }}</p>
 
-        <p>À<br>23º Ciretran</p>
+        <p style="font-weight: bold;">À<br>23º Ciretran</p>
 
-        <p>Srº Diretor,</p>
+        <p style="font-weight: bold;">Srº Diretor,</p>
         <p style="text-align: justify;">
-        Encaminhamos o Sr. {{$permissionario['nome']}}, Prefixo {{$permissionario['prefixo']}}, para cadastrar o veículo, placa {{$veiculo1['placa']}}, 
-        chassis {{$veiculo1['MarcaModeloVeiculo']['descricao']}}, ano {{$veiculo1['ano_modelo']}}, cor {{$veiculo1['cor']['descricao']}}, 
-        para ser utilizado em substituição ao veículo, {{$veiculo2['MarcaModeloVeiculo']['descricao']}}, placa {{$veiculo2['placa']}}, ano {{$veiculo2['ano_modelo']}}, cor {{$veiculo2['cor']['descricao']}},
-        como {{$permissionario['modalidade']['descricao']}} no ponto {{$ponto['ponto']['descricao']}}.
+        Encaminhamos o Sr. <b>{{$permissionario['nome']}}</b>, Prefixo <b>{{$permissionario['prefixo']}}</b>, para cadastrar o veículo, placa <b>{{$veiculo1['placa']}}</b>,
+        chassis <b>{{$veiculo1['MarcaModeloVeiculo']['descricao']}}</b>, ano <b>{{$veiculo1['ano_modelo']}}</b>, cor <b>{{$veiculo1['cor']['descricao']}}</b>,
+        para ser utilizado em substituição ao veículo, <b>{{$veiculo2['MarcaModeloVeiculo']['descricao']}}</b>, placa <b>{{$veiculo2['placa']}}</b>, ano <b>{{$veiculo2['ano_modelo']}}</b>, cor <b>{{$veiculo2['cor']['descricao']}}</b>,
+        como <b>{{$permissionario['modalidade']['descricao']}}</b> no ponto <b>{{$ponto['ponto']['descricao']}}</b>.
         </p>
 
         <div class="content-signature">
@@ -83,7 +90,7 @@
                 <p>SA-TRANS - Santo André Transportes</p>
             </div>
         </div>
-        
+
         <footer>
             <p class="center">{{ $empresa['endereco']['endereco']}}, {{ $empresa['endereco']['numero']}}, {{ $empresa['endereco']['complemento']}} - {{ $empresa['endereco']['bairro']}} - Santo André/SP, CEP {{ $empresa['endereco']['cep']}}</p>
             <p class="center">Telefone: {{ $empresa['telefone']}} - {{ $empresa['email']}}</p>

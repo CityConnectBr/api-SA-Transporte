@@ -24,6 +24,7 @@
         .logo {
             width: 100px;
             margin-left: 1cm;
+            margin-top: -0.7cm;
         }
 
         .content p {
@@ -35,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             text-align: right;
-        }      
+        }
 
         .content footer .right {
             text-align: right;
@@ -50,7 +51,7 @@
         }
 
         .nLaudo{
-            margin-top: -70px;
+            margin-top: -75px;
             float: right;
             width: 70px;
         }
@@ -78,6 +79,15 @@
             border: 1px solid black;
         }
 
+        table th {
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        .table-collapse {
+            border-collapse: collapse;
+        }
+
     </style>
 </head>
 
@@ -85,86 +95,86 @@
     <div class="content">
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
 
-        <h3>LAUDO DE VISTORIA TRANSPORTES ESPECIAIS</h3>
+        <h3 style="margin-top: -0.2cm;">LAUDO DE VISTORIA TRANSPORTES ESPECIAIS</h3>
 
         <div class="nLaudo">
             <span>Nº do Laudo:</span>
             <div class="box"></div>
         </div>
 
-        <div class="table">
+        <div class="table" style="margin-top: -0.5cm;">
             <div class="tr">
-                <div class="td" style="width: 520px">
+                <div class="td" style="width: 515px; margin-right: 5px; height: 33px;">
                     Permissionário<br>
-                    {{$permissionario['nome_razao_social']}}
+                    <b>{{$permissionario['nome_razao_social']}}</b>
                 </div>
-                <div class="td" style="width: 170px">
+                <div class="td" style="width: 170px; height: 33px;">
                     Prefixo Permissionário<br>
-                    {{$permissionario['prefixo']}}
+                    <b>{{$permissionario['prefixo']}}</b>
                 </div>
             </div><br><br><br>
-            <div class="tr">
-                <div class="td" style="width: 540px">
+            <div class="tr" style="margin-top: -0.3cm;">
+                <div class="td" style="width: 535px; margin-right: 5px; height: 33px;">
                     Local do Ponto<br>
-                    {{$enderecoPonto['endereco']}}
+                    <b>{{$enderecoPonto['endereco']}}</b>
                 </div>
-                <div class="td" style="width: 150px">
+                <div class="td" style="width: 150px; height: 33px;">
                     Prefixo Ponto<br>
-                    {{$ponto['id_integracao']}}
+                    <b>{{$ponto['id_integracao']}}</b>
                 </div>
             </div><br><br><br>
-            <div class="tr">
-                <div class="td" style="width: 150px">
+            <div class="tr" style="margin-top: -0.6cm;">
+                <div class="td" style="width: 148px; height: 33px; margin-right: 5px;">
                     C.N.H nº<br>
-                    {{$permissionario['cnh']}}
+                    <b>{{$permissionario['cnh']}}</b>
                 </div>
-                <div class="td" style="width: 150px">
+                <div class="td" style="width: 150px; height: 33px; margin-right: 5px;">
                     Validade C.N.H. <br>
-                    {{$vencimentoCNHFormatada}}
+                    <b>{{$vencimentoCNHFormatada}}</b>
                 </div>
-                <div class="td" style="width: 380px">
+                <div class="td" style="width: 370px; height: 33px;">
                     Marca/Modelo do Veículo<br>
-                    {{$veiculo['MarcaModeloVeiculo']['descricao']}}
+                    <b>{{$veiculo['MarcaModeloVeiculo']['descricao']}}</b>
                 </div>
             </div><br><br><br>
-            <div class="tr">
-                <div class="td" style="width: 150px">
+            <div class="tr" style="margin-top: -0.9cm;">
+                <div class="td" style="width: 150px; height: 33px; margin-right: 5px;">
                     Tipo de Serviço<br>
-                    {{$permissionario['modalidade']['descricao']}}
+                    <b>{{$permissionario['modalidade']['descricao']}}</b>
                 </div>
-                <div class="td" style="width: 150px">
+                <div class="td" style="width: 150px; height: 33px; margin-right: 5px;">
                     Cor<br>
-                    {{$veiculo['cor']['descricao']}}
+                    <b>{{$veiculo['cor']['descricao']}}</b>
                 </div>
-                <div class="td" style="width: 70px">
+                <div class="td" style="width: 60px; height: 33px; margin-right: 5px;">
                     Ano<br>
-                    {{$veiculo['ano_fabricacao']}}
+                    <b>{{$veiculo['ano_fabricacao']}}</b>
                 </div>
-                <div class="td" style="width: 300px">
+                <div class="td" style="width: 291px; height: 33px;">
                     Capacidade / Lugares<br>
-                    {{$veiculo['capacidade']}}
+                    <b>{{$veiculo['capacidade']}}</b>
                 </div>
             </div><br><br><br>
-            <div class="tr">
-                <div class="td" style="width: 150px">
+            <div class="tr" style="margin-top: -1.2cm;">
+                <div class="td" style="width: 150px; height: 33px; margin-right: 5px;">
                     Placa<br>
-                    {{$veiculo['placa']}}
+                    <b>{{$veiculo['placa']}}</b>
                 </div>
-                <div class="td" style="width: 250px">
+                <div class="td" style="width: 250px; height: 33px; margin-right: 5px;">
                     Tacógrafo / Taxímetro<br>
-                    {{$permissionario['taximetro_tacografo']}}
+                    <b>{{$permissionario['taximetro_tacografo']}}</b>
                 </div>
-                <div class="td" style="width: 280px">
+                <div class="td" style="width: 269px; height: 33px;">
                     Combusível<br>
-                    {{$veiculo['tipoCombustivel']['descricao']}}
+                    <b>{{$veiculo['tipoCombustivel']['descricao']}}</b>
                 </div>
-            </div><br><br><br>        
+            </div><br><br><br>
         </div>
 
-        <table>
-            <tr>
-                <th style="text-align: center;" colspan="3">
-                    <p>ITENS VISTORIADOS</p>
+        <table class="table-collapse" style="margin-top: -1.2cm; width: 715px;">
+            <tr style="height: 30px;">
+                <th style="text-align: center;" colspan="4">
+                    <p style="margin: 0.0cm;">ITENS VISTORIADOS</p>
                 </th>
             </tr>
             <tr>
@@ -360,7 +370,6 @@
                 </td>
             </tr>
         </table>
-        <br>
         <table>
             <tr>
                 <td style="width: 680px">
@@ -383,41 +392,33 @@
                 </td>
             </tr>
         </table>
-        
-        <br>
         <table>
             <tr>
-                <td style="width: 680px; text-align: center; padding: 5px;"">
+                <td style="width: 680px; text-align: center; padding: 5px;">
                 Renovação ( ) &nbsp;&nbsp;&nbsp;Trasferência ( ) &nbsp;&nbsp;&nbsp;Troca Veículo ( ) &nbsp;&nbsp;&nbsp;Outros ( )
                 </td>
             </tr>
         </table>
-        
-        <br>
         <table>
             <tr>
                 <td style="width: 680px; text-align: center; padding: 5px;">
-                Aprovação ( ) &nbsp;&nbsp;&nbsp;Aprovado c/Restrição ( ) &nbsp;&nbsp;&nbsp;Repasse Data ____/____/____ &nbsp;&nbsp;&nbsp;Reprovado ( )
+                Aprovação ( )  &nbsp;&nbsp;&nbsp;Aprovado c/Restrição ( ) &nbsp;&nbsp;&nbsp;Repasse Data ____/____/____ &nbsp;&nbsp;&nbsp;Reprovado ( )
                 </td>
             </tr>
         </table>
-        
-        <br>
-        <div style="display: block; border: 1px solid black; width: 700px; height: 170px; padding: 10px;">
-            <div class="content-signature" style="float: right;">
+        <div style="display: block; border: 1px solid black; width: 700px; height: 90px; padding: 5px;">
+            <div class="content-signature" style="float: right; margin-top: -0.5cm;">
                 <p>Santo André, {{ $dataFormatada }}</p>
-                <div>
-                    <p>___________________________________</p>
-                    <p>Assinatura do requerente</p>
+                <div style="margin-top: -0.4cm;">
+                    <p style="margin-bottom: 0.0cm;">___________________________________</p>
+                    <p style="text-align: center; margin-top: 0.0cm;">Assinatura do requerente</p>
                 </div>
             </div>
-            <div class="content-signature" style="float: left;">
-                <div>
-                    <br>
-                    <br>
-                    <br>
-                    <p>___________________________________</p>
-                    <p style=" text-align: start;">Assinatura do requerente</p>
+            <div class="content-signature" style="float: left; margin-top: -0.5cm;">
+                <p style="color: #fff">Santo André, {{ $dataFormatada }}</p>
+                <div style="margin-top: -0.4cm;">
+                    <p style="margin-bottom: 0.0cm;">___________________________________</p>
+                    <p style=" text-align: center; margin-top: 0.0cm;">Assinatura do requerente</p>
                 </div>
             </div>
         </div>

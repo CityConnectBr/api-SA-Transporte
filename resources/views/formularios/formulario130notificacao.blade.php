@@ -40,7 +40,7 @@
             display: flex;
             justify-content: space-between;
             text-align: center;
-        }      
+        }
 
         .content footer .right {
             text-align: right;
@@ -51,7 +51,7 @@
 
         .content footer .center {
             text-align: center;
-            font-size: 11px;
+            font-size: 13px;
         }
 
     </style>
@@ -65,7 +65,7 @@
 
         <h3>NOTIFICAÇÃO</h3>
 
-        <p>Prezado(a) Senhor(a),</p>
+        <p style="font-weight: bold;">Prezado(a) Senhor(a),</p>
         <p style="text-align: justify;">
         Notificamos para que no prazo de {{$prazo}} vossa senhoria regularize a autorização/permissão {{$permissionario['prefixo']}}, recolhendo as taxas e multas em atraso, sob pena de descredenciamento para autorização para o transporte escolar.
         </p>
@@ -82,7 +82,7 @@
         </div>
 
         <br>
-        <p>
+        <p style="font-weight: bold;">
             AO<br>
             {{$notificado}}<br>
             Prefixo {{$permissionario['prefixo']}}<br>
@@ -93,7 +93,7 @@
             <p class="center">{{ $empresa['endereco']['endereco']}}, {{ $empresa['endereco']['numero']}}, {{ $empresa['endereco']['complemento']}} - {{ $empresa['endereco']['bairro']}} - Santo André/SP, CEP {{ $empresa['endereco']['cep']}}</p>
             <p class="center">Telefone: {{ $empresa['telefone']}} - {{ $empresa['email']}}</p>
 
-            <p class="right">Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p>
+            {{-- <p class="right">Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p> --}}
         </footer>
     </div>
 

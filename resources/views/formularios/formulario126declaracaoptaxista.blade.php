@@ -7,6 +7,7 @@
         html,
         body {
             width: 190mm;
+            height: 100%;
         }
 
         html {
@@ -40,7 +41,7 @@
             display: flex;
             justify-content: space-between;
             text-align: center;
-        }      
+        }
 
         .content footer .right {
             text-align: right;
@@ -49,9 +50,16 @@
             margin-bottom: 0.5cm;
         }
 
-        .content footer .center {
+        footer {
+            position:fixed;
+            left:0px;
+            bottom:0px;
+            width:100%;
+        }
+
+        footer .center {
             text-align: center;
-            font-size: 11px;
+            font-size: 15px;
         }
 
     </style>
@@ -71,23 +79,22 @@
         </p>
 
         <div class="content-signature">
-            <p>Atenciosamente,</p>
             <div>
-                <br>
-                <br>
                 <p><b>{{$empresa['nome_do_gerente']}}</b></p>
                 <p>Gerente Controle Operacional e Cadastro</p>
                 <p>SA-TRANS - Santo André Transportes</p>
             </div>
         </div>
 
-        <footer>
-            <p class="center">{{ $empresa['endereco']['endereco']}}, {{ $empresa['endereco']['numero']}}, {{ $empresa['endereco']['complemento']}} - {{ $empresa['endereco']['bairro']}} - Santo André/SP, CEP {{ $empresa['endereco']['cep']}}</p>
-            <p class="center">Telefone: {{ $empresa['telefone']}} - {{ $empresa['email']}}</p>
 
-            <p class="right">Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p>
-        </footer>
     </div>
+
+    <footer>
+        <p class="center">{{ $empresa['endereco']['endereco']}}, {{ $empresa['endereco']['numero']}}, {{ $empresa['endereco']['complemento']}} - {{ $empresa['endereco']['bairro']}} - Santo André/SP, CEP {{ $empresa['endereco']['cep']}}</p>
+        <p class="center">Telefone: {{ $empresa['telefone']}} - {{ $empresa['email']}}</p>
+
+        {{-- <p class="right">Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p> --}}
+    </footer>
 
 </body>
 

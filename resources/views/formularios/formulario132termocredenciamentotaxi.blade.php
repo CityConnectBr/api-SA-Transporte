@@ -84,14 +84,19 @@
         }
 
         .questionario p{
-            margin: 0.0cm;
-            margin: 0.0cm;
+            margin-top: -0.1cm;
+            margin-bottom: 0.0cm;
+            font-size: 14px;
         }
 
         .parecer{
             width: 100%;
-            margin-top: 2.5cm;
-            border-top: 1px solid #000;
+            margin-top: 0.5cm;
+            border-top: 4px solid #000;
+        }
+
+        .parecer-bold p {
+            font-weight: bold;
         }
 
         .parecer-p1{
@@ -110,10 +115,15 @@
             border: 1px solid #000;
             float: right;
         }
-        
-        .esquadro-foto p{            
+
+        .esquadro-foto p{
             text-align: center;
             line-height: 2cm;
+        }
+
+        .info p {
+            margin-bottom: 0.0cm;
+            margin-top: 0.0cm;
         }
 
     </style>
@@ -128,77 +138,80 @@
         </div>
 
         <h3>TERMO DE CREDENCIAMENTO - TAXI</h3>
-        <p style="text-align: justify;">
+        <p style="text-align: justify; font-weight: bold;">
         Sr.(a) Diretor(a) do Departamento de Transportes Públicos
         </p>
-        <p style="text-align: justify;">
-        Prefixo __________________________
-        </p>
-        <p style="text-align: justify;">
-        PERMISSIONÁRIO: _____________________________________________________________
-        </p>
-        <p style="text-align: justify;">
-        Endereço _________________________________________________________ nº __________
-        </p>
-        <p style="text-align: justify;">
-        Bairro _____________________________ CEP.: _____________ Tels. ____________________
-        </p>
-        <p>
+        <div class="info">
+            <p style="text-align: justify;">
+            Prefixo __________________________
+            </p>
+            <p>Ponto ____________________ Endereço ______________________________________________ </p>
+            <p style="text-align: justify; font-weight: bold;">
+            PERMISSIONÁRIO: _____________________________________________________________
+            </p>
+            <p style="text-align: justify;">
+            Endereço _________________________________________________________ nº __________
+            </p>
+            <p style="text-align: justify;">
+            Bairro _____________________________ CEP.: _____________ Tels. ____________________
+            </p>
+        </div>
+        <p style="margin-top: 0.0cm;">
         Para Transferência da permissão qualificada acima, foi apresentada a seguinte documentação:
         </p>
         <div class="questionario">
             <p>
-            ( ) 01 (um) ano no Sistema, e não ter débitos pendentes, Falecido, (Espólio apresentar AlvaráJudicial)
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) 01 (um) ano no Sistema, e não ter débitos pendentes, Falecido, (Espólio apresentar Alvará Judicial)
             </p>
             <p>
-            ( ) Baixa dos prepostos
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Baixa dos prepostos
             </p>
             <p>
-            ( ) Requerimentos padrão preenchdos (2 e 4)
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Requerimentos padrão preenchdos (2 e 4)
             </p>
             <p>
-            ( ) Formulário do Cadastro Mobiliário (CMC)
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Formulário do Cadastro Mobiliário (CMC)
             </p>
             <p>
-            ( ) Xerox: Baixa do veículo anterior (Particular) e Retirade do taxímetro junto com Última aferição
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Xerox: Baixa do veículo anterior (Particular) e Retirade do taxímetro junto com Última aferição
             </p>
             <p>
-            ( ) C.N.H de Santo André - Categoria C . Obs. Exerce Atividade Remunerada
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) C.N.H de Santo André - Categoria C . Obs. Exerce Atividade Remunerada
             </p>
             <p>
-            ( ) RG e CPF
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) RG e CPF
             </p>
             <p>
-            ( ) Comprovante de residência de Santo André (IPTU, SEMASA, LUZ) do Cessionário
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Comprovante de residência de Santo André (IPTU, SEMASA, LUZ) do Cessionário
             </p>
             <p>
-            ( ) Atestado de saúde (Original)
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Atestado de saúde (Original)
             </p>
             <p>
-            ( ) Certidão negativa do registro de distribuição criminal, relativa aos crimes de homicídio, roubo, estupro e corrupção de menores - Forum de Santo André. (Original)
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Certidão negativa do registro de distribuição criminal, relativa aos crimes de homicídio, roubo, estupro e corrupção de menores - Forum de Santo André. (Original)
             </p>
             <p>
-            ( ) Foto 3X4
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Foto 3X4
             </p>
             <p>
-            ( ) CRV e CRLV - (Aluguel) + DPVAT - Pago
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) CRV e CRLV - (Aluguel) + DPVAT - Pago
             </p>
             <p>
-            ( ) Xerox do Selo do Gás para veículo a GNV
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Xerox do Selo do Gás para veículo a GNV
             </p>
             <p>
-            ( ) Xerox da nota fiscal no caso de novo taxímetro
-            </p>     
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Xerox da nota fiscal no caso de novo taxímetro
+            </p>
             <p>
-            ( ) Vistoria com aprovação da SA-TRANS - laudo
-            </p>            
+            ( &nbsp;&nbsp;&nbsp;&nbsp;) Vistoria com aprovação da SA-TRANS - laudo
+            </p>
         </div>
 
-        <p style="text-align: justify;">
+        <p style="text-align: justify; margin-top: 0.0cm; margin-bottom: 0.0cm;">
         Informo que o permissionário não possui débito junto à SA-TRANS e que a documentação apresentada foi conferida e está de acordo com o Decreto Municipal nº 13.803/96.
         </p>
 
-        <p>
+        <p style="margin-top: 0.0cm;">
         Documentos conferidos por:<br>
         Nome_______________________________________ Data: _____/______/________,<br>
         Assinatura _________________________________________________
@@ -206,44 +219,38 @@
 
         <div class="content-signature content-signature-left">
             <div>
-                <br>
-                <br>
                 <p>____________________________________________  <span style="margin-left: 2cm;">Data ______/______/_______</span></p>
                 <p>Encarregado Setor de Cadastro</p>
             </div>
-        </div>  
+        </div>
 
         <div class="parecer">
             <div class="parecer-p1">
                 <p>Parecer da GCOC</p>
-                <p>De acordo,</p>
-                <div class="content-signature content-signature-left">
+                <p><b>De acordo,</b></p>
+                <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <br>
-                        <br>
                         <p>______________________________________</p>
                         <p>Gerente de Controle Operacional e Cadastro</p>
                     </div>
-                </div> 
+                </div>
                 <p>Data: ____/____/_______</p>
             </div>
 
-            
+
             <div class="parecer-p2">
                 <p>Parecer da DTP</p>
-                <p>Autorizo,</p>
-                <div class="content-signature content-signature-left">
+                <p><b>Autorizo,</b></p>
+                <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <br>
-                        <br>
                         <p>______________________________________</p>
                         <p>Diretor(a) de Transportes Públicos</p>
                     </div>
-                </div> 
+                </div>
                 <p>Data: ____/____/_______</p>
             </div>
         </div>
-        
+
 
         <footer>
             <p>Impresso por {{ $usuario['nome'] }} do {{ date('d/m/Y H:i', time()) }}</p>
