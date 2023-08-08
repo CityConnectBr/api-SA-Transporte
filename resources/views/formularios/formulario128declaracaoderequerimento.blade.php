@@ -49,12 +49,6 @@
             font-size: 11px;
         }
 
-        .square {
-            height: 50px;
-            width: 50px;
-            border: 1px solid #000;
-        }
-
     </style>
 </head>
 
@@ -75,7 +69,7 @@
 
         <p>Permissionário? ( &nbsp;&nbsp;&nbsp;&nbsp;) Sim ( &nbsp;&nbsp;&nbsp;&nbsp;) Não</p>
 
-        <p>Local do ponto <b>{{$ponto['descricao']}}</b></p>
+        <p>Local do ponto <b>{{$enderecoPonto['endereco']}}</b></p>
 
         <p>DESCRIÇÃO DO REQUERIMENTO</p>
 

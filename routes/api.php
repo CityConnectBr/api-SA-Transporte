@@ -31,7 +31,6 @@ Route::group([
         Route::get('/photouser', 'UsuarioController@photoUser');
         Route::post('/user/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController@storeFromUser');
         Route::patch('/password', 'UsuarioController@updatePassword');
-
         // fiscal
         Route::group([
             'middleware' => [
@@ -43,6 +42,7 @@ Route::group([
                 Route::get('/', function () {
                     return "admin ok";
                 });
+
                 //--------- CRUDS BASE -------------------
                 Route::resource('/empresas', 'Admin\EmpresaController');
                 Route::resource('/perfis', 'Admin\PerfilController');
@@ -62,6 +62,8 @@ Route::group([
                 Route::resource('/tiposdecertidao', 'Admin\TipoDeCertidaoController');
                 Route::resource('/entidadescurso', 'Admin\EntidadeCursoController');
                 Route::resource('/usuarios', 'Admin\UsuarioController');
+                Route::post('/usuarios/assinatura', 'UsuarioController@saveAssinatura');
+                Route::get('/usuarios/assinatura/{id}', 'UsuarioController@showAssinatura');
                 Route::resource('/enderecos', 'Admin\EnderecoController');
                 Route::resource('/quadrodeinfracoes', 'Admin\QuadroDeInfracoesController');
                 Route::resource('/naturezasdainfracao', 'Admin\NaturezaDaInfracaoController');
@@ -140,19 +142,20 @@ Route::group([
                 Route::get('/relatorios/cursospermissionariovencidos', 'Admin\RelatorioController@cursosPermissionarioVencidos');
                 Route::get('/relatorios/cursoscondutorvencidos', 'Admin\RelatorioController@cursosCondutorVencidos');
                 Route::get('/relatorios/cursosmonitorvencidos', 'Admin\RelatorioController@cursosMonitorVencidos');
+                Route::get('/relatorios/documentosexpirados', 'Admin\RelatorioController@documentosExpirados');
 
                 //formulario 1
                 Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formularioRenovacaoPermissao');
                 //formulario 2
-                Route::get('/formularios/formulariorequerimentotransferencia', 'Admin\FormularioController@formularioRequerimentoTransferencia');//formulario 2
+                Route::get('/formularios/formulariorequerimentotransferencia', 'Admin\FormularioController@formularioRequerimentoTransferencia'); //formulario 2
                 //formulario 3
-                Route::get('/formularios/formulariotransfpermissaotranspescolar', 'Admin\FormularioController@formularioTransfPermissaoTranspEscolar');//formulario 3
+                Route::get('/formularios/formulariotransfpermissaotranspescolar', 'Admin\FormularioController@formularioTransfPermissaoTranspEscolar'); //formulario 3
                 //formulario 4
-                Route::get('/formularios/formulariotransfpermissaotransptaxi', 'Admin\FormularioController@formularioTransfPermissaoTranspTaxi');//formulario 4
+                Route::get('/formularios/formulariotransfpermissaotransptaxi', 'Admin\FormularioController@formularioTransfPermissaoTranspTaxi'); //formulario 4
                 //formulario 5
-                Route::get('/formularios/formularioreqsubsveiculo', 'Admin\FormularioController@formularioRequerimentoSubstituicaoVeiculo');//formulario 5
+                Route::get('/formularios/formularioreqsubsveiculo', 'Admin\FormularioController@formularioRequerimentoSubstituicaoVeiculo'); //formulario 5
                 //formulario 6
-                Route::get('/formularios/formularioreqprorrsubsveiculo', 'Admin\FormularioController@formularioRequerimentoProrrogacaoSubstituicaoVeiculo');//formulario 6
+                Route::get('/formularios/formularioreqprorrsubsveiculo', 'Admin\FormularioController@formularioRequerimentoProrrogacaoSubstituicaoVeiculo'); //formulario 6
                 //formulario 7
                 Route::get('/formularios/formulariodeclaracaomonitor', 'Admin\FormularioController@formulariodeclaracaomonitor');
                 //formulario 8

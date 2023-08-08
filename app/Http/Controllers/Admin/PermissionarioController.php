@@ -107,6 +107,27 @@ class PermissionarioController extends AdminSuperController
         );
     }
 
+    public function index()
+    {
+        $obj = null;
+        $search = $this->request->input('search');
+        if ($search == null) {
+            $search = $this->request->query('search');
+        }
+
+        $ativo = $this->request->input('ativo');
+        $modalidade = $this->request->input('modalidade');
+
+
+        $obj = $this->objectModel::search($search, $ativo, $modalidade);
+
+        if ($obj != null) {
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -135,7 +156,7 @@ class PermissionarioController extends AdminSuperController
         ]);
 
         if ($validator->fails()) {
-            return Parent::responseMsgsJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $obj = Permissionario::find($id);
@@ -321,7 +342,7 @@ class PermissionarioController extends AdminSuperController
         ]);
 
         if ($validator->fails()) {
-            return Parent::responseMsgsJSON($validator->errors(), 400);
+            return parent::responseMsgsJSON($validator->errors(), 400);
         }
 
         $obj = Permissionario::find($id);
