@@ -10,6 +10,7 @@ class Modalidade extends Model
         'id',
         'identificador',
         'descricao',
+        'tipo',
         'limite'
     ];
 
