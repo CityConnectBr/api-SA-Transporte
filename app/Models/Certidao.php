@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Certidao extends Model
 {
     use SoftDeletes;
+    use ProtocolEvent;
 
     protected $fillable = [
         'id_integracao',
@@ -23,7 +24,8 @@ class Certidao extends Model
         'tipo_combustivel_id',
         'cor_id',
         'ponto_id',
-        'observacao'
+        'observacao',
+        'protocol',
     ];
 
     protected $table = 'certidoes';

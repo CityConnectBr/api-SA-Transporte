@@ -69,6 +69,9 @@ class CertidaoController extends AdminSuperController
                     'required',
                     'exists:pontos,id'
                 ],
+                'protocol' => [
+                    'min:6'
+                ]
             ],
             $request
         );
