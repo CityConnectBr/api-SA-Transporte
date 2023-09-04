@@ -9,6 +9,7 @@ class MarcaModeloVeiculo extends Model
     protected $fillable = [
         'id_integracao',
         'descricao',
+        'codigo_ipva',
     ];
 
     protected $table = 'marcas_modelos_veiculos';
