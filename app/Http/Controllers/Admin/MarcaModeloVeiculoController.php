@@ -17,6 +17,9 @@ class MarcaModeloVeiculoController extends AdminSuperController
                     'max:40',
                     'min:2',
                 ],
+                'codigo_ipva' => [
+                    'nullable'
+                ]
             ],
             $request
         );
