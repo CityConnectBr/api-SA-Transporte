@@ -475,9 +475,67 @@ class FormularioController extends Controller
     //formulario120
     public function solicitacaoDeAfericaoTaximetro()
     {
-        if ($this->request['veiculo'] == null) {
-            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        $this->getFormulario120Automatico();
+
+        if (isset($this->request['veiculo'])) {
+            return $this->getFormulario120Automatico();
+        } else if (isset($this->request['permissionario'])) {
+            return $this->getFormulario120Manual();
+        } else {
+            return parent::responseMsgJSON("ID do permissionário ou veículo não encontrado", 404);
         }
+    }
+
+    private function getFormulario120Manual()
+    {
+        $id = $this->request['permissionario'];
+
+        $permissionario = Permissionario::find($id);
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+
+        $placa = $this->request['placa'];
+        $marca_modelo = $this->request['marca_modelo'];
+        $cor = $this->request['cor'];
+        $ano = $this->request['ano'];
+        $taximetro = $this->request['taximetro'];
+
+        $empresa = Empresa::findComplete(1);
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario120solicitacaoafericaotaximetro";
+
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'placa',
+                'marca_modelo',
+                'cor',
+                'ano',
+                'empresa',
+                'dataFormatada',
+                'usuario'
+            )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    private function getFormulario120Automatico()
+    {
         $id = $this->request['veiculo'];
 
         $veiculo = Veiculo::findComplete($id);
@@ -498,6 +556,11 @@ class FormularioController extends Controller
             return parent::responseMsgJSON("Permissionário falecido", 404);
         }
 
+        $placa = $veiculo->placa;
+        $marca_modelo = $veiculo->MarcaModeloVeiculo->descricao;
+        $cor = $veiculo->cor->descricao;
+        $ano = $veiculo->ano_fabricacao;
+
         $empresa = Empresa::findComplete(1);
 
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
@@ -506,13 +569,18 @@ class FormularioController extends Controller
 
         $formlario = "formulario120solicitacaoafericaotaximetro";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario',
-            'veiculo',
-            'empresa',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'placa',
+                'marca_modelo',
+                'cor',
+                'ano',
+                'empresa',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -579,18 +647,20 @@ class FormularioController extends Controller
 
         $formlario = "formulario121solicitacaoautorizacaoprovisoria";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario',
-            'veiculo',
-            'empresa',
-            'condutores',
-            'ponto',
-            'motivo',
-            'dataLimite',
-            'quandoDevera',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'veiculo',
+                'empresa',
+                'condutores',
+                'ponto',
+                'motivo',
+                'dataLimite',
+                'quandoDevera',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -649,18 +719,20 @@ class FormularioController extends Controller
 
         $formlario = "formulario122solicitacaoautorizacaoprovisoriaescolar";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario',
-            'veiculo',
-            'empresa',
-            'monitores',
-            'pontos',
-            'motivo',
-            'dataLimite',
-            'quandoDevera',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'veiculo',
+                'empresa',
+                'monitores',
+                'pontos',
+                'motivo',
+                'dataLimite',
+                'quandoDevera',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -704,13 +776,15 @@ class FormularioController extends Controller
 
         $formlario = "formulario126declaracaoptaxista";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario',
-            'empresa',
-            'ponto',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'empresa',
+                'ponto',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -745,12 +819,14 @@ class FormularioController extends Controller
 
         $formlario = "formulario127declaracaoptransporteescolar";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario',
-            'empresa',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'empresa',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -794,13 +870,15 @@ class FormularioController extends Controller
 
         $formlario = "formulario128declaracaoderequerimento";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario',
-            'empresa',
-            'enderecoPonto',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'empresa',
+                'enderecoPonto',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -851,16 +929,18 @@ class FormularioController extends Controller
 
         $formlario = "formulario129laudovistoriatranspespeciais";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'veiculo',
-            'permissionario',
-            'vencimentoCNHFormatada',
-            'empresa',
-            'ponto',
-            'enderecoPonto',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'veiculo',
+                'permissionario',
+                'vencimentoCNHFormatada',
+                'empresa',
+                'ponto',
+                'enderecoPonto',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -905,14 +985,16 @@ class FormularioController extends Controller
 
         $formlario = "formulario130notificacao";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'permissionario',
-            'empresa',
-            'prazo',
-            'notificado',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'empresa',
+                'prazo',
+                'notificado',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -963,15 +1045,17 @@ class FormularioController extends Controller
         $usuario = auth()->user();
 
         $formlario = "formulario131substituicaoveiculo";
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'veiculo1',
-            'veiculo2',
-            'permissionario',
-            'ponto',
-            'empresa',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'veiculo1',
+                'veiculo2',
+                'permissionario',
+                'ponto',
+                'empresa',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
@@ -1028,31 +1112,33 @@ class FormularioController extends Controller
         $dataEmissaoFormatada = Carbon::parse($infracao->created_at)->format('d/m/Y');
         $dataInfracaoFormatada = Carbon::parse($infracao->data_infracao)->format('d/m/Y');
         $horarioInfracaoFormatado = Carbon::parse($infracao->hora_infracao)->format('H:i');
-        $npixOuBoleto = $infracao->codigo_pix? $infracao->codigo_pix : $infracao->num_boleto;
+        $npixOuBoleto = $infracao->codigo_pix ? $infracao->codigo_pix : $infracao->num_boleto;
         $venctoBoletoFormatado = Carbon::parse($infracao->data_vendimento_boleto)->format('d/m/Y');
         $valorFMPFormatado = number_format($infracao->FMP->valor, 2, ',', '.');
-        $valorEmFMP = $infracao->FMP->valor*$infracao->FMP->qtd_fmp;
-        $valorEmFMPFormatado = number_format($infracao->FMP->valor*$infracao->qtd_fmp, 2, ',', '.');
+        $valorEmFMP = $infracao->FMP->valor * $infracao->FMP->qtd_fmp;
+        $valorEmFMPFormatado = number_format($infracao->FMP->valor * $infracao->qtd_fmp, 2, ',', '.');
 
         $usuario = auth()->user();
 
         $formlario = "formulario134aip";
 
-        $pdf = PDF::loadView('formularios/' . $formlario,
-        compact(
-            'infracao',
-            'empresa',
-            'dataFormatada',
-            'dataEmissaoFormatada',
-            'dataInfracaoFormatada',
-            'horarioInfracaoFormatado',
-            'npixOuBoleto',
-            'venctoBoletoFormatado',
-            'valorFMPFormatado',
-            'valorEmFMP',
-            'valorEmFMPFormatado',
-            'usuario'
-        ));
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'infracao',
+                'empresa',
+                'dataFormatada',
+                'dataEmissaoFormatada',
+                'dataInfracaoFormatada',
+                'horarioInfracaoFormatado',
+                'npixOuBoleto',
+                'venctoBoletoFormatado',
+                'valorFMPFormatado',
+                'valorEmFMP',
+                'valorEmFMPFormatado',
+                'usuario'
+            )
+        );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
@@ -1097,13 +1183,15 @@ class FormularioController extends Controller
 
         $formlario = "formulario135alvaradopermissionario";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact(
-            'veiculo',
-            'permissionario',
-            'ponto',
-            'dataFormatada',
-            'usuario'
-        )
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'veiculo',
+                'permissionario',
+                'ponto',
+                'dataFormatada',
+                'usuario'
+            )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
