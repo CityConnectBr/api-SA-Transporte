@@ -21,7 +21,7 @@ class VeiculoController extends Controller
     public function index()
     {
         if(parent::getUserLogged()->permissionario_id!=null){
-            return Veiculo::searchByIdPermissionario($this->request->query->get("search"), parent::getUserLogged()->permissionario_id);
+            return Veiculo::searchByIdPermissionario(parent::getUserLogged()->permissionario_id, $this->request->query->get("search"));
         }else if(parent::getUserLogged()->fiscal_id!=null){
             return Veiculo::search($this->request->query->get("search"));
         }else{
