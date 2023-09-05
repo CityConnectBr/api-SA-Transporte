@@ -118,7 +118,7 @@
 
         <div class="foto3x4">Foto 3x4</div>
 
-        <h3>ANEXO 08 - CONDUTOR AUXILIAR ({{$inscricaoOuRenovacao!=null && $inscricaoOuRenovacao==2?'X':'  '}}) INCRIÇÃO &nbsp;({{$inscricaoOuRenovacao!=null && $inscricaoOuRenovacao==1?'X':'   '}}) RENOVAÇÃO</h3>
+        <h3>ANEXO 08 - CONDUTOR AUXILIAR ({{$inscricaoOuRenovacao!=null && $inscricaoOuRenovacao==2?'X':'  '}}) INSCRIÇÃO &nbsp;({{$inscricaoOuRenovacao!=null && $inscricaoOuRenovacao==1?'X':'   '}}) RENOVAÇÃO</h3>
 
         <p class="p-bold-underline" style="margin-bottom: 0.0cm;">Eu, <b>{{$permissionario['nome_razao_social']}}</b>, permissionário(a) do serviço de <b>{{$modalidadeDoPermissionario!=null?$modalidadeDoPermissionario['descricao']:'--'}}</b>, neste município com o prefixo <b>{{$permissionario['prefixo']}}</b>, telefone <b>{{$permissionario['telefone']}}</b>, venho solicitar a inscrição / renovação em cadastro do(a)</p>
 

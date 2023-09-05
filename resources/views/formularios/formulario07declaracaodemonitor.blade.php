@@ -89,7 +89,7 @@
         <h3>ANEXO 07 - DECLARAÇÃO DE MONITOR</h3>
         <p>Eu, <b style="text-decoration: underline;">{{$permissionario['nome_razao_social']}}</b>, permissionário(a) do serviço de transporte escolar neste município com o prefixo <b style="text-decoration: underline;"">{{$permissionario['prefixo']}}</b>, em cumprimento à Lei Municipal nº. 8.038 de 09 de junho de 2000, art. 7º "no transporte de estudantes será obrigatória a presença de um Monitor, para auxiliar o condutor nas operações de embarque e desembarque" e ao Decreto Municipal nº. 14.538 de 15 de agosto de 2000, Art. 8º Parágrafo único <b>"os monitores deverão estar devidamente cadastrados junto à SA-TRANS"</b> , solicito a</p>
 
-        <p style="font-weight: bold;">INCLUÃO DE:</p>
+        <p style="font-weight: bold;">INCLUSÃO DE:</p>
         <p>Nome: <b>{{$solicitacao!=null && $solicitacao['campo10']!=null?$solicitacao['campo10']:'_________________________'}}</b> RG: <b>{{$solicitacao!=null && $solicitacao['campo11']!=null?$solicitacao['campo11']:'__________________'}}</b>, CPF: <b>{{$solicitacao!=null && $solicitacao['campo12']!=null?$solicitacao['campo12']:'______________'}}</b>,</p>
         <p>Endereço: <b>{{$enderecoSolicitacao!=null?$enderecoSolicitacao:'_____________________________________________'}}</b>,</p>
         <p>E-mail: <b>{{$solicitacao!=null && $solicitacao['campo1']!=null?$solicitacao['campo1']:'__________________________________________________'}}</b>Tel: <b>{{$solicitacao!=null && $solicitacao['campo2']!=null?$solicitacao['campo2']:'______________.'}}</b></p>
