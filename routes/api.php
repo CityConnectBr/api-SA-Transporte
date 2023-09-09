@@ -144,6 +144,9 @@ Route::group([
                 Route::get('/relatorios/cursosmonitorvencidos', 'Admin\RelatorioController@cursosMonitorVencidos');
                 Route::get('/relatorios/documentosexpirados', 'Admin\RelatorioController@documentosExpirados');
 
+                //impressao 1
+                Route::get('/impressoes/lancamentocertidao', 'Admin\ImpressoesController@impressoesCertidao');
+
                 //formulario 1
                 Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formularioRenovacaoPermissao');
                 //formulario 2
