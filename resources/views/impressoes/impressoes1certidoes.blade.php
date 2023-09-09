@@ -67,7 +67,7 @@
                     N° do Renavam:<br> {{ $obj['renavam'] }}
                 </div>                
                 <div class="td" style="width: 148px">
-                    Tipo de Certidão:<br> {{ $obj['tipoDeCertidao']['descricao'] }}
+                    Tipo de Certidão:<br> {{ $obj['tipoDeCertidao']? $obj['tipoDeCertidao']['descricao'] : '' }}
                 </div>
             </div><br><br><br>          
             <div class="tr">
