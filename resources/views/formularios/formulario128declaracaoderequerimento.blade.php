@@ -67,8 +67,6 @@
         Endereço: <b>{{$permissionario['endereco']['endereco']}}</b>, <b>{{$permissionario['endereco']['numero']}}</b>, <b>{{$permissionario['endereco']['complemento']}}</b>, Bairro <b>{{$permissionario['endereco']['bairro']}}</b>, Município: <b>Santo André</b>, UF: <b>SP</b>, CEP: {{$permissionario['endereco']['cep']}}
         </p>
 
-        <p>Permissionário? ( &nbsp;&nbsp;&nbsp;&nbsp;) Sim ( &nbsp;&nbsp;&nbsp;&nbsp;) Não</p>
-
         <p>Local do ponto <b>{{$enderecoPonto['endereco']}}</b></p>
 
         <p>DESCRIÇÃO DO REQUERIMENTO</p>
