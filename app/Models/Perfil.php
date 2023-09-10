@@ -5,14 +5,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perfil extends Model
 {
-
     protected $fillable = [
         'nome',
-        'incluir',
-        'alterar',
-        'excluir',
-        'consultar',
-        'imprimir',
+        'cadastro_usuario',
+        'cadastro_perfil',
+        'cadastro_principais',
+        'cadastro_tabelas_base',
+        'lancamentos',
+        'impressos',
+        'relatorios'
     ];
 
     protected $table = 'perfis';
