@@ -14,9 +14,19 @@ class UpdateCursoCondutor extends Migration
     public function up()
     {
         Schema::table('cursos_do_monitor', function (Blueprint $table) {
-            $table->date('data_validade')->nullable();
-            $table->string('nome', 100)->nullable();
-            $table->string('descricao', 150)->nullable();
+            if (!Schema::hasColumn('cursos_do_monitor', 'data_validade')) {
+                $table->date('data_validade')->nullable();
+            }
+
+            // Verifique se a coluna 'nome' não existe antes de criar
+            if (!Schema::hasColumn('cursos_do_monitor', 'nome')) {
+                $table->string('nome', 100)->nullable();
+            }
+
+            // Verifique se a coluna 'descricao' não existe antes de criar
+            if (!Schema::hasColumn('cursos_do_monitor', 'descricao')) {
+                $table->string('descricao', 150)->nullable();
+            }
         });
     }
 
