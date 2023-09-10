@@ -25,6 +25,7 @@ class Usuario extends Authenticatable implements JWTSubject
         'fiscal_id',
         'condutor_id',
         'tipo_id',
+        'perfil_web_id',
         'codigo_de_recuperacao',
         'data_hora_ultimo_codigo_de_recuperacao',
         'perfil_web_id',
@@ -55,6 +56,11 @@ class Usuario extends Authenticatable implements JWTSubject
         return $this->hasOne(TiposDeUsuarios::class, 'id', 'tipo_id');
     }
 
+    public function perfil()
+    {
+        return $this->hasOne(Perfil::class, 'id', 'perfil_web_id');
+    }
+
     public function permissionario()
     {
         return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
@@ -74,7 +80,7 @@ class Usuario extends Authenticatable implements JWTSubject
 
     public static function findComplete($id)
     {
-        return Usuario::with('tipo')->find($id);
+        return Usuario::with('tipo')->with('perfil')->find($id);
     }
 
     public static function findByEmail($email)
@@ -87,7 +93,8 @@ class Usuario extends Authenticatable implements JWTSubject
         return Usuario::where("cpf_cnpj", $cpfCnpj)->first();
     }*/
 
-    public static function findByCNH($cnh){
+    public static function findByCNH($cnh)
+    {
         return Usuario::where("cnh", $cnh)->first();
     }
 
