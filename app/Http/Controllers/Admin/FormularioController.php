@@ -114,7 +114,17 @@ class FormularioController extends Controller
     //formulario5
     function formularioRequerimentoSubstituicaoVeiculo()
     {
+        if (isset($this->request['id'])) {
+            return $this->formularioRequerimentoSubstituicaoVeiculoAuto();
+        } else if (isset($this->request['permissionario'])) {
+            return $this->formularioRequerimentoSubstituicaoVeiculoManual();
+        } else {
+            return parent::responseMsgJSON("ID do permissionário ou veículo não encontrado", 404);
+        }
+    }
 
+    private function formularioRequerimentoSubstituicaoVeiculoAuto()
+    {
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Não encontrado", 404);
         }
@@ -137,16 +147,76 @@ class FormularioController extends Controller
             return parent::responseMsgJSON("Permissionário falecido", 404);
         }
 
+        $placa = $obj['placa'];
+        $marcaModelo = $obj['marcaModeloVeiculo']['descricao'];
+        $ano = $obj['ano_modelo'];
+
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
         $usuario = auth()->user();
 
         $formlario = "formulario05reqsubveiculo";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact('obj', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'obj',
+            'placa',
+            'marcaModelo',
+            'ano',
+            'dataFormatada',
+            'usuario'
+        ));
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
+
+    private function formularioRequerimentoSubstituicaoVeiculoManual()
+    {
+        if ($this->request['permissionario'] == null) {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+
+        $obj = new Veiculo();
+        $obj->permissionario_id = $this->request['permissionario'];
+        $obj->permissionario = Permissionario::find($this->request['permissionario']);
+
+        if ($obj->permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($obj == null) {
+            return parent::responseMsgJSON("veículo não encontrado", 404);
+        }
+
+        if ($obj->permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        if ($obj['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
+        
+        $placa = $this->request['placa'];
+        $marcaModelo = $this->request['marca_modelo'];
+        $ano = $this->request['ano'];
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario05reqsubveiculo";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'obj',
+            'placa',
+            'marcaModelo',
+            'ano',
+            'dataFormatada',
+            'usuario'
+        ));
+        
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
 
     //formulario5
     function formularioRequerimentoProrrogacaoSubstituicaoVeiculo()
@@ -475,8 +545,6 @@ class FormularioController extends Controller
     //formulario120
     public function solicitacaoDeAfericaoTaximetro()
     {
-        $this->getFormulario120Automatico();
-
         if (isset($this->request['veiculo'])) {
             return $this->getFormulario120Automatico();
         } else if (isset($this->request['permissionario'])) {

@@ -119,7 +119,7 @@
         <p>O permissionário do serviço de <b>Taxi</b>,<br>
             Sr.(a) <b>{{ $obj['permissionario']['nome_razao_social'] }}</b>,<br>
             telefone: <b>{{ $obj['permissionario']['telefone'] }}</b>, prefixo: <b>{{ $obj['permissionario']['prefixo'] }}</b>.
-            Solicita a substituição do véiculo: marca/modelo <b>{{ $obj['marcaModeloVeiculo']['descricao'] }}</b>, ano <b>{{ $obj['ano_modelo'] }}</b>, placa <b>{{ $obj['placa'] }}</b>
+            Solicita a substituição do véiculo: marca/modelo <b>{{ $placa }}</b>, ano <b>{{ $marcaModelo }}</b>, placa <b>{{ $ano }}</b>
             pelo veículo: marca/modelo <b>____________________</b>, ano <b>________</b>, placa <b>________</b>.
         </p>
 
