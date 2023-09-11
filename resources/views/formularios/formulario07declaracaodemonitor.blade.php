@@ -91,8 +91,8 @@
 
         <p style="font-weight: bold;">INCLUSÃO DE:</p>
         <p>Nome: <b>{{$nomeMonitorInclusao!=null ? $nomeMonitorInclusao : '_________________________'}}</b> RG: <b>{{$rgMonitorInclusao!=null ? $rgMonitorInclusao :'__________________'}}</b>, CPF: <b>{{$cpfMonitorInclusao!=null ? $cpfMonitorInclusao : '______________'}}</b>,</p>
-        <p>Endereço: <b>{{$enderecoMonitorInclusao!=null?$enderecoMonitorInclusao:'_____________________________________________'}}</b>,</p>
-        <p>E-mail: <b>{{$emailMonitorInclusao!=null ? $emailMonitorInclusao : '__________________________________________________'}}</b>Tel: <b>{{$telefoneMonitorInclusao!=null ? $telefoneMonitorInclusao : '______________.'}}</b></p>
+        <p>Endereço: <b>{{$enderecoMonitorInclusao!=null?$enderecoMonitorInclusao:'_____________________________________________'}}</b>, </p>
+        <p>E-mail: <b>{{$emailMonitorInclusao!=null ? $emailMonitorInclusao : '__________________________________________________'}}</b>, Tel: <b>{{$telefoneMonitorInclusao!=null ? $telefoneMonitorInclusao : '______________.'}}</b></p>
         <hr>
         <p style="font-size: 12px;">OBS: Na inclusão deverão ser apresentados: cópia do RG e do CPF e Informado endereço, telefone e e-mail.</p>
 
