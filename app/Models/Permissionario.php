@@ -161,4 +161,9 @@ class Permissionario extends Model
             ->get();
     }
 
+    public function permissionarioHistorico()
+    {
+        return $this->hasMany(PermissionarioHistorico::class);
+    }
+
 }

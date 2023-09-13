@@ -205,6 +205,9 @@ Route::group([
                 Route::get('/formularios/aip', 'Admin\FormularioController@aip');
                 //formulario 135
                 Route::get('/formularios/alvaradopermissionario', 'Admin\FormularioController@alvaraDoPermissionario');
+
+                //Historico de Alterações
+                Route::get('/permissionariohistorico', 'Admin\PermissionarioHistoricoController@index');
             });
         });
 

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Permissionario;
+use App\Observers\PermissionarioHistoricoObserver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        Permissionario::observe(PermissionarioHistoricoObserver::class);
     }
 }
