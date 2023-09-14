@@ -505,5 +505,13 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'regex_campo3' => '^.{0,500}$',
             'desc_arquivo1' => 'Imagem da Infração'
         ]);
+                
+        ////////////////////////////////////
+        ///////////////// ALVARA
+        ///////////////////////////////////
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
+            'id' => '70',
+            'nome' => 'renovacao_alvara',
+        ]);
     }
 }
