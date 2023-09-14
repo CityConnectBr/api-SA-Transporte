@@ -511,7 +511,7 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
         ///////////////////////////////////
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '70',
-            'nome' => 'renovacao_alvara',
+            'nome' => 'permissionario_renovacao_alvara',
         ]);
     }
 }
