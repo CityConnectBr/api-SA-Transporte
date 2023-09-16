@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminSuperController;
 use App\Models\Alvara;
+use App\Models\SolicitacaoDeAlteracao;
 use App\Utils\Util;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -74,6 +75,12 @@ class AlvaraDoPermissionarioController extends AdminSuperController
             $obj->file_name = 'file_' . $obj->id . "." . $request->file->extension();
         }
         $obj->save();
+
+        $solicitacao = SolicitacaoDeAlteracao::find($request['solicitacao_id']);
+        if($solicitacao!=null && $solicitacao->status!="A"){
+            $solicitacao->status="A";
+            $solicitacao->update();
+        }
 
         if (isset($request->file)) {
             $request->file->storeAs('/' . $obj->getTable(), $obj->file_name);

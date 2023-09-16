@@ -136,7 +136,7 @@ class InfracaoController extends AdminSuperController
         $obj->save();
 
         $solicitacao = SolicitacaoDeAlteracao::find($request['solicitacao_id']);
-        if($solicitacao!=null){
+        if($solicitacao!=null && $solicitacao->status!="A"){
             $solicitacao->status="A";
             $solicitacao->update();
         }
