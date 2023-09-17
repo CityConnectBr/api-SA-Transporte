@@ -246,7 +246,9 @@ Route::group([
                 Route::get('/v1/monitores/{id}/foto', 'v1\MonitorController@showPhoto');
 
                 Route::get('/v1/monitores', 'v1\MonitorController@index');
-                Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');
+                Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');              
+
+                Route::get('/v1/pontos', 'v1\PontoController@pontosByPermissionario');
 
                 Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
 
