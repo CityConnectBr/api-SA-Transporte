@@ -208,6 +208,11 @@ Route::group([
 
                 //Historico de Alterações
                 Route::get('/permissionariohistorico', 'Admin\PermissionarioHistoricoController@index');
+            
+                //Mensagens
+                Route::post('/mensagens', 'Admin\MensagemController@enviar');
+                Route::get('/mensagens', 'Admin\MensagemController@index');
+            
             });
         });
 
