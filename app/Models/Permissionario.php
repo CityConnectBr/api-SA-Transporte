@@ -95,6 +95,11 @@ class Permissionario extends Model
         return $this->hasOne(Alvara::class, 'permissionario_id', 'id')->orderBy('created_at', 'desc');
     }
 
+    public function usuario()
+    {
+        return $this->hasOne(Usuario::class, 'permissionario_id', 'id');
+    }
+
 
     //////////////////////////////////////
     public static function search($search, $ativo = true, $modalidade_id = null)
@@ -159,6 +164,11 @@ class Permissionario extends Model
             ->orWhere("contrato_comodato_validade", "<", date("Y-m-d"))
             ->orWhere("selo_gnv_validade", "<", date("Y-m-d"))
             ->get();
+    }
+
+    public static function findWithUsuario($id)
+    {
+        return Permissionario::with('usuario')->firstWhere("id", $id);
     }
 
     public function permissionarioHistorico()

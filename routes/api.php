@@ -31,6 +31,7 @@ Route::group([
         Route::get('/photouser', 'UsuarioController@photoUser');
         Route::post('/user/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController@storeFromUser');
         Route::patch('/password', 'UsuarioController@updatePassword');
+        Route::patch('/tokenfcm', 'UsuarioController@updateTokenFCM');
         // fiscal
         Route::group([
             'middleware' => [
