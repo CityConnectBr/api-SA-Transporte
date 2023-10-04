@@ -13,7 +13,8 @@ class Perfil extends Model
         'cadastro_tabelas_base',
         'lancamentos',
         'impressos',
-        'relatorios'
+        'relatorios',
+        'mensagens'
     ];
 
     protected $table = 'perfis';

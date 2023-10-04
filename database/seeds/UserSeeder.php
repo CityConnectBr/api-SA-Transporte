@@ -15,11 +15,14 @@ class UserSeeder extends Seeder
         DB::table('perfis')->insert([
             //'id' => '1',
             'nome' => 'admin',
-            'incluir' => true,
-            'alterar' => true,
-            'excluir' => true,
-            'consultar' => true,
-            'imprimir' => true,
+            'cadastro_usuario' => true,
+            'cadastro_perfil' => true,
+            'cadastro_principais' => true,
+            'cadastro_tabelas_base' => true,
+            'lancamentos' => true,
+            'impressos' => true,
+            'relatorios' => true,
+            'mensagens' => true,
         ]);
 
         DB::table('usuarios')->insert([
