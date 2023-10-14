@@ -46,12 +46,49 @@ class Condutor extends Model
         return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
     }
 
-    //////////////////////////////////////
-    public static function search($search)
+    public function usuario()
     {
-        return Condutor::where("nome", "like", "%" . $search . "%")
-            ->orderBy("nome")
-            ->simplePaginate(15);
+        return $this->hasOne(Usuario::class, 'condutor_id', 'id');
+    }
+
+    //////////////////////////////////////
+    public static function search($search, $ativo, $usuario = false, $todos = false, $onlyEmailFCMValido = false)
+    {
+        $query = Condutor::where("nome", "like", "%" . $search . "%")
+            ->orderBy("nome");
+
+        if ($ativo) {
+            $query->where("ativo", "=", $ativo);
+        }
+
+        if ($usuario) {
+            $query->with([
+                "usuario" => function ($query) {
+                    $query->select("id", "token_fcm");
+                }
+            ]);
+        }
+
+        if ($onlyEmailFCMValido) {
+            $query->where(function ($query) {
+                $query->whereNotNull("email")
+                    ->orWhereHas("usuario", function ($query) {
+                        $query->whereNotNull("token_fcm");
+                    });
+            });
+        }
+
+        if ($todos) {
+            $query->select(
+                "id",
+                "nome",
+                "cpf",
+                "email",
+            );
+            return $query->get();
+        }
+
+        return $query->simplePaginate(15);
     }
 
     public static function searchByPermissionario($permissionario_id, $search)

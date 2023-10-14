@@ -15,7 +15,8 @@ class FiscalController extends AdminSuperController
     {
         $postMethod = $request->method() == 'POST';
         parent::__construct(
-            Fiscal::class, [
+            Fiscal::class,
+            [
                 'nome' => [
                     'required',
                     'max:40',
@@ -25,12 +26,12 @@ class FiscalController extends AdminSuperController
                     'required',
                     'max:11',
                     'min:11',
-                    'regex:'.Util::REGEX_CPF_CNPJ,
-                    $postMethod?'unique:fiscais':''
+                    'regex:' . Util::REGEX_CPF_CNPJ,
+                    $postMethod ? 'unique:fiscais' : ''
                 ],
                 'telefone' => [
                     'nullable',
-                    'regex:'.Util::REGEX_PHONE,
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'email' => [
                     'nullable',
@@ -44,11 +45,37 @@ class FiscalController extends AdminSuperController
                     'max:40',
                 ],
                 'endereco_id' => [
-                    $postMethod?'required':'',
+                    $postMethod ? 'required' : '',
                     'exists:enderecos,id'
                 ],
             ],
             $request
         );
+    }
+
+    public function index()
+    {
+        $objSearch = null;
+        $search = $this->request->input('search');
+        if ($search == null) {
+            $search = $this->request->query('search');
+        }
+
+        $ativo = $this->request->input('ativo');
+        $usuario = $this->request->input('usuario');
+        $todos = $this->request->input('todos');
+        $emailPushValidos = $this->request->input('email_push_validos');
+
+        if (isset($todos)) {
+            $objSearch = $this->objectModel::search($search, $ativo, $usuario, true, $emailPushValidos);
+        } else {
+            $objSearch = $this->objectModel::search($search, $ativo, $usuario, false, $emailPushValidos);
+        }
+
+        if ($objSearch != null) {
+            return $objSearch;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
     }
 }

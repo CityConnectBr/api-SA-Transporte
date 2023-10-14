@@ -13,7 +13,8 @@ class CondutorController extends AdminSuperController
     {
         $postMethod = $request->method() == 'POST';
         parent::__construct(
-            Condutor::class, [
+            Condutor::class,
+            [
                 'numero_de_cadastro_antigo' => [
                     'max:10',
                 ],
@@ -26,7 +27,7 @@ class CondutorController extends AdminSuperController
                     'required',
                     'max:11',
                     'min:11',
-                    'regex:'.Util::REGEX_CPF_CNPJ,
+                    'regex:' . Util::REGEX_CPF_CNPJ,
                 ],
                 'rg' => [
                     'required',
@@ -34,11 +35,11 @@ class CondutorController extends AdminSuperController
                 ],
                 'telefone' => [
                     'nullable',
-                    'regex:'.Util::REGEX_PHONE,
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'celular' => [
                     'nullable',
-                    'regex:'.Util::REGEX_PHONE,
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'email' => [
                     'nullable',
@@ -56,7 +57,7 @@ class CondutorController extends AdminSuperController
                 ],
                 'vencimento_cnh' => [
                     'required',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'atestado_de_saude' => [
                     'boolean',
@@ -68,7 +69,7 @@ class CondutorController extends AdminSuperController
                 ],
                 'validade_certidao_negativa' => [
                     'nullable',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'registro_ctps' => [
                     'boolean',
@@ -80,7 +81,7 @@ class CondutorController extends AdminSuperController
                 ],
                 'emissao_primeiros_socorros' => [
                     'nullable',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'motivo_afastamento' => [
                     'nullable',
@@ -88,18 +89,18 @@ class CondutorController extends AdminSuperController
                 ],
                 'data_inicio_afastamento' => [
                     'nullable',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'data_termino_afastamento' => [
                     'nullable',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'endereco_id' => [
-                    $postMethod?'required':'',
+                    $postMethod ? 'required' : '',
                     'exists:enderecos,id'
                 ],
                 'permissionario_id' => [
-                    $postMethod?'required':'',
+                    $postMethod ? 'required' : '',
                     'exists:permissionarios,id'
                 ],
             ],
@@ -110,6 +111,32 @@ class CondutorController extends AdminSuperController
     public function getByPermissionario($permissionarioId)
     {
         return Condutor::searchByPermissionario($permissionarioId, "");
+    }
+
+    public function index()
+    {
+        $objSearch = null;
+        $search = $this->request->input('search');
+        if ($search == null) {
+            $search = $this->request->query('search');
+        }
+
+        $ativo = $this->request->input('ativo');
+        $usuario = $this->request->input('usuario');
+        $todos = $this->request->input('todos');
+        $emailPushValidos = $this->request->input('email_push_validos');
+
+        if (isset($todos)) {
+            $objSearch = $this->objectModel::search($search, $ativo, $usuario, true, $emailPushValidos);
+        } else {
+            $objSearch = $this->objectModel::search($search, $ativo, $usuario, false, $emailPushValidos);
+        }
+
+        if ($objSearch != null) {
+            return $objSearch;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
     }
 
 }

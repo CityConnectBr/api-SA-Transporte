@@ -40,12 +40,30 @@ class Monitor extends Model
         return $this->hasOne(Permissionario::class, 'id', 'permissionario_id')->withoutGlobalScopes();
     }
 
-    // /////////////////
-    public static function search($search)
+    public static function search($search, $ativo, $todos = false, $onlyEmailValido = false)
     {
-        return Monitor::where("nome", "like", "%" . $search . "%")
-            ->orderBy("nome")
-            ->simplePaginate(15);
+        $query = Monitor::where("nome", "like", "%" . $search . "%")
+            ->orderBy("nome");
+
+        if ($ativo) {
+            $query->where("ativo", "=", $ativo);
+        }        
+
+        if ($onlyEmailValido) {            
+            $query->whereNotNull("email")->where("email", "!=", "");
+        }
+
+        if ($todos) {
+            $query->select(
+                "id",
+                "nome",
+                "cpf",
+                "email",
+            );
+            return $query->get();
+        }
+
+        return $query->simplePaginate(15);
     }
 
     public static function findComplete($id, $withoutGlobalScope = false)

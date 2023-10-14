@@ -73,6 +73,7 @@ class Permissionario extends Model
         'data_processo_seletivo',
         'classificacao_do_processo',
         'numero_do_processo',
+
         'foto_uid'
     ];
 
@@ -102,8 +103,14 @@ class Permissionario extends Model
 
 
     //////////////////////////////////////
-    public static function search($search, $ativo = true, $modalidade_id = null)
-    {
+    public static function search(
+        $search,
+        $ativo = true,
+        $modalidade_id = null,
+        $usuario = false,
+        $todos = false,
+        $onlyEmailFCMValido = false
+    ) {
         $query = Permissionario::where(function ($query) use ($search) {
             $query->where("nome_razao_social", "like", "%" . $search . "%")
                 ->orWhere("id_integracao", "like", "%" . $search . "%")
@@ -114,8 +121,37 @@ class Permissionario extends Model
             ->with("modalidade")
             ->orderBy("nome_razao_social");
 
+        if ($usuario) {
+            $query->with([
+                "usuario" => function ($query) {
+                    $query->select("id", "token_fcm");
+                }
+            ]);
+        }
+
+        if ($onlyEmailFCMValido) {
+            $query->where(function ($query) {
+                $query->whereNotNull("email")
+                    ->orWhereHas("usuario", function ($query) {
+                        $query->whereNotNull("token_fcm");
+                    });
+            });
+        }
+
         if ($modalidade_id) {
             $query->where("modalidade_id", "=", $modalidade_id);
+        }
+
+        if ($todos) {
+            $query->select(
+                "id",
+                "nome_razao_social",
+                "cpf_cnpj",
+                "prefixo",
+                "modalidade_id",
+                "email",
+            );
+            return $query->get();
         }
 
         return $query->simplePaginate(15);

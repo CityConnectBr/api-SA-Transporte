@@ -33,6 +33,11 @@ class Fiscal extends Model
         return $this->hasOne(Endereco::class, 'id', 'endereco_id');
     }
 
+    public function usuario()
+    {
+        return $this->hasOne(Usuario::class, 'fiscal_id', 'id');
+    }
+
     // /////////////////
     public static function findComplete($id)
     {
@@ -44,11 +49,51 @@ class Fiscal extends Model
         return Fiscal::with('endereco')->firstWhere("id_integracao", $id);
     }
 
-    public static function search($search)
+    /*public static function search($search)
     {
         return Fiscal::where("nome", "like", "%" . $search . "%")->with("endereco")
             ->orderBy("nome")
             ->paginate(40);
+    }*/
+
+    public static function search($search, $ativo, $usuario = false, $todos = false, $onlyEmailFCMValido = false)
+    {
+        $query = Fiscal::where("nome", "like", "%" . $search . "%")
+            ->with("endereco")
+            ->orderBy("nome");
+
+        if ($ativo) {
+            $query->where("ativo", "=", $ativo);
+        }
+
+        if ($usuario) {
+            $query->with([
+                "usuario" => function ($query) {
+                    $query->select("id", "token_fcm");
+                }
+            ]);
+        }
+
+        if ($onlyEmailFCMValido) {
+            $query->where(function ($query) {
+                $query->whereNotNull("email")
+                    ->orWhereHas("usuario", function ($query) {
+                        $query->whereNotNull("token_fcm");
+                    });
+            });
+        }
+
+        if ($todos) {
+            $query->select(
+                "id",
+                "nome",
+                "cpf",
+                "email",
+            );
+            return $query->get();
+        }
+
+        return $query->simplePaginate(15);
     }
 
     public static function firstByCpf($cpf)
