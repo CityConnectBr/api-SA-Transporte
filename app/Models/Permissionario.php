@@ -126,7 +126,6 @@ class Permissionario extends Model
         }
 
         if ($onlyEmailFCMValido) {
-            dd("aqui");
             $query->where(function ($query) {
                 $query->whereNotNull("email")
                     ->orWhereHas("usuario", function ($query) {
