@@ -113,11 +113,19 @@ class MensagemController extends AdminSuperController
 
     public function index()
     {
-        $mensagens = Mensagem::all();
-        foreach ($mensagens as $mensagem) {
-            $mensagem->destinatarios = MensagemDestinatario::where('mensagem_id', $mensagem->id)->get();
+        $obj = null;
+        $search = $this->request->input('search');
+        if ($search == null) {
+            $search = $this->request->query('search');
         }
-        return parent::responseJSON($mensagens);
+
+        $obj = $this->objectModel::search($search, 'desc');
+
+        if ($obj != null) {
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
     }
 
     private function processarDestinatariosPorEmail($mensagem)
@@ -233,8 +241,8 @@ class MensagemController extends AdminSuperController
 
     private function enviarPush($tokens, $assunto, $conteudo)
     {
-        
-        try{
+
+        try {
             $url = Env('API_FCM_URL');
             $secToken = Env('API_FCM_TOKEN');
 
@@ -247,16 +255,16 @@ class MensagemController extends AdminSuperController
 
             $options = array(
                 'http' => array(
-                    'header'  => "Content-Type: application/json\r\n",
-                    'method'  => 'POST',
+                    'header' => "Content-Type: application/json\r\n",
+                    'method' => 'POST',
                     'content' => json_encode($data)
                 )
             );
 
-            $context  = stream_context_create($options);
+            $context = stream_context_create($options);
 
             $result = file_get_contents($url, false, $context);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
         }
     }
 }

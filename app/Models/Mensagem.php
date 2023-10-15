@@ -17,4 +17,12 @@ class Mensagem extends Model
 
     ///////////////////
 
+    public static function search($search, $orderDescAsc)
+    {
+        return Mensagem::where("assunto", "like", "%" . $search . "%")
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(15);
+    }
+
+
 }
