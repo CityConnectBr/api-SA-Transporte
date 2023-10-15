@@ -67,11 +67,7 @@ class Fiscal extends Model
         }
 
         if ($usuario) {
-            $query->with([
-                "usuario" => function ($query) {
-                    $query->select("id", "token_fcm");
-                }
-            ]);
+            $query->with("usuario");
         }
 
         if ($onlyEmailFCMValido) {

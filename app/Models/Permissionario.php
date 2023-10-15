@@ -122,14 +122,11 @@ class Permissionario extends Model
             ->orderBy("nome_razao_social");
 
         if ($usuario) {
-            $query->with([
-                "usuario" => function ($query) {
-                    $query->select("id", "token_fcm");
-                }
-            ]);
+            $query->with("usuario");
         }
 
         if ($onlyEmailFCMValido) {
+            dd("aqui");
             $query->where(function ($query) {
                 $query->whereNotNull("email")
                     ->orWhereHas("usuario", function ($query) {
