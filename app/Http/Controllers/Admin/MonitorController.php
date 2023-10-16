@@ -15,7 +15,8 @@ class MonitorController extends AdminSuperController
     {
         $postMethod = $request->method() == 'POST';
         parent::__construct(
-            Monitor::class, [
+            Monitor::class,
+            [
                 'numero_de_cadastro_antigo' => [
                     'max:10',
                 ],
@@ -28,7 +29,7 @@ class MonitorController extends AdminSuperController
                     'required',
                     'max:11',
                     'min:11',
-                    'regex:'.Util::REGEX_CPF_CNPJ,
+                    'regex:' . Util::REGEX_CPF_CNPJ,
                 ],
                 'rg' => [
                     'required',
@@ -36,11 +37,11 @@ class MonitorController extends AdminSuperController
                 ],
                 'telefone' => [
                     'nullable',
-                    'regex:'.Util::REGEX_PHONE,
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'celular' => [
                     'nullable',
-                    'regex:'.Util::REGEX_PHONE,
+                    'regex:' . Util::REGEX_PHONE,
                 ],
                 'email' => [
                     'nullable',
@@ -49,7 +50,7 @@ class MonitorController extends AdminSuperController
                 ],
                 'data_nascimento' => [
                     'required',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'certidao_negativa' => [
                     'boolean',
@@ -57,7 +58,7 @@ class MonitorController extends AdminSuperController
                 ],
                 'validade_da_certidao_negativa' => [
                     'nullable',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'curso_de_primeiro_socorros' => [
                     'boolean',
@@ -65,14 +66,14 @@ class MonitorController extends AdminSuperController
                 ],
                 'emissao_curso_de_primeiro_socorros' => [
                     'nullable',
-                    'regex:'.Util::REGEX_DATE
+                    'regex:' . Util::REGEX_DATE
                 ],
                 'endereco_id' => [
-                    $postMethod?'required':'',
+                    $postMethod ? 'required' : '',
                     'exists:enderecos,id'
                 ],
                 'permissionario_id' => [
-                    $postMethod?'required':'',
+                    $postMethod ? 'required' : '',
                     'exists:permissionarios,id'
                 ],
             ],
@@ -92,6 +93,31 @@ class MonitorController extends AdminSuperController
         $search = $this->request->input('search');
 
         return Monitor::searchByPermissionario($permissionarioId, $search);
+    }
+
+    public function index()
+    {
+        $objSearch = null;
+        $search = $this->request->input('search');
+        if ($search == null) {
+            $search = $this->request->query('search');
+        }
+
+        $ativo = $this->request->input('ativo');
+        $todos = $this->request->input('todos');
+        $emailValidos = true;
+
+        if (isset($todos)) {
+            $objSearch = $this->objectModel::search($search, $ativo, true, $emailValidos);
+        } else {
+            $objSearch = $this->objectModel::search($search, $ativo, false, $emailValidos);
+        }
+
+        if ($objSearch != null) {
+            return $objSearch;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
     }
 
 }

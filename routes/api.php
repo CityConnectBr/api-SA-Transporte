@@ -31,6 +31,7 @@ Route::group([
         Route::get('/photouser', 'UsuarioController@photoUser');
         Route::post('/user/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController@storeFromUser');
         Route::patch('/password', 'UsuarioController@updatePassword');
+        Route::patch('/tokenfcm', 'UsuarioController@updateTokenFCM');
         // fiscal
         Route::group([
             'middleware' => [
@@ -208,6 +209,11 @@ Route::group([
 
                 //Historico de Alterações
                 Route::get('/permissionariohistorico', 'Admin\PermissionarioHistoricoController@index');
+            
+                //Mensagens
+                Route::post('/mensagens', 'Admin\MensagemController@enviar');
+                Route::get('/mensagens', 'Admin\MensagemController@index');
+            
             });
         });
 

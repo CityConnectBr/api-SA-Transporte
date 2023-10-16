@@ -73,6 +73,7 @@ class Permissionario extends Model
         'data_processo_seletivo',
         'classificacao_do_processo',
         'numero_do_processo',
+
         'foto_uid'
     ];
 
@@ -95,10 +96,21 @@ class Permissionario extends Model
         return $this->hasOne(Alvara::class, 'permissionario_id', 'id')->orderBy('created_at', 'desc');
     }
 
+    public function usuario()
+    {
+        return $this->hasOne(Usuario::class, 'permissionario_id', 'id');
+    }
+
 
     //////////////////////////////////////
-    public static function search($search, $ativo = true, $modalidade_id = null)
-    {
+    public static function search(
+        $search,
+        $ativo = true,
+        $modalidade_id = null,
+        $usuario = false,
+        $todos = false,
+        $onlyEmailFCMValido = false
+    ) {
         $query = Permissionario::where(function ($query) use ($search) {
             $query->where("nome_razao_social", "like", "%" . $search . "%")
                 ->orWhere("id_integracao", "like", "%" . $search . "%")
@@ -109,8 +121,33 @@ class Permissionario extends Model
             ->with("modalidade")
             ->orderBy("nome_razao_social");
 
+        if ($usuario) {
+            $query->with("usuario");
+        }
+
+        if ($onlyEmailFCMValido) {
+            $query->where(function ($query) {
+                $query->whereNotNull("email")
+                    ->orWhereHas("usuario", function ($query) {
+                        $query->whereNotNull("token_fcm");
+                    });
+            });
+        }
+
         if ($modalidade_id) {
             $query->where("modalidade_id", "=", $modalidade_id);
+        }
+
+        if ($todos) {
+            $query->select(
+                "id",
+                "nome_razao_social",
+                "cpf_cnpj",
+                "prefixo",
+                "modalidade_id",
+                "email",
+            );
+            return $query->get();
         }
 
         return $query->simplePaginate(15);
@@ -159,6 +196,11 @@ class Permissionario extends Model
             ->orWhere("contrato_comodato_validade", "<", date("Y-m-d"))
             ->orWhere("selo_gnv_validade", "<", date("Y-m-d"))
             ->get();
+    }
+
+    public static function findWithUsuario($id)
+    {
+        return Permissionario::with('usuario')->firstWhere("id", $id);
     }
 
     public function permissionarioHistorico()
