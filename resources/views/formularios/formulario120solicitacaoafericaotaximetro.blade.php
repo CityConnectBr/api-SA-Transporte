@@ -36,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             text-align: center;
-        }      
+        }
 
         .content footer .right {
             text-align: right;
@@ -65,7 +65,7 @@
         Comunicamos a V. Sª que esta DTP autoriza a aferição do taxímetro nº de série
         no   veículo {{$marca_modelo}}, placa {{$placa}}, ano {{$ano}}, cor {{$cor}}
         propriedade do Sr(a) {{$permissionario['nome_razao_social']}}
-        ponto de táxi nº ________________________________________
+        ponto de táxi nº {{ $ponto ?? '________________________________________'}}
         </p>
 
         <div class="content-signature">

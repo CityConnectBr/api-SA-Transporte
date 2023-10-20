@@ -77,6 +77,8 @@ class Permissionario extends Model
         'foto_uid'
     ];
 
+    protected $dates = ['vencimento_cnh'];
+
     protected $temporaly = [
         'modalidade_transporte'
     ];
