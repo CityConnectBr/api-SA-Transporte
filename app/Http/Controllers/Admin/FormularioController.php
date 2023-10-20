@@ -194,7 +194,7 @@ class FormularioController extends Controller
         if ($obj['data_obito'] != null) {
             return parent::responseMsgJSON("Permissionário falecido", 404);
         }
-        
+
         $placa = $this->request['placa'];
         $marcaModelo = $this->request['marca_modelo'];
         $ano = $this->request['ano'];
@@ -213,7 +213,7 @@ class FormularioController extends Controller
             'dataFormatada',
             'usuario'
         ));
-        
+
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
@@ -507,7 +507,7 @@ class FormularioController extends Controller
         if ($this->request['empresa2'] != null) {
             $empresa2 = EmpresaVistoriadora::findComplete($this->request['empresa2']);
             $empresa2Nome = $empresa2->nome;
-            $empresa2 = $empresa1->nome . ", localizada na " . $empresa1->endereco->endereco . ", " . $empresa1->endereco->numero . ", " . $empresa1->endereco->bairro . ", " . $empresa1->endereco->municipio->nome . ", " . $empresa1->endereco->uf . ", Telefone: " . $empresa1->telefone;
+            $empresa2 = $empresa2->nome . ", localizada na " . $empresa2->endereco->endereco . ", " . $empresa2->endereco->numero . ", " . $empresa2->endereco->bairro . ", " . $empresa2->endereco->municipio->nome . ", " . $empresa2->endereco->uf . ", Telefone: " . $empresa2->telefone;
         }
 
         if ($permissionario['ativo'] == 0) {
@@ -576,6 +576,7 @@ class FormularioController extends Controller
         $cor = $this->request['cor'];
         $ano = $this->request['ano'];
         $taximetro = $this->request['taximetro'];
+        $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id)->ponto->id_integracao;
 
         $empresa = Empresa::findComplete(1);
 
@@ -595,7 +596,8 @@ class FormularioController extends Controller
                 'ano',
                 'empresa',
                 'dataFormatada',
-                'usuario'
+                'usuario',
+                'ponto'
             )
         );
 
@@ -628,6 +630,7 @@ class FormularioController extends Controller
         $marca_modelo = $veiculo->MarcaModeloVeiculo->descricao;
         $cor = $veiculo->cor->descricao;
         $ano = $veiculo->ano_fabricacao;
+        $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id)->ponto->id_integracao;
 
         $empresa = Empresa::findComplete(1);
 
@@ -647,7 +650,8 @@ class FormularioController extends Controller
                 'ano',
                 'empresa',
                 'dataFormatada',
-                'usuario'
+                'usuario',
+                'ponto'
             )
         );
 

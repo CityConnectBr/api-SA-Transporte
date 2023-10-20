@@ -19,7 +19,7 @@ class Ponto extends Model
     ];
 
     protected $table = 'pontos';
-    
+
     public function modalidade()
     {
         return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');

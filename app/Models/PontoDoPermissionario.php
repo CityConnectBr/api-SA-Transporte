@@ -32,7 +32,7 @@ class PontoDoPermissionario extends Model
         return PontoDoPermissionario::where("permissionario_id", $permissionarioId)
             ->with('ponto')
             ->first();
-    } 
+    }
     public static function findPontosByPermissionario($permissionarioId)
     {
         return PontoDoPermissionario::where("permissionario_id", $permissionarioId)

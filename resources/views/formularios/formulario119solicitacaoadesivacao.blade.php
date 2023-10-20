@@ -88,15 +88,15 @@
 <body>
     <div class="content">
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
-        
+
         <h3>AUTORIZAÇÃO PARA ADESIVAÇÃO CUSTEADA PELO PERMISSIONÁRIO</h3>
 
         <p style="text-align: justify;">
-            Autorizo o permissionário Sr.(a) {{$permissionario['nome_razao_social']}}, prefixo n° {{$permissionario['prefixo']}} a efetuar adesivação do veículo escolar, marca/modelo <b>{{$veiculo['MarcaModeloVeiculo']['descricao']}}</b>, cor: <b>{{$veiculo['cor']['descricao']}}</b>, ano de fabricação <b>{{$veiculo['ano_fabricacao']}}</b>, ano do modelo <b>{{$veiculo['ano_modelo']}}</b>, placa <b>{{$veiculo['placa']}}</b> nas seguintes empresas: 
+            Autorizo o permissionário Sr.(a) {{$permissionario['nome_razao_social']}}, prefixo n° {{$permissionario['prefixo']}} a efetuar adesivação do veículo escolar, marca/modelo <b>{{$veiculo['MarcaModeloVeiculo']['descricao']}}</b>, cor: <b>{{$veiculo['cor']['descricao']}}</b>, ano de fabricação <b>{{$veiculo['ano_fabricacao']}}</b>, ano do modelo <b>{{$veiculo['ano_modelo']}}</b>, placa <b>{{$veiculo['placa']}}</b> nas seguintes empresas:
         </p>
-        
-        <p><b>{{$empresa1}}</b></p>
-        <p><b>{{$empresa2}}</b></p>
+
+        <p><b>-{{$empresa1}}</b></p>
+        <p><b>-{{$empresa2}}</b></p>
 
         <div class="content-signature content-signature-right">
             <p>Santo André, {{ $dataFormatada }}</p>
@@ -114,7 +114,7 @@
         </p>
 
         <p>
-        comprometo-me a entregar à empresa <b>{{$empresa1Nome}}</b> uma via das duas vias da autorização ora recebida,
+        comprometo-me a entregar à empresa <b>{{$empresa1Nome}}/{{$empresa2Nome}}</b> uma via das duas vias da autorização ora recebida,
         retendo a outra carimbada pela empresa supracitada, e preenchida com a data da entrega e da previsão de
         retirada do veículo, bem como da data de efetiva retirada com o serviço devidamente realizado;
         comprometo-me a manter comigo uma via desta autorização carimbada, apresentando-a para a retirada do
@@ -122,7 +122,7 @@
         SA-TRANS para conferência dos serviços de adesivação;
         comprometo-me a trazer o veículo para vistoria técnica na SA-TRANS no prazo máximo de 05 dias úteis a
         partir da realização da adesivação, sob pena de responsabilidade nos termos da Resolução nº 006/2011,
-        quando entregarei a via carimbada pela empresa <b>{{$empresa1Nome}}</b> ao Encarregado de Vistoria Mecânica:
+        quando entregarei a via carimbada pela empresa <b>{{$empresa1Nome}}/{{$empresa2Nome}}</b> ao Encarregado de Vistoria Mecânica:
         </p>
 
         <div class="parecer">
@@ -134,9 +134,9 @@
                         <p>_________________________________</p>
                         <p>Assinatura do Permissionário</p>
                     </div>
-                </div> 
+                </div>
             </div>
-            
+
             <div class="parecer-p2">
                 <div class="content-signature content-signature-left">
                     <div>
@@ -145,10 +145,10 @@
                         <p>_________________________________</p>
                         <p>Empresa Contratada</p>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
-        
+
         <p>
         Recebi o veículo em _____/_____/______
         </p>
@@ -160,16 +160,16 @@
             <div class="parecer-p1">
                 <div class="content-signature content-signature-left">
                         <p>Veículo Entregue em _____/_____/______</p>
-                </div> 
+                </div>
             </div>
-            
+
             <div class="parecer-p2">
                 <div class="content-signature content-signature-left">
                     <div>
                         <p>_________________________________</p>
                         <p>Permissionário</p>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
 

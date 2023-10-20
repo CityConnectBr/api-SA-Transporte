@@ -36,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             text-align: center;
-        }      
+        }
 
         .content footer .right {
             text-align: right;

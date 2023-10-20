@@ -36,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             text-align: center;
-        }      
+        }
 
         .content footer .right {
             text-align: right;
@@ -57,11 +57,12 @@
     <div class="content">
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
 
+        <h3>SOLICITAÇÃO DE AUTORIZAÇÃO PROVISÓRIA</h3>
         <p class="data_cabecalho">Santo André, {{ $dataFormatada }}</p>
 
         <p>Permissionário (a): {{$permissionario['nome_razao_social']}}</p>
 
-        <p>CNH: {{$permissionario['cnh']}}, Validade: {{$permissionario['vencimento_cnh']}}, Prefixo n° {{$veiculo['prefixo']}}</p>
+        <p>CNH: {{$permissionario['cnh']}}, Validade: {{ $permissionario->vencimento_cnh->format('d/m/Y')}}, Prefixo n° {{$permissionario['prefixo']}}</p>
 
         <p>
         Dados do Veículo:<br>
@@ -74,7 +75,7 @@
         Ponto n° {{$ponto}}
         </p>
 
-        <p>Condutor Auxiliar:</p>
+        <p style="font-weight: bold;">Condutor Auxiliar:</p>
         @foreach ($condutores as $condutor)
             <p>{{ $condutor->nome }} - CNH: {{ $condutor->cnh }} - VALIDADE: {{ $condutor->vencimento_cnh }}</p>
         @endforeach
