@@ -8,7 +8,6 @@ use App\Models\Permissionario;
 use App\Models\Veiculo;
 use App\Utils\Util;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PermissionarioController extends AdminSuperController
@@ -109,7 +108,7 @@ class PermissionarioController extends AdminSuperController
 
     public function index()
     {
-        $obj = null;
+        $objSearch = null;
         $search = $this->request->input('search');
         if ($search == null) {
             $search = $this->request->query('search');
@@ -117,12 +116,18 @@ class PermissionarioController extends AdminSuperController
 
         $ativo = $this->request->input('ativo');
         $modalidade = $this->request->input('modalidade');
+        $usuario = $this->request->input('usuario');
+        $todos = $this->request->input('todos');
+        $emailPushValidos = $this->request->input('email_push_validos');
 
+        if (isset($todos)) {
+            $objSearch = $this->objectModel::search($search, $ativo, $modalidade, $usuario, true, $emailPushValidos);
+        } else {
+            $objSearch = $this->objectModel::search($search, $ativo, $modalidade, $usuario, false, $emailPushValidos);
+        }
 
-        $obj = $this->objectModel::search($search, $ativo, $modalidade);
-
-        if ($obj != null) {
-            return $obj;
+        if ($objSearch != null) {
+            return $objSearch;
         } else {
             return parent::responseMsgJSON("Não encontrado", 404);
         }

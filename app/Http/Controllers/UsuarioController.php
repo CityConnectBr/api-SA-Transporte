@@ -370,4 +370,25 @@ class UsuarioController extends Controller
 
         return parent::responseMsgJSON("Assinatura não encontrada!", 404);
     }
+
+    function updateTokenFCM(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token_fcm' => [
+                'required',
+                'max:255'
+            ]
+        ]);
+
+        if ($validator->fails()) {
+            return parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $user = parent::getUserLogged();
+
+        $user->token_fcm = $request->token_fcm;
+        $user->save();
+
+        return parent::responseMsgJSON("Token FCM atualizado com sucesso!");
+    }
 }

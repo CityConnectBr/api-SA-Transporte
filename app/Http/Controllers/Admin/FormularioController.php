@@ -164,7 +164,8 @@ class FormularioController extends Controller
             'ano',
             'dataFormatada',
             'usuario'
-        ));
+        )
+        );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
@@ -258,6 +259,17 @@ class FormularioController extends Controller
     //formulario7
     function formulariodeclaracaomonitor()
     {
+        if (isset($this->request['id'])) {
+            return $this->formulariodeclaracaomonitorAuto();
+        } else if (isset($this->request['permissionario'])) {
+            return $this->formulariodeclaracaomonitorManual();
+        } else {
+            return parent::responseMsgJSON("ID do permissionário ou monitor não encontrado", 404);
+        }
+    }
+
+    function formulariodeclaracaomonitorAuto()
+    {
 
         if ($this->request['id'] == null) {
             return parent::responseMsgJSON("Id não encontrado", 404);
@@ -297,16 +309,96 @@ class FormularioController extends Controller
                 $enderecoSolicitacao = $solicitacao['campo4'] . ', ' . $solicitacao['campo5'] . ', ' . $solicitacao['campo7'] . ', ' . $solicitacao['campo8'] . '-' . $solicitacao['campo9'];
         }
 
+        $nomeMonitorExclusao = $monitor != null ? $monitor['nome'] : null;
+        $rgMonitorExclusao = $monitor != null ? $monitor['rg'] : null;
+        $cpfMonitorExclusao = $monitor != null ? $monitor['cpf'] : null;
+
+        $nomeMonitorInclusao = $solicitacao != null && $solicitacao['campo10'] != null ? $solicitacao['campo10'] : null;
+        $rgMonitorInclusao = $solicitacao != null && $solicitacao['campo11'] != null ? $solicitacao['campo11'] : null;
+        $cpfMonitorInclusao = $solicitacao != null && $solicitacao['campo12'] != null ? $solicitacao['campo12'] : null;
+        $enderecoMonitorInclusao = $enderecoSolicitacao;
+        $emailMonitorInclusao = $solicitacao != null && $solicitacao['campo1'] != null ? $solicitacao['campo1'] : null;
+        $telefoneMonitorInclusao = $solicitacao != null && $solicitacao['campo2'] != null ? $solicitacao['campo2'] : null;
+
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
         $usuario = auth()->user();
 
         $formlario = "formulario07declaracaodemonitor";
 
-        $pdf = PDF::loadView('formularios/' . $formlario, compact('permissionario', 'monitor', 'solicitacao', 'enderecoSolicitacao', 'dataFormatada', 'usuario'));
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'nomeMonitorExclusao',
+                'rgMonitorExclusao',
+                'cpfMonitorExclusao',
+                'nomeMonitorInclusao',
+                'rgMonitorInclusao',
+                'cpfMonitorInclusao',
+                'enderecoMonitorInclusao',
+                'emailMonitorInclusao',
+                'telefoneMonitorInclusao',
+                'dataFormatada',
+                'usuario'
+            )
+        );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
+
+    function formulariodeclaracaomonitorManual()
+    {
+
+        if ($this->request['permissionario'] == null) {
+            return parent::responseMsgJSON("Id não encontrado", 404);
+        }
+
+        $permissionario = Permissionario::find($this->request['permissionario']);
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
+
+        $nomeMonitorExclusao = $this->request['nome_monitor_exclusao'];
+        $rgMonitorExclusao = $this->request['rg_monitor_exclusao'];
+        $cpfMonitorExclusao = $this->request['cpf_monitor_exclusao'];
+
+        $nomeMonitorInclusao = $this->request['nome_monitor_inclusao'];
+        $rgMonitorInclusao = $this->request['rg_monitor_inclusao'];
+        $cpfMonitorInclusao = $this->request['cpf_monitor_inclusao'];
+        $enderecoMonitorInclusao = $this->request['endereco_monitor_inclusao'];
+        $emailMonitorInclusao = $this->request['email_monitor_inclusao'];
+        $telefoneMonitorInclusao = $this->request['telefone_monitor_inclusao'];
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario07declaracaodemonitor";
+
+        $pdf = PDF::loadView('formularios/' . $formlario, compact(
+            'permissionario',
+            'nomeMonitorExclusao',
+            'rgMonitorExclusao',
+            'cpfMonitorExclusao',
+            'nomeMonitorInclusao',
+            'rgMonitorInclusao',
+            'cpfMonitorInclusao',
+            'enderecoMonitorInclusao',
+            'emailMonitorInclusao',
+            'telefoneMonitorInclusao',
+            'dataFormatada',
+            'usuario'
+        )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
 
     //formulario8
     function condutorauxiliar()

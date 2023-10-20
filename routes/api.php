@@ -31,6 +31,7 @@ Route::group([
         Route::get('/photouser', 'UsuarioController@photoUser');
         Route::post('/user/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController@storeFromUser');
         Route::patch('/password', 'UsuarioController@updatePassword');
+        Route::patch('/tokenfcm', 'UsuarioController@updateTokenFCM');
         // fiscal
         Route::group([
             'middleware' => [
@@ -208,6 +209,11 @@ Route::group([
 
                 //Historico de Alterações
                 Route::get('/permissionariohistorico', 'Admin\PermissionarioHistoricoController@index');
+            
+                //Mensagens
+                Route::post('/mensagens', 'Admin\MensagemController@enviar');
+                Route::get('/mensagens', 'Admin\MensagemController@index');
+            
             });
         });
 
@@ -249,7 +255,9 @@ Route::group([
                 Route::get('/v1/monitores/{id}/foto', 'v1\MonitorController@showPhoto');
 
                 Route::get('/v1/monitores', 'v1\MonitorController@index');
-                Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');
+                Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');              
+
+                Route::get('/v1/pontos', 'v1\PontoController@pontosByPermissionario');
 
                 Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
 
