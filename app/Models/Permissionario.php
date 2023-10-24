@@ -147,7 +147,7 @@ class Permissionario extends Model
                 "cpf_cnpj",
                 "prefixo",
                 "modalidade_id",
-                "email",
+                "email"
             );
             return $query->get();
         }
@@ -208,6 +208,14 @@ class Permissionario extends Model
     public function permissionarioHistorico()
     {
         return $this->hasMany(PermissionarioHistorico::class);
+    }
+
+    public function formattedCpfCnpj() {
+        if (strlen($this->cpf_cnpj) == 11) {
+            return substr($this->cpf_cnpj, 0, 3) . '.' . substr($this->cpf_cnpj, 3, 3) . '.' . substr($this->cpf_cnpj, 6, 3) . '-' . substr($this->cpf_cnpj, 9, 2);
+        } else {
+            return substr($this->cpf_cnpj, 0, 2) . '.' . substr($this->cpf_cnpj, 2, 3) . '.' . substr($this->cpf_cnpj, 5, 3) . '/' . substr($this->cpf_cnpj, 8, 4) . '-' . substr($this->cpf_cnpj, 12, 2);
+        }
     }
 
 }
