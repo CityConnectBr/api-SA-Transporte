@@ -66,6 +66,7 @@ app.post('/send', (req, res) => {
   return res.sendStatus(200);
 });
 
-app.listen(port, () => {
-  console.log(`Push app listening at http://localhost:${port}`)
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Push app listening at http://0.0.0.0:${port}`)
 });
+
