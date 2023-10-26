@@ -12,6 +12,7 @@ use App\Models\Permissionario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Env;
 
 class MensagemController extends AdminSuperController
 {
