@@ -97,7 +97,7 @@
 
         <h3>ANEXO 17 - SOLICITAÇÃO DE BAIXA DE CONDUTOR AUXILIAR NO CADASTRO</h3>
         <p>Eu, <b>{{$permissionario['nome_razao_social']}}</b>, telefone <b>{{$permissionario['telefone']}}</b>, prefixo <b>{{$permissionario['prefixo']}}</b>, permissionário(a) do serviço de <b>{{$modalidadeDoPermissionario!=null?$modalidadeDoPermissionario['descricao']:'--'}}</b>, neste município solicitar a BAIXA da inscrição em cadastro do
-            (a) Sr.(a) <b>{{$condutor['nome'] ? $condutor['nome'] : '_____________________________________________'}}</b>, RG <b>{{$condutor['rg'] ? $condutor['rg'] : '___________________________'}}</b>, CNH <b>{{$condutor['cnh'] ? $condutor['cnh'] : '_______________________'}}</b>, Categoria, <b>{{$condutor['categoria_cnh'] ? $categoria['categoria_cnh'] : '______________'}}</b>, na condição de condutor auxiliar.
+            (a) Sr.(a) <b>{{$condutor['nome'] ? $condutor['nome'] : '_____________________________________________'}}</b>, RG <b>{{$condutor['rg'] ? $condutor['rg'] : '___________________________'}}</b>, CNH <b>{{$condutor['cnh'] ? $condutor['cnh'] : '_______________________'}}</b>, Categoria, <b>{{$condutor['categoria_cnh'] ? $condutor['categoria_cnh'] : '______________'}}</b>, na condição de condutor auxiliar.
         </p>
 
 
