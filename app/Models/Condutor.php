@@ -105,6 +105,16 @@ class Condutor extends Model
             ->get();
     }
 
+    public static function findAllByPermissionarioAtivos($permissionario_id)
+    {
+        return Condutor::where("permissionario_id", "=", $permissionario_id)
+            ->where("ativo", "=", true)
+            ->with("endereco")
+            ->with("permissionario")
+            ->orderBy("nome")
+            ->get();
+    }
+
     public static function findComplete($id, $withoutGlobalScope = false)
     {
         if ($withoutGlobalScope) {
