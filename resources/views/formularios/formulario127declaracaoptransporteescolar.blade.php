@@ -54,6 +54,13 @@
             font-size: 15px;
         }
 
+        footer {
+            position:fixed;
+            left:0px;
+            bottom:0px;
+            width:100%;
+        }
+
     </style>
 </head>
 
@@ -67,7 +74,7 @@
 
         <p style="text-align: justify;">
         Eu, {{$empresa['nome_do_gerente']}}, na  qualidade  de  Gerente de Controle Operacional e Cadastro, desta  empresa pública, declaro  para  os  devidos fins  que o Sr(a).
-        {{$permissionario['nome_razao_social']}} portador(a) do RG nº {{$permissionario['rg']}} e CPF nº {{$permissionario['cpf']}} é permissionário(a) de transporte escolar do município de Santo André, prefixo nº {{$permissionario['prefixo']}}.
+        {{$permissionario['nome_razao_social']}} portador(a) do RG nº {{$permissionario['rg']}} e CPF nº {{$permissionario->formattedCpfCnpj()}} é permissionário(a) de transporte escolar do município de Santo André, prefixo nº {{$permissionario['prefixo']}}.
         </p>
 
         <div class="content-signature">
