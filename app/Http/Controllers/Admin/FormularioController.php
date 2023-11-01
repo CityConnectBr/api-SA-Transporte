@@ -1164,17 +1164,20 @@ class FormularioController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    //formulario131
     public function substituicaoDeVeiculo()
     {
 
         if ($this->request['veiculo1'] == null) {
-            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+            return parent::responseMsgJSON("Veículo vazio não encontrado", 404);
         }
-        $id = $this->request['veiculo1'];
 
-        $veiculo1 = Veiculo::findComplete($id);
-        if ($veiculo1 == null) {
-            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        $veiculo1 = $this->request['veiculo1'];
+        if(gettype($this->request['veiculo1']) == 'integer') {
+            $veiculo1 = Veiculo::findComplete($this->request['veiculo1']);
+            if ($veiculo1 == null) {
+                return parent::responseMsgJSON("Veículo não encontrado", 404);
+            }
         }
 
         if ($this->request['veiculo2'] == null) {
@@ -1187,7 +1190,13 @@ class FormularioController extends Controller
             return parent::responseMsgJSON("Veículo não encontrado", 404);
         }
 
-        $permissionario = $veiculo1->permissionario;
+        if(isset($this->request['permissionario'])) {
+            $permissionario = Permissionario::find($this->request['permissionario']);
+            dd($permissionario);
+        } else {
+            $permissionario = $veiculo1->permissionario;
+        }
+
         if ($permissionario == null) {
             return parent::responseMsgJSON("Permissionário não encontrado", 404);
         }

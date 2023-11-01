@@ -74,8 +74,8 @@
 
         <p style="font-weight: bold;">Srº Diretor,</p>
         <p style="text-align: justify;">
-        Encaminhamos o Sr. <b>{{$permissionario['nome']}}</b>, Prefixo <b>{{$permissionario['prefixo']}}</b>, para cadastrar o veículo, placa <b>{{$veiculo1['placa']}}</b>,
-        chassis <b>{{$veiculo1['chassi']}}</b>, ano <b>{{$veiculo1['ano_modelo']}}</b>, cor <b>{{$veiculo1['cor']['descricao']}}</b>,
+        Encaminhamos o Sr. <b>{{$permissionario['nome_razao_social']}}</b>, Prefixo <b>{{$permissionario['prefixo']}}</b>, para cadastrar o veículo, placa <b>{{$veiculo1['placa']}}</b>,
+        chassis <b>{{$veiculo1['chassi']}}</b>, ano <b>{{$veiculo1['ano_modelo']}}</b>, cor <b>{{$veiculo1['cor']['descricao'] ?? $veiculo1['cor']}}</b>,
         para ser utilizado em substituição ao veículo, <b>{{$veiculo2['MarcaModeloVeiculo']['descricao']}}</b>, placa <b>{{$veiculo2['placa']}}</b>, ano <b>{{$veiculo2['ano_modelo']}}</b>, cor <b>{{$veiculo2['cor']['descricao']}}</b>,
         como <b>{{$permissionario['modalidade']['descricao']}}</b> no ponto <b>{{$ponto['ponto']['descricao']}}</b>.
         </p>
