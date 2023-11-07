@@ -53,6 +53,11 @@ class PermissionarioController extends AdminSuperController
                 ],
                 'alvara_de_funcionamento' => [
                     'max:15',
+                ],                
+                'prefixo' => [
+                    'required',
+                    'max:15',
+                    'min:3'
                 ],
                 'responsavel' => [
                     'max:40',
@@ -151,11 +156,6 @@ class PermissionarioController extends AdminSuperController
             'inss' => [
                 'required',
                 'max:10',
-                'min:3'
-            ],
-            'prefixo' => [
-                'required',
-                'max:15',
                 'min:3'
             ],
         ]);
