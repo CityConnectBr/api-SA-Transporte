@@ -302,6 +302,8 @@ Route::group([
             Route::name('fiscais.')->group(function () {
                 Route::get('/v1/veiculos', 'v1\VeiculoController@index');
                 Route::get('/v1/veiculos/{id}', 'v1\VeiculoController@show');
+                Route::get('/v1/pontos', 'v1\PontoController@index');
+                Route::get('/v1/pontos/{id}', 'v1\PontoController@show');
 
                 Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
             });
