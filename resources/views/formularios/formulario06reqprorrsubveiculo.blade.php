@@ -15,11 +15,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -77,7 +78,7 @@
 
         .content-signature p {
             margin-bottom: 0.0cm;
-            line-height: 0.1cm;
+            line-height: 0.4cm;
         }
 
         .separacao{
@@ -97,12 +98,12 @@
         }
 
         .parecer-p1{
-            width: 50%;
+            width: 49%;
             float: left;
         }
 
         .parecer-p2{
-            width: 50%;
+            width: 49%;
             float: right;
         }
 
@@ -159,7 +160,7 @@
                 <p><b>De acordo,</b></p>
                 <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <p>______________________________________</p>
+                        <p>____________________________________</p>
                         <p>Gerente de Controle Operacional e Cadastro</p>
                     </div>
                 </div>
@@ -172,7 +173,7 @@
                 <p><b>Autorizo,</b></p>
                 <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <p>______________________________________</p>
+                        <p>____________________________________</p>
                         <p>Diretor(a) de Transportes Públicos</p>
                     </div>
                 </div>

@@ -15,11 +15,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -91,30 +92,29 @@
 
         <h3>AUTORIZAÇÃO PARA ADESIVAÇÃO CUSTEADA PELO PERMISSIONÁRIO</h3>
 
-        <p style="text-align: justify;">
+        <p style="text-align: justify; margin-top: -0.3cm;">
             Autorizo o permissionário Sr.(a) {{$permissionario['nome_razao_social']}}, prefixo n° {{$permissionario['prefixo']}} a efetuar adesivação do veículo escolar, marca/modelo <b>{{$veiculo['MarcaModeloVeiculo']['descricao']}}</b>, cor: <b>{{$veiculo['cor']['descricao']}}</b>, ano de fabricação <b>{{$veiculo['ano_fabricacao']}}</b>, ano do modelo <b>{{$veiculo['ano_modelo']}}</b>, placa <b>{{$veiculo['placa']}}</b> nas seguintes empresas:
         </p>
 
-        <p><b>-{{$empresa1}}</b></p>
-        <p><b>-{{$empresa2}}</b></p>
+        <p style="margin-top: -0.3cm; font-size: 12px;"><b>-{{$empresa1}}</b></p>
+        <p style="margin-top: -0.3cm; font-size: 12px;"><b>-{{$empresa2}}</b></p>
 
-        <div class="content-signature content-signature-right">
+        <div class="content-signature content-signature-right" style="margin-top: -0.2cm;">
             <p>Santo André, {{ $dataFormatada }}</p>
-            <div>
-                <br>
+            <div style="margin-top: 0.2cm;">
                 <p>____________________________________________</p>
                 <p>Encarregado de vistoria Mecânica</p>
             </div>
         </div>
 
-        <p>
+        <p style="margin-top: 0.1cm;">
         Eu, <b>{{$permissionario['nome_razao_social']}}</b> recebo 02 (duas) vias desta autorização,
         comprometendo-me a entregar meu veículo para adesivação, limpo e vazio de objeto e acessórios até o dia
         <b>{{$dataLimite}}</b>, sob pena de ser responsabilizado nos termos da Resolução nº 006/2011.
         </p>
 
-        <p>
-        comprometo-me a entregar à empresa <b>{{$empresa1Nome}}/{{$empresa2Nome}}</b> uma via das duas vias da autorização ora recebida,
+        <p style="margin-top: -0.2cm;">
+        Comprometo-me a entregar à empresa <b>{{$empresa1Nome}}/{{$empresa2Nome}}</b> uma via das duas vias da autorização ora recebida,
         retendo a outra carimbada pela empresa supracitada, e preenchida com a data da entrega e da previsão de
         retirada do veículo, bem como da data de efetiva retirada com o serviço devidamente realizado;
         comprometo-me a manter comigo uma via desta autorização carimbada, apresentando-a para a retirada do
@@ -129,8 +129,6 @@
             <div class="parecer-p1">
                 <div class="content-signature content-signature-left">
                     <div>
-                        <br>
-                        <br>
                         <p>_________________________________</p>
                         <p>Assinatura do Permissionário</p>
                     </div>
@@ -140,8 +138,6 @@
             <div class="parecer-p2">
                 <div class="content-signature content-signature-left">
                     <div>
-                        <br>
-                        <br>
                         <p>_________________________________</p>
                         <p>Empresa Contratada</p>
                     </div>

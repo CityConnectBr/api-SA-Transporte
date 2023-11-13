@@ -19,11 +19,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -80,18 +81,18 @@
 
         .content-signature p {
             margin-bottom: 0.0cm;
-            line-height: 0.1cm;
+            line-height: 0.4cm;
         }
 
         .questionario p{
             margin-top: -0.1cm;
             margin-bottom: 0.0cm;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .parecer{
             width: 100%;
-            margin-top: 0.5cm;
+            margin-top: 0.3cm;
             border-top: 4px solid #000;
         }
 
@@ -100,13 +101,15 @@
         }
 
         .parecer-p1{
-            width: 50%;
+            width: 49%;
             float: left;
+            margin-top: -0.4cm;
         }
 
         .parecer-p2{
-            width: 50%;
+            width: 49%;
             float: right;
+            margin-top: -0.4cm;
         }
 
         .esquadro-foto{
@@ -114,6 +117,7 @@
             height: 4cm;
             border: 1px solid #000;
             float: right;
+            margin-right: -1cm;
         }
 
         .esquadro-foto p{
@@ -124,6 +128,7 @@
         .info p {
             margin-bottom: 0.0cm;
             margin-top: 0.0cm;
+            font-size: 12px;
         }
 
     </style>
@@ -156,7 +161,7 @@
             Bairro _____________________________ CEP.: _____________ Tels. ____________________
             </p>
         </div>
-        <p style="margin-top: 0.0cm;">
+        <p style="margin-top: 0.0cm; font-size: 13px; margin-bottom: 0.0cm;">
         Para Transferência da permissão qualificada acima, foi apresentada a seguinte documentação:
         </p>
         <div class="questionario">
@@ -211,16 +216,16 @@
         Informo que o permissionário não possui débito junto à SA-TRANS e que a documentação apresentada foi conferida e está de acordo com o Decreto Municipal nº 13.803/96.
         </p>
 
-        <p style="margin-top: 0.0cm;">
+        <p style="margin-top: 0.0cm; margin-bottom: 0.0cm;">
         Documentos conferidos por:<br>
         Nome_______________________________________ Data: _____/______/________,<br>
         Assinatura _________________________________________________
         </p>
 
-        <div class="content-signature content-signature-left">
+        <div class="content-signature content-signature-left" style="margin-top: -0.2cm;">
             <div>
-                <p>____________________________________________  <span style="margin-left: 2cm;">Data ______/______/_______</span></p>
-                <p>Encarregado Setor de Cadastro</p>
+                <p>________________________________________ <span style="margin-left: 1cm;">Data ______/______/_______</span></p>
+                <p style="margin-top: 0.1cm;">Encarregado Setor de Cadastro</p>
             </div>
         </div>
 
@@ -230,7 +235,7 @@
                 <p><b>De acordo,</b></p>
                 <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <p>______________________________________</p>
+                        <p>____________________________________</p>
                         <p>Gerente de Controle Operacional e Cadastro</p>
                     </div>
                 </div>
@@ -243,7 +248,7 @@
                 <p><b>Autorizo,</b></p>
                 <div class="content-signature content-signature-left parecer-bold">
                     <div>
-                        <p>______________________________________</p>
+                        <p>____________________________________</p>
                         <p>Diretor(a) de Transportes Públicos</p>
                     </div>
                 </div>

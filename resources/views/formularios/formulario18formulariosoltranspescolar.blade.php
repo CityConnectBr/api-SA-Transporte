@@ -16,11 +16,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 0cm;
         }
 
         .content p {
@@ -87,7 +88,7 @@
 
         .parecer{
             width: 100%;
-            margin-top: 0.5cm;
+            margin-top: 0.1cm;
             border-top: 4px solid #000;
         }
 
@@ -240,10 +241,10 @@
         </div>
 
         <p style="text-align: justify; margin-top: 0.1cm; margin-bottom: 0.0cm;">
-        Solicitação recebida e documentos conferidos por ____________________________________________ em ____/______/_____ assinatura ___________________________________________________________________________
+        Solicitação recebida e documentos conferidos por ____________________________________________ em ____/______/_____ assinatura _____________________________________________________________
         </p>
 
-        <p style="margin-top: 0.1cm; margin-bottom: 0.0cm;">
+        <p style="margin-top: 0.05cm; margin-bottom: 0.0cm;">
         Informo que <b style="text-decoration: underline;">não existem</b> débitos ou pendências junto à SA-TRANS e que a documentação
 apresentada foi conferida e está de acordo com o Decreto Municipal n.º 14.537/00.
         </p>

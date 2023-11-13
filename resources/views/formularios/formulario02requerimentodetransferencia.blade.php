@@ -15,11 +15,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -111,7 +112,6 @@ aprovação da transferência fica condicionada à comprovação das informaçõ
         <div class="content-signature content-signature-left">
             <div>
                 <br>
-                <br>
                 <p>____________________________________________</p>
                 <p>Cedente</p>
             </div>
@@ -119,7 +119,6 @@ aprovação da transferência fica condicionada à comprovação das informaçõ
 
         <div class="content-signature content-signature-left">
             <div>
-                <br>
                 <br>
                 <p>____________________________________________</p>
                 <p>Cessionário</p>
