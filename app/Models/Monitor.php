@@ -47,9 +47,9 @@ class Monitor extends Model
 
         if ($ativo) {
             $query->where("ativo", "=", $ativo);
-        }        
+        }
 
-        if ($onlyEmailValido) {            
+        if ($onlyEmailValido) {
             $query->whereNotNull("email")->where("email", "!=", "");
         }
 
@@ -58,7 +58,7 @@ class Monitor extends Model
                 "id",
                 "nome",
                 "cpf",
-                "email",
+                "email"
             );
             return $query->get();
         }

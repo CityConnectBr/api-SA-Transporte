@@ -19,11 +19,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -52,6 +53,13 @@
         .content footer .center {
             text-align: center;
             font-size: 13px;
+        }
+
+        footer {
+            position:fixed;
+            left:0px;
+            bottom:0px;
+            width:100%;
         }
 
     </style>

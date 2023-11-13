@@ -16,11 +16,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -83,7 +84,7 @@
 
         .separacao{
             width: 100%;
-            margin-top: 0.5cm;
+            margin-top: 0.3cm;
             border-top: 4px solid #000;
         }
 

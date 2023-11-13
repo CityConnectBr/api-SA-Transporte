@@ -1192,7 +1192,6 @@ class FormularioController extends Controller
 
         if(isset($this->request['permissionario'])) {
             $permissionario = Permissionario::find($this->request['permissionario']);
-            dd($permissionario);
         } else {
             $permissionario = $veiculo1->permissionario;
         }

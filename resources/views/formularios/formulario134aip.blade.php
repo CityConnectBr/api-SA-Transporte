@@ -27,7 +27,6 @@
             float: left;
             border: 1px solid black;
             padding: 5px;
-            margin: 0px;
             min-height: 40px;
         }
 
@@ -45,6 +44,8 @@
 
         .table {
             width: 100%;
+            margin-left: 0.5cm;
+            margin-right: 0.6cm;
         }
 
         .tr {
@@ -60,6 +61,10 @@
             min-height: 40px;
             width: 100%;
             font-weight: bold;
+        }
+
+        .logo {
+            margin-left: 1cm;
         }
 
     </style>

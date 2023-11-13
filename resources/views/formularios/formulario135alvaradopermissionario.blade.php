@@ -11,8 +11,8 @@
 
         html {
             font-family: Arial, Helvetica, sans-serif;
-        }        
-        
+        }
+
         h3{
             text-align: center;
         }
@@ -41,7 +41,7 @@
             float: right;
         }
 
-        .esquadro-foto p{            
+        .esquadro-foto p{
             text-align: center;
             line-height: 2cm;
         }
@@ -52,7 +52,7 @@
 <body>
     <div class="content">
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
-        
+
         <div class="esquadro-foto">
             <p>Foto 3x4</p>
         </div>
@@ -70,13 +70,13 @@
                 <div class="td" style="width: 200px">
                     Categoria:<br> {{$permissionario['modalidade']['descricao']}}
                 </div>
-            </div><br><br><br>            
+            </div><br><br><br>
             <div class="tr">
                 <div class="td" style="width: 684px">
                     Local:<br> {{ $ponto['descricao'] }}
                 </div>
-            </div><br><br><br>     
-            <div class="tr">       
+            </div><br><br><br>
+            <div class="tr">
                 <div class="td" style="width: 260px">
                     N° do Ponto:<br> {{ $ponto['id_integracao'] }}
                 </div>
@@ -86,7 +86,7 @@
                 <div class="td" style="width: 200px">
                     Validade CNH:<br> {{ $permissionario['vencimento_cnh'] }}
                 </div>
-            </div><br><br><br>  
+            </div><br><br><br>
             <div class="tr">
                 <div class="td" style="width: 260px">
                     Veículo/Marca:<br> {{ $veiculo['MarcaModeloVeiculo']['descricao'] }}
@@ -114,7 +114,7 @@
                     Taxímetro/Tacógrafo:<br> {{ $permissionario['taximetro_tacografo_numero'] }}
                 </div>
                 <div class="td" style="width: 200px">
-                    Data de Vencimento:<br> 
+                    Data de Vencimento:<br>
                 </div>
                 <div class="td" style="width: 200px">
                     Data de Emissão:<br> {{ $permissionario['taximetro_tacografo_afericao'] }}

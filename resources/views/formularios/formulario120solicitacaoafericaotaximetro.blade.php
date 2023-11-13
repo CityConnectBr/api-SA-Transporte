@@ -15,12 +15,14 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
+
 
         .content p {
             margin-bottom: 0.3cm;
@@ -50,6 +52,12 @@
             font-size: 11px;
         }
 
+        footer {
+            position:fixed;
+            left:0px;
+            bottom:0px;
+            width:100%;
+        }
     </style>
 </head>
 
@@ -63,7 +71,7 @@
 
         <p style="text-align: justify;">
         Comunicamos a V. Sª que esta DTP autoriza a aferição do taxímetro nº de série
-        no   veículo {{$marca_modelo}}, placa {{$placa}}, ano {{$ano}}, cor {{$cor}}
+        no veículo {{$marca_modelo}}, placa {{$placa}}, ano {{$ano}}, cor {{$cor}}
         propriedade do Sr(a) {{$permissionario['nome_razao_social']}}
         ponto de táxi nº {{ $ponto ?? '________________________________________'}}
         </p>

@@ -15,13 +15,13 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
-
         .content p {
             margin-bottom: 0.3cm;
             line-height: 0.7cm;

@@ -15,11 +15,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -90,9 +91,9 @@
         <p>Eu, <b style="text-decoration: underline;">{{$permissionario['nome_razao_social']}}</b>, permissionário(a) do serviço de transporte escolar neste município com o prefixo <b style="text-decoration: underline;">{{$permissionario['prefixo']}}</b>, em cumprimento à Lei Municipal nº. 8.038 de 09 de junho de 2000, art. 7º "no transporte de estudantes será obrigatória a presença de um Monitor, para auxiliar o condutor nas operações de embarque e desembarque" e ao Decreto Municipal nº. 14.538 de 15 de agosto de 2000, Art. 8º Parágrafo único <b>"os monitores deverão estar devidamente cadastrados junto à SA-TRANS"</b> , solicito a</p>
 
         <p style="font-weight: bold;">INCLUSÃO DE:</p>
-        <p>Nome: <b>{{$nomeMonitorInclusao!=null ? $nomeMonitorInclusao : '_________________________'}}</b> RG: <b>{{$rgMonitorInclusao!=null ? $rgMonitorInclusao :'__________________'}}</b>, CPF: <b>{{$cpfMonitorInclusao!=null ? $cpfMonitorInclusao : '______________'}}</b>,</p>
+        <p>Nome: <b>{{$nomeMonitorInclusao!=null ? $nomeMonitorInclusao : '_________________________'}}</b> RG: <b>{{$rgMonitorInclusao!=null ? $rgMonitorInclusao :'_________________'}}</b>, CPF: <b>{{$cpfMonitorInclusao!=null ? $cpfMonitorInclusao : '______________'}}</b>,</p>
         <p>Endereço: <b>{{$enderecoMonitorInclusao!=null?$enderecoMonitorInclusao:'_____________________________________________'}}</b>, </p>
-        <p>E-mail: <b>{{$emailMonitorInclusao!=null ? $emailMonitorInclusao : '__________________________________________________'}}</b>, Tel: <b>{{$telefoneMonitorInclusao!=null ? $telefoneMonitorInclusao : '______________.'}}</b></p>
+        <p>E-mail: <b>{{$emailMonitorInclusao!=null ? $emailMonitorInclusao : '_____________________________________________'}}</b>, Tel: <b>{{$telefoneMonitorInclusao!=null ? $telefoneMonitorInclusao : '______________.'}}</b></p>
         <hr>
         <p style="font-size: 12px;">OBS: Na inclusão deverão ser apresentados: cópia do RG e do CPF e Informado endereço, telefone e e-mail.</p>
 
@@ -112,7 +113,7 @@
 
         <div style="margin-top: 1.5cm">
             <p>
-            Solicitação recebida e documentos conferidos por ____________________________________ em _____/______/______, assinatura: _______________________________________________
+            Solicitação recebida e documentos conferidos por ________________________________ em _____/______/______, assinatura: _______________________________________________
             </p>
         </div>
 

@@ -16,11 +16,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -107,6 +108,7 @@
             height: 4cm;
             border: 1px solid #000;
             float: right;
+            margin-right: -1cm;
         }
 
         .esquadro-foto p{

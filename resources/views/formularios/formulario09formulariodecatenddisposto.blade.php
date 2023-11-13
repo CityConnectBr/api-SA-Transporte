@@ -15,11 +15,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -232,7 +233,7 @@
         Declaro que mantenho contratos firmados com os responsáveis pelos alunos aqui relacionados, e que os mesmos estão à disposição da SA-TRANS para eventuais conferências.
         </p>
 
-        <p>
+        <p style="margin-top: 0.0cm">
         Comprometo-me, em caso de alteração desta listagem, a encaminhar a SA-TRANS, no prazo de 02 dias úteis, as correções efetuadas.
         </p>
 

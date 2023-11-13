@@ -16,11 +16,12 @@
 
         .content {
             margin: 0px;
+            margin-left: 1cm;
+            margin-right: 1cm;
         }
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
         }
 
         .content p {
@@ -88,6 +89,7 @@
             border: 1px solid #000;
             text-align: center;
             line-height: 4cm;
+            margin-right: -1cm;
         }
 
         .p-bold-underline b {
@@ -151,9 +153,9 @@
             </p>
         </div>
 
-        <div style="margin-top: 0.1cm">
+        <div style="margin-top: -0.5cm">
             <p>
-                Conferida por ______________________________________________________________ em _____/______/______, assinatura: _____________________________________________________________________________________
+                Conferida por ______________________________________________________________ em _____/______/______, assinatura: ______________________________________________________________
             </p>
         </div>
 

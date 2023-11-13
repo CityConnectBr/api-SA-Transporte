@@ -23,7 +23,6 @@
 
         .logo {
             width: 100px;
-            margin-left: 1cm;
             margin-top: -0.7cm;
         }
 

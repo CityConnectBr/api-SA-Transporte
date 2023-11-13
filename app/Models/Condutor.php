@@ -79,8 +79,9 @@ class Condutor extends Model
                 "id",
                 "nome",
                 "cpf",
-                "email",
+                "email"
             );
+            
             return $query->get();
         }
 
