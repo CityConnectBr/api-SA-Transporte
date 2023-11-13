@@ -26,6 +26,7 @@ class Certidao extends Model
         'ponto_id',
         'observacao',
         'protocol',
+        'certidao_anterior_id'
     ];
 
     protected $table = 'certidoes';

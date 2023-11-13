@@ -6,12 +6,12 @@ use App\Models\Condutor;
 use App\Models\Empresa;
 use App\Models\EmpresaVistoriadora;
 use App\Models\Endereco;
+use App\Models\EntidadeAssociativa;
 use App\Models\Infracao;
 use App\Models\Modalidade;
 use App\Models\Monitor;
 use App\Models\Municipio;
 use App\Models\Permissionario;
-use App\Models\Ponto;
 use App\Models\PontoDoPermissionario;
 use App\Models\SolicitacaoDeAlteracao;
 use App\Models\Veiculo;
@@ -1368,5 +1368,378 @@ class FormularioController extends Controller
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
+
+    //formulario136
+    public function filhaPermissionario()
+    {
+
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];
+
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
+
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
+
+        $empresa = Empresa::findComplete(1);
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $inicioAtividades = "";
+        if($permissionario->inicio_atividades != null) {
+            $inicioAtividades = Carbon::parse($permissionario->inicio_atividades)->format('d/m/Y');
+        }
+
+        $ativo = $permissionario->ativo?'Sim':'Não';
+
+        $dataNasc = Carbon::parse($permissionario->data_nascimento)->format('d/m/Y');
+
+        $endereco = $permissionario->endereco;
+
+        $municipio = Municipio::find($endereco->municipio_id);
+
+        $entidadeAssociativa = "";
+        if($permissionario->entidade_associativa_id != null) {
+            $entidadeAssociativa = EntidadeAssociativa::find($permissionario->entidade_associativa_id);
+        }
+
+        $cnhVencto = $permissionario->cnhVencto;
+        if($permissionario->cnhVencto != null) {
+            $cnhVencto = Carbon::parse($permissionario->cnhVencto)->format('d/m/Y');
+        }
+
+        $pontos = PontoDoPermissionario::findPontosByPermissionario($permissionario->id);
+
+        $ponto1 = "";
+        if(sizeof($pontos) > 0) {      
+            $enderecoPonto = Endereco::findComplete($pontos[0]->ponto->endereco_id);
+            $ponto1 = $pontos[0]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }
+
+        $ponto2 = "";
+        if(sizeof($pontos) > 1) {     
+            $enderecoPonto = Endereco::findComplete($pontos[1]->ponto->endereco_id);
+            $ponto2 = $pontos[1]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }
+
+        $ponto3 = "";
+        if(sizeof($pontos) > 2) {    
+            $enderecoPonto = Endereco::findComplete($pontos[2]->ponto->endereco_id);
+            $ponto3 = $pontos[2]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }
+
+        $ponto4 = "";
+        if(sizeof($pontos) > 3) {        
+            $enderecoPonto = Endereco::findComplete($pontos[3]->ponto->endereco_id);
+            $ponto4 = $pontos[3]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }
+
+        $ponto5 = "";
+        if(sizeof($pontos) > 4) {       
+            $enderecoPonto = Endereco::findComplete($pontos[4]->ponto->endereco_id);
+            $ponto5 = $pontos[4]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }
+
+        $ponto6 = "";
+        if(sizeof($pontos) > 5) {       
+            $enderecoPonto = Endereco::findComplete($pontos[5]->ponto->endereco_id);
+            $ponto6 = $pontos[5]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }
+
+        $ponto7 = "";
+        if(sizeof($pontos) > 6) {       
+            $enderecoPonto = Endereco::findComplete($pontos[6]->ponto->endereco_id);
+            $ponto7 = $pontos[6]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }
+
+        $ponto8 = "";
+        if(sizeof($pontos) > 7) {
+            $enderecoPonto = Endereco::findComplete($pontos[7]->ponto->endereco_id);
+            $ponto8 = $pontos[7]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }
+
+        $ponto9 = "";
+        if(sizeof($pontos) > 8) {
+            $enderecoPonto = Endereco::findComplete($pontos[8]->ponto->endereco_id);
+            $ponto9 = $pontos[8]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
+        }  
+        
+        $emissaoAlvara = "";
+        $vencimentoAlvara = "";
+        $retornoAlvara = "";
+        $obsAlvara = "";
+        $lastAlvara = $permissionario->lastAlvara;
+        if($lastAlvara !=null){
+            $emissaoAlvara = $lastAlvara->data_emissao != null ? $lastAlvara->data_emissao :"";
+            $vencimentoAlvara = $lastAlvara->data_vencimento != null ? Carbon::parse($lastAlvara->data_vencimento)->format('d/m/Y') : '';
+            $retornoAlvara = $lastAlvara->data_retorno != null ? Carbon::parse($lastAlvara->data_retorno)->format('d/m/Y') : '';
+            $obsAlvara = $lastAlvara->observacao_retorno != null ? $lastAlvara->observacao_retorno :'';
+        }
+
+        $validadeCertidaoNegativa = "";
+        if($permissionario->validade_certidao_negativa != null){
+            $validadeCertidaoNegativa = Carbon::parse($permissionario->validade_certidao_negativa)->format("d/m/Y");
+        }
+
+        $emissaoCursoPrimeirosSocorros = "";
+        if($permissionario->curso_primeiro_socorros_emissao != null){
+            $emissaoCursoPrimeirosSocorros = Carbon::parse($permissionario->curso_primeiro_socorros_emissao)->format("d/m/Y");
+        }
+
+        $condutores = Condutor::findAllByPermissionarioAtivos($permissionario->id);
+
+        $condutor1Nome = "";
+        $condutor1Cpf = "";
+        $condutor1Rg = "";
+        $condutor1Cnh = "";
+        $condutor1CnhCategoria = "";
+        $condutor1CnhVencimento = "";
+        $condutor1AtestadoDeSaude = "";
+        $condutor1RegistroCTPS = "";
+        $condutor1CertidaoNegativa = "";
+        $condutor1CertidaoNegativaValidade = "";
+        $condutor1CursoPrimeirosSocorros = "";
+        $condutor1CursoPrimeirosSocorrosEmissao = "";
+        $condutor1MotAfastamento = "";
+        $condutor1PeriodoAfastamentoInicio = "";
+        $condutor1PeriodoAfastamentoFim = "";
+        if(sizeof($condutores) > 0){
+            $condutor1Nome = $condutores[0]->nome;
+            $condutor1Cpf = $condutores[0]->cpf;
+            $condutor1Rg = $condutores[0]->rg;
+            $condutor1Cnh = $condutores[0]->cnh;
+            $condutor1CnhCategoria = $condutores[0]->categoria_cnh;
+            $condutor1CnhVencimento = $condutores[0]->vencimento_cnh != null ? Carbon::parse($condutores[0]->vencimento_cnh)->format("d/m/Y") : "";
+            $condutor1AtestadoDeSaude = $condutores[0]->atestado_de_saude;
+            $condutor1RegistroCTPS = $condutores[0]->registro_ctps;
+            $condutor1CertidaoNegativa = $condutores[0]->certidao_negativa;
+            $condutor1CertidaoNegativaValidade = $condutores[0]->validade_certidao_negativa != null ? Carbon::parse($condutores[0]->validade_certidao_negativa)->format("d/m/Y") : "";
+            $condutor1CursoPrimeirosSocorros = $condutores[0]->primeiros_socorros;
+            $condutor1CursoPrimeirosSocorrosEmissao = $condutores[0]->emissao_primeiros_socorros != null ? Carbon::parse($condutores[0]->emissao_primeiros_socorros)->format("d/m/Y") : "";
+            $condutor1MotAfastamento = $condutores[0]->motivo_afastamento != null ? $condutores[0]->motivo_afastamento :"";
+            $condutor1PeriodoAfastamentoInicio = $condutores[0]->data_inicio_afastamento != null ? Carbon::parse($condutores[0]->data_inicio_afastamento)->format("d/m/Y") : "";
+            $condutor1PeriodoAfastamentoFim = $condutores[0]->data_termino_afastamento != null ? Carbon::parse($condutores[0]->data_termino_afastamento)->format("d/m/Y") : "";
+        }
+
+        $condutor2Nome = "";
+        $condutor2Cpf = "";
+        $condutor2Rg = "";
+        $condutor2Cnh = "";
+        $condutor2CnhCategoria = "";
+        $condutor2CnhVencimento = "";
+        $condutor2AtestadoDeSaude = "";
+        $condutor2RegistroCTPS = "";
+        $condutor2CertidaoNegativa = "";
+        $condutor2CertidaoNegativaValidade = "";
+        $condutor2CursoPrimeirosSocorros = "";
+        $condutor2CursoPrimeirosSocorrosEmissao = "";
+        $condutor2MotAfastamento = "";
+        $condutor2PeriodoAfastamentoInicio = "";
+        $condutor2PeriodoAfastamentoFim = "";
+        if(sizeof($condutores) > 1){
+            $condutor2Nome = $condutores[1]->nome;
+            $condutor2Cpf = $condutores[1]->cpf;
+            $condutor2Rg = $condutores[1]->rg;
+            $condutor2Cnh = $condutores[1]->cnh;
+            $condutor2CnhCategoria = $condutores[1]->categoria_cnh;
+            $condutor2CnhVencimento = $condutores[1]->vencimento_cnh != null ? Carbon::parse($condutores[1]->vencimento_cnh)->format("d/m/Y") : "";
+            $condutor2AtestadoDeSaude = $condutores[1]->atestado_de_saude;
+            $condutor2RegistroCTPS = $condutores[1]->registro_ctps;
+            $condutor2CertidaoNegativa = $condutores[1]->certidao_negativa;
+            $condutor2CertidaoNegativaValidade = $condutores[1]->validade_certidao_negativa != null ? Carbon::parse($condutores[1]->validade_certidao_negativa)->format("d/m/Y") : "";
+            $condutor2CursoPrimeirosSocorros = $condutores[1]->primeiros_socorros;
+            $condutor2CursoPrimeirosSocorrosEmissao = $condutores[1]->emissao_primeiros_socorros != null ? Carbon::parse($condutores[1]->emissao_primeiros_socorros)->format("d/m/Y") : "";
+            $condutor2MotAfastamento = $condutores[1]->motivo_afastamento != null ? $condutores[1]->motivo_afastamento :"";
+            $condutor2PeriodoAfastamentoInicio = $condutores[1]->data_inicio_afastamento != null ? Carbon::parse($condutores[1]->data_inicio_afastamento)->format("d/m/Y") : "";
+            $condutor2PeriodoAfastamentoFim = $condutores[1]->data_termino_afastamento != null ? Carbon::parse($condutores[1]->data_termino_afastamento)->format("d/m/Y") : "";
+        }
+
+        $monitores = Monitor::findAllByPermissionarioAtivo($permissionario->id);
+
+        $monitor1Nome = "";
+        $monitor1RG = "";
+        $monitor1DataNasc = "";
+        $monitor1CursoPrimeirosSocorros = "";
+        $monitor1CursoPrimeirosSocorrosEmissao = "";
+        if(sizeof($monitores) > 0){
+            $monitor1Nome = $monitores[0]->nome;
+            $monitor1RG = $monitores[0]->rg;
+            $monitor1DataNasc = $monitores[0]->data_nascimento != null ? Carbon::parse($monitores[0]->data_nascimento)->format("d/m/Y") : "";
+            $monitor1CursoPrimeirosSocorros = $monitores[0]->curso_de_primeiro_socorros;
+            $monitor1CursoPrimeirosSocorrosEmissao = $monitores[0]->emissao_curso_de_primeiro_socorros != null ? Carbon::parse($monitores[0]->emissao_curso_de_primeiro_socorros)->format("d/m/Y") : "";
+        }
+
+        $monitor2Nome = "";
+        $monitor2RG = "";
+        $monitor2DataNasc = "";
+        $monitor2CursoPrimeirosSocorros = "";
+        $monitor2CursoPrimeirosSocorrosEmissao = "";
+        if(sizeof($monitores) > 1){
+            $monitor2Nome = $monitores[1]->nome;
+            $monitor2RG = $monitores[1]->rg;
+            $monitor2DataNasc = $monitores[1]->data_nascimento != null ? Carbon::parse($monitores[1]->data_nascimento)->format("d/m/Y") : "";
+            $monitor2CursoPrimeirosSocorros = $monitores[1]->curso_de_primeiro_socorros;
+            $monitor2CursoPrimeirosSocorrosEmissao = $monitores[1]->emissao_curso_de_primeiro_socorros != null ? Carbon::parse($monitores[1]->emissao_curso_de_primeiro_socorros)->format("d/m/Y") : "";
+        }
+
+        $monitor3Nome = "";
+        $monitor3RG = "";
+        $monitor3DataNasc = "";
+        $monitor3CursoPrimeirosSocorros = "";
+        $monitor3CursoPrimeirosSocorrosEmissao = "";
+        if(sizeof($monitores) > 2){
+            $monitor3Nome = $monitores[2]->nome;
+            $monitor3RG = $monitores[2]->rg;
+            $monitor3DataNasc = $monitores[2]->data_nascimento != null ? Carbon::parse($monitores[2]->data_nascimento)->format("d/m/Y") : "";
+            $monitor3CursoPrimeirosSocorros = $monitores[2]->curso_de_primeiro_socorros;
+            $monitor3CursoPrimeirosSocorrosEmissao = $monitores[2]->emissao_curso_de_primeiro_socorros != null ? Carbon::parse($monitores[2]->emissao_curso_de_primeiro_socorros)->format("d/m/Y") : "";
+        }
+
+        $monitor4Nome = "";
+        $monitor4RG = "";
+        $monitor4DataNasc = "";
+        $monitor4CursoPrimeirosSocorros = "";
+        $monitor4CursoPrimeirosSocorrosEmissao = "";
+        if(sizeof($monitores) > 3){
+            $monitor4Nome = $monitores[3]->nome;
+            $monitor4RG = $monitores[3]->rg;
+            $monitor4DataNasc = $monitores[3]->data_nascimento != null ? Carbon::parse($monitores[3]->data_nascimento)->format("d/m/Y") : "";
+            $monitor4CursoPrimeirosSocorros = $monitores[3]->curso_de_primeiro_socorros;
+            $monitor4CursoPrimeirosSocorrosEmissao = $monitores[3]->emissao_curso_de_primeiro_socorros != null ? Carbon::parse($monitores[3]->emissao_curso_de_primeiro_socorros)->format("d/m/Y") : "";
+        }
+
+        $monitor5Nome = "";
+        $monitor5RG = "";
+        $monitor5DataNasc = "";
+        $monitor5CursoPrimeirosSocorros = "";
+        $monitor5CursoPrimeirosSocorrosEmissao = "";
+        if(sizeof($monitores) > 4){
+            $monitor5Nome = $monitores[4]->nome;
+            $monitor5RG = $monitores[4]->rg;
+            $monitor5DataNasc = $monitores[4]->data_nascimento != null ? Carbon::parse($monitores[4]->data_nascimento)->format("d/m/Y") : "";
+            $monitor5CursoPrimeirosSocorros = $monitores[4]->curso_de_primeiro_socorros;
+            $monitor5CursoPrimeirosSocorrosEmissao = $monitores[4]->emissao_curso_de_primeiro_socorros != null ? Carbon::parse($monitores[4]->emissao_curso_de_primeiro_socorros)->format("d/m/Y") : "";
+        }
+
+        $monitor6Nome = "";
+        $monitor6RG = "";
+        $monitor6DataNasc = "";
+        $monitor6CursoPrimeirosSocorros = "";
+        $monitor6CursoPrimeirosSocorrosEmissao = "";
+        if(sizeof($monitores) > 5){
+            $monitor6Nome = $monitores[5]->nome;
+            $monitor6RG = $monitores[5]->rg;
+            $monitor6DataNasc = $monitores[5]->data_nascimento != null ? Carbon::parse($monitores[5]->data_nascimento)->format("d/m/Y") : "";
+            $monitor6CursoPrimeirosSocorros = $monitores[5]->curso_de_primeiro_socorros;
+            $monitor6CursoPrimeirosSocorrosEmissao = $monitores[5]->emissao_curso_de_primeiro_socorros != null ? Carbon::parse($monitores[5]->emissao_curso_de_primeiro_socorros)->format("d/m/Y") : "";
+        }
+        
+        $usuario = auth()->user();
+
+        $formlario = "formulario136fichapermissionario";
+
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'permissionario',
+                'inicioAtividades',
+                'ativo',
+                'dataNasc',
+                'endereco',
+                'municipio',
+                'empresa',
+                'dataFormatada',
+                'entidadeAssociativa',
+                'cnhVencto',
+                'veiculo',
+                'usuario',
+                'ponto1',
+                'ponto2',
+                'ponto3',
+                'ponto4',
+                'ponto5',
+                'ponto6',
+                'ponto7',
+                'ponto8',
+                'ponto9',
+                'emissaoAlvara',
+                'vencimentoAlvara',
+                'retornoAlvara',
+                'obsAlvara',
+                'validadeCertidaoNegativa',
+                'emissaoCursoPrimeirosSocorros',
+                'condutor1Nome',
+                'condutor1Cpf',
+                'condutor1Rg',
+                'condutor1Cnh',
+                'condutor1CnhCategoria',
+                'condutor1CnhVencimento',
+                'condutor1AtestadoDeSaude',
+                'condutor1RegistroCTPS',
+                'condutor1CertidaoNegativa',
+                'condutor1CertidaoNegativaValidade',
+                'condutor1CursoPrimeirosSocorros',
+                'condutor1CursoPrimeirosSocorrosEmissao',
+                'condutor1MotAfastamento',
+                'condutor1PeriodoAfastamentoInicio',
+                'condutor1PeriodoAfastamentoFim',
+                'condutor2Nome',
+                'condutor2Cpf',
+                'condutor2Rg',
+                'condutor2Cnh',
+                'condutor2CnhCategoria',
+                'condutor2CnhVencimento',
+                'condutor2AtestadoDeSaude',
+                'condutor2RegistroCTPS',
+                'condutor2CertidaoNegativa',
+                'condutor2CertidaoNegativaValidade',
+                'condutor2CursoPrimeirosSocorros',
+                'condutor2CursoPrimeirosSocorrosEmissao',
+                'condutor2MotAfastamento',
+                'condutor2PeriodoAfastamentoInicio',
+                'condutor2PeriodoAfastamentoFim',
+                'monitor1Nome',
+                'monitor1RG',
+                'monitor1DataNasc',
+                'monitor1CursoPrimeirosSocorros',
+                'monitor1CursoPrimeirosSocorrosEmissao',
+                'monitor2Nome',
+                'monitor2RG',
+                'monitor2DataNasc',
+                'monitor2CursoPrimeirosSocorros',
+                'monitor2CursoPrimeirosSocorrosEmissao',
+                'monitor3Nome',
+                'monitor3RG',
+                'monitor3DataNasc',
+                'monitor3CursoPrimeirosSocorros',
+                'monitor3CursoPrimeirosSocorrosEmissao',
+                'monitor4Nome',
+                'monitor4RG',
+                'monitor4DataNasc',
+                'monitor4CursoPrimeirosSocorros',
+                'monitor4CursoPrimeirosSocorrosEmissao',
+                'monitor5Nome',
+                'monitor5RG',
+                'monitor5DataNasc',
+                'monitor5CursoPrimeirosSocorros',
+                'monitor5CursoPrimeirosSocorrosEmissao',
+                'monitor6Nome',
+                'monitor6RG',
+                'monitor6DataNasc',
+                'monitor6CursoPrimeirosSocorros',
+                'monitor6CursoPrimeirosSocorrosEmissao',
+            )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
 
 }

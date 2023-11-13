@@ -206,6 +206,8 @@ Route::group([
                 Route::get('/formularios/aip', 'Admin\FormularioController@aip');
                 //formulario 135
                 Route::get('/formularios/alvaradopermissionario', 'Admin\FormularioController@alvaraDoPermissionario');
+                //formulario 136
+                Route::get('/formularios/fichapermissionario', 'Admin\FormularioController@filhaPermissionario');
 
                 //Historico de Alterações
                 Route::get('/permissionariohistorico', 'Admin\PermissionarioHistoricoController@index');
@@ -300,6 +302,8 @@ Route::group([
             Route::name('fiscais.')->group(function () {
                 Route::get('/v1/veiculos', 'v1\VeiculoController@index');
                 Route::get('/v1/veiculos/{id}', 'v1\VeiculoController@show');
+                Route::get('/v1/pontos', 'v1\PontoController@index');
+                Route::get('/v1/pontos/{id}', 'v1\PontoController@show');
 
                 Route::resource('/v1/solicitacaodealteracao', 'v1\SolicitacaoDeAlteracaoController');
             });

@@ -90,15 +90,6 @@ class Monitor extends Model
         }
     }
 
-    public static function searchPorPermissionario($permissionario_id, $search)
-    {
-        return Monitor::where("permissionario_id", "=", $permissionario_id)->where("nome", "like", "%" . $search . "%")
-            ->with("endereco")
-            ->with("permissionario")
-            ->orderBy("nome")
-            ->paginate(40);
-    }
-
     public static function searchByPermissionario($permissionarioId, $search)
     {
         return Monitor::where("permissionario_id", "=", $permissionarioId)->where("nome", "like", "%" . $search . "%")
@@ -111,6 +102,16 @@ class Monitor extends Model
     public static function findAllByPermissionario($permissionarioId)
     {
         return Monitor::where("permissionario_id", "=", $permissionarioId)
+            ->with("endereco")
+            ->with("permissionario")
+            ->orderBy("nome")
+            ->get();
+    }
+
+    public static function findAllByPermissionarioAtivo($permissionarioId)
+    {
+        return Monitor::where("permissionario_id", "=", $permissionarioId)
+            ->where("ativo", "=", true)
             ->with("endereco")
             ->with("permissionario")
             ->orderBy("nome")
