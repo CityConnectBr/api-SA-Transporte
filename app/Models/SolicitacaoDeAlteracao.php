@@ -75,6 +75,12 @@ class SolicitacaoDeAlteracao extends Model
         'arquivo2_uid',
         'arquivo3_uid',
         'arquivo4_uid',
+        'arquivo5_uid',
+        'arquivo6_uid',
+        'arquivo7_uid',
+        'arquivo8_uid',
+        'arquivo9_uid',
+        'arquivo10_uid',
     ];
 
     public $referencia_id;

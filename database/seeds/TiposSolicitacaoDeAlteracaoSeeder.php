@@ -513,5 +513,29 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'id' => '70',
             'nome' => 'permissionario_renovacao_alvara',
         ]);
+                
+        ////////////////////////////////////
+        ///////////////// Substituicao de Veiculo Escolar
+        ///////////////////////////////////
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
+            'id' => '80',
+            'nome' => 'substituicao_veiculo_escolar',
+            'desc_arquivo1' => 'Foto do Veículo',
+            'desc_arquivo2' => 'IPVA',
+            'desc_arquivo3' => 'CRLV',
+            'desc_arquivo4' => 'Laudo do Tacógrafo',
+            'desc_arquivo5' => 'Autorização do CIRETRAN',
+        ]);
+                
+        ////////////////////////////////////
+        ///////////////// Substituicao de Veiculo Táxi
+        ///////////////////////////////////
+        DB::table('tipos_solicitacao_de_alteracao')->insert([
+            'id' => '90',
+            'nome' => 'substituicao_veiculo_taxi',
+            'desc_arquivo1' => 'CRLV',
+            'desc_arquivo2' => 'Comprovante de retirada do taxímetro e aferição',
+            'desc_arquivo3' => 'Selo do Gás'
+        ]);
     }
 }

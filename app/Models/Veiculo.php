@@ -33,7 +33,9 @@ class Veiculo extends Model
         'gnv_numero',
         'gnv_selo_validade',
         'gnv_ano_fabricacao',
-        'permissionario_id'
+        'permissionario_id',
+        'veiculo_substituido_id',
+        'solicitacao_substituicao_id'
     ];
 
     protected $table = 'veiculos';
