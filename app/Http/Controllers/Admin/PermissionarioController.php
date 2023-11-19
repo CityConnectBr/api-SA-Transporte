@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AdminSuperController;
 use App\Models\Condutor;
 use App\Models\Permissionario;
+use App\Models\SolicitacaoDeAlteracao;
 use App\Models\Veiculo;
 use App\Utils\Util;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class PermissionarioController extends AdminSuperController
                 ],
                 'alvara_de_funcionamento' => [
                     'max:15',
-                ],                
+                ],
                 'prefixo' => [
                     'required',
                     'max:15',
@@ -136,6 +137,34 @@ class PermissionarioController extends AdminSuperController
         } else {
             return parent::responseMsgJSON("Não encontrado", 404);
         }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), $this->validatorList);
+
+        if ($validator->fails()) {
+            return parent::responseMsgsJSON($validator->errors(), 400);
+        }
+
+        $obj = new $this->objectModel();
+        $obj->fill($request->all());
+
+        $obj->save();
+
+        $solicitacao = SolicitacaoDeAlteracao::find($request['solicitacao_substituicao_id']);
+        if($solicitacao!=null && $solicitacao->status!="A"){
+            $solicitacao->status="A";
+            $solicitacao->update();
+        }
+
+        return $obj;
     }
 
 
