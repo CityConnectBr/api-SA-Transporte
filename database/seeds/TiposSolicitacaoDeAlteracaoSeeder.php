@@ -139,9 +139,19 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'nome_campo17' => 'rg',
             'desc_campo17' => 'rg',
             'regex_campo17' => '^.{1,15}$',
+            'nome_campo19' => 'nome_curso_taxista',
+            'desc_campo19' => 'nome do curso de taxista',
+            'regex_campo19' => '^.{1,40}$',
+            'nome_campo20' => 'data_validade_curso_taxista',
+            'desc_campo20' => 'data de validade do curso de taxista',
+            'regex_campo20' => '^\d{4}\-\d{2}\-\d{2}$',
             'desc_arquivo1' => 'Comprovante de cnh',
             'desc_arquivo2' => 'Comprovante de Residência',
             'desc_arquivo3' => 'Foto do Condutor',
+            'desc_arquivo4' => 'CPF',
+            'desc_arquivo5' => 'Certidão de Distribuição Criminal',
+            'desc_arquivo6' => 'Atestado de Saúde',
+            'desc_arquivo7' => 'Curso de Taxista',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '6',
@@ -336,9 +346,10 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'nome_campo13' => 'data_nascimento',
             'desc_campo13' => 'Data de Nascimento',
             'regex_campo13' => '^\d{4}\-\d{2}\-\d{2}$',
-            'desc_arquivo1' => 'Comprovante de Identidade',
+            'desc_arquivo1' => 'RG',
             'desc_arquivo2' => 'Comprovante de Residência',
             'desc_arquivo3' => 'Foto do Monitor',
+            'desc_arquivo4' => 'CPF',
         ]);
         DB::table('tipos_solicitacao_de_alteracao')->insert([
             'id' => '24',
