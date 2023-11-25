@@ -87,6 +87,12 @@ class TipoDeSolicitacaoDeAlteracao extends Model
         'desc_arquivo2',
         'desc_arquivo3',
         'desc_arquivo4',
+        'desc_arquivo5',
+        'desc_arquivo6',
+        'desc_arquivo7',
+        'desc_arquivo8',
+        'desc_arquivo9',
+        'desc_arquivo10',
     ];
 
     protected $table = 'tipos_solicitacao_de_alteracao';
