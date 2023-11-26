@@ -542,9 +542,11 @@ class TiposSolicitacaoDeAlteracaoSeeder extends Seeder
             'desc_arquivo2' => 'Comprovante Aferição do Taxímetro',
             'desc_arquivo3' => 'Comprovante de Endereço',
             'desc_arquivo4' => 'CNH',
+            'nao_obrigatorio_arquivo4' => '1',
             'desc_arquivo5' => 'Comprovante Laudo de Vistoria',
             'desc_arquivo6' => 'Comprovante de Distribuição Criminal',
             'desc_arquivo7' => 'Selo do GNV',
+            'nao_obrigatorio_arquivo7' => '1',
         ]);
                 
         ////////////////////////////////////
