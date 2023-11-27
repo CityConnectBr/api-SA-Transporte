@@ -205,6 +205,11 @@ class SolicitacaoDeAlteracaoController extends Controller
         // validação de arquivos
         for ($i = 1; $i < 10; $i++) {
             if (isset($tipoDeSolicitacao['desc_arquivo' . $i])) {
+
+                if ($tipoDeSolicitacao['nao_obrigatorio_arquivo' . $i] == 1) {
+                    continue;
+                }
+
                 $fileField = $request->file('arquivo' . $i);
 
                 if (!isset($fileField) || !preg_match("/([a-zA-Z0-9\s_\\.\-\(\):])+(.jpg|.jpeg|.png)$/", $fileField->getClientOriginalName())) {
