@@ -57,7 +57,7 @@ class Veiculo extends Model
             // ->with(["permissionario" => function($q) use($search){
             //     $q->where("nome","like", "%" . $search == null ? "" : $search . "%");
             // }])
-            ->with("permissionario")
+            ->with("permissionario.lastAlvara")
             ->orderBy("placa")
             ->simplePaginate(15);
 
@@ -76,7 +76,7 @@ class Veiculo extends Model
                 //     $q->where("nome_razao_social", "like", "%".$search == null ? "" : $search. "%");
                 //     //dd($q);
                 // }])
-                ->with("permissionario")
+                ->with("permissionario.lastAlvara")
                 ->orderBy("placa")
                 ->simplePaginate(15);
         }
