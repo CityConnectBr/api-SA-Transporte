@@ -59,6 +59,7 @@ class Veiculo extends Model
             // }])
             ->with("permissionario.lastAlvara")
             ->orderBy("placa")
+            ->orderBy("ativo", "desc")
             ->simplePaginate(15);
 
         if ($veiculo->isEmpty()) {
@@ -78,6 +79,7 @@ class Veiculo extends Model
                 // }])
                 ->with("permissionario.lastAlvara")
                 ->orderBy("placa")
+                ->orderBy("ativo", "desc")
                 ->simplePaginate(15);
         }
 
