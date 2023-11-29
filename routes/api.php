@@ -99,6 +99,7 @@ Route::group([
                 Route::resource('/anexosdopermissionario', 'Admin\AnexoDoPermissionarioController');
 
                 Route::get('/lancamentoalvaradopermissionario', 'Admin\AlvaraDoPermissionarioController@indexWithStatusPendenteAndAguardandoConfirmacao');
+                Route::get('/lancamentoalvaradopermissionario/{id}', 'Admin\AlvaraDoPermissionarioController@show');
                 Route::post('/lancamentoalvaradopermissionario/{id}/lancarpagamento', 'Admin\AlvaraDoPermissionarioController@setPagamento');
 
                 Route::resource('/condutores', 'Admin\CondutorController');
@@ -273,6 +274,9 @@ Route::group([
                 Route::get('/v1/infracoes', 'v1\InfracaoController@index');
                 Route::get('/v1/infracoes/{id}', 'v1\InfracaoController@show');
                 Route::post('/v1/infracoes/{id}/setpagamento', 'v1\InfracaoController@updatePagamento');
+                
+                Route::get('/v1/alvara/{id}', 'v1\AlvaraController@show');
+                Route::post('/v1/alvara/{id}/setpagamento', 'v1\AlvaraController@updatePagamento');
             });
         });
 
