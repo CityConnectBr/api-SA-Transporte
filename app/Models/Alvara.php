@@ -61,4 +61,12 @@ class Alvara extends Model
             ->orderBy("data_vencimento", "desc")
             ->get();
     }
+
+    public static function findByPermissionarioAndId($id, $id_infracao)
+    {
+        return Alvara::where("permissionario_id", $id)
+            ->where("id", $id_infracao)
+            ->with('permissionario')
+            ->first();
+    }
 }
