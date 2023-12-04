@@ -151,9 +151,11 @@ class AlvaraDoPermissionarioController extends AdminSuperController
         return $obj;
     }
 
-    public function indexWithStatusPendenteAndAguardandoConfirmacao(Request $request)
+    public function indexByStatus(Request $request)
     {
-        $objs = $this->objectModel::where("status", "pendente")
+        $status = $request['status'];
+
+        $objs = $this->objectModel::where("status", $status == null ? "pendente" : $status)
             ->with("permissionario")
             ->with("empresa")
             ->orWhere("status", "confirmacao_pendente")
