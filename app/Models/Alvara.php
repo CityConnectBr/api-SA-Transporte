@@ -27,6 +27,8 @@ class Alvara extends Model
         'empresa_id'
     ];
 
+    protected $dates = ['data_emissao', 'data_vencimento'];
+
     protected $table = 'alvara_do_permissionario';
 
     public function permissionario()

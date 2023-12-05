@@ -208,14 +208,15 @@ Route::group([
                 Route::get('/formularios/alvaradopermissionario', 'Admin\FormularioController@alvaraDoPermissionario');
                 //formulario 136
                 Route::get('/formularios/fichapermissionario', 'Admin\FormularioController@filhaPermissionario');
-
+                //alvara permissionario
+                Route::get('/formularios/alvarapermissionario', 'Admin\FormularioController@alvaraPermissionario');
                 //Historico de Alterações
                 Route::get('/permissionariohistorico', 'Admin\PermissionarioHistoricoController@index');
-            
+
                 //Mensagens
                 Route::post('/mensagens', 'Admin\MensagemController@enviar');
                 Route::get('/mensagens', 'Admin\MensagemController@index');
-            
+
             });
         });
 
@@ -257,7 +258,7 @@ Route::group([
                 Route::get('/v1/monitores/{id}/foto', 'v1\MonitorController@showPhoto');
 
                 Route::get('/v1/monitores', 'v1\MonitorController@index');
-                Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');              
+                Route::get('/v1/monitores/{id}', 'v1\MonitorController@show');
 
                 Route::get('/v1/pontos', 'v1\PontoController@pontosByPermissionario');
 

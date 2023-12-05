@@ -34,6 +34,8 @@ class Condutor extends Model
         'foto_uid'
     ];
 
+    protected $dates = ['vencimento_cnh', 'emissao_primeiros_socorros', 'data_inicio_afastamento', 'data_termino_afastamento'];
+
     protected $table = 'condutores';
 
     public function endereco()
@@ -81,7 +83,7 @@ class Condutor extends Model
                 "cpf",
                 "email"
             );
-            
+
             return $query->get();
         }
 

@@ -1418,43 +1418,43 @@ class FormularioController extends Controller
         $pontos = PontoDoPermissionario::findPontosByPermissionario($permissionario->id);
 
         $ponto1 = "";
-        if(sizeof($pontos) > 0) {      
+        if(sizeof($pontos) > 0) {
             $enderecoPonto = Endereco::findComplete($pontos[0]->ponto->endereco_id);
             $ponto1 = $pontos[0]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto2 = "";
-        if(sizeof($pontos) > 1) {     
+        if(sizeof($pontos) > 1) {
             $enderecoPonto = Endereco::findComplete($pontos[1]->ponto->endereco_id);
             $ponto2 = $pontos[1]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto3 = "";
-        if(sizeof($pontos) > 2) {    
+        if(sizeof($pontos) > 2) {
             $enderecoPonto = Endereco::findComplete($pontos[2]->ponto->endereco_id);
             $ponto3 = $pontos[2]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto4 = "";
-        if(sizeof($pontos) > 3) {        
+        if(sizeof($pontos) > 3) {
             $enderecoPonto = Endereco::findComplete($pontos[3]->ponto->endereco_id);
             $ponto4 = $pontos[3]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto5 = "";
-        if(sizeof($pontos) > 4) {       
+        if(sizeof($pontos) > 4) {
             $enderecoPonto = Endereco::findComplete($pontos[4]->ponto->endereco_id);
             $ponto5 = $pontos[4]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto6 = "";
-        if(sizeof($pontos) > 5) {       
+        if(sizeof($pontos) > 5) {
             $enderecoPonto = Endereco::findComplete($pontos[5]->ponto->endereco_id);
             $ponto6 = $pontos[5]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto7 = "";
-        if(sizeof($pontos) > 6) {       
+        if(sizeof($pontos) > 6) {
             $enderecoPonto = Endereco::findComplete($pontos[6]->ponto->endereco_id);
             $ponto7 = $pontos[6]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
@@ -1469,8 +1469,8 @@ class FormularioController extends Controller
         if(sizeof($pontos) > 8) {
             $enderecoPonto = Endereco::findComplete($pontos[8]->ponto->endereco_id);
             $ponto9 = $pontos[8]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
-        }  
-        
+        }
+
         $emissaoAlvara = "";
         $vencimentoAlvara = "";
         $retornoAlvara = "";
@@ -1640,7 +1640,7 @@ class FormularioController extends Controller
             $monitor6CursoPrimeirosSocorros = $monitores[5]->curso_de_primeiro_socorros;
             $monitor6CursoPrimeirosSocorrosEmissao = $monitores[5]->emissao_curso_de_primeiro_socorros != null ? Carbon::parse($monitores[5]->emissao_curso_de_primeiro_socorros)->format("d/m/Y") : "";
         }
-        
+
         $usuario = auth()->user();
 
         $formlario = "formulario136fichapermissionario";
@@ -1734,11 +1734,67 @@ class FormularioController extends Controller
                 'monitor6RG',
                 'monitor6DataNasc',
                 'monitor6CursoPrimeirosSocorros',
-                'monitor6CursoPrimeirosSocorrosEmissao',
+                'monitor6CursoPrimeirosSocorrosEmissao'
             )
         );
 
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //alvara permissionario
+    public function alvaraPermissionario() {
+
+            if ($this->request['veiculo'] == null) {
+                return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+            }
+            $id = $this->request['veiculo'];
+
+            $veiculo = Veiculo::findComplete($id);
+            if ($veiculo == null) {
+                return parent::responseMsgJSON("Veículo não encontrado", 404);
+            }
+
+            $permissionario = $veiculo->permissionario;
+            if ($permissionario == null) {
+                return parent::responseMsgJSON("Permissionário não encontrado", 404);
+            }
+
+            if ($permissionario['ativo'] == 0) {
+                return parent::responseMsgJSON("Permissionário inativo", 404);
+            }
+
+            if ($permissionario['data_obito'] != null) {
+                return parent::responseMsgJSON("Permissionário falecido", 404);
+            }
+
+            $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+            if ($ponto == null) {
+                return parent::responseMsgJSON("Ponto não encontrado", 404);
+            } else {
+                $ponto = $ponto->ponto;
+            }
+            $alvara = $permissionario->lastAlvara;
+            $condutores = Condutor::findAllByPermissionarioAtivos($permissionario->id);
+            $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+            $usuario = auth()->user();
+
+            $formlario = "alvara_permissionario";
+            
+            $pdf = PDF::loadView(
+                'formularios/' . $formlario,
+                compact(
+                    'veiculo',
+                    'permissionario',
+                    'ponto',
+                    'dataFormatada',
+                    'usuario',
+                    'alvara',
+                    'condutores'
+                )
+            );
+
+            return $pdf->setPaper('a5', 'portrait')->download($formlario);
     }
 
 
