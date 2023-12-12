@@ -1743,58 +1743,88 @@ class FormularioController extends Controller
 
     //alvara permissionario
     public function alvaraPermissionario() {
+        if(isset($this->request['veiculo'])) {
+            $this->alvaraPorVeiculo();
+        }
 
-            if ($this->request['veiculo'] == null) {
-                return parent::responseMsgJSON("ID do veículo não encontrado", 404);
-            }
-            $id = $this->request['veiculo'];
+        if(isset($this->request['permissionario'])) {
+            $this->alvaraPorPermissionario();
+        }
+    }
 
-            $veiculo = Veiculo::findComplete($id);
-            if ($veiculo == null) {
-                return parent::responseMsgJSON("Veículo não encontrado", 404);
-            }
+    public function alvaraPorVeiculo() {
+        if ($this->request['veiculo'] == null) {
+            return parent::responseMsgJSON("ID do veículo não encontrado", 404);
+        }
+        $id = $this->request['veiculo'];
 
-            $permissionario = $veiculo->permissionario;
-            if ($permissionario == null) {
-                return parent::responseMsgJSON("Permissionário não encontrado", 404);
-            }
+        $veiculo = Veiculo::findComplete($id);
+        if ($veiculo == null) {
+            return parent::responseMsgJSON("Veículo não encontrado", 404);
+        }
 
-            if ($permissionario['ativo'] == 0) {
-                return parent::responseMsgJSON("Permissionário inativo", 404);
-            }
+        $permissionario = $veiculo->permissionario;
+        if ($permissionario == null) {
+            return parent::responseMsgJSON("Permissionário não encontrado", 404);
+        }
 
-            if ($permissionario['data_obito'] != null) {
-                return parent::responseMsgJSON("Permissionário falecido", 404);
-            }
+        if ($permissionario['ativo'] == 0) {
+            return parent::responseMsgJSON("Permissionário inativo", 404);
+        }
 
-            $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
-            if ($ponto == null) {
-                return parent::responseMsgJSON("Ponto não encontrado", 404);
-            } else {
-                $ponto = $ponto->ponto;
-            }
-            $alvara = $permissionario->lastAlvara;
-            $condutores = Condutor::findAllByPermissionarioAtivos($permissionario->id);
-            $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+        if ($permissionario['data_obito'] != null) {
+            return parent::responseMsgJSON("Permissionário falecido", 404);
+        }
 
-            $usuario = auth()->user();
+        $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id);
+        if ($ponto == null) {
+            return parent::responseMsgJSON("Ponto não encontrado", 404);
+        } else {
+            $ponto = $ponto->ponto;
+        }
+        $alvara = $permissionario->lastAlvara;
+        $condutores = Condutor::findAllByPermissionarioAtivos($permissionario->id);
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
-            $formlario = "alvara_permissionario";
-            
-            $pdf = PDF::loadView(
-                'formularios/' . $formlario,
-                compact(
-                    'veiculo',
-                    'permissionario',
-                    'ponto',
-                    'dataFormatada',
-                    'usuario',
-                    'alvara',
-                    'condutores'
-                )
-            );
+        $usuario = auth()->user();
 
-            return $pdf->setPaper('a5', 'portrait')->download($formlario);
+        $formlario = "alvara_permissionario";
+
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'veiculo',
+                'permissionario',
+                'ponto',
+                'dataFormatada',
+                'usuario',
+                'alvara',
+                'condutores'
+            )
+        );
+
+        return $pdf->setPaper('a5', 'portrait')->download($formlario);
+    }
+
+    public function alvaraPorPermissionario() {
+        $usuario = auth()->user();
+
+        $formlario = "alvara_permissionario";
+
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'veiculo',
+                'permissionario',
+                'ponto',
+                'dataFormatada',
+                'usuario',
+                'alvara',
+                'condutores'
+            )
+        );
+
+        return $pdf->setPaper('a5', 'portrait')->download($formlario);
     }
 
 
