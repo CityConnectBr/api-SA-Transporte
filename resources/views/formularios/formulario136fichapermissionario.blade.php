@@ -269,7 +269,7 @@
                 </tr>
                 <tr>
                     <th class="w20">[ {{ $permissionario['taximetro_tacografo']?'X':" "}} ] Taximetro/Tacógrafo</th>
-                    <td class="w10">Número do taxímetro: {{$permissionario['taximetro_tacografo_numero']}}</td>
+                    <td class="w10">Número: {{$permissionario['taximetro_tacografo_numero']}}</td>
                     <td class="w30">Data de aferição: {{$permissionario->taximetro_tacografo_afericao->format('d/m/Y')}}</td>
                 </tr>
             </table>
