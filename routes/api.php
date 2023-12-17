@@ -148,6 +148,7 @@ Route::group([
 
                 //impressao 1
                 Route::get('/impressoes/lancamentocertidao', 'Admin\ImpressoesController@impressoesCertidao');
+                Route::get('/impressoes/lancamentolistacertidoes', 'Admin\ImpressoesController@impressoesListaCertidoes');
 
                 //formulario 1
                 Route::get('/formularios/formulariorenovacaopermissao', 'Admin\FormularioController@formularioRenovacaoPermissao');

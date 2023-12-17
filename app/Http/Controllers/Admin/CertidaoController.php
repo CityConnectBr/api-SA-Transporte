@@ -120,4 +120,34 @@ class CertidaoController extends AdminSuperController
 
         return $obj;
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $obj = null;
+        $dataInicial = $this->request->input('data_inicial');
+        $dataFinal = $this->request->input('data_final');
+        $search = $this->request->input('search');
+
+        if ($dataInicial != null && $dataFinal != null && $search != null) {
+            $obj = Certidao::search($search, null, $dataInicial, $dataFinal);
+        } else if ($dataInicial != null && $dataFinal != null) {
+            $obj = Certidao::search(null, null, $dataInicial, $dataFinal);
+        } else if ($search != null) {
+            $obj = Certidao::search($search);
+        } else {
+            $obj = Certidao::simplePaginate(15);
+        }
+
+
+        if ($obj != null) {
+            return $obj;
+        } else {
+            return parent::responseMsgJSON("Não encontrado", 404);
+        }
+    }
 }

@@ -80,4 +80,21 @@ class Certidao extends Model
             ->where('id', $id)
             ->first();
     }
+
+    public static function findAllByPermissionario($permissionarioId, $dataInicial, $dataFinal)
+    {
+        return Certidao::with('permissionario', 'marcaModeloVeiculo', 'tipoCombustivel', 'cor', 'ponto', 'tipoDeCertidao')
+            ->where('permissionario_id', $permissionarioId)
+            ->whereBetween('data', [$dataInicial, $dataFinal])
+            ->orderBy('data')
+            ->get();
+    }
+    
+    public static function findAllByPeriod($dataInicial, $dataFinal)
+    {
+        return Certidao::with('permissionario', 'marcaModeloVeiculo', 'tipoCombustivel', 'cor', 'ponto', 'tipoDeCertidao')
+            ->whereBetween('data', [$dataInicial, $dataFinal])
+            ->orderBy('data')
+            ->get();
+    }
 }

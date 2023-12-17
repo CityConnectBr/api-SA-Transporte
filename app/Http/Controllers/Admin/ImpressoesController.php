@@ -60,4 +60,46 @@ class ImpressoesController extends Controller
         return $pdf->setPaper('a4', 'portrait')->download($formlario);
     }
 
+    function impressoesListaCertidoes()
+    {
+        $permissionarioId = $this->request['permissionario'];
+
+        if ($this->request['data_inicial'] == null) {
+            return parent::responseMsgJSON("Data inicial não encontrada", 404);
+        }
+
+        if ($this->request['data_final'] == null) {
+            return parent::responseMsgJSON("Data final não encontrada", 404);
+        }
+
+        $dataInicial = $this->request['data_inicial']; //yyyy-mm-dd
+        $dataFinal = $this->request['data_final']; //yyyy-mm-dd
+
+        $objList = null;
+        if ($permissionarioId == null) {
+            $objList = Certidao::findAllByPeriod($dataInicial, $dataFinal);
+        } else {
+            $objList = Certidao::findAllByPermissionario($permissionarioId, $dataInicial, $dataFinal);
+        }
+
+        $dataInicialFormatada = Carbon::parse($dataInicial)->formatLocalized('%d/%m/%Y');
+        $dataFinalFormatada = Carbon::parse($dataFinal)->formatLocalized('%d/%m/%Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "impressoes2certidoeslistagem";
+
+        $pdf = PDF::loadView(
+            'impressoes/' . $formlario,
+            compact(
+                'objList',
+                'dataInicialFormatada',
+                'dataFinalFormatada',
+                'usuario'
+            )
+        );
+
+        return $pdf->setPaper('a4', 'landscape')->download($formlario);
+    }
+
 }
