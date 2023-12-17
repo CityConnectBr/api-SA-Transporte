@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certidao;
 use App\Models\Condutor;
 use App\Models\Empresa;
 use App\Models\EmpresaVistoriadora;
@@ -1173,7 +1174,7 @@ class FormularioController extends Controller
         }
 
         $veiculo1 = $this->request['veiculo1'];
-        if(gettype($this->request['veiculo1']) == 'integer') {
+        if (gettype($this->request['veiculo1']) == 'integer') {
             $veiculo1 = Veiculo::findComplete($this->request['veiculo1']);
             if ($veiculo1 == null) {
                 return parent::responseMsgJSON("Veículo não encontrado", 404);
@@ -1190,7 +1191,7 @@ class FormularioController extends Controller
             return parent::responseMsgJSON("Veículo não encontrado", 404);
         }
 
-        if(isset($this->request['permissionario'])) {
+        if (isset($this->request['permissionario'])) {
             $permissionario = Permissionario::find($this->request['permissionario']);
         } else {
             $permissionario = $veiculo1->permissionario;
@@ -1393,11 +1394,11 @@ class FormularioController extends Controller
         $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
 
         $inicioAtividades = "";
-        if($permissionario->inicio_atividades != null) {
+        if ($permissionario->inicio_atividades != null) {
             $inicioAtividades = Carbon::parse($permissionario->inicio_atividades)->format('d/m/Y');
         }
 
-        $ativo = $permissionario->ativo?'Sim':'Não';
+        $ativo = $permissionario->ativo ? 'Sim' : 'Não';
 
         $dataNasc = Carbon::parse($permissionario->data_nascimento)->format('d/m/Y');
 
@@ -1406,12 +1407,12 @@ class FormularioController extends Controller
         $municipio = Municipio::find($endereco->municipio_id);
 
         $entidadeAssociativa = "";
-        if($permissionario->entidade_associativa_id != null) {
+        if ($permissionario->entidade_associativa_id != null) {
             $entidadeAssociativa = EntidadeAssociativa::find($permissionario->entidade_associativa_id);
         }
 
         $cnhVencto = $permissionario->cnhVencto;
-        if($permissionario->cnhVencto != null) {
+        if ($permissionario->cnhVencto != null) {
             $cnhVencto = Carbon::parse($permissionario->cnhVencto)->format('d/m/Y');
         }
 
@@ -1460,13 +1461,13 @@ class FormularioController extends Controller
         }
 
         $ponto8 = "";
-        if(sizeof($pontos) > 7) {
+        if (sizeof($pontos) > 7) {
             $enderecoPonto = Endereco::findComplete($pontos[7]->ponto->endereco_id);
             $ponto8 = $pontos[7]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto9 = "";
-        if(sizeof($pontos) > 8) {
+        if (sizeof($pontos) > 8) {
             $enderecoPonto = Endereco::findComplete($pontos[8]->ponto->endereco_id);
             $ponto9 = $pontos[8]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
@@ -1476,20 +1477,20 @@ class FormularioController extends Controller
         $retornoAlvara = "";
         $obsAlvara = "";
         $lastAlvara = $permissionario->lastAlvara;
-        if($lastAlvara !=null){
-            $emissaoAlvara = $lastAlvara->data_emissao != null ? $lastAlvara->data_emissao :"";
+        if ($lastAlvara != null) {
+            $emissaoAlvara = $lastAlvara->data_emissao != null ? $lastAlvara->data_emissao : "";
             $vencimentoAlvara = $lastAlvara->data_vencimento != null ? Carbon::parse($lastAlvara->data_vencimento)->format('d/m/Y') : '';
             $retornoAlvara = $lastAlvara->data_retorno != null ? Carbon::parse($lastAlvara->data_retorno)->format('d/m/Y') : '';
-            $obsAlvara = $lastAlvara->observacao_retorno != null ? $lastAlvara->observacao_retorno :'';
+            $obsAlvara = $lastAlvara->observacao_retorno != null ? $lastAlvara->observacao_retorno : '';
         }
 
         $validadeCertidaoNegativa = "";
-        if($permissionario->validade_certidao_negativa != null){
+        if ($permissionario->validade_certidao_negativa != null) {
             $validadeCertidaoNegativa = Carbon::parse($permissionario->validade_certidao_negativa)->format("d/m/Y");
         }
 
         $emissaoCursoPrimeirosSocorros = "";
-        if($permissionario->curso_primeiro_socorros_emissao != null){
+        if ($permissionario->curso_primeiro_socorros_emissao != null) {
             $emissaoCursoPrimeirosSocorros = Carbon::parse($permissionario->curso_primeiro_socorros_emissao)->format("d/m/Y");
         }
 
@@ -1510,7 +1511,7 @@ class FormularioController extends Controller
         $condutor1MotAfastamento = "";
         $condutor1PeriodoAfastamentoInicio = "";
         $condutor1PeriodoAfastamentoFim = "";
-        if(sizeof($condutores) > 0){
+        if (sizeof($condutores) > 0) {
             $condutor1Nome = $condutores[0]->nome;
             $condutor1Cpf = $condutores[0]->cpf;
             $condutor1Rg = $condutores[0]->rg;
@@ -1523,7 +1524,7 @@ class FormularioController extends Controller
             $condutor1CertidaoNegativaValidade = $condutores[0]->validade_certidao_negativa != null ? Carbon::parse($condutores[0]->validade_certidao_negativa)->format("d/m/Y") : "";
             $condutor1CursoPrimeirosSocorros = $condutores[0]->primeiros_socorros;
             $condutor1CursoPrimeirosSocorrosEmissao = $condutores[0]->emissao_primeiros_socorros != null ? Carbon::parse($condutores[0]->emissao_primeiros_socorros)->format("d/m/Y") : "";
-            $condutor1MotAfastamento = $condutores[0]->motivo_afastamento != null ? $condutores[0]->motivo_afastamento :"";
+            $condutor1MotAfastamento = $condutores[0]->motivo_afastamento != null ? $condutores[0]->motivo_afastamento : "";
             $condutor1PeriodoAfastamentoInicio = $condutores[0]->data_inicio_afastamento != null ? Carbon::parse($condutores[0]->data_inicio_afastamento)->format("d/m/Y") : "";
             $condutor1PeriodoAfastamentoFim = $condutores[0]->data_termino_afastamento != null ? Carbon::parse($condutores[0]->data_termino_afastamento)->format("d/m/Y") : "";
         }
@@ -1543,7 +1544,7 @@ class FormularioController extends Controller
         $condutor2MotAfastamento = "";
         $condutor2PeriodoAfastamentoInicio = "";
         $condutor2PeriodoAfastamentoFim = "";
-        if(sizeof($condutores) > 1){
+        if (sizeof($condutores) > 1) {
             $condutor2Nome = $condutores[1]->nome;
             $condutor2Cpf = $condutores[1]->cpf;
             $condutor2Rg = $condutores[1]->rg;
@@ -1556,7 +1557,7 @@ class FormularioController extends Controller
             $condutor2CertidaoNegativaValidade = $condutores[1]->validade_certidao_negativa != null ? Carbon::parse($condutores[1]->validade_certidao_negativa)->format("d/m/Y") : "";
             $condutor2CursoPrimeirosSocorros = $condutores[1]->primeiros_socorros;
             $condutor2CursoPrimeirosSocorrosEmissao = $condutores[1]->emissao_primeiros_socorros != null ? Carbon::parse($condutores[1]->emissao_primeiros_socorros)->format("d/m/Y") : "";
-            $condutor2MotAfastamento = $condutores[1]->motivo_afastamento != null ? $condutores[1]->motivo_afastamento :"";
+            $condutor2MotAfastamento = $condutores[1]->motivo_afastamento != null ? $condutores[1]->motivo_afastamento : "";
             $condutor2PeriodoAfastamentoInicio = $condutores[1]->data_inicio_afastamento != null ? Carbon::parse($condutores[1]->data_inicio_afastamento)->format("d/m/Y") : "";
             $condutor2PeriodoAfastamentoFim = $condutores[1]->data_termino_afastamento != null ? Carbon::parse($condutores[1]->data_termino_afastamento)->format("d/m/Y") : "";
         }
@@ -1568,7 +1569,7 @@ class FormularioController extends Controller
         $monitor1DataNasc = "";
         $monitor1CursoPrimeirosSocorros = "";
         $monitor1CursoPrimeirosSocorrosEmissao = "";
-        if(sizeof($monitores) > 0){
+        if (sizeof($monitores) > 0) {
             $monitor1Nome = $monitores[0]->nome;
             $monitor1RG = $monitores[0]->rg;
             $monitor1DataNasc = $monitores[0]->data_nascimento != null ? Carbon::parse($monitores[0]->data_nascimento)->format("d/m/Y") : "";
@@ -1581,7 +1582,7 @@ class FormularioController extends Controller
         $monitor2DataNasc = "";
         $monitor2CursoPrimeirosSocorros = "";
         $monitor2CursoPrimeirosSocorrosEmissao = "";
-        if(sizeof($monitores) > 1){
+        if (sizeof($monitores) > 1) {
             $monitor2Nome = $monitores[1]->nome;
             $monitor2RG = $monitores[1]->rg;
             $monitor2DataNasc = $monitores[1]->data_nascimento != null ? Carbon::parse($monitores[1]->data_nascimento)->format("d/m/Y") : "";
@@ -1594,7 +1595,7 @@ class FormularioController extends Controller
         $monitor3DataNasc = "";
         $monitor3CursoPrimeirosSocorros = "";
         $monitor3CursoPrimeirosSocorrosEmissao = "";
-        if(sizeof($monitores) > 2){
+        if (sizeof($monitores) > 2) {
             $monitor3Nome = $monitores[2]->nome;
             $monitor3RG = $monitores[2]->rg;
             $monitor3DataNasc = $monitores[2]->data_nascimento != null ? Carbon::parse($monitores[2]->data_nascimento)->format("d/m/Y") : "";
@@ -1607,7 +1608,7 @@ class FormularioController extends Controller
         $monitor4DataNasc = "";
         $monitor4CursoPrimeirosSocorros = "";
         $monitor4CursoPrimeirosSocorrosEmissao = "";
-        if(sizeof($monitores) > 3){
+        if (sizeof($monitores) > 3) {
             $monitor4Nome = $monitores[3]->nome;
             $monitor4RG = $monitores[3]->rg;
             $monitor4DataNasc = $monitores[3]->data_nascimento != null ? Carbon::parse($monitores[3]->data_nascimento)->format("d/m/Y") : "";
@@ -1620,7 +1621,7 @@ class FormularioController extends Controller
         $monitor5DataNasc = "";
         $monitor5CursoPrimeirosSocorros = "";
         $monitor5CursoPrimeirosSocorrosEmissao = "";
-        if(sizeof($monitores) > 4){
+        if (sizeof($monitores) > 4) {
             $monitor5Nome = $monitores[4]->nome;
             $monitor5RG = $monitores[4]->rg;
             $monitor5DataNasc = $monitores[4]->data_nascimento != null ? Carbon::parse($monitores[4]->data_nascimento)->format("d/m/Y") : "";
@@ -1633,7 +1634,7 @@ class FormularioController extends Controller
         $monitor6DataNasc = "";
         $monitor6CursoPrimeirosSocorros = "";
         $monitor6CursoPrimeirosSocorrosEmissao = "";
-        if(sizeof($monitores) > 5){
+        if (sizeof($monitores) > 5) {
             $monitor6Nome = $monitores[5]->nome;
             $monitor6RG = $monitores[5]->rg;
             $monitor6DataNasc = $monitores[5]->data_nascimento != null ? Carbon::parse($monitores[5]->data_nascimento)->format("d/m/Y") : "";
@@ -1735,6 +1736,62 @@ class FormularioController extends Controller
                 'monitor6DataNasc',
                 'monitor6CursoPrimeirosSocorros',
                 'monitor6CursoPrimeirosSocorrosEmissao'
+            )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //formulario137
+    public function certidaoIPI()
+    {
+        $certidao = null;
+        if(isset($this->request['id'])){
+            $certidao = Certidao::findByIdComplete($this->request['id']);
+        }
+
+        $empresa = Empresa::findComplete(1);        
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario137certidaoIPI";
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'certidao',
+                'empresa',
+                'dataFormatada',
+                'usuario'
+            )
+        );
+
+        return $pdf->setPaper('a4', 'portrait')->download($formlario);
+    }
+
+    //formulario138
+    public function certidaoICMS()
+    {
+        $certidao = null;
+        if(isset($this->request['id'])){
+            $certidao = Certidao::findByIdComplete($this->request['id']);
+        }
+
+        $empresa = Empresa::findComplete(1);        
+
+        $dataFormatada = Carbon::now()->formatLocalized('%d de %B de %Y');
+
+        $usuario = auth()->user();
+
+        $formlario = "formulario138certidaoICMS";
+        $pdf = PDF::loadView(
+            'formularios/' . $formlario,
+            compact(
+                'certidao',
+                'empresa',
+                'dataFormatada',
+                'usuario'
             )
         );
 
