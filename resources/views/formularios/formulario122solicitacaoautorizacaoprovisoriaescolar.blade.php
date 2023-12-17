@@ -58,9 +58,10 @@
     <div class="content">
         <img src="{{ public_path('images/sa_logo.png') }}" alt="logo" class="logo">
 
+        <h3 style="text-align: center;">SOLICITAÇÃO DE AUTORIZAÇÃO PROVISÓRIA ESCOLAR</h3>
         <p class="data_cabecalho">Santo André, {{ $dataFormatada }}</p>
 
-        <p>Permissionário (a): {{$permissionario['nome_razao_social']}}</p>
+        <p><b>Permissionário (a):</b> {{$permissionario['nome_razao_social']}}</p>
 
         <p>CNH: {{$permissionario['cnh']}}, Validade: {{$permissionario['vencimento_cnh']}}, Prefixo n° {{$veiculo['prefixo']}}</p>
 
@@ -92,10 +93,8 @@
         Responsável pelo preenchimento {{ $usuario['nome'] }}
         </p>
 
-        <div class="content-signature">
+        <div class="content-signature" style="margin-top: -0.5cm;">
             <div>
-                <br>
-                <br>
                 <p><b>{{$empresa['nome_do_gerente']}}</b></p>
                 <p>Gerente Controle Operacional e Cadastro</p>
                 <p>SA-TRANS - Santo André Transportes</p>

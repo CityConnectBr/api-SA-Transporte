@@ -1419,43 +1419,43 @@ class FormularioController extends Controller
         $pontos = PontoDoPermissionario::findPontosByPermissionario($permissionario->id);
 
         $ponto1 = "";
-        if (sizeof($pontos) > 0) {
+        if(sizeof($pontos) > 0) {
             $enderecoPonto = Endereco::findComplete($pontos[0]->ponto->endereco_id);
             $ponto1 = $pontos[0]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto2 = "";
-        if (sizeof($pontos) > 1) {
+        if(sizeof($pontos) > 1) {
             $enderecoPonto = Endereco::findComplete($pontos[1]->ponto->endereco_id);
             $ponto2 = $pontos[1]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto3 = "";
-        if (sizeof($pontos) > 2) {
+        if(sizeof($pontos) > 2) {
             $enderecoPonto = Endereco::findComplete($pontos[2]->ponto->endereco_id);
             $ponto3 = $pontos[2]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto4 = "";
-        if (sizeof($pontos) > 3) {
+        if(sizeof($pontos) > 3) {
             $enderecoPonto = Endereco::findComplete($pontos[3]->ponto->endereco_id);
             $ponto4 = $pontos[3]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto5 = "";
-        if (sizeof($pontos) > 4) {
+        if(sizeof($pontos) > 4) {
             $enderecoPonto = Endereco::findComplete($pontos[4]->ponto->endereco_id);
             $ponto5 = $pontos[4]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto6 = "";
-        if (sizeof($pontos) > 5) {
+        if(sizeof($pontos) > 5) {
             $enderecoPonto = Endereco::findComplete($pontos[5]->ponto->endereco_id);
             $ponto6 = $pontos[5]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
 
         $ponto7 = "";
-        if (sizeof($pontos) > 6) {
+        if(sizeof($pontos) > 6) {
             $enderecoPonto = Endereco::findComplete($pontos[6]->ponto->endereco_id);
             $ponto7 = $pontos[6]->ponto->id_integracao . " - " . $enderecoPonto->endereco;
         }
@@ -1645,7 +1645,7 @@ class FormularioController extends Controller
         $usuario = auth()->user();
 
         $formlario = "formulario136fichapermissionario";
-
+        
         $pdf = PDF::loadView(
             'formularios/' . $formlario,
             compact(
@@ -1735,7 +1735,7 @@ class FormularioController extends Controller
                 'monitor6RG',
                 'monitor6DataNasc',
                 'monitor6CursoPrimeirosSocorros',
-                'monitor6CursoPrimeirosSocorrosEmissao',
+                'monitor6CursoPrimeirosSocorrosEmissao'
             )
         );
 

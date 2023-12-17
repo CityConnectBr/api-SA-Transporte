@@ -198,7 +198,7 @@
             </table>
         </div>
 
-        <div class="box">           
+        <div class="box">
             <div class="alvara">
                 <p>Alvará</p>
                 <p>Data Emissão: {{ $emissaoAlvara }}</p>
@@ -268,13 +268,14 @@
                     <td class="w50"></td>
                 </tr>
                 <tr>
-                    <th class="w50">[ {{ $permissionario['taximetro_tacografo']?'X':" "}} ] Taximetro/Tacógrafo</th>
-                    <td class="w50"></td>
+                    <th class="w20">[ {{ $permissionario['taximetro_tacografo']?'X':" "}} ] Taximetro/Tacógrafo</th>
+                    <td class="w10">Número: {{$permissionario['taximetro_tacografo_numero']}}</td>
+                    <td class="w30">Data de aferição: {{$permissionario->taximetro_tacografo_afericao->format('d/m/Y')}}</td>
                 </tr>
             </table>
         </div>
 
-        <div class="box" style="width: 50%; position: absolute; right: -17px;"> 
+        <div class="box" style="width: 50%; position: absolute; right: -17px;">
             <table>
                 <tr>
                 <th class="w50">Dados Condotur Auxiliar 2</th>
@@ -310,7 +311,7 @@
                 </tr>
                 <tr>
                     <td class="w100">Período de Afastamento: De {{ $condutor2PeriodoAfastamentoInicio }} a {{ $condutor2PeriodoAfastamentoFim }}</td>
-                </tr>                
+                </tr>
             </table>
         </div>
         <div class="box" style="width: 50%;">
@@ -349,8 +350,8 @@
                 </tr>
                 <tr>
                     <td class="w100">Período de Afastamento: De {{ $condutor1PeriodoAfastamentoInicio }} a {{ $condutor1PeriodoAfastamentoFim }}</td>
-                </tr>             
-            </table>        
+                </tr>
+            </table>
         </div>
 
         <div class="box">
@@ -382,7 +383,7 @@
             </table>
         </div>
 
-        <div class="box" style="width: 50%; position: absolute; right: -17px;"> 
+        <div class="box" style="width: 50%; position: absolute; right: -17px;">
             <table>
                 <tr>
                     <th class="w50">Monitor 3</th>
@@ -400,9 +401,9 @@
                     <td class="w50">Emissão: {{ $monitor3CursoPrimeirosSocorrosEmissao }}</td>
                 </tr>
             </table>
-        </div>        
+        </div>
 
-        <div class="box" style="width: 50%;"> 
+        <div class="box" style="width: 50%;">
             <table>
                 <tr>
                     <th class="w50">Monitor 1</th>
@@ -420,9 +421,9 @@
                     <td class="w50">Emissão: {{ $monitor1CursoPrimeirosSocorrosEmissao }}</td>
                 </tr>
             </table>
-        </div>        
+        </div>
 
-        <div class="box" style="width: 50%; position: absolute; right: -17px;"> 
+        <div class="box" style="width: 50%; position: absolute; right: -17px;">
             <table>
                 <tr>
                     <th class="w50">Monitor 4</th>
@@ -440,9 +441,9 @@
                     <td class="w50">Emissão: {{ $monitor4CursoPrimeirosSocorrosEmissao }}</td>
                 </tr>
             </table>
-        </div>        
+        </div>
 
-        <div class="box" style="width: 50%;"> 
+        <div class="box" style="width: 50%;">
             <table>
                 <tr>
                     <th class="w50">Monitor 2</th>
@@ -460,9 +461,9 @@
                     <td class="w50">Emissão: {{ $monitor2CursoPrimeirosSocorrosEmissao }}</td>
                 </tr>
             </table>
-        </div>        
+        </div>
 
-        <div class="box" style="width: 50%; position: absolute; right: -17px;"> 
+        <div class="box" style="width: 50%; position: absolute; right: -17px;">
             <table>
                 <tr>
                     <th class="w50">Monitor 6</th>
@@ -480,9 +481,9 @@
                     <td class="w50">Emissão: {{ $monitor6CursoPrimeirosSocorrosEmissao }}</td>
                 </tr>
             </table>
-        </div>        
+        </div>
 
-        <div class="box" style="width: 50%;"> 
+        <div class="box" style="width: 50%;">
             <table>
                 <tr>
                     <th class="w50">Monitor 3</th>
