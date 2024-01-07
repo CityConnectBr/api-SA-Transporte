@@ -688,6 +688,7 @@ class FormularioController extends Controller
                 'cor',
                 'ano',
                 'empresa',
+                'taximetro',
                 'dataFormatada',
                 'usuario',
                 'ponto'
@@ -719,11 +720,14 @@ class FormularioController extends Controller
             return parent::responseMsgJSON("Permissionário falecido", 404);
         }
 
+        $permissionario  = Permissionario::find($permissionario->id);
+
         $placa = $veiculo->placa;
         $marca_modelo = $veiculo->MarcaModeloVeiculo->descricao;
         $cor = $veiculo->cor->descricao;
         $ano = $veiculo->ano_fabricacao;
         $ponto = PontoDoPermissionario::findPontoByPermissionario($permissionario->id)->ponto->id_integracao;
+        $taximetro = Permissionario::find($permissionario->id)->taximetro_tacografo_numero;
 
         $empresa = Empresa::findComplete(1);
 
@@ -741,6 +745,7 @@ class FormularioController extends Controller
                 'marca_modelo',
                 'cor',
                 'ano',
+                'taximetro',
                 'empresa',
                 'dataFormatada',
                 'usuario',
