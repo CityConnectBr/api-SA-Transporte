@@ -70,7 +70,7 @@
         <p><b>AO<br> INSTITUTO DE PESOS E MEDIDAS</b></p>
 
         <p style="text-align: justify;">
-        Comunicamos a V. Sª que esta DTP autoriza a aferição do taxímetro nº de série
+        Comunicamos a V. Sª que esta DTP autoriza a aferição do taxímetro nº de série {{ $taximetro }}
         no veículo {{$marca_modelo}}, placa {{$placa}}, ano {{$ano}}, cor {{$cor}}
         propriedade do Sr(a) {{$permissionario['nome_razao_social']}}
         ponto de táxi nº {{ $ponto ?? '________________________________________'}}
