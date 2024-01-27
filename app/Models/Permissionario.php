@@ -93,6 +93,11 @@ class Permissionario extends Model
         return $this->hasOne(Modalidade::class, 'id', 'modalidade_id');
     }
 
+    public function alvara()
+    {
+        return $this->hasOne(Alvara::class);
+    }
+
     public function lastAlvara()
     {
         return $this->hasOne(Alvara::class, 'permissionario_id', 'id')->orderBy('created_at', 'desc');
@@ -210,7 +215,8 @@ class Permissionario extends Model
         return $this->hasMany(PermissionarioHistorico::class);
     }
 
-    public function formattedCpfCnpj() {
+    public function formattedCpfCnpj()
+    {
         if (strlen($this->cpf_cnpj) == 11) {
             return substr($this->cpf_cnpj, 0, 3) . '.' . substr($this->cpf_cnpj, 3, 3) . '.' . substr($this->cpf_cnpj, 6, 3) . '-' . substr($this->cpf_cnpj, 9, 2);
         } else {
