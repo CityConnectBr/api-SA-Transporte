@@ -96,6 +96,17 @@ class VeiculoController extends IntegracaoController
             $veiculo->cor_id = null;
         }
 
+        $situacao = $request->input('situacao');
+        if($situacao!=null){
+            if($situacao=="A"){
+                $veiculo->ativo = true;
+            }else if($situacao=="I"){
+                $veiculo->ativo = false;
+            }
+        }else{
+            $veiculo->ativo = true;
+        }
+
         $veiculo->save();
 
         return $veiculo;

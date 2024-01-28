@@ -128,6 +128,17 @@ class CondutorController extends IntegracaoController
         $condutor->registro_ctps = $condutor->registro_ctps!=null?$condutor->registro_ctps=="S":null;
         $condutor->primeiros_socorros = $condutor->primeiros_socorros!=null?$condutor->primeiros_socorros=="S":null;
 
+        $siuatcao = $request->input('situacao');
+        if($siuatcao!=null){
+            if($siuatcao=="A"){
+                $condutor->ativo = true;
+            }else if($siuatcao=="I"){
+                $condutor->ativo = false;
+            }
+        }else{
+            $condutor->ativo = true;
+        }
+
         $condutor->save();
 
         return $condutor;

@@ -21,12 +21,12 @@ class CreateQuadroDeInfracoesTable extends Migration
             $table->string('reincidencia', 60)->nullable();
             $table->integer('qtd_reincidencia')->nullable();
             $table->string('unidade_reincidencia', 5)->nullable();
-            $table->integer('modalidade_id')->unsigned()->nullable();
+            //$table->integer('modalidade_id')->unsigned()->nullable();
 
             $table->integer('natureza_infracao_id')->unsigned();
             $table->timestamps();
             $table->foreign('natureza_infracao_id')->references('id')->on('naturezas_da_infracao');
-            $table->foreign('modalidade_id')->references('id')->on('modalidades');
+            //$table->foreign('modalidade_id')->references('id')->on('modalidades');
         });
     }
 
