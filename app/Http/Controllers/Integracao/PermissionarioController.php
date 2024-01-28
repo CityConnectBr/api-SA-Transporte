@@ -185,6 +185,16 @@ class PermissionarioController extends IntegracaoController
         $permissionario->selo_gnv = $permissionario->selo_gnv!=null?$permissionario->selo_gnv=="S":null;
         $permissionario->taximetro_tacografo = $permissionario->taximetro_tacografo!=null?$permissionario->taximetro_tacografo=="S":null;
 
+        $situacao = $request->input('situacao');
+        if($situacao!=null){
+            if($situacao=="A"){
+                $permissionario->ativo = true;
+            }else if($situacao=="I"){
+                $permissionario->ativo = false;
+            }
+        }else{
+            $permissionario->ativo = true;
+        }
 
         if($request['entidade_associativa_id']!=null)
             $permissionario->entidade_associativa_id = EntidadeAssociativa::firstWhere("id_integracao", $request->input("entidade_associativa_id"))->id;
