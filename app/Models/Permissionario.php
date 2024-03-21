@@ -118,6 +118,10 @@ class Permissionario extends Model
         $todos = false,
         $onlyEmailFCMValido = false
     ) {
+        if(!isset($ativo) || $ativo == null) {
+            $ativo = true;
+        }
+
         $query = Permissionario::where(function ($query) use ($search) {
             $query->where("nome_razao_social", "like", "%" . $search . "%")
                 ->orWhere("id_integracao", "like", "%" . $search . "%")
@@ -132,7 +136,7 @@ class Permissionario extends Model
             $query->with("usuario");
         }
 
-        if ($onlyEmailFCMValido) {
+        if ($onlyEmailFCMValido == 'true') {
             $query->where(function ($query) {
                 $query->whereNotNull("email")
                     ->orWhereHas("usuario", function ($query) {
