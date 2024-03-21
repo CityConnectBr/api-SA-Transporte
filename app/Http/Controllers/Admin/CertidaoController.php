@@ -101,15 +101,14 @@ class CertidaoController extends AdminSuperController
             return parent::responseMsgsJSON(['permissionario' => ['O permissionário do veículo não é taxista']], 400);
         }
 
-        if (isset($request->certidao_anterior_id)) {
+        if (isset ($request->certidao_anterior_id)) {
             $certidaoAnterior = Certidao::find($request->certidao_anterior_id);
             if ($certidaoAnterior->certidao_anterior_id != null) {
                 return parent::responseMsgsJSON(['certidao' => ['Certidão ja reemitida, não pode ser emitida novamente.']], 400);
             }
         }
 
-        $veiculoSearch = Veiculo::searchByPlaca($request->placa);
-        if ($veiculoSearch->count() > 0 && Carbon::parse($veiculoSearch[0]->created_at)->addYear()->isAfter(Carbon::now())) {
+        if (!$this->checkCarenciaOk($request->placa)) {
             return parent::responseMsgsJSON(['certidao' => ["O veículo não possui um ano de carência no sistema."]], 400);
         }
 
@@ -119,6 +118,18 @@ class CertidaoController extends AdminSuperController
         $obj->save();
 
         return $obj;
+    }
+
+    private function checkCarenciaOk($placa)
+    {
+        $certidoes = Certidao::findByPlaca($placa);
+        foreach ($certidoes as $certidao) {
+            if (Carbon::parse($certidao->data)->addYear()->isAfter(Carbon::now())) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

@@ -97,4 +97,12 @@ class Certidao extends Model
             ->orderBy('data')
             ->get();
     }
+
+    public static function findByPlaca($placa)
+    {
+        return Certidao::with('permissionario', 'marcaModeloVeiculo', 'tipoCombustivel', 'cor', 'ponto', 'tipoDeCertidao')
+            ->where('placa', $placa)
+            ->orderBy('data')
+            ->get();
+    }
 }
